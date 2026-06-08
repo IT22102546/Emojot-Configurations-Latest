@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<cepRules>
+    <cepRule id="1" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q3"</value>
+            </param>
+        </params>
+        <engagementActions>
+            <action>
+                <type>incident</type>
+                <data>
+                    <workflowID>6a16d6b8448fa38eaa126639</workflowID>
+                    <name>Callcenter Complaint</name>
+                    <assignee>testcmu@commercialcredit.lk</assignee>
+                    <type>Call Center Survey</type>
+                    <priority>High</priority>
+                    <status>Open</status>
+                    <description><![CDATA[
+<b>Complaint Category:</b> $$q3_emote$$<br><br>
+<b>Branch:</b>$$q8868_emote$$<br><br>
+<b>Source Issue:</b> $$emoSignature_Issue_value$$<br><br>
+<b>Language:</b> $$q15_emote$$<br><br>
+<b>Call Recording:</b> $$q13_emote$$<br><br>
+<b>Issue Description:</b> $$gp10_c1_comment_value$$<br><br>
+<b>Consent:</b> $$q101_emote$$<br><br>
+                    ]]></description>
+                    <customFields>
+                        
+                        
+                        <field>
+                            <key>sourceIssue</key>
+                            <value>$$emoSignature_Issue_value$$</value>
+                        </field>
+                        <field>
+                            <key>branch</key>
+                            <value>$$q8868_emote$$</value>
+                        </field>
+                        <field>
+                            <key>language</key>
+                            <value>$$q15_emote$$</value>
+                        </field>
+                        <field>
+                            <key>complaintCategory</key>
+                            <value>$$q3_emote$$</value>
+                        </field>
+                        <field>
+                            <key>callRecording</key>
+                            <value>$$q13_emote$$</value>
+                        </field>
+                        <field>
+                            <key>issueDescription</key>
+                            <value>$$gp10_c1_comment_value$$</value>
+                        </field>
+                        <field>
+                            <key>consent</key>
+                            <value>$$q101_emote$$</value>
+                        </field>
+                        <field>
+                            <key>uuid_no</key>
+                            <value>$$loyalty_UUID_value$$</value>
+                        </field>
+                    </customFields>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+</cepRules>

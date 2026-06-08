@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<cepRules>
+    <cepRule id="1" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q6043"</value>
+            </param>
+        </params>
+        <engagementActions>
+            <action>
+                <type>incident</type>
+                <data>
+                    <workflowID>6a17e3d1bfe31a8cf8de3148</workflowID>
+                    <name>Callcenter Complaint</name>
+                    <assignee>testcmu@commercialcredit.lk</assignee>
+                    <type>Call Center Survey</type>
+                    <priority>High</priority>
+                    <status>Open</status>
+                    <description><![CDATA[
+<b>Complaint Category:</b> $$q6043_emote$$<br><br>
+<b>Branch:</b>$$q915_emote$$<br><br>
+<b>Source Issue:</b> $$emoSignature_Issue_value$$<br><br>
+<b>Language:</b> $$q6518_emote$$<br><br>
+<b>Call Recording:</b> $$q7730_emote$$<br><br>
+<b>Issue Description:</b> $$gp2605_c1_comment_value$$<br><br>
+<b>Consent:</b> $$q7516_emote$$<br><br> 
+                    ]]></description>
+                    <customFields>
+                        
+                        
+                        <field>
+                            <key>sourceIssue</key>
+                            <value>$$emoSignature_Issue_value$$</value>
+                        </field>
+                        <field>
+                            <key>branch</key>
+                            <value>$$q915_emote$$</value>
+                        </field>
+                        <field>
+                            <key>language</key>
+                            <value>$$q6518_emote$$</value>
+                        </field>
+                        <field>
+                            <key>complaintCategory</key>
+                            <value>$$q6043_emote$$</value>
+                        </field>
+                        <field>
+                            <key>callRecording</key>
+                            <value>$$q7730_emote$$</value>
+                        </field>
+                        <field>
+                            <key>issueDescription</key>
+                            <value>$$gp2605_c1_comment_value$$</value>
+                        </field>
+                        <field>
+                            <key>consent</key>
+                            <value>$$q7516_emote$$</value>
+                        </field>
+                        <field>
+                            <key>uuid_no</key>
+                            <value>$$loyalty_UUID_value$$</value>
+                        </field>
+                    </customFields>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+</cepRules>

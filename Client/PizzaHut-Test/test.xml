@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<cepRules>
+    <cepRule id="1" timeWindow="10">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q6331"</value>
+            </param>
+        </params>
+        <engagementActions>
+            <action>
+                <type>incident</type>
+                <data>
+                    <workflowID>696370c0e02eff840f7d4b2f</workflowID>
+                    <name>New - $$q6331_emote$$</name>
+                    <assignee>dev@emojot.com</assignee>
+                    <type>New Order</type>
+                    <priority>Medium</priority>
+                    <status>Open</status>
+                    <description>
+                        Task: $$gp3564_c1_comment_value$$
+                        Client Name: $$emoSignature_clientName_value$$
+                    </description>
+                    <customFields>
+                        <field>
+                            <key>title</key>
+                            <value>$$gp3564_c1_comment_value$$</value>
+                        </field>
+                        <field>
+                            <key>description</key>
+                             <value>$$gp3564_c2_comment_value$$</value>
+                        </field>
+                        <field>
+                            <key>clientName</key>
+                            <value>$$emoSignature_Location_value$$</value>
+                        </field>
+                    </customFields>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+</cepRules>

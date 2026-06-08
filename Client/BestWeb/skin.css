@@ -1,0 +1,736 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Apply Poppins as the primary UI font */
+html, body {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+
+#master-section {
+    background:
+        radial-gradient(circle at 18% 20%, rgba(201, 156, 66, 0.10), transparent 34%),
+        radial-gradient(circle at 82% 24%, rgba(0, 0, 0, 0.08), transparent 34%),
+        radial-gradient(circle at 50% 75%, rgba(173, 133, 54, 0.08), transparent 38%),
+        linear-gradient(to bottom, #f7f6f3 0%, #f1f0ec 45%, #e9e7e0 100%);
+
+    background-color: #f3f1eb;
+    min-height: 657px;
+    /* min-height: 100vh; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Enforce Poppins across this skin (overrides local font declarations) */
+html, body, #master-section, .panel, .panel-title, .emote-title, .emo-text, .form-group label, .btn, .footer {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+#master-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: url("https://storage.emojot.com/pictures/skinImages/682abaa1b89d7c09aaefdab2-skin1.png") center 46% / 33% no-repeat;
+    opacity: 0.12;
+    filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.26));
+    pointer-events: none;
+    z-index: 0;
+}
+
+#master-section > * {
+    position: relative;
+    z-index: 1;
+}
+
+#headerCompanyInfo {
+    color: #000000 !important;
+    min-height: 70px;
+}
+
+.container[style] {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.emote-title {
+    color: #1f1a12;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 15pt;
+    font-weight: 600;
+}
+
+
+
+.form-group label {
+    color: #1f1a12 !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 15pt !important;
+    font-weight: 600 !important;
+}
+
+.emo-text {
+    font-size: 13pt;
+    color: #241f15;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 500;
+}
+
+.emo-text-only {
+    font-size: 15pt;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.loyalty-message {
+    font-size: 13pt;
+    color: #241f15;
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 500;
+}
+
+.emo-text-dropdown {
+    color: #1f1a12 !important;
+}
+
+.middle-box {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #f3f3f3;
+}
+
+.flex {
+    display: flex !important;
+    justify-content: center;
+}
+
+.emo-cont {
+    border: 2px solid #2a2419;
+    margin: 3px 0px;
+    text-align: center;
+    display: inline-block;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 7px 0;
+    border-radius: 10px;
+    color: #211b12;
+    background: rgba(255, 252, 244, 0.88);
+}
+
+.clicked-emo-cont {
+    border: 3px #b99039 solid !important;
+    background: rgba(185, 144, 57, 0.26);
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 7px 0;
+    border-radius: 10px;
+/* removed empty ruleset */
+/* End of empty ruleset */
+}
+
+.emo-ico img {
+    width: 80%;
+    display: inline-block;
+    text-align: center;
+    max-width: 55px;
+    margin: 5px;
+
+}
+
+@keyframes shake {
+    0%   { transform: translate(0, 0) rotate(0); }
+    20%  { transform: translate(-2px, 0) rotate(-5deg); }
+    40%  { transform: translate(2px, 0) rotate(5deg); }
+    60%  { transform: translate(-2px, 0) rotate(-5deg); }
+    80%  { transform: translate(2px, 0) rotate(5deg); }
+    100% { transform: translate(0, 0) rotate(0); }
+}
+
+
+.btn-next {
+    color: #1e1911;
+}
+
+.btn-submit {
+    color: #1e1911;
+}
+
+.btn-prev {
+    color: #333;
+}
+
+.btn-clear {
+    color: #333;
+}
+
+.btn-next,
+.btn-submit,
+.btn-prev,
+.btn-clear,
+.btn-skip,
+.btn-ok,
+.loyalty-redeem-button {
+    border: 1px solid #8d6a2b;
+    margin: 10px 5px;
+    text-align: center;
+    min-width: 90px;
+    display: inline-block;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    padding: 9px 25px;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 12pt;
+    background: linear-gradient(to bottom, #f3d98a 0%, #c69636 100%);
+}
+
+.clear-submit-row {
+    text-align: center !important;
+}
+
+.clear-submit-row,
+.draft-response-row {
+    padding-right: 0 !important;
+}
+
+.btn:hover {
+    color: #1d150c;
+    text-decoration: none;
+    filter: brightness(1.04);
+}
+
+.btn-ok {
+    color: #333
+}
+
+.btn-skip {
+    color: #333;
+}
+
+.btn-fb {
+    color: white;
+}
+
+.loyalty-redeem-button {
+    border-color: #8d6a2b;
+}
+
+.logo-cust {
+    margin: 3px 0 -3px 9px;
+    height: 50px;
+}
+
+.sensor-title {
+    color: #af8428;
+    font-size: 20pt;
+    font-family: 'Poppins', sans-serif !important;
+    background: rgba(255, 255, 255, 0);
+    line-height: 40px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.form-control {
+    border-radius: 3px;
+}
+
+.panel {
+    margin: 0 10px;
+}
+
+.panel-group .panel {
+    margin-bottom: 0;
+    border-radius: 3px;
+    box-shadow: none;
+    background: rgba(250, 247, 247, 0.64);
+}
+
+.panel-group .panel-heading {
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    color: #000000;
+    background: rgba(249, 249, 249, 1);
+    background: -moz-linear-gradient(top, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(249, 249, 249, 1)), color-stop(100%, rgba(227, 227, 227, 1)));
+    background: -webkit-linear-gradient(top, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+    background: -o-linear-gradient(top, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+    background: linear-gradient(to bottom, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+}
+
+.panel-title {
+    font-size: 11pt;
+    max-width: 90%;
+    font-family: 'Poppins', sans-serif !important;
+    line-height: 1.6;
+}
+
+.row {
+    background: transparent !important;
+}
+
+.my-emojots {
+    display: none;
+}
+
+.panel-body {
+    background: transparent !important;
+}
+
+.thank-you-note {
+    color: white !important;
+}
+
+#headerCompanyInfo>.access-user {
+    text-align: center;
+    float: right;
+    text-shadow: 1px 1px 1px #000;
+    font-family: 'Poppins', sans-serif !important;
+    font-style: italic;
+    font-size: 15px;
+    background-size: 120px 80px;
+    background-repeat: no-repeat;
+    background-position: right center;
+    position: relative;
+}
+
+.access-user-name {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+.company-logo {
+    z-index: 2 !important;
+}
+
+.company-logo img {
+    height: 90px;
+    margin: 10px !important;
+}
+
+.footer {
+    background: #000000 !important;
+    color: #d8b870;
+    position: relative;
+    right: auto;
+    left: 0;
+    z-index: 1030;
+    bottom: auto;
+    height: 40px;
+    width: 100%;
+    padding: 12px 13px;
+    font-size: 8pt;
+    margin: auto 0 0;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    font-family: 'Poppins', sans-serif !important;
+}
+
+#footer-container {
+    margin-top: auto;
+    width: 100%;
+}
+.form-group label {
+    columns: #fff !important;
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 12pt;
+}
+
+.loyalty-message {
+    color: #000000;
+    font-size: 16pt;
+    font-weight: 500;
+}
+
+.loyalty-bottom {
+    text-align: center;
+}
+/* removed empty .loyalty-dialog ruleset to silence lint */
+
+.email-emote-message {
+    color: white !important;
+}
+
+#progressfill {
+    background-color: #a87a22;
+    animation: colorShift 3s infinite alternate ease-in-out;
+}
+
+.media-uploaded {
+    border: 2px solid #8d6a2b;
+    background: rgba(141, 106, 43, 0.25);
+
+}
+
+@keyframes colorShift {
+    from {
+        background-color: #8a631a;
+    }
+    to {
+        background-color: #1e1a14;
+    }
+}
+
+
+.progress_bar .progress_number {
+    font-family: 'Poppins', sans-serif !important;
+    color: #000000;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#groupCommentBuzzModal .modal-header {
+    background: #fff;
+    color: #e4e4e4;
+}
+
+#groupCommentBuzzModal .modal-body {
+    background: #fff;
+    color: #333333;
+}
+
+#groupCommentBuzzModal .modal-footer {
+    background: #fff;
+    color: white;
+}
+
+#groupCommentBuzzModal .panel-body.comment-panel {
+    background: #f6f6f6 !important;
+}
+
+#groupCommentBuzzModal .panel-footer.comment-footer {
+    color: #333333;
+}
+
+.thank-you-note {
+    color: #000000 !important;
+    font-size: 15px !important;
+}
+
+#barChart {
+    width: 100%;
+}
+
+.nps-bar::before,
+.nps-bar::after {
+    content: "";
+    position: absolute;
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: bold;
+    top: 100%;
+    transform: translateY(8px);
+    font-family: "Saira Semi Condensed", cursive !important;
+}
+
+.nps-bar::before {
+    content: "Less Likely";
+    left: 10px;
+    color: #000000;
+    margin-left: 5px;
+}
+
+.nps-bar::after {
+    content: "More Likely";
+    right: 10px;
+    color: #000000;
+    margin-right: 5px;
+}
+
+.evz-nps-position-0,
+.evz-nps-position-1,
+.evz-nps-position-2,
+.evz-nps-position-3,
+.evz-nps-position-4,
+.evz-nps-position-5,
+.evz-nps-position-6 {
+    background: #5f4b2e;
+    color: white;
+    border: 1px solid rgba(95, 75, 46, 0.75);
+}
+
+.evz-nps-position-7,
+.evz-nps-position-8 {
+    background: #a37b34;
+    color: white;
+    border: 1px solid rgba(163, 123, 52, 0.72);
+}
+
+.evz-nps-position-9,
+.evz-nps-position-10 {
+    background: #1ca757;
+    color: white;
+    border: 1px solid rgba(17, 144, 74, 0.61);
+}
+
+.clicked-nps-icon {
+    border: 3px solid #333;
+    box-shadow: 0px 2px 6px #716868;
+}
+
+.ui-select-container .ui-select-match span {
+    font-weight: 500 !important;
+}
+
+
+div.col-xs-7.ng-scope {
+    font-family: "Saira Semi Condensed", cursive !important;
+}
+
+/* Primary buttons */
+.btn-next,
+.btn-submit,
+.btn-ok {
+    color: #17120c !important;
+    background: linear-gradient(180deg, #f3d98a, #bf8f32) !important;
+    border: 2px solid #8f6a26 !important;
+    border-radius: 50px !important;
+    font-weight: 400 !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Secondary outlined buttons */
+.btn-prev,
+.btn-back,
+.btn-skip,
+.btn-clear {
+    color: #d7b363 !important;
+    background: rgba(22, 19, 14, 0.92) !important;
+    border: 2px solid #8f6a26 !important;
+    border-radius: 50px !important;
+    font-weight: 400 !important;
+}
+
+@media (max-width: 768px) {
+    .emote-title,
+    .form-group label {
+        font-size: 14pt !important;
+    }
+
+    .emo-text {
+        font-size: 12pt !important;
+    }
+
+    .panel-title {
+        font-size: 10pt !important;
+    }
+
+    .loyalty-message {
+        font-size: 15pt !important;
+    }
+
+    .progress_bar .progress_number {
+        font-size: 12pt !important;
+    }
+
+    .nps-bar::before,
+    .nps-bar::after {
+        font-size: 13pt !important;
+    }
+
+    .btn-next,
+    .btn-submit,
+    .btn-prev,
+    .btn-clear,
+    .btn-skip,
+    .btn-ok,
+    .loyalty-redeem-button {
+        font-size: 12pt !important;
+        padding: 8px 20px !important;
+        min-width: 85px !important;
+    }
+
+    .access-user-name,
+    #headerCompanyInfo>.access-user {
+        font-size: 13pt !important;
+    }
+
+    .company-logo img,
+    .logo-cust {
+        height: 70px !important;
+    }
+
+    .emo-ico img {
+        max-width: 50px !important;
+        width: 75% !important;
+    }
+
+    .form-control {
+        font-size: 12.5pt !important;
+    }
+
+    .loyalty-message {
+    font-size: 14pt;
+    color: #20180f;
+    font-family: "Saira Semi Condensed", cursive !important;
+    font-weight: 500;
+}
+}
+
+@media (max-width: 640px) {
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    #master-section {
+        min-height: 100dvh;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 56px;
+    }
+
+    #headerCompanyInfo {
+        min-height: auto;
+        padding: 4px 10px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #headerCompanyInfo > .access-user {
+        float: none;
+        width: auto;
+        text-align: right;
+        font-size: 11pt !important;
+        margin-top: 0;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .company-logo img,
+    .logo-cust {
+        height: 50px !important;
+        margin: 3px 6px !important;
+    }
+
+    .sensor-title {
+        font-size: 16pt;
+        line-height: 1.15;
+        padding: 6px 10px 4px;
+        margin-bottom: 6px;
+    }
+
+    .emote-title,
+    .form-group label {
+        font-size: 12.5pt !important;
+        line-height: 1.15;
+    }
+
+    .emo-text,
+    .emo-text-only,
+    .loyalty-message,
+    .progress_bar .progress_number,
+    .panel-title {
+        font-size: 11pt !important;
+        line-height: 1.15;
+    }
+
+    .panel {
+        margin: 0 4px;
+    }
+
+    .panel-group .panel-heading {
+        border-radius: 4px;
+    }
+
+    .flex {
+        flex-wrap: wrap;
+        justify-content: center !important;
+        align-items: stretch;
+    }
+
+    .emo-cont {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 4px;
+        min-height: 118px;
+        flex: 0 0 calc(32% - 8px);
+        width: calc(32% - 8px);
+        max-width: calc(32% - 8px);
+        min-width: 0;
+        margin: 5px 2px;
+        padding: 12px 8px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .clicked-emo-cont {
+        padding: 12px 8px;
+    }
+
+    .emo-text {
+        display: block !important;
+        width: 100%;
+        text-align: center;
+        margin-top: 0 !important;
+        font-size: 10.5pt !important;
+        letter-spacing: 0.2px !important;
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        word-break: break-word;
+        line-height: 1.05;
+        max-width: 100%;
+    }
+
+    .emo-ico img {
+        width: auto;
+        max-width: 42px;
+        margin: 0 !important;
+        display: block;
+    }
+
+    .btn-next,
+    .btn-submit,
+    .btn-prev,
+    .btn-clear,
+    .btn-skip,
+    .btn-ok,
+    .loyalty-redeem-button {
+        width: calc(100% - 24px);
+        max-width: 240px;
+        display: block;
+        margin: 6px auto 4px;
+        padding: 9px 18px;
+        font-size: 13.5pt !important;
+        box-sizing: border-box;
+    }
+
+    .footer {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: auto;
+        min-height: 34px;
+        margin: 0;
+        padding: 6px 12px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        flex-wrap: nowrap;
+        font-size: 10pt;
+        z-index: 1030;
+    }
+
+    .footer img {
+        max-height: 24px;
+        width: auto;
+    }
+}
+
+@media (min-width: 769px) {
+    #master-section {
+        min-height: 100dvh;
+    }
+}

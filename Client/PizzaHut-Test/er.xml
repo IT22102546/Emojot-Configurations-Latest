@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cepRules>
+    <!-- ===================== -->
+    <!-- UNSATISFIED - EMAIL -->
+    <!-- ===================== -->
+    <cepRule id="1" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q4057"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>gd</operator>
+                <value>0</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>email</type>
+                <data>
+                    <to>sanjanan@emojot.com,salmanf@emojot.com</to>
+                    <subject>Unsatisfied Customer Alert</subject>
+                    <bodyType>html</bodyType>
+                    <body>
+                        <![CDATA[
+<p>Dear Team,</p>
+
+<p>An unsatisfied customer response has been received.</p>
+
+<p>
+<strong>Name:</strong> $$loyalty_Name_value$$ <br>
+<strong>Email:</strong> $$loyalty_Email_value$$ <br>
+<strong>Phone:</strong> $$loyalty_Telephone_value$$ <br>
+<strong>Response:</strong> $$q4057_emote$$ <br>
+<strong>Comment:</strong> $$gp5628_c1_comment_value$$
+</p>
+
+<p>Please take immediate action.</p>
+
+<br>
+<p>Emojot System</p>
+]]>
+                    </body>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    <!-- ===================== -->
+    <!-- UNSATISFIED - SMS -->
+    <!-- ===================== -->
+    <cepRule id="2" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q4057"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>gd</operator>
+                <value>0</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>sms</type>
+                <data>
+                    <smsType>smsbody</smsType>
+                    <smsTo>+94711484037</smsTo>
+                    <smsbody>
+Alert: Unsatisfied customer!
+Name: $$loyalty_Name_value$$
+Phone: $$loyalty_Telephone_value$$
+                    </smsbody>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    <!-- ===================== -->
+    <!-- SATISFIED - EMAIL -->
+    <!-- ===================== -->
+    <cepRule id="3" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q4057"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>ldOrEq</operator>
+                <value>0</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>email</type>
+                <data>
+                    <to>sanjanan@emojot.com</to>
+                    <subject>Thank You for Your Feedback</subject>
+                    <bodyType>html</bodyType>
+                    <body>
+                        <![CDATA[
+<p>Dear $$loyalty_Name_value$$,</p>
+
+<p>Thank you for your valuable feedback! We are happy to know that you had a good experience.</p>
+
+<p>We look forward to serving you again.</p>
+
+<br>
+<p>Best Regards,<br>Your Team</p>
+]]>
+                    </body>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    <!-- ===================== -->
+    <!-- SATISFIED - SMS -->
+    <!-- ===================== -->
+    <cepRule id="4" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q4057"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>ldOrEq</operator>
+                <value>0</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>sms</type>
+                <data>
+                    <smsType>smsbody</smsType>
+                    <smsTo>+94711484037</smsTo>
+                    <smsbody>
+Thank you $$loyalty_Name_value$$ for your positive feedback!
+                    </smsbody>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    <!-- ===================== -->
+    <!-- Dissatisfied email for pickup -->
+    <cepRule id="5" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q7607"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>gd</operator>
+                <value>0</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>email</type>
+                <data>
+                    <to>sanjanan@emojot.com,salmanf@emojot.com</to>
+                    <subject>Unsatisfied Customer Alert</subject>
+                    <bodyType>html</bodyType>
+                    <body>
+                        <![CDATA[
+<p>Dear Team,</p>
+
+<p>An unsatisfied customer response has been received for Pickup order.</p>
+
+<p>
+<strong>Name:</strong> $$loyalty_Name_value$$ <br>
+<strong>Email:</strong> $$loyalty_Email_value$$ <br>
+<strong>Phone:</strong> $$loyalty_Telephone_value$$ <br>
+<strong>Response:</strong> $$q4057_emote$$ <br>
+<strong>Comment:</strong> $$gp5628_c1_comment_value$$
+</p>
+
+<p>Please take immediate action.</p>
+
+<br>
+<p>Emojot System</p>
+]]>
+                    </body>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    <!-- ===================== -->
+    <!-- Dissatisfied email for uber -->
+    <cepRule id="6" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q3640"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>gd</operator>
+                <value>0</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>email</type>
+                <data>
+                    <to>sanjanan@emojot.com,salmanf@emojot.com</to>
+                    <subject>Unsatisfied Customer Alert</subject>
+                    <bodyType>html</bodyType>
+                    <body>
+                        <![CDATA[
+<p>Dear Team,</p>
+
+<p>An unsatisfied customer response has been received for uber order with Pizza hut.</p>
+
+<p>
+<strong>Name:</strong> $$loyalty_Name_value$$ <br>
+<strong>Email:</strong> $$loyalty_Email_value$$ <br>
+<strong>Phone:</strong> $$loyalty_Telephone_value$$ <br>
+<strong>Response:</strong> $$q4057_emote$$ <br>
+<strong>Comment:</strong> $$gp5628_c1_comment_value$$
+</p>
+
+<p>Please take immediate action.</p>
+
+<br>
+<p>Emojot System</p>
+]]>
+                    </body>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    <!-- ===================== -->
+    <!-- Dissatisfied email for pickme-->
+    <cepRule id="7" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q6271"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>gd</operator>
+                <value>0</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>email</type>
+                <data>
+                    <to>sanjanan@emojot.com,salmanf@emojot.com</to>
+                    <subject>Unsatisfied Customer Alert</subject>
+                    <bodyType>html</bodyType>
+                    <body>
+                        <![CDATA[
+<p>Dear Team,</p>
+
+<p>An unsatisfied customer response has been received for pickme order with Pizza hut.</p>
+
+<p>
+<strong>Name:</strong> $$loyalty_Name_value$$ <br>
+<strong>Email:</strong> $$loyalty_Email_value$$ <br>
+<strong>Phone:</strong> $$loyalty_Telephone_value$$ <br>
+<strong>Response:</strong> $$q4057_emote$$ <br>
+<strong>Comment:</strong> $$gp5628_c1_comment_value$$
+</p>
+
+<p>Please take immediate action.</p>
+
+<br>
+<p>Emojot System</p>
+]]>
+                    </body>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    <!-- ===================== -->
+    <!-- Dissatisfied email for pizzahutdelivery-->
+    <cepRule id="8" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q5800"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>gd</operator>
+                <value>0</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>email</type>
+                <data>
+                    <to>sanjanan@emojot.com,salmanf@emojot.com</to>
+                    <subject>Unsatisfied Customer Alert</subject>
+                    <bodyType>html</bodyType>
+                    <body>
+                        <![CDATA[
+<p>Dear Team,</p>
+
+<p>An unsatisfied customer response has been received for pizzahut delivery order with Pizza hut.</p>
+
+<p>
+<strong>Name:</strong> $$loyalty_Name_value$$ <br>
+<strong>Email:</strong> $$loyalty_Email_value$$ <br>
+<strong>Phone:</strong> $$loyalty_Telephone_value$$ <br>
+<strong>Response:</strong> $$q4057_emote$$ <br>
+<strong>Comment:</strong> $$gp5628_c1_comment_value$$
+</p>
+
+<p>Please take immediate action.</p>
+
+<br>
+<p>Emojot System</p>
+]]>
+                    </body>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    <cepRule id="9" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q3554"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>nEq</operator>
+                <value>0</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>incident</type>
+                <data>
+                    <workflowID>6a045a943595940fc2d87238</workflowID>
+                    <name>New - $$q2244_emote$$</name>
+                    <assignee>dev@emojot.com</assignee>
+                    <type>New Order</type>
+                    <priority>Medium</priority>
+                    <status>Open</status>
+                    <description>
+                        Client Name: $$loyalty_Name_value$$
+                    </description>
+                    <customFields>
+                        <field>
+                            <key>title</key>
+                            <value>$$q3554_emote$$ For $$q2244_emote$$ $$q685_emote$$ $$q5648_emote$$ </value>
+                        </field>
+                        <field>
+                            <key>customerName</key>
+                            <value>$$loyalty_Name_value$$</value>
+                        </field>
+                        <field>
+                            <key>phoneNumber</key>
+                            <value>$$loyalty_Telephone_value$$</value>
+                        </field>
+                        <field>
+                             <key>email</key> 
+                            <value>$$loyalty_Email_value$$</value>
+                        </field>
+                       
+                         <field>
+                            <key>orderItems</key>
+                            <value>$$q5648_emote$$</value>   
+                        </field>
+                        <field>
+                            <key>orderItems</key>
+                            <value>$$q685_emote$$ $$q5648_emote$$ $$q2244_emote$$</value>
+                        </field>
+                        <field>
+                            <key>crust</key>
+                            <value>$$q5648_emote$$</value>
+                        </field>
+                        <field>
+                            <key>pizzaSize</key>
+                            <value>$$q685_emote$$</value>
+                        </field>
+                        <field>
+                            <key>description</key>
+                            <value>$$q685_emote$$ $$q5648_emote$$ $$q2244_emote$$</value>
+                        </field>
+
+                         <field>
+                            <key>orderItems</key>
+                            <value>$$q685_emote$$ $$q5648_emote$$ $$q2244_emote$$</value>
+                        </field>
+                         <field>
+                            <key>orderMethod</key>
+                            <value>$$q1264_emote$$</value>
+                        </field>
+                         <field>
+                            <key>totalItems</key>
+                            <value>$$gp812_c1_comment_value$$</value>
+                        </field>
+
+                        <field>
+                            <key>specialInstructions</key>
+                            <value>$$gp7941_c1_comment_value$$</value>
+                        </field>
+                        <field>
+                            <key>paymentMethod</key>
+                            <value>$$q1403_emote$$</value>
+                        </field>
+                        <field>
+                            <key>feedback</key>
+                            <value>$$q6039_emote$$</value>
+                        </field>
+                       <field>
+                            <key>deliveryCustomerName</key>
+                            <value>$$gp1823_c1_comment_value$$</value>
+                        </field>
+                        <field>
+                            <key>deliveryPhoneNumber</key>
+                            <value>$$gp1823_c2_comment_value$$</value>
+                        </field>
+                        <field>
+                            <key>deliveryEmail</key> 
+                            <value>$$gp1823_c3_comment_value$$</value>
+                        </field>
+                        
+                        <field>
+                            <key>deliveryAddress</key>
+                            <value>$$gp1823_c4_comment_value$$</value>
+                        </field>
+
+                         <field>
+                            <key>whyDifficult</key>
+                            <value>$$gp5322_c1_comment_value$$</value>
+                        </field>
+                    </customFields>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    
+</cepRules>

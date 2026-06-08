@@ -1,0 +1,357 @@
+{
+  "name": "Dev",
+  "reportNamePrefix": "Project",
+  "reporterNamePrefix": "User",
+  "descriptionFormat": "text",
+  "timeZone": -330,
+  "type": {
+    "name": "",
+    "readOnly": false,
+    "type": "enum",
+    "values": [
+      {
+        "id": "Feature",
+        "name": "Feature",
+         "highPriorityFields": [
+          "customerName",
+          "phoneNumber",
+          "email",
+          "orderItems",
+          "pizzaSize",
+          "crust",
+          "totalItems",
+          "orderMethod",
+          "specialInstructions",
+          "paymentMethod",
+          "deliveryCustomerName",
+          "deliveryPhoneNumber",
+          "deliveryEmail",
+          "deliveryAddress",
+          "paymentStatus",
+          "feedback",
+          "whyDifficult"
+        ] 
+      },
+      {
+        "id": "Improvement",
+        "name": "Improvement"
+      },
+      {
+        "id": "Bug",
+        "name": "Bug"
+      },
+      {
+        "id": "Chore",
+        "name": "Chore"
+      },
+      {
+        "id": "Spike",
+        "name": "Spike"
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Backlog",
+        "name": "Backlog",
+        "backgroundColor": "#bdc3c7",
+        "textColor": "#000000"
+      },
+      {
+        "id": "To Do",
+        "name": "To Do",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000"
+      },
+      {
+        "id": "In Progress",
+        "name": "In Progress",
+        "backgroundColor": "#3498db",
+        "textColor": "#ffffff"
+
+      },
+      {
+        "id": "Code Review",
+        "name": "Code Review",
+        "backgroundColor": "#9b59b6",
+        "textColor": "#ffffff",
+        "fieldsValidation": [
+          {
+            "fieldID": "pullRequestUrl",
+            "required": true,
+            "message": "A Pull Request URL is required for Code Review."
+          }
+        ],
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "codeReviewRequest",
+            "target": "admin",
+            "contactFilters": [
+              "techLead"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Testing",
+        "name": "QA Testing",
+        "backgroundColor": "#e67e22",
+        "textColor": "#ffffff",
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "qaRequest",
+            "target": "admin",
+            "contactFilters": [
+              "qaEngineer"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Done",
+        "name": "Done",
+        "finalState": true,
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff",
+        "editableFields": [],
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "taskDoneAlert",
+            "target": "admin",
+            "contactFilters": [
+              "projectManager",
+              "techLead"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "clientName",
+                  "operator": "eq",
+                  "value": "$clientName$"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "transitions": [
+      {
+        "sourceState": "Backlog",
+        "targetStates": [
+          "To Do",
+          "Discarded"
+        ]
+      },
+      {
+        "sourceState": "To Do",
+        "targetStates": [
+          "In Progress",
+          "Backlog"
+        ]
+      },
+      {
+        "sourceState": "In Progress",
+        "targetStates": [
+          "Code Review",
+          "To Do",
+          "Testing"
+        ]
+      },
+      {
+        "sourceState": "Code Review",
+        "targetStates": [
+          "Testing",
+          "In Progress"
+        ]
+      },
+      {
+        "sourceState": "Testing",
+        "targetStates": [
+          "Done",
+          "In Progress"
+        ]
+      }
+    ]
+  },
+  "customFields": {
+    "clientName": {
+      "name": "Client Name",
+      "type": "enum",
+      "values": [
+        {
+          "id": "brandix",
+          "name": "Brandix"
+        },
+        {
+          "id": "dipra",
+          "name": "Dipra"
+        },
+        {
+          "id": "radisson",
+          "name": "Radisson"
+        },
+        {
+          "id": "sampath",
+          "name": "Sampath"
+        },
+        {
+          "id": "seylan",
+          "name": "Seylan"
+        },
+        {
+          "id": "wso2",
+          "name": "WSO2"
+        }
+      ]
+    },
+    "title": {
+      "name": "Task Title",
+      "type": "string"
+    },
+    "description": {
+      "name": "Description",
+      "type": "textArea"
+    },
+    "storyPoints": {
+      "name": "Story Points",
+      "type": "multiselct",
+      "values": [
+        {
+          "id": "1",
+          "name": "1"
+        },
+        {
+          "id": "2",
+          "name": "2"
+        },
+        {
+          "id": "3",
+          "name": "3"
+        },
+        {
+          "id": "5",
+          "name": "5"
+        },
+        {
+          "id": "8",
+          "name": "8"
+        },
+        {
+          "id": "13",
+          "name": "13"
+        }
+      ]
+    },
+    "dueDate": {
+      "name": "Due Date",
+      "type": "date"
+    },
+    "pullRequestUrl": {
+      "name": "PR URL",
+      "type": "string"
+    },
+    "blockers": {
+      "name": "Blockers",
+      "type": "textArea"
+    },
+    "attachments": {
+      "name": "Attachments",
+      "type": "file"
+    },
+    "criteria": {
+      "name": "Criteria",
+      "type": "string"
+    },
+    "ticketStatus": {
+      "name": "Pass/Fail",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Pass",
+          "name": "Pass"
+        },
+        {
+          "id": "Fail",
+          "name": "Fail"
+        }
+      ]
+    },
+    "escalationLevel": {
+      "name": "Escalation Level",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Normal",
+          "name": "Normal"
+        },
+        {
+          "id": "L1",
+          "name": "Level 1 (Tech Lead)",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "escalationToTechLead",
+              "target": "admin",
+              "contactFilters": [
+                "techLead",
+                "projectManager"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "clientName",
+                    "operator": "eq",
+                    "value": "$clientName$"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "L2",
+          "name": "Level 2 (CTO)",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "escalationToCTO",
+              "target": "admin",
+              "contactFilters": [
+                "cto"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "values": [
+      {
+        "id": "P1",
+        "name": "Critical (P1)"
+      },
+      {
+        "id": "P2",
+        "name": "High (P2)"
+      },
+      {
+        "id": "P3",
+        "name": "Normal (P3)"
+      }
+    ]
+  },
+  "workflowCreation": {
+  }
+}

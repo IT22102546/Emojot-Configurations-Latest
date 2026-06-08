@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Thank You — Sampath Bank</title>
+    <link rel="stylesheet" href="sampath.css" />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+      :root {
+        --sampath-navy: #123b5d;
+        --sampath-blue: #1d5f8f;
+        --sampath-amber: #f59e0b;
+        --sampath-ink: #0f172a;
+        --sampath-surface: rgba(255, 255, 255, 0.18);
+        --sampath-border: rgba(255, 255, 255, 0.35);
+      }
+
+      html, body {
+        min-height: 100%;
+      }
+
+      body#master-section {
+        margin: 0;
+        font-family: 'Poppins', 'Be Vietnam Pro', sans-serif;
+        color: #0f172a;
+        background: transparent;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      .thankyou-shell {
+        min-height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 6px 12px;
+      }
+
+      .thankyou-hero {
+        width: min(760px, 100%);
+        padding: 16px 20px 14px;
+        text-align: center;
+        border-radius: 18px;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
+
+      .brand-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 16px;
+        border-radius: 999px;
+        background: rgba(18, 59, 93, 0.08);
+        color: #123b5d;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .brand-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--sampath-blue), var(--sampath-amber));
+        box-shadow: 0 0 0 6px rgba(29, 95, 143, 0.12);
+      }
+
+      .thankyou-hero .icon {
+        width: 80px;
+        height: 80px;
+        margin: 16px auto 12px;
+        display: block;
+      }
+
+      .thankyou-h1 {
+        font-size: clamp(24px, 3.4vw, 34px);
+        margin: 8px 0 8px;
+        color: #0f172a;
+        font-weight: 800;
+        line-height: 1.1;
+        letter-spacing: -0.04em;
+      }
+
+      .thankyou-lead {
+        max-width: 620px;
+        margin: 0 auto 10px;
+        font-size: 14px;
+        line-height: 1.55;
+        color: rgba(15, 23, 42, 0.82);
+      }
+
+      .thankyou-cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 14px;
+      }
+
+      .btn-prev,
+      .btn-next {
+        min-width: 160px;
+        padding: 12px 20px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      }
+
+      .btn-prev {
+        background: linear-gradient(135deg, var(--sampath-navy), var(--sampath-blue));
+        color: #fff;
+        box-shadow: 0 12px 26px rgba(18, 59, 93, 0.28);
+      }
+
+      .btn-prev:hover,
+      .btn-next:hover {
+        transform: translateY(-1px);
+        text-decoration: none;
+      }
+
+      .btn-next {
+        background: rgba(18, 59, 93, 0.06);
+        color: #123b5d;
+        border: 1px solid rgba(18, 59, 93, 0.12);
+      }
+
+      .help-note {
+        margin-top: 10px;
+        font-size: 13px;
+        color: rgba(15, 23, 42, 0.68);
+      }
+
+      .help-note a {
+        color: #1d5f8f;
+        font-weight: 600;
+      }
+
+      @media (max-width: 640px) {
+        .thankyou-shell {
+          padding: 0;
+        }
+
+        .thankyou-hero {
+          padding: 12px 12px 10px;
+          border-radius: 14px;
+        }
+
+        .thankyou-hero .icon {
+          width: 58px;
+          height: 58px;
+          margin-top: 10px;
+        }
+
+        .thankyou-lead {
+          font-size: 13px;
+        }
+
+        .btn-prev,
+        .btn-next {
+          width: 100%;
+          min-width: 0;
+        }
+      }
+    </style>
+  </head>
+  <body id="master-section">
+    <main class="thankyou-shell">
+      <section class="thankyou-hero">
+        <div class="brand-pill"><span class="brand-dot"></span> Sampath Bank</div>
+        <img class="icon" src="https://storage.emojot.com/icons/check-circle-green.svg" alt="success" onerror="this.style.display='none'" />
+        <h1 class="thankyou-h1">Thank you for your feedback</h1>
+        <p class="thankyou-lead thank-you-note">We’ve received your response and appreciate you helping Sampath Bank improve our service.</p>
+        <div class="thankyou-cta">
+          <a class="btn-prev" href="mailto:support@sampath.lk">Email Support</a>
+          <a class="btn-next" href="#">Back to Home</a>
+        </div>
+        <div class="help-note">Call us: <strong>+94 11 2 345 678</strong> • Visit: <a href="#">www.sampath.lk</a></div>
+      </section>
+    </main>
+  </body>
+</html>

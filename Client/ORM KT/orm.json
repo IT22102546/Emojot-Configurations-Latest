@@ -1,0 +1,227 @@
+{
+  "created": 1772001495424,
+  "createdBy": "sanjanan@emojot.com",
+  "companyID": "667a43f41189fa2fe875a820",
+  "aiModel": "gpt-4",
+  "ormAICategories": [
+    {
+      "id": "overallAnalysis",
+      "name": "Overall Analysis"
+    },
+    {
+      "id": "customerBehaviorAnalysis",
+      "name": "Customer Behavior Analysis"
+    },
+    {
+      "id": "customerPreferenceAnalysis",
+      "name": "Customer Preference Analysis"
+    },
+    {
+      "id": "latestCustomerTrendsAnalysis",
+      "name": "Latest Customer Trends Analysis"
+    }
+  ],
+  "ormPromptForSource": {
+    "overallAnalysis": {
+      "prompt": "Please analyze these online reviews included after triple backticks on ##location## that received high rating. Give overall analysis as bullet points. Please also suggest recommendations for how to improve the review in this location. Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n"
+    },
+    "customerBehaviorAnalysis": {
+      "prompt": "Please analyze these online reviews included after triple backticks on ##location## that received high rating. Give analysis on customer behavior as bullet points. Please also suggest recommendations for how to improve the review in this location. Please also suggest recommendations for how to improve the review in this location. Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n"
+    },
+    "customerPreferenceAnalysis": {
+      "prompt": "Please analyze these online reviews included after triple backticks on ##location## that received high rating. Give analysis on customer preference as bullet points. Please also suggest recommendations for how to improve the review in this location. Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n"
+    },
+    "latestCustomerTrendsAnalysis": {
+      "prompt": "Please analyze these online reviews included after triple backticks on ##location## that received high rating. Give analysis on customer trend as bullet points. Please also suggest recommendations for how to improve the review in this location. Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n"
+    }
+  },
+  "ORMConfigs": {
+    "reviewFetchLimit": {
+      "nonAdmin": 200,
+      "admin": 500
+    },
+    "targetedKeywords": {
+      "Food Quality": [
+        "fresh",
+        "taste",
+        "flavor",
+        "delicious",
+        "bland",
+        "spicy",
+        "salty",
+        "undercooked",
+        "overcooked",
+        "portion",
+        "presentation",
+        "seafood",
+        "rice",
+        "curry",
+        "dessert"
+      ],
+      "Service & Staff": [
+        "friendly",
+        "rude",
+        "attentive",
+        "slow",
+        "fast",
+        "helpful",
+        "polite",
+        "manager",
+        "waiter",
+        "staff",
+        "service",
+        "hospitality",
+        "professional",
+        "behavior",
+        "response"
+      ],
+      "Cleanliness & Hygiene": [
+        "clean",
+        "dirty",
+        "hygiene",
+        "washroom",
+        "table",
+        "floor",
+        "smell",
+        "sanitize",
+        "neat",
+        "tidy",
+        "kitchen",
+        "utensils",
+        "pest",
+        "fresh",
+        "maintenance"
+      ],
+      "Ambience & Atmosphere": [
+        "ambience",
+        "atmosphere",
+        "view",
+        "sea view",
+        "music",
+        "noise",
+        "crowded",
+        "calm",
+        "lighting",
+        "decor",
+        "comfortable",
+        "family",
+        "romantic",
+        "cozy",
+        "vibe"
+      ],
+      "Pricing & Value": [
+        "expensive",
+        "overpriced",
+        "affordable",
+        "reasonable",
+        "value",
+        "worth",
+        "price",
+        "bill",
+        "charge",
+        "portion",
+        "deal",
+        "discount",
+        "cost",
+        "payment",
+        "pricing"
+      ],
+      "Waiting Time": [
+        "waiting",
+        "delay",
+        "queue",
+        "slow",
+        "fast",
+        "rush",
+        "busy",
+        "reservation",
+        "booking",
+        "late",
+        "serve",
+        "time",
+        "quick",
+        "hold",
+        "on time"
+      ],
+      "Order Accuracy": [
+        "wrong",
+        "missing",
+        "correct",
+        "mistake",
+        "mixup",
+        "order",
+        "replace",
+        "fix",
+        "allergy",
+        "special request",
+        "custom",
+        "item",
+        "error",
+        "change",
+        "update"
+      ],
+      "Delivery & Takeaway": [
+        "delivery",
+        "takeaway",
+        "packaging",
+        "late delivery",
+        "cold",
+        "hot",
+        "spilled",
+        "damaged",
+        "driver",
+        "pickup",
+        "online order",
+        "app",
+        "ubereats",
+        "portion",
+        "fresh"
+      ],
+      "Location & Parking": [
+        "location",
+        "parking",
+        "accessible",
+        "convenient",
+        "crowded area",
+        "traffic",
+        "nearby",
+        "view",
+        "beach",
+        "city",
+        "highway",
+        "easy access",
+        "spot",
+        "space",
+        "area"
+      ],
+      "Overall Experience": [
+        "experience",
+        "satisfaction",
+        "recommend",
+        "return",
+        "family dinner",
+        "celebration",
+        "birthday",
+        "anniversary",
+        "enjoy",
+        "happy",
+        "disappointed",
+        "amazing",
+        "excellent",
+        "poor",
+        "memorable"
+      ]
+    },
+    "ormDataCategorizationPrompt": "Return the high-level categories and associated sentiment for those categories of the following text in the following Format. Pick the categories from the Category list given below. Include only the given categories. All category should have a sentiment, select sentiment from following values neutral,negative,positive\n Category list - Service, Quality, Price, Experience \nFormat:<category>:<sentiment>\nText : $text$",
+    "replySuggestionAIModel": "gpt-4",
+    "replySuggestionDefaultLangIsEnglish": true,
+    "replySuggestionPrompt": {
+      "english": "What is the best reply for the following review? Please give the reply in english",
+      "similar": "What is the best reply for the following review? Please give the reply in same language as the review"
+    }
+  },
+  "categorizationConfig": {
+    "AIModel": "manual"
+  },
+  "type": "onlineReviewManagement"
+}

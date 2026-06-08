@@ -1,0 +1,692 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* 
+
+    =================|=================================
+    class/id         | description
+    ===================================================
+    master-section   | to change sensor background
+    emote-title      | change question title
+    emo-text         | change emoticon text
+    emo-cont         | change emoticon style. You can change emoticon button background color etc.
+    clicked-emo-cont | Add the style after the emoticon button get clicked
+    sensor-title     | change sensor title
+    form-group label | This will change the all label colors including label for loyalty and comments.
+    loyalty-message  | Change loyalty description style
+    thank-you-note   | change thank you note text color
+    footer           | Change footer color
+    pdGroupTitle     | change group title properties
+    progressfill     | change page progress color
+    NPS style        | uncomment this code to show color coded NPS
+*/
+
+#master-section {
+    background: url("https://storage.emojot.com/pictures/skinImages/67ca7d8244a092407d279491-skin1.png");
+    /* background: linear-gradient(to bottom, #ffffff, #f0f0f0); White to light gray gradient */
+    /* background-color: #ffffff; */
+    min-height: 657px;
+    /* min-height: 100vh; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
+
+/* .lean{
+	min-width:100%;
+}
+
+.lean{
+    width:100% !important;
+    max-width:100% !important;
+} */
+
+
+
+#headerCompanyInfo {
+    color: #000000 !important;
+    min-height: 70px;
+}
+
+.container[style] {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.emote-title {
+    color: #1f1f1f;
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-size: 13pt;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin-top: 20px !important;
+}
+
+.emo-text {
+    font-size: 10pt;
+    color: #1f1f1f;
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.thank-you-note {
+    font-family: "Be Vietnam Pro", sans-serif !important;
+}
+
+.loyalty-message {
+    font-family: "Be Vietnam Pro", sans-serif !important;
+}
+
+.middle-box {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #000000;
+}
+
+.progress_bar .progress_number {
+    padding-top: 5px !important;
+    color: #000000;
+}
+
+.emo-cont {
+    border: 1px solid rgb(241, 219, 219);
+    margin: 3px 0px;
+    text-align: center;
+    display: inline-block;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 7px 7px;
+    border-radius: 0px;
+    color: #1f1f1f;
+    font-family: "Be Vietnam Pro", sans-serif;
+    letter-spacing: 0.5px;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d1d1d1', endColorstr='#e2e2e2', GradientType=1);
+}
+
+.emo-cont:hover {
+    border: 2px solid #888888;
+}
+
+.clicked-emo-cont {
+    background: rgba(56, 50, 50, 0.1);
+    border: 3px #000000 solid !important;
+}
+
+.emo-ico img {
+    width: 80%;
+    display: inline-block;
+    text-align: center;
+    max-width: 55px;
+    margin: 5px;
+}
+
+.btn {
+    color: #000000;
+}
+
+.btn-next,
+.btn-submit,
+.btn-prev,
+.btn-clear,
+.btn-skip,
+.btn-ok,
+.loyalty-redeem-button {
+    border-radius: 0;
+    text-align: center;
+    min-width: 90px;
+    display: inline-block;
+    padding: 9px 25px;
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-size: 12pt;
+    background: transparent;
+    box-shadow: none;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+}
+
+.btn-next {
+    border: 2px solid #000000;
+    color: #000000;
+}
+
+.btn-next:hover {
+    background: #000000;
+    color: white;
+}
+
+.btn-prev {
+    border: 2px solid #888888;
+    color: #888888;
+}
+
+.btn-prev:hover {
+    background: #888888;
+    color: white;
+}
+
+.btn-submit {
+    border: 2px solid #000000;
+    color: #000000;
+}
+
+.btn-submit:hover {
+    background: #000000;
+    color: white;
+}
+
+.btn-clear {
+    border: 2px solid #888888;
+    color: #888888;
+}
+
+.btn-clear:hover {
+    background: #888888;
+    color: white;
+}
+
+.btn-ok {
+    border: 2px solid #000000;
+    color: #000000;
+}
+
+.btn-ok:hover {
+    background: #000000;
+    color: white;
+}
+
+.btn-skip {
+    border: 2px solid #888888;
+    color: #888888;
+    display: none !important;
+}
+
+.btn-skip:hover {
+    background: #888888;
+    color: white;
+}
+
+.loyalty-redeem-button {
+    border: 2px solid #000000;
+    color: #000000;
+}
+
+.loyalty-redeem-button:hover {
+    background: #000000;
+    color: white;
+}
+
+.btn-skip {
+    color: #333;
+}
+
+.btn-fb {
+    color: white;
+}
+
+.loyalty-redeem-button {
+    border-color: #781d7d;
+    color: #333;
+}
+
+.logo-cust {
+    margin: 3px 0 -3px 9px;
+    height: 50px;
+}
+
+.sensor-title {
+    color: #000000;
+    font-size: 18pt;
+    padding: 10px 10px 10px 10px;
+    font-family: "Be Vietnam Pro", serif;
+    background: rgba(255, 255, 255, 0);
+    line-height: 30px;
+    font-weight: 500;
+    width: 100%;
+    display: block;
+    position: relative;
+    text-align: center !important;
+    margin-bottom: 15px !important;
+}
+
+.sensor-title::after {
+    display: none;
+}
+
+.form-control {
+    border-radius: 0px;
+}
+
+.form-control {
+    font-family: "Be Vietnam Pro", sans-serif;
+    display: block;
+    flex: 1;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #000000;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out 0.15s,
+        -webkit-box-shadow ease-in-out 0.15s;
+    -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+form-control:focus {
+    border-color: #f9a392 !important;
+}
+
+.flex {
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.panel {
+    margin: 0 10px;
+}
+
+.panel-group .panel {
+    margin-bottom: 0;
+    border-radius: 5px;
+    box-shadow: none;
+    background: rgba(250, 247, 247, 0.64);
+}
+
+.panel-group .panel-heading {
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    color: black;
+    background: rgba(249, 249, 249, 1);
+    background: -moz-linear-gradient(top,
+            rgba(249, 249, 249, 1) 0%,
+            rgba(227, 227, 227, 1) 100%);
+    background: -webkit-gradient(left top,
+            left bottom,
+            color-stop(0%, rgba(249, 249, 249, 1)),
+            color-stop(100%, rgba(227, 227, 227, 1)));
+    background: -webkit-linear-gradient(top,
+            rgba(249, 249, 249, 1) 0%,
+            rgba(227, 227, 227, 1) 100%);
+    background: -o-linear-gradient(top,
+            rgba(249, 249, 249, 1) 0%,
+            rgba(227, 227, 227, 1) 100%);
+    background: -ms-linear-gradient(top,
+            rgba(249, 249, 249, 1) 0%,
+            rgba(227, 227, 227, 1) 100%);
+    background: linear-gradient(to bottom,
+            rgba(249, 249, 249, 1) 0%,
+            rgba(227, 227, 227, 1) 100%);
+}
+
+.panel-title {
+    font-size: 11pt;
+    max-width: 90%;
+    font-family: "Be Vietnam Pro", sans-serif;
+    line-height: 1.6;
+}
+
+.row {
+    background: transparent !important;
+}
+
+.my-emojots {
+    display: none;
+}
+
+.panel-body {
+    background: transparent !important;
+}
+
+#headerCompanyInfo>.access-user {
+    text-align: center;
+    float: right;
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    background-size: 120px 80px;
+    background-repeat: no-repeat;
+    background-position: right center;
+    position: relative;
+}
+
+.access-user-name {
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.company-logo img {
+    margin: 10px;
+    height: 80px;
+    filter: drop-shadow(0 0 6px rgba(186, 186, 186, 0.6)) drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
+    animation: blackGlow 3s infinite alternate;
+}
+
+@keyframes blackGlow {
+    from {
+        filter: drop-shadow(0 0 4px rgba(120, 120, 120, 0.5)) drop-shadow(0 0 8px rgba(215, 215, 215, 0.3));
+    }
+    to {
+        filter: drop-shadow(0 0 10px rgba(132, 132, 132, 0.7)) drop-shadow(0 0 16px rgba(147, 147, 147, 0.5));
+    }
+}
+
+
+
+.form-group label {
+    color: #1f1f1f !important;
+    font-family: "Be Vietnam Pro", sans-serif;
+    font-size: 12pt;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.loyalty-message {
+    color: #000000;
+    font-size: 13pt;
+    text-align: center;
+}
+
+.loyalty-bottom {
+    text-align: center;
+}
+
+.loyalty-dialog div:nth-child(3) {}
+
+.email-emote-message {
+    color: #000000 !important;
+}
+
+#progressfill {
+    background: linear-gradient(270deg, #ff0000, #990000, #330000, #000000);
+    background-size: 400% 400%;
+    animation: gradientAnimation 5s ease infinite;
+    height: 100%;
+    width: 100%;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+#groupCommentBuzzModal .modal-header {
+    background: #fff;
+    color: #e4e4e4;
+}
+
+#groupCommentBuzzModal .modal-body {
+    background: #fff;
+    color: #333333;
+}
+
+#groupCommentBuzzModal .modal-footer {
+    background: #fff;
+    color: #000000;
+}
+
+#groupCommentBuzzModal .panel-body.comment-panel {
+    background: #f6f6f6 !important;
+}
+
+#groupCommentBuzzModal .panel-footer.comment-footer {
+    color: #333333;
+}
+
+.thank-you-note {
+    color: #000000 !important;
+}
+
+.pdGroupTitle {
+    font-family: "Be Vietnam Pro", sans-serif !important;
+    color: #000000 !important;
+    font-size: 15pt;
+    margin-right: 0 !important;
+}
+
+.progress_bar .pro-bar {
+    margin-top: 15px !important;
+}
+
+.company-logo {
+    padding: 2px !important;
+}
+
+.title-image {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80px;
+    color: #ffffff;
+}
+
+.footer {
+    background: #090909 !important;
+    color: #fff;
+    position: absolute;
+    right: 10px;
+    left: 0;
+    z-index: 1030;
+    bottom: 0;
+    height: 40px;
+    padding: 12px 13px;
+    font-size: 8pt;
+    margin: 0 -10px 0px 0;
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+/*  view question - uncomment this to show big view question button if there are only one comment field */
+
+/* 
+#commentBuzzPanel i span{
+	font-size:18px !important;
+	display: none;
+}
+
+#commentBuzzPanel{
+	text-align: center;
+    padding: 7px;
+    background: #ee4b30;
+    border-radius: 10px;
+    margin-top: 96px;
+    color:white;
+    box-shadow: black;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+    border: 1px solid #ee4b30;
+    position: absolute;
+    width: 60%;
+    margin-left: 15%;
+    margin-right: 15%;
+    z-index:100;
+}
+
+#commentBuzzPanel i:after{
+	content:'View questions';
+	font-family: 'Lato', sans-serif;
+	font-size:18px;
+} */
+
+/*  tab width - uncomment below code to add full width when load sensor only in tab */
+
+/*.lean{
+    width:100% !important;
+    max-width:100% !important;
+}*/
+
+/* NPS style*/
+.nps-bar::before,
+.nps-bar::after {
+    content: "";
+    position: absolute;
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: bold;
+    top: 100%;
+    transform: translateY(8px);
+    font-family: "Be Vietnam Pro", serif;
+}
+
+.nps-bar::before {
+    content: "Less Likely";
+    left: 10px;
+    color: #000000;
+    margin-left: 5px;
+}
+
+.nps-bar::after {
+    content: "More Likely";
+    right: 10px;
+    color: #000000;
+    margin-right: 5px;
+}
+
+.evz-nps-position-0,
+.evz-nps-position-1,
+.evz-nps-position-2,
+.evz-nps-position-3,
+.evz-nps-position-4,
+.evz-nps-position-5,
+.evz-nps-position-6 {
+    background: #ff2942;
+    color: white;
+    border: 1px solid rgba(255, 0, 55, 0.61);
+}
+
+.evz-nps-position-7,
+.evz-nps-position-8 {
+    background: #ff7924;
+    color: white;
+    border: 1px solid rgba(195, 117, 34, 0.61);
+}
+
+.evz-nps-position-9,
+.evz-nps-position-10 {
+    background: #1ca757;
+    color: white;
+    border: 1px solid rgba(17, 144, 74, 0.61);
+}
+
+.clicked-nps-icon {
+    border: 3px solid #333;
+    box-shadow: 0px 2px 6px #716868;
+}
+
+#facebook-login-section {
+    display: none;
+}
+
+.thankYouImage {
+    width: 200px;
+}
+
+.repeated-item {
+    display: block;
+}
+
+.fashionbug-review-wrapper .thank-you-text {
+    font-weight: bold !important;
+    font-family: "Be Vietnam Pro", sans-serif !important;
+    color: #000000 !important;
+}
+
+.fashionbug-review-wrapper .review-buttons a span {
+    font-family: "Be Vietnam Pro", sans-serif !important;
+    color: #000000 !important;
+}
+
+div#er_0q4907.col-xs-12.flex.ng-scope {
+    font-family: "Be Vietnam Pro", sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    font-style: italic !important;
+}
+
+div#er_1q4907.col-xs-12.flex.ng-scope {
+    font-family: "Be Vietnam Pro", sans-serif !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    font-style: italic !important;
+}
+
+span.ng-binding.ng-scope[ng-if*="supportTypes"] {
+  display: none !important;
+}
+
+
+@media (max-width: 768px) {
+    .emo-cont {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 4px;
+        min-height: 92px;
+    }
+
+    .emo-ico {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .emo-ico img {
+        margin: 0 !important;
+        display: block;
+    }
+
+    .emo-text {
+        display: block !important;
+        width: 100%;
+        text-align: center;
+        margin-top: 0 !important;
+        font-size: 9pt !important;
+        letter-spacing: 0.2px !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        max-width: 100%;
+    }
+
+    .sensor-title {
+        font-size: 17pt;
+    }
+
+    .emote-title {
+        font-size: 12pt;
+    }
+
+    .company-logo img {
+        margin: 10px;
+        height: 50px;
+    }
+
+    .form-group label {
+        font-size: 12pt !important;
+    }
+
+    .form-control {
+        font-size: 11pt !important;
+    }
+
+    .pdGroupTitle {
+        font-family: "Be Vietnam Pro", sans-serif !important;
+        font-size: 15pt;
+        padding-left: 9px !important;
+    }
+}

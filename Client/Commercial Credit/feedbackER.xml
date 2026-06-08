@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<cepRules>
+    <cepRule id="1" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q9608"</value>
+            </param>
+        </params>
+        <engagementActions>
+            <action>
+                <type>incident</type>
+                <data>
+                    <workflowID>6a15335aa246ef2bd1d7c064</workflowID> 
+                    <name>Customer Feedback Survey</name>
+                    <assignee>complaints_hl@sampath.lk</assignee>
+                    <type>customerFeedbackSurvey</type>
+                    <priority>High</priority>
+                    <status>Open</status>
+                    <description><![CDATA[
+<b>Customer Name:</b>$$loyalty_Name_value$$<br><br>
+<b>Customer Email:</b> $$loyalty_Email_value$$<br><br>
+<b>Customer Telephone:</b>$$loyalty_Telephone_value$$<br><br>
+<b>Inquiry Type:</b>$$q9608_emote$$<br><br>
+<b>Inquiry / Complaint:</b> $$gp4131_c1_comment_value$$<br><br>
+<b>Complaint Handling Satisfaction:</b> $$q7223_emote$$<br><br>
+                    ]]></description>
+                    <customFields>
+                        <field>
+                            <key>complaintDepartment</key>
+                            <value>customerFeedbackSurvey</value>
+                        </field>
+                        <field>
+                            <key>ticketCategory</key>
+                            <value>customerFeedbackSurvey</value>
+                        </field>
+                        <field>
+                            <key>customerName</key>
+                            <value>$$loyalty_Name_value$$</value>
+                        </field>
+                        <field>
+                            <key>customerEmail</key>
+                            <value>$$loyalty_Email_value$$</value>
+                        </field>
+                        <field>
+                            <key>customerTelephone</key>
+                            <value>$$loyalty_Telephone_value$$</value>
+                        </field>
+                        <field>
+                            <key>customerFeedbackInquiryType</key>
+                            <value>$$q9608_emote$$</value>
+                        </field>
+                        <field>
+                            <key>customerFeedbackInquiry</key>
+                            <value>$$gp4131_c1_comment_value$$</value>
+                        </field>
+                        <field>
+                            <key>customerFeedbackSatisfaction</key>
+                            <value>$$q7223_emote$$</value>
+                        </field>
+                    </customFields>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+</cepRules>

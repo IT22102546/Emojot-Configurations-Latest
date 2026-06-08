@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style type="text/css">
+      body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+      table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse; }
+      body { margin: 0; padding: 0; width: 100% !important; background: #f5f7f6; }
+    </style>
+  </head>
+  <body style="margin:0; padding:0; background:#f5f7f6; font-family:Arial, sans-serif;">
+    <table role="presentation" width="100%" style="background:#f5f7f6;">
+      <tr><td style="height:8px; background:#007a78;"></td></tr>
+      <tr>
+        <td align="center" style="padding:28px 12px;">
+          <table role="presentation" width="600" style="max-width:600px; width:100%; background:#ffffff; border:1px solid #e5e5e5; border-radius:6px;">
+            <tr>
+              <td style="padding:28px;">
+                <h2 style="margin:0 0 10px; color:#1f2d2d; font-size:22px;">New guest ticket created</h2>
+                <p style="margin:0 0 22px; color:#555555; font-size:14px; line-height:22px;">A survey or guest request has created a new workflow ticket for Dubai SME.</p>
+                <table role="presentation" width="100%" style="font-size:14px; color:#333333;">
+                  <tr><td style="padding:8px 0; color:#007a78; font-weight:bold;">Ticket</td><td style="padding:8px 0;">$incident_number$</td></tr>
+                  <tr><td style="padding:8px 0; color:#007a78; font-weight:bold;">Type</td><td style="padding:8px 0;">$incident_type$</td></tr>
+                  <tr><td style="padding:8px 0; color:#007a78; font-weight:bold;">Location</td><td style="padding:8px 0;">$incident_customFields_location$</td></tr>
+                  <tr><td style="padding:8px 0; color:#007a78; font-weight:bold;">Customer</td><td style="padding:8px 0;">$incident_customFields_customerName$</td></tr>
+                  <tr><td style="padding:8px 0; color:#007a78; font-weight:bold;">Email</td><td style="padding:8px 0;">$incident_customFields_customerEmail$</td></tr>
+                  <tr><td style="padding:8px 0; color:#007a78; font-weight:bold;">Telephone</td><td style="padding:8px 0;">$incident_customFields_customerTelephone$</td></tr>
+                  <tr><td style="padding:8px 0; color:#007a78; font-weight:bold;">Check-in Rating</td><td style="padding:8px 0;">$incident_customFields_checkInRating$</td></tr>
+                  <tr><td style="padding:8px 0; color:#007a78; font-weight:bold;">Request Type</td><td style="padding:8px 0;">$incident_customFields_requestType$</td></tr>
+                  <tr><td style="padding:8px 0; color:#007a78; font-weight:bold;">Issue / Comment</td><td style="padding:8px 0;">$incident_customFields_comment$</td></tr>
+                </table>
+                <p style="margin:22px 0 0;">
+                  <a href="https://emojot.com/emojotDashboard/samlsso?redirectPage=reports/incidentManagement/incidentEdit.jsp&amp;workflowID=$workflow_id$&amp;incidentID=$incident_id$&amp;trimOut=true&amp;companyID=REPLACE_COMPANY_ID&amp;unmask=true" style="display:inline-block; background:#007a78; color:#ffffff; text-decoration:none; padding:12px 20px; border-radius:4px; font-weight:bold;">View ticket</a>
+                </p>
+              </td>
+            </tr>
+          </table>
+          <p style="font-size:12px; color:#888888; margin:16px 0 0;">Powered by Emojot</p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

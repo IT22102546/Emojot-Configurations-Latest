@@ -1,0 +1,378 @@
+{
+  "name": "Pizza Ordering System",
+  "reportNamePrefix": "Order",
+  "reporterNamePrefix": "Customer",
+  "descriptionFormat": "text",
+  "timeZone": -330,
+  "type": {
+    "name": "Order Type",
+    "readOnly": false,
+    "type": "enum",
+    "values": [
+      {
+        "id": "New Order",
+        "name": "New Order"
+        
+       
+      },
+      {
+        "id": "Feedback",
+        "name": "Feedback"
+      }
+    ]
+  },
+  "status": {
+    "name": "Order Status",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Pending",
+        "name": "Pending",
+        "backgroundColor": "#95a5a6",
+        "textColor": "#000000"
+      },
+      {
+        "id": "Confirmed",
+        "name": "Confirmed",
+        "backgroundColor": "#3498db",
+        "textColor": "#ffffff",
+        "fieldsValidation": [
+          {
+            "fieldID": "paymentStatus",
+            "required": true,
+            "message": "Payment confirmation is required."
+          }
+        ],
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "orderConfirmation",
+            "target": "customer"
+          },
+          {
+            "channel": "sms",
+            "template": "orderConfirmed",
+            "target": "customer"
+          }
+        ]
+      },
+      {
+        "id": "Preparing",
+        "name": "Preparing",
+        "backgroundColor": "#f39c12",
+        "textColor": "#ffffff",
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "preparingNotification",
+            "target": "customer"
+          },
+          {
+            "channel": "sms",
+            "template": "preparingNotificationCustomer",
+            "target": "customer"
+          }
+        ]
+      },
+      {
+        "id": "Ready",
+        "name": "Order Ready",
+        "backgroundColor": "#e74c3c",
+        "textColor": "#ffffff",
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "readyNotification",
+            "target": "customer"
+          },
+          {
+            "channel": "sms",
+            "template": "readyForPickup",
+            "target": "customer"
+          }
+        ]
+      },
+      {
+        "id": "Out for Delivery",
+        "name": "Out for Delivery",
+        "backgroundColor": "#9b59b6",
+        "textColor": "#ffffff",
+        "fieldsValidation": [
+          {
+            "fieldID": "deliveryTime",
+            "required": true,
+            "message": "Delivery time is required."
+          },
+          {
+            "fieldID": "deliveryPartner",
+            "required": true,
+            "message": "Delivery partner information is required."
+          },
+          {
+            "fieldID": "trackingURL",
+            "required": true,
+            "message": "Tracking URL is required."
+          }
+        ],
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "deliveryNotification",
+            "target": "customer"
+          }
+        ]
+      },
+      {
+        "id": "Delivered",
+        "name": "Delivered",
+        "finalState": true,
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff",
+        "editableFields": [],
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "deliveredConfirmation",
+            "target": "customer"
+          },
+          {
+            "channel": "email",
+            "template": "feedbackRequest",
+            "target": "customer"
+          }
+        ]
+      },
+      {
+        "id": "Cancelled",
+        "name": "Cancelled",
+        "finalState": true,
+        "backgroundColor": "#c0392b",
+        "textColor": "#ffffff",
+        "editableFields": [],
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "orderCancellation",
+            "target": "customer"
+          }
+        ]
+      }
+    ],
+    "transitions": [
+      {
+        "sourceState": "Pending",
+        "targetStates": [
+          "Confirmed",
+          "Cancelled"
+        ]
+      },
+      {
+        "sourceState": "Confirmed",
+        "targetStates": [
+          "Preparing",
+          "Cancelled"
+        ]
+      },
+      {
+        "sourceState": "Preparing",
+        "targetStates": [
+          "Ready",
+          "Cancelled"
+        ]
+      },
+      {
+        "sourceState": "Ready",
+        "targetStates": [
+          "Out for Delivery",
+          "Cancelled"
+        ]
+      },
+      {
+        "sourceState": "Out for Delivery",
+        "targetStates": [
+          "Delivered",
+          "Cancelled"
+        ]
+      }
+    ]
+  },
+  "customFields": {
+    "customerName": {
+      "name": "Customer Name",
+      "type": "string"
+    },
+    "phoneNumber": {
+      "name": "Phone Number",
+      "type": "string"
+    },
+    "title": {
+      "name": "title",
+      "type": "string"
+    },
+    "email": {
+      "name": "Email Address",
+      "type": "string"
+    },
+    "orderItems": {
+      "name": "Order Items",
+      "type": "textArea"
+    },
+    "orderMethod": {
+      "name": "Order Method",
+      "type": "string"
+    },
+    "pizzaSize": {
+      "name": "Pizza Size",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Personal",
+          "name": "Personal (10'')"
+        },
+        {
+          "id": "Medium",
+          "name": "Medium (12'')"
+        },
+        {
+          "id": "Large",
+          "name": "Large (14'')"
+        }
+      ]
+    },
+    "crust": {
+      "name": "Crust Type",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Thin Crust",
+          "name": "Thin Crust"
+        },
+        {
+          "id": "Pan Pizza",
+          "name": "Pan Pizza"
+        }
+      ]
+    },
+    "totalItems": {
+      "name": "Number of Items",
+      "type": "string"
+    },
+    "specialInstructions": {
+      "name": "Special Instructions",
+      "type": "textArea"
+    },
+    "paymentMethod": {
+      "name": "Payment Method",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Cash",
+          "name": "Cash"
+        },
+        {
+          "id": "Card",
+          "name": "Card"
+        },
+        {
+          "id": "Bank Transfer",
+          "name": "Bank Transfer"
+        }
+      ]
+    },
+    "deliveryCustomerName": {
+      "name": "Customer Name for Delivery",
+      "type": "string"
+    },
+    "deliveryPhoneNumber": {
+      "name": "Phone Number for Delivery",
+      "type": "string"
+    },
+    "deliveryEmail": {
+      "name": "Email Address for Delivery",
+      "type": "string"
+    },
+    "deliveryAddress": {
+      "name": "Delivery Address",
+      "type": "textArea"
+    },
+    "paymentStatus": {
+      "name": "Payment Status",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Pending",
+          "name": "Pending"
+        },
+        {
+          "id": "Completed",
+          "name": "Completed"
+        },
+        {
+          "id": "Failed",
+          "name": "Failed"
+        }
+      ]
+    },
+    "deliveryTime": {
+      "name": "Estimated Delivery Time",
+      "type": "date"
+    },
+    "deliveryPartner": {
+      "name": "Delivery Partner",
+      "type": "string"
+    },
+    "trackingURL": {
+      "name": "Tracking URL",
+      "type": "string"
+    },
+    "feedback": {
+      "name": "Customer Feedback",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Very Easy",
+          "name": "Very Easy"
+        },
+        {
+          "id": "Easy",
+          "name": "Easy"
+        },
+        {
+          "id": "Difficult",
+          "name": "Difficult"
+        },
+        {
+          "id": "Very Difficult",
+          "name": "Very Difficult"
+        }
+      ]
+    },
+    "whyDifficult": {
+      "name": "Difficulty reason",
+      "type": "string"
+    },
+    "cancelReason": {
+      "name": "Cancellation Reason",
+      "type": "string"
+    }
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "values": [
+      {
+        "id": "P1",
+        "name": "Urgent (P1)"
+      },
+      {
+        "id": "P2",
+        "name": "High (P2)"
+      },
+      {
+        "id": "P3",
+        "name": "Normal (P3)"
+      }
+    ]
+  },
+  "workflowCreation": {}
+}

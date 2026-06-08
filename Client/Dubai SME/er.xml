@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<cepRules>
+  <!-- Guest Experience export: Guest_Experience__1779185231961.xlsx -->
+  <cepRule id="1" timeWindow="5">
+    <params>
+      <param>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>"q8426"</value>
+      </param>
+      <joinOperator>and</joinOperator>
+      <joinParam>
+        <name>emoteNumericValue</name>
+        <operator>ldOrEq</operator>
+        <value>1</value>
+      </joinParam>
+    </params>
+    <engagementActions>
+      <action>
+        <type>incident</type>
+        <data>
+          <workflowID>69ef45487716394a314012ff</workflowID>
+          <name>Guest Experience Complaints</name>
+          <assignee>defaultassignee@emojot.com</assignee>
+          <type>Complaint</type>
+          <priority>High</priority>
+          <status>Open</status>
+          <description><![CDATA[
+<b>Source:</b> Guest Experience<br><br>
+<b>Customer Name:</b>$$loyalty_Name_value$$<br>
+<b>Customer Email:</b>$$loyalty_Email_value$$<br>
+<b>Customer Telephone:</b>$$loyalty_Telephone_value$$<br><br>
+<b>Pre Check-in Rating:</b>$$q2091_emote$$<br>
+<b>Check-in Rating:</b>$$q7930_emote$$<br>
+<b>In-stay Rating:</b>$$q6796_emote$$<br>
+<b>Issue(s):</b>$$q5760_emote$$<br>
+<b>Checkout Rating:</b>$$q5817_emote$$<br>
+<b>NPS:</b> $$q8426_emote$$<br>
+
+          ]]></description>
+          <customFields>
+            <field>
+              <key>location</key>
+              <value>$$emoSignature_Location_value$$</value>
+            </field>
+             <field>
+              <key>PrecheckInRating</key>
+              <value>$$q2091_emote$$</value>
+            </field>
+            <field>
+              <key>checkInRating</key>
+              <value>$$q7930_emote$$</value>
+            </field>
+            <field>
+              <key>inStayRating</key>
+              <value>$$q6796_emote$$</value>
+            </field>
+            <field>
+              <key>issues</key>
+              <value>$$q5760_emote$$</value>
+            </field>
+            <field>
+              <key>checkoutRating</key>
+              <value>$$q5817_emote$$</value>
+            </field>
+            <field>
+              <key>recommendationScore</key>
+              <value>$$q5348_emote$$</value>
+            </field>
+            <field>
+              <key>customerName</key>
+              <value>$$loyalty_Name_value$$</value>
+            </field>
+            <field>
+              <key>customerEmail</key>
+              <value>$$loyalty_Email_value$$</value>
+            </field>
+            <field>
+              <key>customerTelephone</key>
+              <value>$$loyalty_Telephone_value$$</value>
+            </field>
+            <field>
+              <key>requestType</key>
+              <value>Complaint</value>
+            </field>
+          </customFields>
+        </data>
+        <validityPeriod>5</validityPeriod>
+      </action>
+    </engagementActions>
+  </cepRule>
+</cepRules>

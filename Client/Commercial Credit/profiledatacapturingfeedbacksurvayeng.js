@@ -1,0 +1,192 @@
+<style>
+.lnksh-cc-root{
+    width:100%;
+}
+
+.lnksh-cc-title{
+    width:100%;
+    text-align:left;
+    font-size:20px;
+    font-weight:600;
+    color:#000000;
+    font-family:"Saira Semi Condensed", sans-serif;
+    margin:20px 0 16px;
+}
+
+.lnksh-cc-consent-wrap{
+    font-family:"Saira Semi Condensed", sans-serif;
+    margin:18px 6px 35px;
+    color:#444;
+}
+
+.lnksh-cc-consent-label{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    font-size:14px;
+    line-height:1.35;
+    text-align:left;
+    cursor:pointer;
+}
+
+.lnksh-cc-checkbox{
+    margin-top:3px;
+    min-width:16px;
+    width:16px;
+    height:16px;
+}
+
+.btn-ok.lnksh-cc-disabled{
+    opacity:0.35 !important;
+    pointer-events:none !important;
+    cursor:not-allowed !important;
+}
+
+.loyalty-bottom {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+</style>
+
+<div class="lnksh-cc-root" data-lnksh-source="commercial-credit-profiledata">
+    <div class="lnksh-cc-title">
+        <span class="lnksh-cc-title-text" data-lnksh-key="title"></span>
+    </div>
+
+    <div class="lnksh-cc-consent-wrap">
+        <label class="lnksh-cc-consent-label">
+            <input class="lnksh-cc-checkbox" type="checkbox">
+            <span class="lnksh-cc-consent-text" data-lnksh-key="consent"></span>
+        </label>
+    </div>
+</div>
+
+<script>
+(function () {
+    const SOURCE = 'commercial-credit-profiledata';
+    const lnkshLanguageCopy = {
+        en: {
+            title: 'We value your feedback. Kindly provide your details below to help us understand you better.',
+            consent: 'I agree and consent to the collection and processing of my personal information for banking and customer experience purposes in accordance with applicable privacy policies and regulations.'
+        },
+        si: {
+            title: 'අපි ඔබගේ ප්‍රතිචාර අගය කරමු. ඔබව වඩා හොඳින් අවබෝධ කර ගැනීම සඳහා කරුණාකර පහතින් ඔබගේ විස්තර ලබා දෙන්න.',
+            consent: 'අදාළ පෞද්ගලිකත්ව ප්‍රතිපත්ති සහ රෙගුලාසිවලට අනුකූලව, බැංකු සේවා සහ පාරිභෝගික අත්දැකීම් වැඩිදියුණු කිරීමේ අරමුණු සඳහා මගේ පුද්ගලික තොරතුරු රැස් කිරීම හා සැකසීම සඳහා මම එකඟත්වය සහ අනුමැතිය ලබා දෙමි.'
+        },
+        ta: {
+            title: 'உங்கள் கருத்து எங்களுக்கு மதிப்புடையது. உங்களை மேலும் நன்றாகப் புரிந்துகொள்ள, கீழே உங்கள் விவரங்களை வழங்கவும்.',
+            consent: 'வங்கி மற்றும் வாடிக்கையாளர் அனுபவ நோக்கங்களுக்காக, பொருந்தக்கூடிய தனியுரிமைக் கொள்கைகள் மற்றும் விதிமுறைகளுக்கு ஏற்ப எனது தனிப்பட்ட தகவல்களை சேகரித்து செயலாக்குவதற்கு நான் ஒப்புக்கொள்கிறேன்.'
+        }
+    };
+
+    function getRoot() {
+        return document.querySelector('[data-lnksh-source="' + SOURCE + '"]');
+    }
+
+    function getLanguageKey() {
+        // Prefer Angular language select if present
+        const ngSelect = document.querySelector('select[ng-model="selectedLanguage.value"], select[ng-model*="selectedLanguage"]');
+        if (ngSelect) {
+            const opt = ngSelect.selectedOptions && ngSelect.selectedOptions[0];
+            const val = (opt?.textContent || ngSelect.value || '').trim().toLowerCase();
+            if (val.includes('sinhala') || val.includes('සිංහල')) return 'si';
+            if (val.includes('tamil') || val.includes('தமிழ்')) return 'ta';
+            if (val.includes('english')) return 'en';
+        }
+
+        // Fallback to scanning other selects or icon classes
+        const selects = Array.from(document.querySelectorAll('select'));
+
+        for (const select of selects) {
+            const selectedOption = select.selectedOptions && select.selectedOptions[0];
+            const selectedText = (selectedOption?.textContent || select.value || '').trim().toLowerCase();
+            const optionsText = Array.from(select.options || []).map((option) => `${option.textContent || ''} ${option.value || ''}`.trim().toLowerCase()).join(' ');
+            const blob = `${selectedText} ${optionsText}`;
+
+            if (blob.includes('sinhala') || blob.includes('sinhalese') || blob.includes('සිංහල')) return 'si';
+            if (blob.includes('tamil') || blob.includes('தமிழ்')) return 'ta';
+            if (blob.includes('english')) return 'en';
+        }
+
+        const isSinhala = document.querySelector('.localisation-cont.clicked-emo-cont img[src*="ico8"]');
+        const isTamil = document.querySelector('.localisation-cont.clicked-emo-cont img[src*="ico7"]');
+
+        if (isSinhala) return 'si';
+        if (isTamil) return 'ta';
+        return 'en';
+    }
+
+    function applyLanguage(root) {
+        const lang = getLanguageKey();
+        const copy = lnkshLanguageCopy[lang] || lnkshLanguageCopy.en;
+
+        const titleText = root.querySelector('[data-lnksh-key="title"]');
+        const consentText = root.querySelector('[data-lnksh-key="consent"]');
+
+        if (titleText) titleText.textContent = copy.title;
+        if (consentText) consentText.textContent = copy.consent;
+    }
+
+    function placeConsent() {
+        const root = getRoot();
+        const form = document.querySelector('#loyalty-form');
+        const okBtn = document.querySelector('.btn-ok');
+
+        if (!root || !form || !okBtn) {
+            setTimeout(placeConsent, 500);
+            return;
+        }
+
+        const otherRoot = document.querySelector('.lnksh-cc-root[data-lnksh-source]:not([data-lnksh-source="' + SOURCE + '"])');
+        if (otherRoot) {
+            root.remove();
+            return;
+        }
+
+        if (root.parentNode !== form.parentNode) {
+            form.parentNode.insertBefore(root, form);
+        } else if (root.nextSibling !== form) {
+            form.parentNode.insertBefore(root, form);
+        }
+
+        applyLanguage(root);
+
+        const checkbox = root.querySelector('.lnksh-cc-checkbox');
+        if (!checkbox) return;
+
+        okBtn.classList.add('lnksh-cc-disabled');
+        okBtn.setAttribute('disabled', 'disabled');
+
+        checkbox.addEventListener('change', function () {
+            if (checkbox.checked) {
+                okBtn.classList.remove('lnksh-cc-disabled');
+                okBtn.removeAttribute('disabled');
+            } else {
+                okBtn.classList.add('lnksh-cc-disabled');
+                okBtn.setAttribute('disabled', 'disabled');
+            }
+        });
+
+        // Watch for select changes (Angular or plain) and clicks that may change locale
+        const ngSelect = document.querySelector('select[ng-model="selectedLanguage.value"], select[ng-model*="selectedLanguage"]');
+        if (ngSelect) ngSelect.addEventListener('change', () => applyLanguage(root));
+
+        const observer = new MutationObserver(() => applyLanguage(root));
+        observer.observe(document.body, {
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['class', 'src']
+        });
+
+        window.addEventListener('change', (event) => {
+            if (event.target && event.target.tagName === 'SELECT') applyLanguage(root);
+        }, true);
+
+        window.addEventListener('click', () => setTimeout(() => applyLanguage(root), 0), true);
+    }
+
+    window.addEventListener('load', placeConsent);
+
+})();
+</script>

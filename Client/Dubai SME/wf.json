@@ -1,0 +1,1005 @@
+{
+  "name": "Dubai Tourism Management",
+  "reportNamePrefix": "Dubai SME Ticket",
+  "reporterNamePrefix": "Customer",
+  "descriptionFormat": "text",
+  "nameTemplate": "Customer Complaint: $type$",
+  "descriptionTemplate": "Channel - $type$",
+  "type": {
+    "name": "Channel",
+    "readOnly": true,
+    "type": "enum",
+    "values": [
+      {
+        "id": "Inquiry",
+        "name": "Inquiry",
+        "highPriorityFields": [
+          "requestType",
+          "inquiryDetails",
+          "customerName",
+          "customerEmail",
+          "customerTelephone",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Cancellation",
+        "name": "Cancellation",
+        "highPriorityFields": [
+          "requestType",
+          "bookingReference",
+          "cancellationReason",
+          "cancellationNotes",
+          "customerName",
+          "customerEmail",
+          "customerTelephone",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Alteration",
+        "name": "Alteration",
+        "highPriorityFields": [
+          "requestType",
+          "bookingReference",
+          "preferredAlternativeDate",
+          "alterationNotes",
+          "customerName",
+          "customerEmail",
+          "customerTelephone",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Complaint",
+        "name": "Complaint",
+        "highPriorityFields": [
+          "requestType",
+          "complaintDetails",
+          "attachment",
+          "customerName",
+          "customerEmail",
+          "customerTelephone",
+          "overdue"
+        ]
+      },
+      {
+        "id": "googleMap",
+        "name": "Google",
+        "highPriorityFields": [
+          "rating",
+          "comment",
+          "reviewId",
+          "author",
+          "overdue"
+        ]
+      },
+      {
+        "id": "booking",
+        "name": "Booking.com",
+        "highPriorityFields": [
+          "rating",
+          "comment",
+          "reviewId",
+          "author",
+          "overdue"
+        ]
+      },
+      {
+        "id": "tripAdvisor",
+        "name": "TripAdvisor",
+        "highPriorityFields": [
+          "rating",
+          "comment",
+          "reviewId",
+          "author",
+          "overdue"
+        ]
+      },
+      {
+        "id": "facebook",
+        "name": "Facebook",
+        "highPriorityFields": [
+          "keyword",
+          "sentiment",
+          "comment",
+          "link",
+          "profileName",
+          "overdue"
+        ]
+      },
+      {
+        "id": "instagram",
+        "name": "Instagram",
+        "highPriorityFields": [
+          "keyword",
+          "sentiment",
+          "comment",
+          "link",
+          "profileName",
+          "overdue"
+        ]
+      },
+      {
+        "id": "twitter",
+        "name": "Twitter",
+        "highPriorityFields": [
+          "keyword",
+          "sentiment",
+          "comment",
+          "link",
+          "profileName",
+          "overdue"
+        ]
+      },
+      {
+        "id": "youtube",
+        "name": "Youtube",
+        "highPriorityFields": [
+          "keyword",
+          "sentiment",
+          "comment",
+          "link",
+          "profileName",
+          "overdue"
+        ]
+      },
+      {
+        "id": "web",
+        "name": "Web",
+        "highPriorityFields": [
+          "keyword",
+          "sentiment",
+          "comment",
+          "link",
+          "profileName",
+          "overdue"
+        ]
+      },
+      {
+        "id": "reviews",
+        "name": "Reviews",
+        "highPriorityFields": [
+          "keyword",
+          "sentiment",
+          "comment",
+          "link",
+          "profileName",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Guest Experience Survey",
+        "name": "Guest Experience Survey",
+        "highPriorityFields": [
+          "Customer Name",
+          "Customer Email",
+          "Customer Telephone",
+          "Check-in Rating",
+          "In-stay Rating",
+          "Issue(s)",
+          "Issue Comment",
+          "Checkout Rating",
+          "NPS",
+          "Additional Feedback"
+
+        ]
+      },
+      {
+        "id": "other",
+        "name": "Other",
+        "highPriorityFields": [
+          "keyword",
+          "sentiment",
+          "comment",
+          "link",
+          "profileName",
+          "overdue"
+        ]
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Open",
+        "name": "Open",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000",
+        "statusBackgroundColor": "#fcf3cf",
+        "statusTextColor": "#7d6608"
+      },
+      {
+        "id": "In Progress",
+        "name": "In Progress",
+        "backgroundColor": "#3498db",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d6eaf8",
+        "statusTextColor": "#154360",
+        "triggers": [
+          {
+            "channel": "automaticEscalationReset"
+          }
+        ]
+      },
+      {
+        "id": "Resolved",
+        "name": "Resolved",
+        "finalState": true,
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d5f5e3",
+        "statusTextColor": "#145a32",
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "complaintResolutionAlert",
+            "target": "admin",
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Guest Experience Survey",
+                  "Guest Request Form",
+                  "Inquiry",
+                  "Cancellation",
+                  "Alteration",
+                  "Complaint"
+                ]
+              ]
+            },
+            "contacts": [
+              "shaveenf@emojot.com"
+            ]
+          },
+          {
+            "channel": "email",
+            "template": "customerComplaintResolution",
+            "target": "customer",
+            "appendEditUrl": false,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Guest Experience Survey",
+                  "Guest Request Form",
+                  "Inquiry",
+                  "Cancellation",
+                  "Alteration",
+                  "Complaint"
+                ]
+              ]
+            }
+          },
+          {
+            "channel": "email",
+            "template": "complaintResolutionAlert_orm",
+            "target": "admin",
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "googleMap",
+                  "booking",
+                  "tripAdvisor"
+                ]
+              ]
+            },
+            "contacts": [
+              "shaveenf@emojot.com"
+            ]
+          },
+          {
+            "channel": "email",
+            "template": "complaintResolutionAlert_slt",
+            "target": "admin",
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "facebook",
+                  "instagram",
+                  "twitter",
+                  "youtube",
+                  "web",
+                  "reviews",
+                  "other"
+                ]
+              ]
+            },
+            "contacts": [
+              "shaveenf@emojot.com"
+            ]
+          }
+        ]
+      }
+    ],
+    "transitions": [
+      {
+        "sourceState": "Open",
+        "targetStates": [
+          "In Progress"
+        ]
+      },
+      {
+        "sourceState": "In Progress",
+        "targetStates": [
+          "Resolved"
+        ]
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Low",
+        "name": "Low"
+      },
+      {
+        "id": "Medium",
+        "name": "Medium"
+      },
+      {
+        "id": "High",
+        "name": "High"
+      }
+    ]
+  },
+  "timeSpent": {
+    "name": "Time spent",
+    "type": "time_accumulation",
+    "hidden": true
+  },
+  "customFields": {
+    "complaintType": {
+      "name": "Complaint Type",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "guestExperienceSurvey",
+          "name": "Guest Experience Survey"
+        },
+        {
+          "id": "guestRequestForm",
+          "name": "Guest Request Form"
+        },
+        {
+          "id": "Inquiry",
+          "name": "Inquiry"
+        },
+        {
+          "id": "Cancellation",
+          "name": "Cancellation"
+        },
+        {
+          "id": "Alteration",
+          "name": "Alteration"
+        },
+        {
+          "id": "Complaint",
+          "name": "Complaint"
+        },
+        {
+          "id": "googleMap",
+          "name": "Google"
+        },
+        {
+          "id": "booking",
+          "name": "Booking.com"
+        },
+        {
+          "id": "tripAdvisor",
+          "name": "TripAdvisor"
+        },
+        {
+          "id": "facebook",
+          "name": "Facebook"
+        },
+        {
+          "id": "instagram",
+          "name": "Instagram"
+        },
+        {
+          "id": "twitter",
+          "name": "Twitter"
+        },
+        {
+          "id": "youtube",
+          "name": "Youtube"
+        },
+        {
+          "id": "web",
+          "name": "Web"
+        },
+        {
+          "id": "reviews",
+          "name": "Reviews"
+        },
+        {
+          "id": "other",
+          "name": "Other"
+        }
+      ]
+    },
+    "location": {
+      "name": "Location",
+      "readOnly": true,
+      "type": "string"
+    },
+    "checkInRating": {
+      "name": "Check-in Rating",
+      "readOnly": true,
+      "type": "string"
+    },
+    "inStayRating": {
+      "name": "In-stay Rating",
+      "readOnly": true,
+      "type": "string"
+    },
+    "checkoutRating": {
+      "name": "Checkout Rating",
+      "readOnly": true,
+      "type": "string"
+    },
+    "rating": {
+      "name": "Rating",
+      "readOnly": true,
+      "type": "string"
+    },
+    "recommendationScore": {
+      "name": "Recommendation Score",
+      "readOnly": true,
+      "type": "string"
+    },
+    "issues": {
+      "name": "Issues Experienced",
+      "type": "multiselect",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Room Issues",
+          "name": "Room Issues"
+        },
+        {
+          "id": "Cleanliness Issues",
+          "name": "Cleanliness Issues"
+        },
+        {
+          "id": "Service Issues",
+          "name": "Service Issues"
+        },
+        {
+          "id": "Check-in / Check-out Issues",
+          "name": "Check-in / Check-out Issues"
+        },
+        {
+          "id": "Billing & Payment Issues",
+          "name": "Billing & Payment Issues"
+        },
+        {
+          "id": "Facilities & Amenities Issues",
+          "name": "Facilities & Amenities Issues"
+        },
+        {
+          "id": "Food & Beverage Issues",
+          "name": "Food & Beverage Issues"
+        },
+        {
+          "id": "Safety & Comfort Issues",
+          "name": "Safety & Comfort Issues"
+        },
+        {
+          "id": "Other",
+          "name": "Other"
+        }
+      ]
+    },
+    "requestType": {
+      "name": "Request Type",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Inquiry",
+          "name": "Inquiry"
+        },
+        {
+          "id": "Cancellation",
+          "name": "Cancellation"
+        },
+        {
+          "id": "Alteration",
+          "name": "Alteration"
+        },
+        {
+          "id": "Complaint",
+          "name": "Complaint"
+        }
+      ]
+    },
+    "inquiryDetails": {
+      "name": "Inquiry Details",
+      "readOnly": true,
+      "type": "textArea"
+    },
+    "deflectionResponse": {
+      "name": "Deflection Response",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "No",
+          "name": "No"
+        },
+        {
+          "id": "Yes",
+          "name": "Yes"
+        }
+      ]
+    },
+    "bookingReference": {
+      "name": "Booking ID",
+      "readOnly": true,
+      "type": "string"
+    },
+    "cancellationReason": {
+      "name": "Cancellation Reason",
+      "readOnly": true,
+      "type": "textArea"
+    },
+    "cancellationNotes": {
+      "name": "Cancellation Notes",
+      "readOnly": true,
+      "type": "textArea"
+    },
+    "preferredAlternativeDate": {
+      "name": "Preferred Alternative Date",
+      "readOnly": true,
+      "type": "string"
+    },
+    "complaintDetails": {
+      "name": "Complaint Details",
+      "readOnly": true,
+      "type": "textArea"
+    },
+    "alterationNotes": {
+      "name": "Alteration Notes",
+      "readOnly": true,
+      "type": "textArea"
+    },
+    "grievance": {
+      "name": "Grievance",
+      "readOnly": true,
+      "type": "textArea"
+    },
+    "comment": {
+      "name": "Comment",
+      "readOnly": true,
+      "type": "textArea"
+    },
+    "additionalFeedback": {
+      "name": "Additional Feedback",
+      "readOnly": true,
+      "type": "textArea"
+    },
+    "attachment": {
+      "name": "Attachment",
+      "type": "file",
+      "readOnly": true
+    },
+    "customerName": {
+      "name": "Customer Name",
+      "type": "string",
+      "readOnly": true
+    },
+    "customerEmail": {
+      "name": "Customer Email",
+      "type": "string",
+      "readOnly": true
+    },
+    "customerTelephone": {
+      "name": "Customer Telephone",
+      "type": "string",
+      "readOnly": true
+    },
+    "author": {
+      "name": "Author",
+      "type": "string",
+      "readOnly": true
+    },
+    "reviewId": {
+      "name": "Review Id",
+      "type": "string",
+      "hidden": true,
+      "readOnly": true
+    },
+    "reviewLocation": {
+      "name": "Review Location",
+      "type": "string",
+      "hidden": true,
+      "readOnly": true
+    },
+    "country": {
+      "name": "Country",
+      "type": "string",
+      "readOnly": true
+    },
+    "date": {
+      "name": "Date",
+      "type": "string",
+      "readOnly": true
+    },
+    "keyword": {
+      "name": "Keyword",
+      "type": "string",
+      "readOnly": true
+    },
+    "sentiment": {
+      "name": "Sentiment",
+      "type": "string",
+      "readOnly": true
+    },
+    "postiveSentimentCount": {
+      "name": "Positive Sentiment Count",
+      "type": "number",
+      "readOnly": true
+    },
+    "negativeSentimentCount": {
+      "name": "Negative Sentiment Count",
+      "type": "number",
+      "readOnly": true
+    },
+    "mixedSentimentCount": {
+      "name": "Mixed Sentiment Count",
+      "type": "number",
+      "readOnly": true
+    },
+    "engagement": {
+      "name": "Engagement",
+      "type": "string",
+      "readOnly": true
+    },
+    "imageUrl": {
+      "name": "Image URL",
+      "type": "string",
+      "readOnly": true
+    },
+    "label": {
+      "name": "Label",
+      "type": "string",
+      "readOnly": true
+    },
+    "link": {
+      "name": "Link",
+      "type": "string",
+      "readOnly": true
+    },
+    "profileName": {
+      "name": "Profile Name",
+      "type": "string",
+      "readOnly": true
+    },
+    "profileUrl": {
+      "name": "Profile URL",
+      "type": "string",
+      "readOnly": true
+    },
+    "profileUsername": {
+      "name": "Profile Username",
+      "type": "string",
+      "readOnly": true
+    },
+    "socialReachCount": {
+      "name": "Social Reach Count",
+      "type": "string",
+      "readOnly": true
+    },
+    "overdue": {
+      "name": "Overdue",
+      "type": "enum",
+      "values": [
+        {
+          "id": "2nd Level",
+          "name": "2nd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_2ndLevel",
+              "target": "admin",
+              "contacts": [
+                "shaveenf@emojot.com"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3rd Level",
+          "name": "3rd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_3rdLevel",
+              "target": "admin",
+              "contacts": [
+                "shaveenf@emojot.com"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "workflowCreation": {
+    "email": "bot@emojot.com",
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "complaintCreationAlert",
+        "target": "admin",
+        "contacts": [
+          "shaveenf@emojot.com"
+        ],
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Guest Experience Survey",
+              "Guest Request Form",
+              "Inquiry",
+              "Cancellation",
+              "Alteration",
+              "Complaint"
+            ]
+          ]
+        }
+      },
+      {
+        "template": "customerComplaintCreation",
+        "channel": "email",
+        "target": "customer",
+        "appendEditUrl": false,
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Guest Experience Survey",
+              "Guest Request Form",
+              "Inquiry",
+              "Cancellation",
+              "Alteration",
+              "Complaint"
+            ]
+          ]
+        }
+      },
+      {
+        "channel": "email",
+        "template": "complaintCreationAlert_orm",
+        "target": "admin",
+        "contacts": [
+          "shaveenf@emojot.com"
+        ],
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "googleMap",
+              "booking",
+              "tripAdvisor"
+            ]
+          ]
+        }
+      },
+      {
+        "channel": "email",
+        "template": "complaintCreationAlert_slt",
+        "target": "admin",
+        "contacts": [
+          "shaveenf@emojot.com"
+        ],
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "facebook",
+              "instagram",
+              "twitter",
+              "youtube",
+              "web",
+              "reviews",
+              "other"
+            ]
+          ]
+        }
+      },
+      {
+        "channel": "fieldChange",
+        "changingFields": [
+          {
+            "id": "assignee",
+            "contacts": [
+              "shaveenf@emojot.com"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "assignment": {
+    "automaticAssignment": {
+      "isEnabled": false,
+      "email": "defaultassignee@emojot.com",
+      "resolvedStatus": [
+        "Resolved"
+      ],
+      "maxLevel": 3,
+      "triggerFlows": [
+        {
+          "condition": {
+            "and": [
+              {
+                "!=": [
+                  {
+                    "var": "status"
+                  },
+                  "Resolved"
+                ]
+              },
+              {
+                "!=": [
+                  {
+                    "var": "overdue"
+                  },
+                  "3rd Level"
+                ]
+              }
+            ]
+          },
+          "skipAssignment": true,
+          "levels": [
+            {
+              "nextLevelTime": 86400000
+            },
+            {
+              "nextLevelTime": 86400000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "2nd Level"
+                }
+              ]
+            },
+            {
+              "nextLevelTime": 86400000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "3rd Level"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "complaintAssignment",
+        "target": "employee",
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Guest Experience Survey",
+              "Guest Request Form",
+              "Inquiry",
+              "Cancellation",
+              "Alteration",
+              "Complaint"
+            ]
+          ]
+        }
+      },
+      {
+        "channel": "email",
+        "template": "complaintAssignment_orm",
+        "target": "employee",
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "googleMap",
+              "booking",
+              "tripAdvisor"
+            ]
+          ]
+        }
+      },
+      {
+        "channel": "email",
+        "template": "complaintAssignment_slt",
+        "target": "employee",
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "facebook",
+              "instagram",
+              "twitter",
+              "youtube",
+              "web",
+              "reviews",
+              "other"
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "adminHierarchy": {
+    "list": "admin",
+    "headers": [
+      {
+        "id": "location",
+        "name": "Location",
+        "type": "customField"
+      },
+      {
+        "id": "ticketAssignee",
+        "name": "Ticket Assignee",
+        "type": "contact"
+      },
+      {
+        "id": "ticketCreationAlert",
+        "name": "Ticket Creation Alert",
+        "type": "contact"
+      },
+      {
+        "id": "ticketResolutionAlert",
+        "name": "Ticket Resolution Alert",
+        "type": "contact"
+      },
+      {
+        "id": "2ndlevel",
+        "name": "2nd Level Alert",
+        "type": "contact"
+      },
+      {
+        "id": "3rdlevel",
+        "name": "3rd Level Alert",
+        "type": "contact"
+      }
+    ],
+    "id": "REPLACE_AHI_ID"
+  },
+  "tableEdit": "true",
+  "timeZone": -330
+}

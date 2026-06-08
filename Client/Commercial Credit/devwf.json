@@ -1,0 +1,901 @@
+{
+  "reportNamePrefix": "Complaint",
+  "reporterNamePrefix": "Customer",
+  "descriptionFormat": "text",
+  "type": {
+    "name": "Complaint Type",
+    "readOnly": false,
+    "type": "enum",
+    "values": [
+      {
+        "id": "Customer Feedback Survey",
+        "name": "Customer Feedback Survey",
+        "fieldsValidation": [
+          {
+            "fieldID": "validateTypeChange",
+            "required": true,
+            "message": "Survey type change confirmation required before saving updates."
+          }
+        ],
+        "triggers": [
+          {
+            "channel": "fieldChange",
+            "changingFields": [
+              {
+                "id": "complaintDepartment",
+                "value": "customerFeedbackSurvey"
+              }
+            ]
+          }
+        ],
+        "highPriorityFields": [
+          "customerFeedbackSatisfaction",
+          "customerName",
+          "customerEmail",
+          "customerTelephone",
+          "internalDocumentation",
+          "overdue",
+          "timeSpent",
+          "complaintCategory",
+          "issueDescription"
+        ]
+      },
+      {
+        "id": "Website Survey",
+        "name": "Website Survey",
+        "fieldsValidation": [
+          {
+            "fieldID": "validateTypeChange",
+            "required": true,
+            "message": "Survey type change confirmation required before saving updates."
+          }
+        ],
+        "triggers": [
+          {
+            "channel": "fieldChange",
+            "changingFields": [
+              {
+                "id": "complaintDepartment",
+                "value": "WebsiteSurvey"
+              }
+            ]
+          }
+        ],
+        "highPriorityFields": [
+          "websiteExperienceArea",
+          "websiteOverallSatisfaction",
+          "bankServiceProblemArea",
+          "bankServiceImprovementComment",
+          "websiteProblemArea",
+          "websiteIssueDescription",
+          "supportIssue",
+          "supportImprovementComment",
+          "npsScore",
+          "customerName",
+          "customerEmail",
+          "customerTelephone",
+          "internalDocumentation",
+          "overdue",
+          "timeSpent"
+        ]
+      },
+      {
+        "id": "Call Center Survey",
+        "name": "Call Center Survey",
+        "fieldsValidation": [
+          {
+            "fieldID": "validateTypeChange",
+            "required": true,
+            "message": "Survey type change confirmation required before saving updates."
+          }
+        ],
+        "triggers": [
+          {
+            "channel": "fieldChange",
+            "changingFields": [
+              {
+                "id": "complaintDepartment",
+                "value": "CallcenterSurvey"
+              }
+            ]
+          }
+        ],
+        "highPriorityFields": [
+          "complaintCategory",
+          "sourceIssue",
+          "issueDescription",
+          "callRecording",
+          "language",
+          "customerDetailsLink",
+          "internalDocumentation",
+          "overdue"
+        ]
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Low",
+        "name": "Low",
+        "fieldsValidation": [
+          {
+            "fieldID": "validatePriorityChange",
+            "required": true,
+            "message": "Priority change confirmation required before saving updates."
+          }
+        ]
+      },
+      {
+        "id": "Medium",
+        "name": "Medium",
+        "fieldsValidation": [
+          {
+            "fieldID": "validatePriorityChange",
+            "required": true,
+            "message": "Priority change confirmation required before saving updates."
+          }
+        ]
+      },
+      {
+        "id": "High",
+        "name": "High",
+        "fieldsValidation": [
+          {
+            "fieldID": "validatePriorityChange",
+            "required": true,
+            "message": "Priority change confirmation required before saving updates."
+          }
+        ]
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "transitions": [
+      {
+        "sourceState": "Open",
+        "targetStates": [
+          "Transferred",
+          "In Progress"
+        ]
+      },
+      {
+        "sourceState": "Transferred",
+        "targetStates": [
+          "In Progress"
+        ]
+      },
+      {
+        "sourceState": "In Progress",
+        "targetStates": [
+          "Transferred",
+          "Resolved"
+        ]
+      },
+      {
+        "sourceState": "Resolved",
+        "targetStates": [
+          "Open",
+          "Transferred"
+        ]
+      }
+    ],
+    "values": [
+      {
+        "id": "Open",
+        "name": "Open",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000",
+        "statusBackgroundColor": "#fcf3cf",
+        "statusTextColor": "#7d6608",
+        "fieldsValidation": [
+          {
+            "fieldID": "validateStatusChange",
+            "required": true,
+            "message": "Status change confirmation required before saving updates."
+          }
+        ]
+      },
+      {
+        "id": "Transferred",
+        "name": "Transferred",
+        "backgroundColor": "#f39c12",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#fdebd0",
+        "statusTextColor": "#7e5109",
+        "fieldsValidation": [
+          {
+            "fieldID": "validateStatusChange",
+            "required": true,
+            "message": "Status change confirmation required before saving updates."
+          }
+        ]
+      },
+      {
+        "id": "In Progress",
+        "name": "In Progress",
+        "backgroundColor": "#3498db",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d6eaf8",
+        "statusTextColor": "#154360",
+        "fieldsValidation": [
+          {
+            "fieldID": "validateStatusChange",
+            "required": true,
+            "message": "Status change confirmation required before saving updates."
+          }
+        ],
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "customerWIPalert",
+            "target": "customer",
+            "appendEditUrl": false,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Customer Feedback Survey",
+                  "Website Survey",
+                  "Call Center Survey"
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Resolved",
+        "name": "Resolved",
+        "finalState": true,
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d5f5e3",
+        "statusTextColor": "#145a32",
+        "fieldsValidation": [
+          {
+            "fieldID": "inbuild_comment",
+            "required": true,
+            "name": "Please add a comment explaining how this complaint was resolved.",
+            "message": "Please add a comment explaining how this complaint was resolved."
+          }
+        ],
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "complaintResolutionAlertInternal",
+            "target": "admin",
+            "contacts": [
+              "sanjanan@emojot.com"
+            ],
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Customer Feedback Survey",
+                  "Website Survey",
+                  "Call Center Survey"
+                ]
+              ]
+            }
+          },
+          {
+            "channel": "email",
+            "template": "customerResolutionAlert",
+            "target": "customer",
+            "appendEditUrl": false,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Customer Feedback Survey",
+                  "Website Survey",
+                  "Call Center Survey"
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "customFields": {
+    "complaintDepartment": {
+      "name": "Complaint Type",
+      "type": "enum",
+      "readOnly": true,
+      "hidden": true,
+      "values": [
+        {
+          "id": "customerFeedbackSurvey",
+          "name": "customerFeedbackSurvey"
+        },
+        {
+          "id": "WebsiteSurvey",
+          "name": "WebsiteSurvey"
+        },
+        {
+          "id": "CallcenterSurvey",
+          "name": "CallcenterSurvey"
+        }
+      ]
+    },
+    "ticketCategory": {
+      "name": "Ticket Category",
+      "type": "enum",
+      "hidden": true,
+      "values": [
+        {
+          "id": "customerFeedbackSurvey",
+          "name": "customerFeedbackSurvey",
+          "fieldsValidation": [
+            {
+              "fieldID": "validateTicketCategoryChange",
+              "required": true,
+              "message": "Ticket category change confirmation required before saving updates."
+            }
+          ]
+        },
+        {
+          "id": "WebsiteSurvey",
+          "name": "WebsiteSurvey",
+          "fieldsValidation": [
+            {
+              "fieldID": "validateTicketCategoryChange",
+              "required": true,
+              "message": "Ticket category change confirmation required before saving updates."
+            }
+          ]
+        },
+        {
+          "id": "CallcenterSurvey",
+          "name": "CallcenterSurvey",
+          "fieldsValidation": [
+            {
+              "fieldID": "validateTicketCategoryChange",
+              "required": true,
+              "message": "Ticket category change confirmation required before saving updates."
+            }
+          ]
+        }
+      ]
+    },
+    "customerName": {
+      "name": "Customer Name",
+      "type": "string",
+      "readOnly": true
+    },
+    "customerEmail": {
+      "name": "Customer Email",
+      "type": "string",
+      "readOnly": true
+    },
+    "customerTelephone": {
+      "name": "Customer Telephone",
+      "type": "string",
+      "readOnly": true
+    },
+    "complaintCategory": {
+      "name": "Complaint Category",
+      "type": "enum",
+      "readOnly": true,
+      "hidden": true,
+      "values": [
+        {
+          "id": "Operation Related",
+          "name": "Operation Related"
+        },
+        {
+          "id": "Audit Related",
+          "name": "Audit Related"
+        },
+        {
+          "id": "HR Related",
+          "name": "HR Related"
+        },
+        {
+          "id": "Service related",
+          "name": "Service related"
+        },
+        {
+          "id": "Product related",
+          "name": "Product related"
+        },
+        {
+          "id": "Feedback / Other",
+          "name": "Feedback / Other"
+        }
+      ]
+    },
+    "sourceIssue": {
+      "name": "Source Issue",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Long customer wait times",
+          "name": "Long customer wait times"
+        },
+        {
+          "id": "System downtime",
+          "name": "System downtime"
+        },
+        {
+          "id": "Poor first call resolution",
+          "name": "Poor first call resolution"
+        },
+        {
+          "id": "Call transfer issues",
+          "name": "Call transfer issues"
+        },
+        {
+          "id": "SLA breaches",
+          "name": "SLA breaches"
+        },
+        {
+          "id": "Script non-compliance",
+          "name": "Script non-compliance"
+        },
+        {
+          "id": "Missing verification steps",
+          "name": "Missing verification steps"
+        },
+        {
+          "id": "Incomplete documentation",
+          "name": "Incomplete documentation"
+        },
+        {
+          "id": "Data privacy violations",
+          "name": "Data privacy violations"
+        },
+        {
+          "id": "Incorrect call disposition",
+          "name": "Incorrect call disposition"
+        },
+        {
+          "id": "High absenteeism",
+          "name": "High absenteeism"
+        },
+        {
+          "id": "Staff turnover",
+          "name": "Staff turnover"
+        },
+        {
+          "id": "Lack of training",
+          "name": "Lack of training"
+        },
+        {
+          "id": "Employee burnout",
+          "name": "Employee burnout"
+        },
+        {
+          "id": "Shift scheduling issues",
+          "name": "Shift scheduling issues"
+        }
+      ]
+    },
+    "issue": {
+      "name": "Issue",
+      "type": "string",
+      "readOnly": true
+    },
+    "SubIssue": {
+      "name": "Sub Issue",
+      "type": "string",
+      "readOnly": true
+    },
+    "issueDescription": {
+      "name": "Issue Description",
+      "type": "textArea",
+      "readOnly": true,
+      "hidden": true
+    },
+    "complaintDetails": {
+      "name": "Complaint Details",
+      "type": "textArea",
+      "readOnly": true,
+      "hidden": true
+    },
+    "callRecording": {
+      "name": "Call Recording",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "language": {
+      "name": "Language",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "consent": {
+      "name": "Consent",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "websiteExperienceArea": {
+      "name": "Website Experience Area",
+      "type": "string",
+      "readOnly": true
+    },
+    "websiteOverallSatisfaction": {
+      "name": "Website Overall Satisfaction",
+      "type": "string",
+      "readOnly": true
+    },
+    "bankServiceProblemArea": {
+      "name": "Bank Services Problem Area",
+      "type": "string",
+      "readOnly": true
+    },
+    "bankServiceImprovementComment": {
+      "name": "Bank Services Improvement Comment",
+      "type": "textArea",
+      "readOnly": true
+    },
+    "websiteProblemArea": {
+      "name": "Website Problem Area",
+      "type": "string",
+      "readOnly": true
+    },
+    "websiteIssueDescription": {
+      "name": "Website Issue Description",
+      "type": "textArea",
+      "readOnly": true
+    },
+    "supportIssue": {
+      "name": "Support Issue",
+      "type": "string",
+      "readOnly": true
+    },
+    "supportImprovementComment": {
+      "name": "Support Improvement Comment",
+      "type": "textArea",
+      "readOnly": true
+    },
+    "npsScore": {
+      "name": "NPS Score",
+      "type": "string",
+      "readOnly": true
+    },
+    "customerFeedbackSatisfaction": {
+      "name": "Customer Feedback Satisfaction",
+      "type": "string",
+      "readOnly": true
+    },
+    "customerDetailsLink": {
+      "name": "Customer Details",
+      "type": "link",
+      "readOnly": true,
+      "hidden": true
+    },
+    "uuid_no": {
+      "name": "UUID",
+      "type": "string",
+      "hidden": false
+    },
+    "internalDocumentation": {
+      "name": "Internal Documentation",
+      "type": "file",
+      "description": "Upload internal supporting documents or resolution evidence",
+      "hidden": false
+    },
+    "overdue": {
+      "name": "Overdue",
+      "type": "enum",
+      "hidden": true,
+      "values": [
+        {
+          "id": "1st Level",
+          "name": "1st Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_1stLevel",
+              "target": "admin",
+              "contacts": [
+                "sanjanan@emojot.com"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2nd Level",
+          "name": "2nd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_2ndLevel",
+              "target": "admin",
+              "contacts": [
+                "sanjanan@emojot.com"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3rd Level",
+          "name": "3rd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_3rdLevel",
+              "target": "admin",
+              "contacts": [
+                "sanjanan@emojot.com"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "validateTypeChange": {
+      "name": "Confirm Survey Type Change",
+      "type": "enum",
+      "hidden": true,
+      "values": [
+        {
+          "id": "Survey type change reviewed",
+          "name": "Survey type change reviewed"
+        }
+      ]
+    },
+    "validatePriorityChange": {
+      "name": "Confirm Priority Change",
+      "type": "enum",
+      "hidden": true,
+      "values": [
+        {
+          "id": "Priority change reviewed",
+          "name": "Priority change reviewed"
+        }
+      ]
+    },
+    "validateStatusChange": {
+      "name": "Confirm Status Change",
+      "type": "enum",
+      "hidden": true,
+      "values": [
+        {
+          "id": "Status change reviewed",
+          "name": "Status change reviewed"
+        }
+      ]
+    },
+    "validateTicketCategoryChange": {
+      "name": "Confirm Ticket Category Change",
+      "type": "enum",
+      "hidden": true,
+      "values": [
+        {
+          "id": "Ticket category change reviewed",
+          "name": "Ticket category change reviewed"
+        }
+      ]
+    }
+  },
+  "timeSpent": {
+    "name": "Time spent",
+    "type": "time_accumulation",
+    "hidden": true
+  },
+  "workflowCreation": {
+    "email": "bot@emojot.com",
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "complaintCreationAlert",
+        "target": "admin",
+        "contacts": [
+          "sanjanan@emojot.com"
+        ],
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Customer Feedback Survey",
+              "Website Survey",
+              "Call Center Survey"
+            ]
+          ]
+        }
+      },
+      {
+        "template": "customerComplaintCreation",
+        "channel": "email",
+        "target": "customer",
+        "appendEditUrl": false,
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Customer Feedback Survey",
+              "Website Survey",
+              "Call Center Survey"
+            ]
+          ]
+        }
+      },
+      {
+        "channel": "fieldChange",
+        "changingFields": [
+          {
+            "id": "assignee",
+            "value": "testcmu@commercialcredit.lk"
+          }
+        ]
+      }
+    ]
+  },
+  "name": "Commercial_Credit_wf",
+  "assignment": {
+    "automaticAssignment": {
+      "isEnabled": true,
+      "email": "testcmu@commercialcredit.lk",
+      "resolvedStatus": [
+        "Resolved"
+      ],
+      "maxLevel": 4,
+      "triggerFlows": [
+        {
+          "condition": {
+            "and": [
+              {
+                "!=": [
+                  {
+                    "var": "status"
+                  },
+                  "Resolved"
+                ]
+              }
+            ]
+          },
+          "skipAssignment": true,
+          "levels": [
+            {
+              "nextLevelTime": 604800000
+            },
+            {
+              "nextLevelTime": 604800000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "1st Level"
+                }
+              ]
+            },
+            {
+              "nextLevelTime": 604800000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "2nd Level"
+                }
+              ]
+            },
+            {
+              "nextLevelTime": 604800000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "3rd Level"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "tableEdit": "false",
+  "adminHierarchy": {
+    "list": "admin",
+    "headers": [
+      {
+        "id": "complaintDepartment",
+        "name": "Complaint Type",
+        "type": "customField"
+      },
+      {
+        "id": "ticketCreationAlert",
+        "name": "Ticket Creation Alert",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAlert_01",
+        "name": "Ticket Overdue Alert 01",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAlert_02",
+        "name": "Ticket Overdue Alert 02",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAlert_03",
+        "name": "Ticket Overdue Alert 03",
+        "type": "contact"
+      },
+      {
+        "id": "ticketResolutionAlert",
+        "name": "Ticket Resolution Alert",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAssignee_01",
+        "name": "Ticket Overdue Assignee 01",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAssignee_02",
+        "name": "Ticket Overdue Assignee 02",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAssignee_03",
+        "name": "Ticket Overdue Assignee 03",
+        "type": "contact"
+      }
+    ],
+    "id": "REPLACE_COMMERCIAL_CREDIT_AHI_ID"
+  },
+  "finalState": true,
+  "incidentKeyFormat": {
+    "enabled": true,
+    "countDependentFields": {
+      "enabled": true,
+      "fields": [
+        "date",
+        "ticketCategory"
+      ]
+    },
+    "pattern": [
+      {
+        "key": "ticketCategory",
+        "format": "mapping"
+      },
+      {
+        "key": "date",
+        "format": "YYYYMMDD"
+      },
+      {
+        "key": "counter",
+        "format": 3
+      }
+    ],
+    "counterReset": "daily",
+    "fieldMappings": {
+      "ticketCategory": {
+        "mappings": {
+          "customerFeedbackSurvey": "CFS",
+          "WebsiteSurvey": "WBS",
+          "CallcenterSurvey": "CCS"
+        },
+        "default": "UCM"
+      }
+    }
+  },
+  "predefinedComments": [
+    "Case acknowledged and assigned.",
+    "Customer contacted; details requested.",
+    "Initial verification completed.",
+    "Escalated to relevant team.",
+    "Resolution confirmed; case closed."
+  ],
+  "timeZone": -330
+}

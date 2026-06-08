@@ -1,0 +1,104 @@
+<style>
+.lnksh-cc-title{
+    width:100%;
+    text-align:left;
+    font-size:20px;
+    font-weight:600;
+    color:#000000;
+    font-family:"Saira Semi Condensed", sans-serif;
+    margin:20px 0 16px;
+}
+
+.lnksh-cc-consent-wrap{
+    font-family:"Saira Semi Condensed", sans-serif;
+    margin:18px 6px 35px;
+    color:#444;
+}
+
+.lnksh-cc-consent-label{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    font-size:14px;
+    line-height:1.35;
+    text-align:left;
+    cursor:pointer;
+}
+
+.lnksh-cc-checkbox{
+    margin-top:3px;
+    min-width:16px;
+    width:16px;
+    height:16px;
+}
+
+.btn-ok.lnksh-cc-disabled{
+    opacity:0.35 !important;
+    pointer-events:none !important;
+    cursor:not-allowed !important;
+}
+
+.loyalty-bottom {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+</style>
+
+<div class="lnksh-cc-title">
+   We value your feedback. Kindly provide your details below to help us understand you better.
+</div>
+
+<div class="lnksh-cc-consent-wrap">
+    <label class="lnksh-cc-consent-label">
+        <input class="lnksh-cc-checkbox" type="checkbox">
+        <span>
+            I agree and consent to the collection and processing of my personal information for banking and customer experience purposes in accordance with applicable privacy policies and regulations.
+        </span>
+    </label>
+</div>
+
+<script>
+(function () {
+
+    function lnkshPlaceConsent() {
+
+        const form = document.querySelector('#loyalty-form');
+        const okBtn = document.querySelector('.btn-ok');
+        const checkbox = document.querySelector('.lnksh-cc-checkbox');
+
+        if (!form || !okBtn || !checkbox) {
+            setTimeout(lnkshPlaceConsent, 500);
+            return;
+        }
+
+        const title = document.querySelector('.lnksh-cc-title');
+        const consent = document.querySelector('.lnksh-cc-consent-wrap');
+
+        if (title && form.parentNode) {
+            form.parentNode.insertBefore(title, form);
+        }
+
+        if (consent) {
+            form.insertAdjacentElement('afterend', consent);
+        }
+
+        okBtn.classList.add('lnksh-cc-disabled');
+        okBtn.setAttribute('disabled', 'disabled');
+
+        checkbox.addEventListener('change', function () {
+            if (checkbox.checked) {
+                okBtn.classList.remove('lnksh-cc-disabled');
+                okBtn.removeAttribute('disabled');
+            } else {
+                okBtn.classList.add('lnksh-cc-disabled');
+                okBtn.setAttribute('disabled', 'disabled');
+            }
+        });
+
+    }
+
+    window.addEventListener('load', lnkshPlaceConsent);
+
+})();
+</script>

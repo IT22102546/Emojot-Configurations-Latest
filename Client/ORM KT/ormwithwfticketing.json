@@ -1,0 +1,451 @@
+{
+  "updatedTime": 1771241250533,
+  "updatedBy": "shaveenf@emojot.com",
+  "companyID": "62a053c1e6131d0010ea9114",
+  "workflow": "673180485a9bd2ec366efc36",
+  "aiModel": "gpt-4",
+  "workflowMappingFiels": {
+    "mandatoryFields": [
+      {
+        "fieldId": "priority",
+        "defaultValue": "Medium",
+        "dataField": "priority"
+      },
+      {
+        "fieldId": "type",
+        "defaultValue": "googleMap",
+        "dataField": "source"
+      },
+      {
+        "fieldId": "description",
+        "dataField": "reviewText",
+        "defaultValue": "N/A"
+      },
+      {
+        "fieldId": "assignee",
+        "dataField": "$currentUser$"
+      }
+    ],
+    "customFields": [
+      {
+        "fieldId": "rating",
+        "dataField": "rating",
+        "parseString": true
+      },
+      {
+        "fieldId": "comment",
+        "dataField": "reviewText"
+      },
+      {
+        "fieldId": "complaintType",
+        "dataField": "source"
+      },
+      {
+        "fieldId": "location",
+        "dataField": "locationId"
+      },
+      {
+        "fieldId": "reviewLocation",
+        "dataField": "locationId"
+      },
+      {
+        "fieldId": "reviewId",
+        "dataField": "_id"
+      }
+    ],
+    "emoSignature": [
+      {
+        "mappingField": "Location",
+        "dataField": "locationId"
+      }
+    ]
+  },
+  "ormAICategories": [
+    {
+      "id": "overallAnalysis",
+      "name": "Overall Analysis"
+    },
+    {
+      "id": "customerBehaviorAnalysis",
+      "name": "Customer Behavior Analysis"
+    },
+    {
+      "id": "customerPreferenceAnalysis",
+      "name": "Customer Preference Analysis"
+    },
+    {
+      "id": "latestCustomerTrendsAnalysis",
+      "name": "Latest Customer Trends Analysis"
+    }
+  ],
+  "ormPromptForSource": {
+    "overallAnalysis": {
+      "prompt": "Please analyze these online reviews included after triple backticks  on ##location## that received high rating. Give overall analysis as bullet points. Please also suggest recommendations for how to improve the review in this location. Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n ```"
+    },
+    "customerBehaviorAnalysis": {
+      "prompt": "Please analyze these online reviews included after triple backticks  on ##location## that received high rating. Give analysis on customer behavior as bullet points. Please also suggest recommendations for how to improve the review in this location.  Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n ```"
+    },
+    "customerPreferenceAnalysis": {
+      "prompt": "Please analyze these online reviews included after triple backticks  on ##location## that received high rating. Give analysis on customer preference as bullet points. Please also suggest recommendations for how to improve the review in this location. Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n ```"
+    },
+    "latestCustomerTrendsAnalysis": {
+      "prompt": "Please analyze these online reviews included after triple backticks  on ##location## that received high rating. Give analysis on customer trend as bullet points. Please also suggest recommendations for how to improve the review in this location. Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n ```"
+    }
+  },
+  "ORMConfigs": {
+    "reviewFetchLimit": {
+      "nonAdmin": 50,
+      "admin": 50
+    },
+    "reviewDeletionEnabled":true,
+    "targetedKeywords": {
+      "Cleanliness": [
+        "cleanliness",
+        "clean",
+        "hygiene",
+        "tidy",
+        "sanitize",
+        "spotless",
+        "dust",
+        "dirt",
+        "germ-free"
+      ],
+      "Location": [
+        "ambiance",
+        "atmosphere",
+        "environment",
+        "scenery",
+        "climate",
+        "location",
+        "surrounding",
+        "neighbourhood",
+        "access road",
+        "view"
+      ],
+      "Room Quality": [
+        "room",
+        "rooms",
+        "suite",
+        "TV",
+        "blanket",
+        "blankets",
+        "pillows",
+        "bed",
+        "bathroom",
+        "lighting",
+        "air conditioning",
+        "bedsheets",
+        "bedsheet"
+      ],
+      "Food and Dining": [
+        "restaurant",
+        "food",
+        "kottu",
+        "cafe",
+        "bistro",
+        "diner",
+        "eatery",
+        "food court",
+        "menu",
+        "dish",
+        "meal",
+        "breakfast",
+        "lunch",
+        "dinner",
+        "snack",
+        "snacks",
+        "brunch",
+        "buffet",
+        "cuisine",
+        "taste",
+        "flavour",
+        "chef",
+        "cook",
+        "waiter",
+        "waiters",
+        "waitress"
+      ],
+      "Facilities": [
+        "facilities",
+        "amenities",
+        "gym",
+        "pool",
+        "spa",
+        "parking",
+        "wifi",
+        "conference room",
+        "lounge",
+        "equipment",
+        "equipments",
+        "bar"
+      ],
+      "Online Booking/Reservation Experience": [
+        "booking",
+        "reservation",
+        "reservations",
+        "online",
+        "confirmation",
+        "cancel",
+        "payment"
+      ],
+      "Staff": [
+        "staff",
+        "attitude",
+        "reception",
+        "helpful",
+        "courteous",
+        "polite",
+        "friendly",
+        "professional",
+        "responsive",
+        "assistance",
+        "housekeeping"
+      ],
+      "Check-in/Check-out Process": [
+        "check-in",
+        "check-out",
+        "arrival",
+        "departure",
+        "registration",
+        "front desk",
+        "reception",
+        "lobby",
+        "baggage handling",
+        "bellhop"
+      ]
+    },
+    "ormDataCategorizationPrompt": "Return the high-level categories and associated sentiment for those categories of the following text in the following Format. Pick the categories from the Category list given below. Include only the given categories. All category should have a sentiment, select sentiment from following values neutral,negative,positive\n Category list -  Service, Cleanliness, Location, Room Quality, Food and Dining, Facilities, Value for Money, Room Service, Online Booking/Reservation Experience, Check-in/Check-out Process, Overall Experience \nFormat:<category>:<sentiment>\nText : $text$",
+    "replySuggestionAIModel": "gpt-4",
+    "replySuggestionDefaultLangIsEnglish": true,
+    "replySuggestionPrompt": {
+      "english": "What is the best reply for the following review? Please give the reply in english. Please start the reply by saying 'Dear Guest,' and end saying 'Thank You, Granbell Hotel Colombo'. Include these in new lines.",
+      "similar": "What is the best reply for the following review? Please give the reply in same language as the review. Please start the reply by saying 'Dear Guest,' and end saying 'Thank You, Granbell Hotel Colombo'. Include these in new lines."
+    },
+    "ORMDailyReportEnabled": false,
+    "nextInvocationDaily": null,
+    "superAdmins": [
+      "andun@emojot.com"
+    ],
+    "nextInvocationWeekly": null
+  },
+  "categorizationConfig": {
+    "AIModel": "manual",
+    "ABSAModel": "gpt-3.5-turbo-1106"
+  },
+  "competitorAnalysis": {
+    "enabled": true,
+    "competitors": [
+      {
+        "name": "Shangri-La",
+        "color": "#7eab52",
+        "brand": true,
+        "preSelect": true,
+        "companyID": "62a053c1e6131d0010ea9114",
+        "locations": [
+          {
+            "id": "Shangri-La Colombo",
+            "name": "Shangri-La Colombo"
+          },
+          {
+            "id": "Shangri-La Hambantota",
+            "name": "Shangri-La Hambantota"
+          },
+          {
+            "id": "Island Shangri-La, Hong Kong",
+            "name": "Island Shangri-La, Hong Kong"
+          },
+          {
+            "id": "Club Hotel Dolphin",
+            "name": "Club Hotel Dolphin"
+          },
+          {
+            "id": "Dima Lanka (PVT) Ltd.",
+            "name": "Dima Lanka (PVT) Ltd."
+          },
+          {
+            "id": "Edsa Shangri-La, Manila",
+            "name": "Edsa Shangri-La, Manila"
+          },
+          {
+            "id": "Emojot",
+            "name": "Emojot"
+          },
+          {
+            "id": "ORM",
+            "name": "ORM"
+          },
+          {
+            "id": "Shangri-La Bengaluru",
+            "name": "Shangri-La Bengaluru"
+          },
+          {
+            "id": "Shangri-La Dubai",
+            "name": "Shangri-La Dubai"
+          },
+          {
+            "id": "Upgrade Inc",
+            "name": "Upgrade Inc"
+          },
+          {
+            "id": "Shein",
+            "name": "Shein"
+          },
+          {
+            "id": "iChem",
+            "name": "iChem"
+          },
+          {
+            "id": "Helakuru",
+            "name": "Helakuru"
+          },
+          {
+            "id": "Temu",
+            "name": "Temu"
+          },
+          {
+            "id": "kohedha",
+            "name": "kohedha"
+          }
+        ],
+        "channels": []
+      },
+      {
+        "name": "Cinnamon lakeside",
+        "brand": false,
+        "preSelect": true,
+        "color": "#76308a",
+        "companyID": "59747e53cd90e9231b90de48",
+        "locations": [
+          {
+            "id": "Cinnamon lakeside",
+            "name": "Cinnamon lakeside"
+          }
+        ],
+        "channels": []
+      },
+      {
+        "name": "Amaya Beach",
+        "brand": false,
+        "preSelect": true,
+        "color": "#0fa3b1",
+        "companyID": "60f7b804347f6826710137c0",
+        "locations": [
+          {
+            "id": "Amaya Beach",
+            "name": "Amaya Beach"
+          }
+        ],
+        "channels": []
+      }
+    ],
+    "categories": [
+      {
+        "id": "all",
+        "name": "All"
+      },
+      {
+        "id": "cleanliness",
+        "name": "Cleanliness"
+      },
+      {
+        "id": "location",
+        "name": "Location"
+      },
+      {
+        "id": "room quality",
+        "name": "Room Quality"
+      },
+      {
+        "id": "facilities",
+        "name": "Facilities"
+      },
+      {
+        "id": "food and dining",
+        "name": "Food and Dining"
+      },
+      {
+        "id": "online booking/reservation experience",
+        "name": "Online Booking/Reservation Experience"
+      },
+      {
+        "id": "check-in/check-out process",
+        "name": "Check-in/Check-out Process"
+      },
+      {
+        "id": "staff",
+        "name": "Staff"
+      }
+    ],
+    "reviewChannelList": [
+      {
+        "id": "agoda",
+        "name": "Agoda",
+        "imageSource": "../../img/svg/agoda.svg"
+      },
+      {
+        "id": "expedia",
+        "name": "Expedia",
+        "imageSource": "../../img/svg/expedia.svg"
+      },
+      {
+        "id": "booking",
+        "name": "Booking.com",
+        "imageSource": "../../img/svg/bookingcom.svg"
+      },
+      {
+        "id": "hotels",
+        "name": "Hotels.com",
+        "imageSource": "../../img/svg/hotels.svg"
+      },
+      {
+        "id": "google",
+        "name": "Google",
+        "imageSource": "../../img/svg/google.svg"
+      },
+      {
+        "id": "tripadvisor",
+        "name": "Tripadvisor",
+        "imageSource": "../../img/svg/tripadvisor.svg"
+      },
+      {
+        "id": "facebook",
+        "name": "Facebook",
+        "imageSource": "../../img/svg/facebook.svg"
+      },
+      {
+        "id": "holidaycheck",
+        "name": "Holiday Check",
+        "imageSource": "../../img/svg/holidayCheck.svg"
+      }
+    ],
+    "dateTimeList": [
+      {
+        "id": "monthly",
+        "name": "Monthly"
+      },
+      {
+        "id": "daily",
+        "name": "Daily"
+      }
+    ],
+    "aiCategories": [
+      {
+        "id": "customerPreferenceAndRecommendations",
+        "name": "Customer Preference and Recommendations"
+      }
+    ],
+    "ormPromptForCompetitor": {
+      "customerPreferenceAndRecommendations": {
+        "prompt": "Client: ##brands##\n Competitors: ##brandCompetitors##\n Please analyze these posts of  ##brandCompetitors## that received high rating. Give us a customer behaviour and preference analysis on ##category## for those competitors based on the ratings in comparison with its brands. Please return your analysis well formatted with HTML tags.\n"
+      }
+    },
+    "overallAICategories": [
+      {
+        "id": "customerPreferenceAndRecommendations",
+        "name": "Customer Preference and Recommendations"
+      }
+    ]
+  },
+  "type": "onlineReviewManagement",
+  "replySync":14
+}
