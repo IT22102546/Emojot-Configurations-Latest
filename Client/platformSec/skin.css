@@ -1,0 +1,902 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+
+#master-section {
+    /* background: url("https://storage.emojot.com/pictures/skinImages/68afe7228ee6be9116a0fec6-skin1.png"); */
+
+    background: #ffffff;
+    background-color: #ffffff;
+    min-height: 657px;
+    /* min-height: 100vh; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
+
+#headerCompanyInfo {
+    color: #000000 !important;
+    min-height: 70px;
+}
+
+.container[style] {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.emote-title {
+    color: #000000;
+    font-family: "Saira Semi Condensed", cursive !important;
+    font-size: 15pt;
+    font-weight: 600;
+}
+
+
+
+.form-group label {
+    color: #000000 !important;
+    font-family: "Saira Semi Condensed", cursive !important;
+    font-size: 15pt !important;
+    font-weight: 600 !important;
+}
+
+.emo-text {
+    font-size: 13pt;
+    color: #000000;
+    font-family: "Saira Semi Condensed", cursive !important;
+    font-weight: 500;
+}
+
+.emo-text-only {
+    font-size: 15pt;
+    font-family: "Saira Semi Condensed", cursive !important;
+}
+
+.loyalty-message {
+    font-size: 13pt;
+    color: #000000;
+    font-family: "Saira Semi Condensed", cursive !important;
+    font-weight: 500;
+}
+
+.emo-text-dropdown {
+    color: #000000 !important;
+}
+
+.middle-box {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #f3f3f3;
+}
+
+.flex {
+    display: flex !important;
+    justify-content: center;
+}
+
+.emo-cont {
+    border: 2px solid #000000;
+    margin: 3px 0px;
+    text-align: center;
+    display: inline-block;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 7px 0;
+    border-radius: 10px;
+    color: #000000;
+}
+
+.clicked-emo-cont {
+    border: 3px #7b61ff solid !important;
+    background: rgba(217, 70, 239, 0.16);
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    padding: 7px 0;
+    border-radius: 10px;
+}
+
+.emo-ico img {
+    width: 80%;
+    display: inline-block;
+    text-align: center;
+    max-width: 55px;
+    margin: 5px;
+
+}
+
+@keyframes shake {
+    0%   { transform: translate(0, 0) rotate(0); }
+    20%  { transform: translate(-2px, 0) rotate(-5deg); }
+    40%  { transform: translate(2px, 0) rotate(5deg); }
+    60%  { transform: translate(-2px, 0) rotate(-5deg); }
+    80%  { transform: translate(2px, 0) rotate(5deg); }
+    100% { transform: translate(0, 0) rotate(0); }
+}
+
+
+.btn-next {
+    color: #1d3557;
+}
+
+.btn-submit {
+    color: #1d3557;
+}
+
+.btn-prev {
+    color: #333;
+}
+
+.btn-clear {
+    color: #333;
+}
+
+.btn-next,
+.btn-submit,
+.btn-prev,
+.btn-clear,
+.btn-skip,
+.btn-ok,
+.loyalty-redeem-button {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    margin: 10px 5px;
+    text-align: center;
+    min-width: 90px;
+    display: inline-block;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+    padding: 9px 25px;
+    font-family: "Saira Semi Condensed", cursive !important;
+    font-size: 12pt;
+    background: rgba(249, 249, 249, 1);
+    background: -moz-linear-gradient(top, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(249, 249, 249, 1)), color-stop(100%, rgba(227, 227, 227, 1)));
+    background: -webkit-linear-gradient(top, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+    background: -o-linear-gradient(top, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+    background: linear-gradient(to bottom, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+}
+
+.clear-submit-row {
+    text-align: center !important;
+}
+
+.clear-submit-row,
+.draft-response-row {
+    padding-right: 0 !important;
+}
+
+.btn:hover {
+    color: #196d9e;
+    text-decoration: none;
+}
+
+.btn-ok {
+    color: #333
+}
+
+.btn-skip {
+    color: #333;
+}
+
+.btn-fb {
+    color: white;
+}
+
+.loyalty-redeem-button {
+    border-color: #1d3557;
+}
+
+.logo-cust {
+    margin: 3px 0 -3px 9px;
+    height: 50px;
+}
+
+.sensor-title {
+    color: #7b61ff;
+    font-size: 20pt;
+    font-family: "Saira Semi Condensed", cursive !important;
+    background: rgba(255, 255, 255, 0);
+    line-height: 40px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.form-control {
+    border-radius: 3px;
+}
+
+.panel {
+    margin: 0 10px;
+}
+
+.panel-group .panel {
+    margin-bottom: 0;
+    border-radius: 3px;
+    box-shadow: none;
+    background: rgba(248, 248, 255, 0.64);
+}
+
+.panel-group .panel-heading {
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    color: #000000;
+    background: rgba(249, 249, 249, 1);
+    background: -moz-linear-gradient(top, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(249, 249, 249, 1)), color-stop(100%, rgba(227, 227, 227, 1)));
+    background: -webkit-linear-gradient(top, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+    background: -o-linear-gradient(top, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+    background: linear-gradient(to bottom, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+}
+
+.panel-title {
+    font-size: 11pt;
+    max-width: 90%;
+    font-family: "Saira Semi Condensed", cursive !important;
+    line-height: 1.6;
+}
+
+.row {
+    background: transparent !important;
+}
+
+.my-emojots {
+    display: none;
+}
+
+.panel-body {
+    background: transparent !important;
+}
+
+.thank-you-note {
+    color: white !important;
+}
+
+#headerCompanyInfo>.access-user {
+    text-align: center;
+    float: right;
+    text-shadow: 1px 1px 1px #000;
+    font-family: "Saira Semi Condensed", cursive !important;
+    font-style: italic;
+    font-size: 15px;
+    background-size: 120px 80px;
+    background-repeat: no-repeat;
+    background-position: right center;
+    position: relative;
+}
+
+.access-user-name {
+    font-family: "Saira Semi Condensed", cursive !important;
+}
+
+.company-logo {
+    z-index: 2 !important;
+}
+
+.company-logo img {
+    height: 90px;
+    margin: 10px !important;
+}
+
+.footer {
+    background: #000000 !important;
+    color: #fff;
+    position: absolute;
+    right: 10px;
+    left: 0;
+    z-index: 1030;
+    bottom: 0;
+    height: 40px;
+    padding: 12px 13px;
+    font-size: 8pt;
+    margin: 0 -10px 0px 0;
+    font-family: 'Saira Semi Condensed', sans-serif;
+}
+.form-group label {
+    columns: #fff !important;
+    font-family: "Saira Semi Condensed", cursive !important;
+    font-size: 12pt;
+}
+
+.loyalty-message {
+    color: #000000;
+    font-size: 16pt;
+    font-weight: 500;
+}
+
+.loyalty-bottom {
+    text-align: center;
+}
+
+.loyalty-dialog div:nth-child(3) {}
+
+.email-emote-message {
+    color: white !important;
+}
+
+#progressfill {
+    background-color: #000000;
+    animation: colorShift 3s infinite alternate ease-in-out;
+}
+
+.media-uploaded {
+
+    border: 2px solid #1d3557;
+    background: #1d355741;
+
+}
+
+@keyframes colorShift {
+    from {
+        background-color: #000000;
+    }
+    to {
+        background-color: #1d3557;
+    }
+}
+
+
+.progress_bar .progress_number {
+    font-family: "Saira Semi Condensed", cursive !important;
+    color: #000000;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#groupCommentBuzzModal .modal-header {
+    background: #fff;
+    color: #e4e4e4;
+}
+
+#groupCommentBuzzModal .modal-body {
+    background: #fff;
+    color: #333333;
+}
+
+#groupCommentBuzzModal .modal-footer {
+    background: #fff;
+    color: white;
+}
+
+#groupCommentBuzzModal .panel-body.comment-panel {
+    background: #f6f6f6 !important;
+}
+
+#groupCommentBuzzModal .panel-footer.comment-footer {
+    color: #333333;
+}
+
+.thank-you-note {
+    color: #000000 !important;
+    font-size: 15px !important;
+}
+
+#barChart {
+    width: 100%;
+}
+
+.nps-bar::before,
+.nps-bar::after {
+    content: "";
+    position: absolute;
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: bold;
+    top: 100%;
+    transform: translateY(8px);
+    font-family: "Saira Semi Condensed", cursive !important;
+}
+
+.nps-bar::before {
+    content: "Less Likely";
+    left: 10px;
+    color: #000000;
+    margin-left: 5px;
+}
+
+.nps-bar::after {
+    content: "More Likely";
+    right: 10px;
+    color: #000000;
+    margin-right: 5px;
+}
+
+.evz-nps-position-0,
+.evz-nps-position-1,
+.evz-nps-position-2,
+.evz-nps-position-3,
+.evz-nps-position-4,
+.evz-nps-position-5,
+.evz-nps-position-6 {
+    background: linear-gradient(135deg, #3b82f6, #d946ef);
+    color: white;
+    border: 1px solid rgba(123, 97, 255, 0.61);
+}
+
+.evz-nps-position-7,
+.evz-nps-position-8 {
+    background: linear-gradient(135deg, #60a5fa, #c084fc);
+    color: white;
+    border: 1px solid rgba(124, 58, 237, 0.55);
+}
+
+.evz-nps-position-9,
+.evz-nps-position-10 {
+    background: #1ca757;
+    color: white;
+    border: 1px solid rgba(17, 144, 74, 0.61);
+}
+
+.clicked-nps-icon {
+    border: 3px solid #333;
+    box-shadow: 0px 2px 6px #716868;
+}
+
+.ui-select-container .ui-select-match span {
+    font-weight: 500 !important;
+}
+
+
+div.col-xs-7.ng-scope {
+    font-family: "Saira Semi Condensed", cursive !important;
+}
+
+/* Primary buttons */
+.btn-next,
+.btn-submit,
+.btn-ok {
+    color: #fff !important;
+    background: linear-gradient(180deg, #3b82f6, #d946ef) !important;
+    border: 2px solid #7b61ff !important;
+    border-radius: 50px !important;
+    font-weight: 400 !important;
+}
+
+/* Secondary outlined buttons */
+.btn-prev,
+.btn-back,
+.btn-skip,
+.btn-clear {
+    color: #7b61ff !important;
+    background: transparent !important;
+    border: 2px solid #7b61ff !important;
+    border-radius: 50px !important;
+    font-weight: 400 !important;
+}
+
+@media (max-width: 768px) {
+    .emote-title,
+    .form-group label {
+        font-size: 12pt !important;
+    }
+
+    .emo-text {
+        font-size: 10pt !important;
+    }
+
+    .panel-title {
+        font-size: 8pt !important;
+    }
+
+    .loyalty-message {
+        font-size: 13pt !important;
+    }
+
+    .progress_bar .progress_number {
+        font-size: 10pt !important;
+    }
+
+    .nps-bar::before,
+    .nps-bar::after {
+        font-size: 12pt !important;
+    }
+
+    .btn-next,
+    .btn-submit,
+    .btn-prev,
+    .btn-clear,
+    .btn-skip,
+    .btn-ok,
+    .loyalty-redeem-button {
+        font-size: 10pt !important;
+        padding: 8px 20px !important;
+        min-width: 85px !important;
+    }
+
+    .access-user-name,
+    #headerCompanyInfo>.access-user {
+        font-size: 12pt !important;
+    }
+
+    .company-logo img,
+    .logo-cust {
+        height: 70px !important;
+    }
+
+    .emo-ico img {
+        max-width: 50px !important;
+        width: 75% !important;
+    }
+
+    .form-control {
+        font-size: 11pt !important;
+    }
+
+.loyalty-message {
+    font-size: 12pt;
+    color: #18133f;
+    font-family: "Saira Semi Condensed", cursive !important;
+    font-weight: 500;
+}
+}
+
+@media (max-width: 640px) {
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    #master-section {
+        min-height: 100dvh;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 56px;
+    }
+
+    #headerCompanyInfo {
+        min-height: auto;
+        padding: 4px 10px 0;
+    }
+
+    #headerCompanyInfo > .access-user {
+        float: none;
+        width: 100%;
+        text-align: right;
+        font-size: 11pt !important;
+        margin-top: 4px;
+    }
+
+    .company-logo img,
+    .logo-cust {
+        height: 50px !important;
+        margin: 3px 6px !important;
+    }
+
+    .sensor-title {
+        font-size: 14pt;
+        line-height: 1.15;
+        padding: 6px 10px 4px;
+        margin-bottom: 6px;
+    }
+
+    .emote-title,
+    .form-group label {
+        font-size: 10.5pt !important;
+        line-height: 1.15;
+    }
+
+    .emo-text,
+    .emo-text-only,
+    .loyalty-message,
+    .progress_bar .progress_number,
+    .panel-title {
+        font-size: 9pt !important;
+        line-height: 1.15;
+    }
+
+    .panel {
+        margin: 0 4px;
+    }
+
+    .panel-group .panel-heading {
+        border-radius: 4px;
+    }
+
+    .flex {
+        flex-wrap: wrap;
+        justify-content: center !important;
+        align-items: stretch;
+    }
+
+    .emo-cont {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 4px;
+        min-height: 118px;
+        flex: 0 0 calc(32% - 8px);
+        width: calc(32% - 8px);
+        max-width: calc(32% - 8px);
+        min-width: 0;
+        margin: 5px 2px;
+        padding: 12px 8px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .clicked-emo-cont {
+        padding: 12px 8px;
+    }
+
+    .emo-text {
+        display: block !important;
+        width: 100%;
+        text-align: center;
+        margin-top: 0 !important;
+        font-size: 8.5pt !important;
+        letter-spacing: 0.2px !important;
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        word-break: break-word;
+        line-height: 1.05;
+        max-width: 100%;
+    }
+
+    .emo-ico img {
+        width: auto;
+        max-width: 42px;
+        margin: 0 !important;
+        display: block;
+    }
+
+    .btn-next,
+    .btn-submit,
+    .btn-prev,
+    .btn-clear,
+    .btn-skip,
+    .btn-ok,
+    .loyalty-redeem-button {
+        width: calc(100% - 24px);
+        max-width: 240px;
+        display: block;
+        margin: 6px auto 4px;
+        padding: 9px 18px;
+        font-size: 10pt !important;
+        box-sizing: border-box;
+    }
+
+    .footer {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: auto;
+        min-height: 34px;
+        margin: 0;
+        padding: 6px 12px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        flex-wrap: nowrap;
+        font-size: 8.5pt;
+        z-index: 1030;
+    }
+
+    .footer img {
+        max-height: 24px;
+        width: auto;
+    }
+}
+
+/* Final platformSec theme override: keep generated/default red styles blue-pink. */
+:root {
+    --platformsec-blue: #2563eb;
+    --platformsec-pink: #d946ef;
+    --platformsec-mix: #7c3aed;
+    --platformsec-soft-blue: rgba(37, 99, 235, 0.16);
+    --platformsec-soft-pink: rgba(217, 70, 239, 0.16);
+    --platformsec-form-text: #68105f;
+    --platformsec-form-bg: linear-gradient(115deg, rgba(255, 246, 249, 0.98) 0%, rgba(255, 255, 255, 0.98) 48%, rgba(238, 247, 255, 0.98) 100%);
+    --platformsec-form-border: rgba(124, 58, 237, 0.22);
+}
+
+html,
+body {
+    background: #d7d7d7 !important;
+    background-color: #d7d7d7 !important;
+}
+
+#master-section {
+    width: min(100%, 1000px);
+    margin: 0 auto !important;
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    border: 1px solid #c8c8c8;
+    box-sizing: border-box;
+}
+
+#master-section .middle-box,
+#master-section .panel-group:not(#accordion),
+#master-section .panel-group:not(#accordion) .panel,
+#master-section .panel-group:not(#accordion) .panel-body,
+#master-section #accordion .text-feedback-panel-body,
+#loyalty-form {
+    background: var(--platformsec-form-bg) !important;
+    color: var(--platformsec-form-text) !important;
+    border-color: var(--platformsec-form-border) !important;
+}
+
+#master-section .middle-box,
+#master-section #accordion .text-feedback-panel-body,
+#loyalty-form {
+    padding: 24px !important;
+}
+
+#master-section .middle-box,
+#master-section .panel-group:not(#accordion) .panel,
+#master-section #accordion .text-feedback-panel-body {
+    border: 2px solid var(--platformsec-form-border) !important;
+    box-shadow: 0 10px 24px rgba(37, 99, 235, 0.08);
+}
+
+#master-section #accordion {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#master-section #accordion > .panel.ng-hide,
+#master-section #accordion > .panel:has(> .ng-hide),
+#master-section #accordion > div.ng-scope > .panel:empty,
+#master-section #accordion > div.ng-scope > .panel:has(> .ng-hide) {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
+}
+
+.draft-response-row,
+.draft-response-row *,
+[class*="draft-response"],
+[class*="draftResponse"],
+#master-section .clear-submit-row ~ .row:not(.footer),
+#master-section .clear-submit-row ~ div:not(.footer):not(#footer-container),
+#master-section .loyalty-bottom ~ .row:not(.footer),
+#master-section .loyalty-bottom ~ div:not(.footer):not(#footer-container) {
+    display: none !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    overflow: hidden !important;
+}
+
+#master-section .emote-title,
+#master-section .emo-text,
+#master-section .emo-text-only,
+#master-section .loyalty-message,
+#master-section .panel-title,
+#master-section .form-group label,
+#master-section .panel-body,
+#master-section .panel-body p,
+#master-section .panel-body li,
+#loyalty-form,
+#loyalty-form p,
+#loyalty-form li,
+#loyalty-form h1,
+#loyalty-form h2,
+#loyalty-form h3,
+#loyalty-form h4,
+#loyalty-form h5 {
+    color: var(--platformsec-form-text) !important;
+}
+
+#master-section .panel-group:not(#accordion) .panel-heading {
+    background: rgba(255, 255, 255, 0.58) !important;
+    border-color: var(--platformsec-form-border) !important;
+}
+
+body .sensor-title,
+#master-section .sensor-title,
+#master-section h1:first-of-type {
+    color: var(--platformsec-mix) !important;
+    background: linear-gradient(90deg, var(--platformsec-blue), var(--platformsec-pink)) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+
+.btn-next,
+.btn-submit,
+.btn-ok,
+.loyalty-redeem-button,
+.button,
+.embededSensor {
+    color: #ffffff !important;
+    background: linear-gradient(180deg, var(--platformsec-blue), var(--platformsec-pink)) !important;
+    border-color: var(--platformsec-mix) !important;
+}
+
+.btn-prev,
+.btn-back,
+.btn-skip,
+.btn-clear {
+    color: var(--platformsec-mix) !important;
+    background: rgba(255, 255, 255, 0.42) !important;
+    border-color: var(--platformsec-mix) !important;
+}
+
+.clicked-emo-cont,
+.media-uploaded,
+.clicked-nps-icon {
+    border-color: var(--platformsec-mix) !important;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.14), rgba(217, 70, 239, 0.18)) !important;
+}
+
+#progressfill,
+.progress-bar,
+.progress .bar,
+[role="progressbar"] {
+    background: linear-gradient(90deg, var(--platformsec-blue), var(--platformsec-pink)) !important;
+    background-color: var(--platformsec-mix) !important;
+}
+
+.evz-nps-position-0,
+.evz-nps-position-1,
+.evz-nps-position-2,
+.evz-nps-position-3,
+.evz-nps-position-4,
+.evz-nps-position-5,
+.evz-nps-position-6,
+.evz-nps-position-7,
+.evz-nps-position-8 {
+    background: linear-gradient(135deg, var(--platformsec-blue), var(--platformsec-pink)) !important;
+    border-color: rgba(124, 58, 237, 0.62) !important;
+}
+
+#master-section [style*="color:#ed3237"],
+#master-section [style*="color: #ed3237"],
+#master-section [style*="color:#ff3030"],
+#master-section [style*="color: #ff3030"],
+#master-section [style*="color:#ff2942"],
+#master-section [style*="color: #ff2942"],
+#master-section [style*="color:red"],
+#master-section [style*="color: red"] {
+    color: var(--platformsec-mix) !important;
+}
+
+#master-section [style*="background:#ed3237"],
+#master-section [style*="background: #ed3237"],
+#master-section [style*="background-color:#ed3237"],
+#master-section [style*="background-color: #ed3237"],
+#master-section [style*="background:#ff3030"],
+#master-section [style*="background: #ff3030"],
+#master-section [style*="background-color:#ff3030"],
+#master-section [style*="background-color: #ff3030"],
+#master-section [style*="background:#ff2942"],
+#master-section [style*="background: #ff2942"],
+#master-section [style*="background-color:#ff2942"],
+#master-section [style*="background-color: #ff2942"] {
+    background: linear-gradient(180deg, var(--platformsec-blue), var(--platformsec-pink)) !important;
+    background-color: var(--platformsec-mix) !important;
+}
+
+#master-section [style*="border:#ed3237"],
+#master-section [style*="border: #ed3237"],
+#master-section [style*="border-color:#ed3237"],
+#master-section [style*="border-color: #ed3237"],
+#master-section [style*="border:#ff3030"],
+#master-section [style*="border: #ff3030"],
+#master-section [style*="border-color:#ff3030"],
+#master-section [style*="border-color: #ff3030"],
+#master-section [style*="border:#ff2942"],
+#master-section [style*="border: #ff2942"],
+#master-section [style*="border-color:#ff2942"],
+#master-section [style*="border-color: #ff2942"] {
+    border-color: var(--platformsec-mix) !important;
+}
