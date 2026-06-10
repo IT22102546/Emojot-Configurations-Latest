@@ -1679,6 +1679,13 @@
   },
   "name": "ucmWF",
   "assignment": {
+     "triggers": [
+            {
+                "template": "complaintCreationAlert",
+                "channel": "email",
+                "target": "employee"
+            }
+        ],
     "automaticAssignment": {
       "isEnabled": true,
       "email": "testcmu@commercialcredit.lk",
