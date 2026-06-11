@@ -1,0 +1,469 @@
+{
+  "menu": [
+    {
+      "id": "cxm",
+      "icon": "fa fa-users",
+      "header": "Collect Feedback",
+      "subs": [
+        {
+          "header": "Feedback Analytics",
+          "id": "cxm_eanalytics"
+        },
+        {
+          "header": "Advanced Analytics",
+          "id": "cxm_advanalytics"
+        }
+      ]
+    },
+    {
+      "id": "myProfile",
+      "icon": "fa fa-user",
+      "header": "My Profile",
+      "subs": [
+        {
+          "header": "My Profile",
+          "id": "myProfile_profile"
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "title": "View reviews",
+      "desc": "Review replies",
+      "type": "directReport",
+      "id": "orm_rlm",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/reviewMonitor/reviewMonitorV3.jsp"
+        },
+        {
+          "key": "newLocationHide",
+          "value": false
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "Review analytics",
+      "desc": "Review insights",
+      "type": "directReport",
+      "id": "orm_ris",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/reviewsAndRatingBoard/reviewsAndRatingBoard.jsp"
+        },
+        {
+          "key": "hideTicketWidgets",
+          "value": true
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "View complaints",
+      "desc": "Fix the problem",
+      "type": "directReport",
+      "id": "comp_list",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/incidentManagement/incidentManagement.jsp"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "Complaint analytics",
+      "desc": "See the pattern",
+      "type": "directReport",
+      "id": "comp_analy",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/incidentOverview/incidentOverview.jsp"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "Feedback Analytics",
+      "desc": "Customer insights",
+      "type": "directReport",
+      "id": "cxm_eanalytics",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/cxmDashboard/cxmDashboard.jsp"
+        },
+        {
+          "key": "selectedReportName",
+          "value": "UAT Appointment Banking"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "Advanced Analytics",
+      "desc": "Advanced Feedback",
+      "type": "groupedCards",
+      "id": "cxm_advanalytics",
+      "groups": [
+        {
+          "title": "Overall Responses View",
+          "cards": [
+            {
+              "title": "Response breakdown with comments",
+              "titleStyle": "color:white;background:#008fed;",
+              "desc": "Overall survey participation for quick overview",
+              "type": "report",
+              "id": "cxm_advanalytics_1",
+              "params": [
+                {
+                  "key": "redirectPage",
+                  "value": "correlationAnalysis.jsp"
+                },
+                {
+                  "key": "trimOut",
+                  "value": true
+                },
+                {
+                  "key": "savedReportId",
+                  "value": "6a2a685bd05055fc8007dfc3"
+                }
+              ],
+              "styles": [
+                {
+                  "id": ".container",
+                  "key": "width",
+                  "value": "100%"
+                }
+              ]
+            },
+            {
+              "title": "Respondent Geo Map",
+              "titleStyle": "color:white;background:#008fed;",
+              "desc": "Geo map of the respondents to the survey",
+              "type": "report",
+              "id": "cxm_advanalytics_2",
+              "params": [
+                {
+                  "key": "redirectPage",
+                  "value": "dashboard.jsp"
+                },
+                {
+                  "value": "percepticMapPanel",
+                  "key": "reportType"
+                },
+                {
+                  "key": "summaryView",
+                  "value": true
+                },
+                {
+                  "key": "sensorID",
+                  "value": "6a02f0c62a8bf3a0cb7dcbdc"
+                },
+                {
+                  "key": "trimOut",
+                  "value": true
+                }
+              ],
+              "styles": [
+                {
+                  "id": ".container",
+                  "key": "width",
+                  "value": "100%"
+                }
+              ]
+            },
+            {
+              "title": "2D Response Analytics",
+              "titleStyle": "color:white;background:#008fed;",
+              "desc": "2D response analytics",
+              "type": "report",
+              "id": "cxm_advanalytics_3",
+              "params": [
+                {
+                  "key": "redirectPage",
+                  "value": "twoDimensionalAnalysis_v2.jsp"
+                },
+                {
+                  "key": "savedReportId",
+                  "value": "6901a377af3edc09f741b159"
+                },
+                {
+                  "key": "drillDownType",
+                  "value": "multiple"
+                },
+                {
+                  "key": "trimOut",
+                  "value": true
+                }
+              ],
+              "styles": [
+                {
+                  "id": ".container",
+                  "key": "width",
+                  "value": "100%"
+                }
+              ]
+            },
+            {
+              "title": "Correlation Analytics",
+              "titleStyle": "color:white;background:#008fed;",
+              "desc": "Correlation analytics",
+              "type": "report",
+              "id": "cxm_advanalytics_4",
+              "params": [
+                {
+                  "key": "redirectPage",
+                  "value": "correlationAnalysis.jsp"
+                },
+                {
+                  "key": "trimOut",
+                  "value": true
+                },
+                {
+                  "key": "correlationQuestions",
+                  "value": "q3444"
+                },
+                {
+                  "key": "correlationOpen",
+                  "value": true
+                },
+                {
+                  "key": "savedReportId",
+                  "value": "6a2a685bd05055fc8007dfc3"
+                }
+              ],
+              "styles": [
+                {
+                  "id": ".container",
+                  "key": "width",
+                  "value": "100%"
+                }
+              ]
+            },
+            {
+              "title": "Raw Responses",
+              "titleStyle": "color:white;background:#008fed;",
+              "desc": "Raw responses",
+              "type": "report",
+              "id": "cxm_advanalytics_5",
+              "params": [
+                {
+                  "key": "redirectPage",
+                  "value": "rawEmotes.jsp"
+                },
+                {
+                  "key": "sensorID",
+                  "value": "6a02f0c62a8bf3a0cb7dcbdc"
+                },
+                {
+                  "key": "trimOut",
+                  "value": true
+                },
+                {
+                  "key": "showOtherSensors",
+                  "value": false
+                },
+                {
+                  "key": "sensorComments",
+                  "value": "p3206"
+                }
+              ],
+              "styles": [
+                {
+                  "id": ".container",
+                  "key": "width",
+                  "value": "100%"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Textual Analytics",
+          "cards": [
+            {
+              "title": "Sentiment Analysis",
+              "titleStyle": "color:white;background:#3CB8EA;",
+              "desc": "Comment sentiment analysis",
+              "type": "report",
+              "id": "cxm_advanalytics_6",
+              "params": [
+                {
+                  "key": "redirectPage",
+                  "value": "socialMediaAnalysis.jsp"
+                },
+                {
+                  "key": "sensorID",
+                  "value": "6a02f0c62a8bf3a0cb7dcbdc"
+                },
+                {
+                  "key": "sensorPages",
+                  "value": "p3206"
+                },
+                {
+                  "key": "trimOut",
+                  "value": true
+                }
+              ],
+              "styles": [
+                {
+                  "id": ".container",
+                  "key": "width",
+                  "value": "100%"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Feedback Analytics",
+      "desc": "Customer insights",
+      "type": "directReport",
+      "id": "cxm2_eanalytics",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/cxmDashboard/cxmDashboard.jsp"
+        },
+        {
+          "key": "selectedReportName",
+          "value": "SampathAppointmentBanking CX V2"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+
+    {
+      "title": "My Profile",
+      "desc": "Update profile settings",
+      "type": "directReport",
+      "id": "myProfile_profile",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "updateProfile.jsp"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "image": "https://storage.emojot.com/logos/company_logo/68e75c75e9c0564372ed8746.png",
+      "name": "abhishekak@emojot.com",
+      "id": "abhishekak@emojot.com",
+      "title": "company_admin",
+      "email": "abhishekak@emojot.com"
+    },
+    {
+      "image": "https://storage.emojot.com/logos/company_logo/68e75c75e9c0564372ed8746.png",
+      "name": "dewminil@emojot.com",
+      "id": "dewminil@emojot.com",
+      "title": "company_admin",
+      "email": "dewminil@emojot.com"
+    },
+    {
+      "image": "https://storage.emojot.com/logos/company_logo/68e75c75e9c0564372ed8746.png",
+      "name": "manura@emojot.com",
+      "id": "manura@emojot.com",
+      "title": "company_admin",
+      "email": "manura@emojot.com"
+    },
+    {
+      "image": "https://storage.emojot.com/logos/company_logo/68e75c75e9c0564372ed8746.png",
+      "name": "shaveenf@emojot.com",
+      "id": "shaveenf@emojot.com",
+      "title": "company_admin",
+      "email": "shaveenf@emojot.com"
+    },
+
+    {
+      "image": "https://storage.emojot.com/logos/company_logo/68e75c75e9c0564372ed8746.png",
+      "name": "sanjanan@emojot.com",
+      "id": "sanjanan@emojot.com",
+      "title": "company_admin",
+      "email": "sanjanan@emojot.com"
+    }
+
+  ],
+  "assignmentAllowed": true,
+  "showAIAssistant": true
+}

@@ -4105,6 +4105,222 @@
         ]
       },
       {
+        "id": "web",
+        "name": "Web",
+        "highPriorityFields": [
+          "comment",
+          "country",
+          "engagement",
+          "profileUsername",
+          "link",
+          "imageUrl",
+          "date",
+          "sentiment",
+          "postiveSentimentCount",
+          "negativeSentimentCount",
+          "mixedSentimentCount",
+          "keyword",
+          "label",
+          "profileName",
+          "profileUrl",
+          "socialReachCount",
+          "internalDocumentation",
+          "overdue"
+        ]
+      },
+      {
+        "id": "twitter",
+        "name": "Twitter",
+        "highPriorityFields": [
+          "comment",
+          "country",
+          "engagement",
+          "profileUsername",
+          "link",
+          "imageUrl",
+          "date",
+          "sentiment",
+          "postiveSentimentCount",
+          "negativeSentimentCount",
+          "mixedSentimentCount",
+          "keyword",
+          "label",
+          "profileName",
+          "profileUrl",
+          "socialReachCount",
+          "internalDocumentation",
+          "overdue"
+        ]
+      },
+      {
+        "id": "facebook",
+        "name": "Facebook",
+        "highPriorityFields": [
+          "comment",
+          "country",
+          "engagement",
+          "profileUsername",
+          "link",
+          "imageUrl",
+          "date",
+          "sentiment",
+          "postiveSentimentCount",
+          "negativeSentimentCount",
+          "mixedSentimentCount",
+          "keyword",
+          "label",
+          "profileName",
+          "profileUrl",
+          "socialReachCount",
+          "internalDocumentation",
+          "overdue"
+        ]
+      },
+      {
+        "id": "instagram",
+        "name": "Instagram",
+        "highPriorityFields": [
+          "comment",
+          "country",
+          "engagement",
+          "profileUsername",
+          "link",
+          "imageUrl",
+          "date",
+          "sentiment",
+          "postiveSentimentCount",
+          "negativeSentimentCount",
+          "mixedSentimentCount",
+          "keyword",
+          "label",
+          "profileName",
+          "profileUrl",
+          "socialReachCount",
+          "internalDocumentation",
+          "overdue"
+        ]
+      },
+      {
+        "id": "youtube",
+        "name": "Youtube",
+        "highPriorityFields": [
+          "comment",
+          "country",
+          "engagement",
+          "profileUsername",
+          "link",
+          "imageUrl",
+          "date",
+          "sentiment",
+          "postiveSentimentCount",
+          "negativeSentimentCount",
+          "mixedSentimentCount",
+          "keyword",
+          "label",
+          "profileName",
+          "profileUrl",
+          "socialReachCount",
+          "internalDocumentation",
+          "overdue"
+        ]
+      },
+      {
+        "id": "linkedin",
+        "name": "LinkedIn",
+        "highPriorityFields": [
+          "comment",
+          "country",
+          "engagement",
+          "profileUsername",
+          "link",
+          "imageUrl",
+          "date",
+          "sentiment",
+          "postiveSentimentCount",
+          "negativeSentimentCount",
+          "mixedSentimentCount",
+          "keyword",
+          "label",
+          "profileName",
+          "profileUrl",
+          "socialReachCount",
+          "internalDocumentation",
+          "overdue"
+        ]
+      },
+      {
+        "id": "tiktok",
+        "name": "Tiktok",
+        "highPriorityFields": [
+          "comment",
+          "country",
+          "engagement",
+          "profileUsername",
+          "link",
+          "imageUrl",
+          "date",
+          "sentiment",
+          "postiveSentimentCount",
+          "negativeSentimentCount",
+          "mixedSentimentCount",
+          "keyword",
+          "label",
+          "profileName",
+          "profileUrl",
+          "socialReachCount",
+          "internalDocumentation",
+          "overdue"
+        ]
+      },
+      {
+        "id": "reddit",
+        "name": "Reddit",
+        "highPriorityFields": [
+          "comment",
+          "country",
+          "engagement",
+          "profileUsername",
+          "link",
+          "imageUrl",
+          "date",
+          "sentiment",
+          "postiveSentimentCount",
+          "negativeSentimentCount",
+          "mixedSentimentCount",
+          "keyword",
+          "label",
+          "profileName",
+          "profileUrl",
+          "socialReachCount",
+          "internalDocumentation",
+          "overdue"
+        ]
+      },
+      {
+        "id": "other",
+        "name": "Other (SLT)",
+        "highPriorityFields": [
+          "comment",
+          "country",
+          "engagement",
+          "profileUsername",
+          "link",
+          "imageUrl",
+          "date",
+          "sentiment",
+          "postiveSentimentCount",
+          "negativeSentimentCount",
+          "mixedSentimentCount",
+          "keyword",
+          "label",
+          "profileName",
+          "profileUrl",
+          "socialReachCount",
+          "internalDocumentation",
+          "overdue"
+        ]
+      },
+      {
         "id": "Branch or Department",
         "name": "Branch or Department",
         "fieldsValidation": [
@@ -4267,6 +4483,28 @@
                     },
                     "ATM Feedback Survey"
                   ]
+                },
+                {
+                  "!": [
+                    {
+                      "in": [
+                        {
+                          "var": "type"
+                        },
+                        [
+                          "web",
+                          "twitter",
+                          "facebook",
+                          "instagram",
+                          "youtube",
+                          "linkedin",
+                          "tiktok",
+                          "reddit",
+                          "other"
+                        ]
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -4325,6 +4563,28 @@
                     },
                     "ATM Feedback Survey"
                   ]
+                },
+                {
+                  "!=": [
+                    {
+                      "in": [
+                        {
+                          "var": "type"
+                        },
+                        [
+                          "web",
+                          "twitter",
+                          "facebook",
+                          "instagram",
+                          "youtube",
+                          "linkedin",
+                          "tiktok",
+                          "reddit",
+                          "other"
+                        ]
+                      ]
+                    }
+                  ]
                 }
               ]
             }
@@ -4349,6 +4609,42 @@
         ],
         "triggers": [
           {
+            "channel": "email",
+            "template": "complaintResolutionAlert_slt",
+            "target": "admin",
+            "contactFilters": [
+              "ticketCreationAlertSlt"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "complaintDepartment",
+                  "operator": "eq",
+                  "value": "$complaintDepartment$"
+                }
+              ]
+            },
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "web",
+                  "twitter",
+                  "facebook",
+                  "instagram",
+                  "youtube",
+                  "linkedin",
+                  "tiktok",
+                  "reddit",
+                  "other"
+                ]
+              ]
+            }
+          },
+          {
             "channel": "sms",
             "template": "complaintResolutionAlertInternal_sms",
             "target": "admin",
@@ -4371,6 +4667,28 @@
                       "var": "type"
                     },
                     "ATM Feedback Survey"
+                  ]
+                },
+                {
+                  "!": [
+                    {
+                      "in": [
+                        {
+                          "var": "type"
+                        },
+                        [
+                          "web",
+                          "twitter",
+                          "facebook",
+                          "instagram",
+                          "youtube",
+                          "linkedin",
+                          "tiktok",
+                          "reddit",
+                          "other"
+                        ]
+                      ]
+                    }
                   ]
                 }
               ]
@@ -6718,6 +7036,96 @@
       "type": "textArea",
       "hidden": true
     },
+    "country": {
+      "name": "Country",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "date": {
+      "name": "Date",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "keyword": {
+      "name": "Keyword",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "sentiment": {
+      "name": "Sentiment",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "postiveSentimentCount": {
+      "name": "Positive Sentiment Count",
+      "type": "number",
+      "readOnly": true,
+      "hidden": true
+    },
+    "negativeSentimentCount": {
+      "name": "Negative Sentiment Count",
+      "type": "number",
+      "readOnly": true,
+      "hidden": true
+    },
+    "mixedSentimentCount": {
+      "name": "Mixed Sentiment Count",
+      "type": "number",
+      "readOnly": true,
+      "hidden": true
+    },
+    "engagement": {
+      "name": "Engagement",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "imageUrl": {
+      "name": "Image URL",
+      "type": "link",
+      "readOnly": true,
+      "hidden": true
+    },
+    "label": {
+      "name": "Label",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "link": {
+      "name": "Link to Post",
+      "type": "link",
+      "readOnly": true,
+      "hidden": true
+    },
+    "profileName": {
+      "name": "Profile Name",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "profileUrl": {
+      "name": "Profile URL",
+      "type": "link",
+      "readOnly": true,
+      "hidden": true
+    },
+    "profileUsername": {
+      "name": "Profile Username",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "socialReachCount": {
+      "name": "Social Reach Count",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
     "file": {
       "name": "Customer Attachment",
       "readOnly": true,
@@ -8021,6 +8429,28 @@
         "log": {
           "message": "Sent an SMS to the customer using template ID COMPLAINTHANDLING_CUST_CAT01",
           "subType": "sms"
+        },
+        "condition": {
+          "!": [
+            {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "web",
+                  "twitter",
+                  "facebook",
+                  "instagram",
+                  "youtube",
+                  "linkedin",
+                  "tiktok",
+                  "reddit",
+                  "other"
+                ]
+              ]
+            }
+          ]
         }
       },
       {
@@ -8270,6 +8700,42 @@
         }
       },
       {
+        "channel": "email",
+        "template": "complaintCreationAlert_slt",
+        "target": "admin",
+        "contactFilters": [
+          "ticketCreationAlertSlt"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "complaintDepartment",
+              "operator": "eq",
+              "value": "$complaintDepartment$"
+            }
+          ]
+        },
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "web",
+              "twitter",
+              "facebook",
+              "instagram",
+              "youtube",
+              "linkedin",
+              "tiktok",
+              "reddit",
+              "other"
+            ]
+          ]
+        }
+      },
+      {
         "channel": "sms",
         "template": "internalComplaintCreationAlert_sms",
         "target": "admin",
@@ -8292,6 +8758,28 @@
                 },
                 "ATM Feedback Survey"
               ]
+            },
+            {
+              "!": [
+                {
+                  "in": [
+                    {
+                      "var": "type"
+                    },
+                    [
+                      "web",
+                      "twitter",
+                      "facebook",
+                      "instagram",
+                      "youtube",
+                      "linkedin",
+                      "tiktok",
+                      "reddit",
+                      "other"
+                    ]
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -8311,7 +8799,7 @@
       }
     ]
   },
-  "name": "Complaint Wf",
+  "name": "Complaint WF",
   "assignment": {
     "automaticAssignment": {
       "isEnabled": true,
@@ -8422,6 +8910,11 @@
       {
         "id": "ticketCreationAlert",
         "name": "Ticket Creation Alert",
+        "type": "contact"
+      },
+      {
+        "id": "ticketCreationAlertSlt",
+        "name": "Ticket Creation Alert SLT",
         "type": "contact"
       },
       {
