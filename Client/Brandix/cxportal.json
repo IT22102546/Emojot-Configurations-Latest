@@ -1,0 +1,518 @@
+{
+  "menu": [
+    {
+      "id": "epcsq42526",
+      "icon": "fa-user-md",
+      "header": "<span style=\"color: #fff000;\">Employee Pulse Check Survey - FY 2025/26 Q4<span>",
+      "subs": [
+        {
+          "header": "Sri Lanka: Response Counts",
+          "id": "epcsq42526_rc"
+        },
+        {
+          "header": "India: Response Counts",
+          "id": "epcsq42526_rci"
+        },
+        {
+          "header": "Bangladesh: Response Counts",
+          "id": "epcsq42526_rcb"
+        },
+        {
+          "header": "Ridiyagama: Response Counts",
+          "id": "epcsq42526_bridf"
+        },
+        {
+          "header": "Phoenix: Response Counts",
+          "id": "epcsq42526_phnix"
+        },
+        {
+          "header": "TeeJay Sri Lanka: Response Counts",
+          "id": "epcsq42526_tj"
+        }
+      ]
+    },
+    {
+      "id": "edprof",
+      "icon": "fa-user-md",
+      "header": "Employee Development Profiling",
+      "subs": [
+        {
+          "header": "Response Breakdown - Pie Charts",
+          "id": "edprof_rb"
+        },
+        {
+          "header": "Score Heatmap",
+          "id": "edprof_hmap"
+        },
+        {
+          "header": "Score Heatmap - Drilldown",
+          "id": "edprof_hmapd"
+        },
+        {
+          "header": "Score Segment Comparison",
+          "id": "edprof_strendcomp"
+        },
+        {
+          "header": "Score Analysis",
+          "id": "edprof_sana"
+        },
+        {
+          "header": "Individual Responses",
+          "id": "edprof_ir"
+        },
+        {
+          "header": "New Analytical Report: BRAM",
+          "id": "edprof_cxm"
+        }
+      ]
+    },
+    {
+      "id": "myProfile",
+      "icon": "fa fa-user",
+      "header": "My Profile",
+      "subs": [
+        {
+          "header": "My Profile",
+          "id": "myProfile_profile"
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "title": "Employee Pulse Check Survey - FY 2025/26 Response Counts",
+      "desc": "Employee Pulse Check Survey - FY 2025/26 Response Counts",
+      "type": "directReport",
+      "id": "epcsq42526_tj",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/enterpriseMetricsAnalysis/report.jsp"
+        },
+        {
+          "key": "reportName",
+          "value": "Teejay FY 2025/26 Response Counts"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "Employee Pulse Check Survey - FY 2025/26 Q4 Response Counts",
+      "desc": "Employee Pulse Check Survey - FY 2025/26 Q4 Response Counts",
+      "type": "directReport",
+      "id": "epcsq42526_phnix",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/enterpriseMetricsAnalysis/report.jsp"
+        },
+        {
+          "key": "reportName",
+          "value": "Phoenix FY 2025/26 Response Counts"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "Employee Pulse Check Survey - FY 2025/26 Q4 Response Counts",
+      "desc": "Employee Pulse Check Survey - FY 2025/26 Q4 Response Counts",
+      "type": "directReport",
+      "id": "epcsq42526_bridf",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/enterpriseMetricsAnalysis/report.jsp"
+        },
+        {
+          "key": "reportName",
+          "value": "BRIDF Survey Response Counts 2026"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "Employee Pulse Check Survey - FY 2025/26 Q4 Response Counts",
+      "desc": "Employee Pulse Check Survey - FY 2025/26 Q4 Response Counts",
+      "type": "directReport",
+      "id": "epcsq42526_rc",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/enterpriseMetricsAnalysis/report.jsp"
+        },
+        {
+          "key": "reportName",
+          "value": "Q4 FY 2025/26 Response Counts"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "India - Employee Pulse Check Survey - FY 2025/26 Q4 Response Counts",
+      "desc": "India - Employee Pulse Check Survey - FY 2025/26 Q4 Response Counts",
+      "type": "directReport",
+      "id": "epcsq42526_rci",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/enterpriseMetricsAnalysis/report.jsp"
+        },
+        {
+          "key": "reportName",
+          "value": "India FY 2025/26 Response Counts"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "Bangladesh - Employee Pulse Check Survey - FY 2025/26 Q4 Response Counts",
+      "desc": "Bangladesh - Employee Pulse Check Survey - FY 2025/26 Q4 Response Counts",
+      "type": "directReport",
+      "id": "epcsq42526_rcb",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/enterpriseMetricsAnalysis/report.jsp"
+        },
+        {
+          "key": "reportName",
+          "value": "Bangladesh FY 2025/26 Response Counts"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "Employee Development Profiling Response Breakdown",
+      "desc": "Response breakdowns for each question in the Employee Development Profiling in pie charts.",
+      "type": "directReport",
+      "id": "edprof_rb",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/crossSensorComparison/report.jsp"
+        },
+        {
+          "key": "sensorID",
+          "value": "5fd98c91a26a11011fbe1f64"
+        },
+        {
+          "key": "displayMode",
+          "value": "pie"
+        },
+        {
+          "key": "widgetsPerRow",
+          "value": "4"
+        },
+        {
+          "key": "showLabels",
+          "value": "true"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "Employee Development Profiling Score Heat Map",
+      "desc": "Score heat map for each aspect",
+      "id": "edprof_hmap",
+      "type": "directReport",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/scoreOverviewReport/report.jsp"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        },
+        {
+          "key": "reportName",
+          "value": "Employee Development Profiling"
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "Employee Development Profiling Score Heat Map - Drill Down",
+      "desc": "Score heat map for each aspect",
+      "id": "edprof_hmapd",
+      "type": "directReport",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/scoreOverviewReport/report.jsp"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        },
+        {
+          "key": "reportName",
+          "value": "Employee Development Profiling Drill Down"
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "Employee Development Profiling Score Segment Comparison",
+      "desc": "Score Segment Comparison of each aspect",
+      "id": "edprof_strendcomp",
+      "type": "directReport",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/sensorScoreSegmentComparison/report.jsp"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        },
+        {
+          "key": "reportName",
+          "value": "Employee Development Profiling"
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "Employee Development Profiling Score Analysis",
+      "desc": "Score analysis for each aspect",
+      "id": "edprof_sana",
+      "type": "directReport",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/sensorScoreAnalysis/report.jsp"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        },
+        {
+          "key": "reportName",
+          "value": "Employee Development Profiling"
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "Individual Responses with Score",
+      "desc": "Responses given to Employee Development Profiling",
+      "type": "directReport",
+      "id": "edprof_ir",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "rawEmotes.jsp"
+        },
+        {
+          "key": "emoSignatureInclusionChecked",
+          "value": true
+        },
+        {
+          "key": "sensorID",
+          "value": "5fd98c91a26a11011fbe1f64"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "Response Breakdown for BRAM plant",
+      "type": "directReport",
+      "id": "edprof_cxm",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/cxmDashboard/cxmDashboard.jsp"
+        },
+        {
+          "key": "selectedReportName",
+          "value": "Sample EDP REPORT"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "My Profile",
+      "desc": "Update profile settings",
+      "type": "directReport",
+      "id": "myProfile_profile",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "updateProfile.jsp"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "image": "https://storage.emojot.com/logos/company_logo/5a55a6bc436f447d3a552fa4.png",
+      "name": "Brandix Supply Chain",
+      "id": "aslgbrandixemojot",
+      "title": "Admin",
+      "email": "aslgbrandixemojot@mailinator.com"
+    },
+    {
+      "image": "https://emojotproductionstorage.s3.amazonaws.com/logos/company_logo/578f4fd1e2bd3fc76438e312.png",
+      "name": "brandixhr1_manura",
+      "id": "brandixhr1_manura",
+      "title": "event_manager",
+      "email": "brandixhr1_manura@emojot.com"
+    },
+    {
+      "image": "https://storage.emojot.com/logos/company_logo/578f4fd1e2bd3fc76438e312.png",
+      "name": "kosalaha@brandix.com",
+      "id": "kosalaha@brandix.com",
+      "title": "event_manager",
+      "email": "kosalaha@brandix.com"
+    },
+    {
+      "image": "https://storage.emojot.com/logos/company_logo/578f4fd1e2bd3fc76438e312.png",
+      "name": "abhishekak@emojot.com",
+      "id": "abhishekak@emojot.com",
+      "title": "company_admin",
+      "email": "abhishekak@emojot.com"
+    },
+    {
+      "image": "https://storage.emojot.com/logos/company_logo/578f4fd1e2bd3fc76438e312.png",
+      "name": "shavinthm@brandix.com",
+      "id": "shavinthm@brandix.com",
+      "title": "event_manager",
+      "email": "shavinthm@brandix.com"
+    },
+    {
+      "image": "https://storage.emojot.com/logos/company_logo/578f4fd1e2bd3fc76438e312.png",
+      "name": "sanjanan@emojot.com",
+      "id": "sanjanan@emojot.com",
+      "title": "company_admin",
+      "email": "sanjanan@emojot.com"
+    }
+  ],
+  "assignmentAllowed": true,
+  "showAIAssistant": false
+}
