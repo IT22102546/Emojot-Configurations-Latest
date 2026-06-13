@@ -1,0 +1,261 @@
+<?xml version="1.0"?>
+<cepRules>
+  <cepRule id="1" timeWindow="5">
+    <params>
+      <param>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>"q652"</value>
+      </param>
+      <joinOperator>and</joinOperator>
+      <joinParam>
+        <name>emoteNumericValue</name>
+        <operator>eq</operator>
+        <value>-1</value>
+      </joinParam>
+    </params>
+    <engagementActions>
+      <action>
+        <type>incident</type>
+        <data>
+          <workflowID>6a225de95232d642316a8a74</workflowID>
+          <name>PII Data Rights Request - For self</name>
+          <assignee>privacy@emojot.com</assignee>
+          <type>For self</type>
+          <priority>Medium</priority>
+          <status>Triage</status>
+          <description><![CDATA[
+<b>Full Name:</b>$$loyalty_Name_value$$<br>
+<b>Email Address:</b>$$loyalty_Email_value$$<br>
+<b>Contact Number:</b>$$loyalty_Telephone_value$$<br><br>
+<b>Request Type:</b> $$q372_emote$$<br><br>
+<b>Company, Brand, Or Organization Interacted With:</b> $$gp4483_c1_comment_value$$<br>
+<b>Additional Information:</b> $$gp4483_c2_comment_value$$<br>
+<b>Attachment:</b> $$mediafile_p4483$$<br>
+          ]]></description>
+          <customFields>
+            <field>
+              <key>consent</key>
+              <value>$$q1_emote$$</value>
+            </field>
+            <field>
+              <key>requesterType</key>
+              <value>For self</value>
+            </field>
+            <field>
+              <key>requestType</key>
+              <value>$$q372_emote$$</value>
+            </field>
+            <field>
+              <key>selfFullName</key>
+              <value>$$loyalty_Name_value$$</value>
+            </field>
+            <field>
+              <key>selfEmail</key>
+              <value>$$loyalty_Email_value$$</value>
+            </field>
+            <field>
+              <key>selfContactNumber</key>
+              <value>$$loyalty_Telephone_value$$</value>
+            </field>
+            <field>
+              <key>interactedOrganization</key>
+              <value>$$gp4483_c1_comment_value$$</value>
+            </field>
+            <field>
+              <key>additionalInformation</key>
+              <value>$$gp4483_c2_comment_value$$</value>
+            </field>
+            <field>
+              <key>attachment</key>
+              <value>$$mediafile_p4483$$</value>
+            </field>
+          </customFields>
+        </data>
+        <validityPeriod>5</validityPeriod>
+      </action>
+    </engagementActions>
+  </cepRule>
+  <cepRule id="2" timeWindow="5">
+    <params>
+      <param>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>"q652"</value>
+      </param>
+      <joinOperator>and</joinOperator>
+      <joinParam>
+        <name>emoteNumericValue</name>
+        <operator>eq</operator>
+        <value>0</value>
+      </joinParam>
+    </params>
+    <engagementActions>
+      <action>
+        <type>incident</type>
+        <data>
+          <workflowID>6a225de95232d642316a8a74</workflowID>
+          <name>PII Data Rights Request - On behalf</name>
+          <assignee>privacy@emojot.com</assignee>
+          <type>On behalf</type>
+          <priority>Medium</priority>
+          <status>Triage</status>
+          <description><![CDATA[
+<b>Requestor Full Name:</b>$$loyalty_Name_value$$<br>
+<b>Requestor Email:</b>$$loyalty_Email_value$$<br>
+<b>Requestor Contact Number:</b>$$loyalty_Telephone_value$$<br><br>
+<b>Data Subject Full Name:</b>$$gp6508_c1_comment_value$$<br>
+<b>Data Subject Email:</b> $$gp6508_c2_comment_value$$<br>
+<b>Relationship To Data Subject:</b> $$gp6508_c3_comment_value$$<br><br>
+<b>Request Type:</b>$$q372_emote$$<br><br>
+<b>Company, Brand, Or Organization Interacted With:</b> $$gp4483_c1_comment_value$$<br>
+<b>Additional Information:</b> $$gp4483_c2_comment_value$$<br>
+<b>Attachment:</b> $$mediafile_p4483$$<br>
+          ]]></description>
+          <customFields>
+            <field>
+              <key>consent</key>
+              <value>$$q1_emote$$</value>
+            </field>
+            <field>
+              <key>requesterType</key>
+              <value>On behalf</value>
+            </field>
+            <field>
+              <key>requestType</key>
+              <value>$$q372_emote$$</value>
+            </field>
+            <field>
+              <key>requestorFullName</key>
+              <value>$$loyalty_Name_value$$</value>
+            </field>
+            <field>
+              <key>requestorEmail</key>
+              <value>$$loyalty_Email_value$$</value>
+            </field>
+            <field>
+              <key>requestorContactNumber</key>
+              <value>$$loyalty_Telephone_value$$</value>
+            </field>
+            <field>
+              <key>dataSubjectFullName</key>
+              <value>$$gp6508_c1_comment_value$$</value>
+            </field>
+            <field>
+              <key>dataSubjectEmail</key>
+              <value>$$gp6508_c2_comment_value$$</value>
+            </field>
+            <field>
+              <key>relationshipToDataSubject</key>
+              <value>$$gp6508_c3_comment_value$$</value>
+            </field>
+            <field>
+              <key>interactedOrganization</key>
+              <value>$$gp4483_c1_comment_value$$</value>
+            </field>
+            <field>
+              <key>additionalInformation</key>
+              <value>$$gp4483_c2_comment_value$$</value>
+            </field>
+            <field>
+              <key>attachment</key>
+              <value>$$mediafile_p4483$$</value>
+            </field>
+          </customFields>
+        </data>
+        <validityPeriod>5</validityPeriod>
+      </action>
+    </engagementActions>
+  </cepRule>
+  <cepRule id="3" timeWindow="5">
+    <params>
+      <param>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>"q652"</value>
+      </param>
+      <joinOperator>and</joinOperator>
+      <joinParam>
+        <name>emoteNumericValue</name>
+        <operator>eq</operator>
+        <value>1</value>
+      </joinParam>
+    </params>
+    <engagementActions>
+      <action>
+        <type>incident</type>
+        <data>
+          <workflowID>6a225de95232d642316a8a74</workflowID>
+          <name>PII Data Rights Request - For client representative</name>
+          <assignee>privacy@emojot.com</assignee>
+          <type>For client representative</type>
+          <priority>Medium</priority>
+          <status>Triage</status>
+          <description><![CDATA[
+<b>Representative Full Name:</b> $$loyalty_Name_value$$<br>
+<b>Representative Email:</b> $$loyalty_Email_value$$<br>
+<b>Client/Company Name:</b> $$gp9450_c1_comment_value$$<br><br>
+<b>Data Subject Full Name:</b> $$gp9450_c2_comment_value$$<br>
+<b>Data Subject Email:</b> $$gp9450_c3_comment_value$$<br>
+<b>Client Reference/Ticket ID:</b> $$gp9450_c4_comment_value$$<br><br>
+<b>Request Type:</b> $$q372_emote$$<br><br>
+<b>Company, Brand, Or Organization Interacted With:</b> $$gp4483_c1_comment_value$$<br>
+<b>Additional Information:</b> $$gp4483_c2_comment_value$$<br>
+<b>Attachment:</b> $$mediafile_p4483$$<br>
+          ]]></description>
+          <customFields>
+            <field>
+              <key>consent</key>
+              <value>$$q1_emote$$</value>
+            </field>
+            <field>
+              <key>requesterType</key>
+              <value>For client representative</value>
+            </field>
+            <field>
+              <key>requestType</key>
+              <value>$$q372_emote$$</value>
+            </field>
+            <field>
+              <key>representativeFullName</key>
+              <value>$$loyalty_Name_value$$</value>
+            </field>
+            <field>
+              <key>representativeEmail</key>
+              <value>$$loyalty_Email_value$$</value>
+            </field>
+            <field>
+              <key>clientCompanyName</key>
+              <value>$$gp9450_c1_comment_value$$</value>
+            </field>
+            <field>
+              <key>dataSubjectFullName</key>
+              <value>$$gp9450_c2_comment_value$$</value>
+            </field>
+            <field>
+              <key>dataSubjectEmail</key>
+              <value>$$gp9450_c3_comment_value$$</value>
+            </field>
+            <field>
+              <key>clientReferenceTicketId</key>
+              <value>$$gp9450_c4_comment_value$$</value>
+            </field>
+            <field>
+              <key>interactedOrganization</key>
+              <value>$$gp4483_c1_comment_value$$</value>
+            </field>
+            <field>
+              <key>additionalInformation</key>
+              <value>$$gp4483_c2_comment_value$$</value>
+            </field>
+            <field>
+              <key>attachment</key>
+              <value>$$mediafile_p4483$$</value>
+            </field>
+          </customFields>
+        </data>
+        <validityPeriod>5</validityPeriod>
+      </action>
+    </engagementActions>
+  </cepRule>
+</cepRules>

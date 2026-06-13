@@ -304,6 +304,7 @@
 
 .loyalty-bottom {
     text-align: center;
+    padding: 15px;
 }
 
 .loyalty-dialog div:nth-child(3) {}
@@ -820,6 +821,10 @@ body .sensor-title,
     color: #ffffff !important;
     background: linear-gradient(180deg, var(--platformsec-blue), var(--platformsec-pink)) !important;
     border-color: var(--platformsec-mix) !important;
+}
+
+.btn-ok {
+    padding: 15px 25px !important;
 }
 
 .btn-prev,

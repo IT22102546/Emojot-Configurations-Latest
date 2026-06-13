@@ -1,0 +1,576 @@
+{
+  "name": "dataRightsWF",
+  "reportNamePrefix": "PII Data Rights Request",
+  "nameTemplate": "PII Data Rights Request: $type$ - $requestType$",
+  "reporterNamePrefix": "Requester",
+  "descriptionFormat": "text",
+  "timeZone": "+330",
+  "type": {
+    "name": "Requester Type",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "For self",
+        "name": "For self",
+        "highPriorityFields": [
+          "requestType",
+          "selfFullName",
+          "selfEmail",
+          "selfContactNumber",
+          "interactedOrganization",
+          "additionalInformation",
+          "attachment"
+        ]
+      },
+      {
+        "id": "On behalf",
+        "name": "On behalf",
+        "highPriorityFields": [
+          "requestType",
+          "requestorFullName",
+          "requestorEmail",
+          "requestorContactNumber",
+          "dataSubjectFullName",
+          "dataSubjectEmail",
+          "relationshipToDataSubject",
+          "interactedOrganization",
+          "additionalInformation",
+          "attachment"
+        ]
+      },
+      {
+        "id": "For client representative",
+        "name": "For client representative",
+        "highPriorityFields": [
+          "requestType",
+          "representativeFullName",
+          "representativeEmail",
+          "clientCompanyName",
+          "dataSubjectFullName",
+          "dataSubjectEmail",
+          "clientReferenceTicketId",
+          "clientOrganizationName",
+          "clientAdditionalInformation",
+          "interactedOrganization",
+          "additionalInformation",
+          "attachment"
+        ]
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Low",
+        "name": "Low"
+      },
+      {
+        "id": "Medium",
+        "name": "Medium"
+      },
+      {
+        "id": "High",
+        "name": "High"
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "transitions": [
+      {
+        "sourceState": "Triage",
+        "targetStates": [
+          "Request Acknowledged"
+        ]
+      },
+      {
+        "sourceState": "Request Acknowledged",
+        "targetStates": [
+          "Transferred to CSM",
+          "Transferred to Client"
+        ]
+      },
+      {
+        "sourceState": "Transferred to CSM",
+        "targetStates": [
+          "Transferred to Privacy"
+          
+        ]
+      },
+      {
+        "sourceState": "Transferred to Client",
+        "targetStates": [
+          "Transferred to Emojot"
+         
+        ]
+      },
+     
+       {
+        "sourceState": "Transferred to Privacy",
+        "targetStates": [
+          "Completed",
+          "Rejected"
+         
+        ]
+      },
+     
+      {
+        "sourceState": "Transferred to Emojot",
+        "targetStates": [
+         
+          "Completed",
+          "Rejected"
+        ]
+      },
+      
+      {
+        "sourceState": "Rejected",
+        "targetStates": [
+          "Triage"
+        ]
+      }
+    ],
+    "values": [
+      {
+        "id": "Triage",
+        "name": "Triage",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000",
+        "statusBackgroundColor": "#fcf3cf",
+        "statusTextColor": "#7d6608"
+      },
+      {
+        "id": "Request Acknowledged",
+        "name": "Request Acknowledged",
+        "backgroundColor": "#3498db",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d6eaf8",
+        "statusTextColor": "#154360",
+         "triggers": [
+          {
+            "channel": "email",
+            "template": "piiRequestAcknowledgmentAlert",
+            "target": "customer",
+            "appendEditUrl": false,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                    "For self",
+                    "On behalf",
+                    "For client representative"
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Transferred to CSM",
+        "name": "Transferred to CSM",
+        "backgroundColor": "#9b59b6",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#eadcf8",
+        "statusTextColor": "#4a235a"
+      },
+      {
+        "id": "Transferred to Privacy",
+        "name": "Transferred to Privacy",
+        "backgroundColor": "#9b59b6",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#eadcf8",
+        "statusTextColor": "#4a235a"
+      },
+       {
+        "id": "Transferred to Emojot",
+        "name": "Transferred to Emojot",
+        "backgroundColor": "#9b59b6",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#eadcf8",
+        "statusTextColor": "#4a235a"
+      },
+      {
+        "id": "Transferred to Client",
+        "name": "Transferred to Client",
+        "backgroundColor": "#e67e22",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#fae5d3",
+        "statusTextColor": "#6e2c00"
+      },
+      {
+        "id": "Completed",
+        "name": "Completed",
+        "finalState": true,
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d5f5e3",
+        "statusTextColor": "#145a32",
+        "fieldsValidation": [
+          {
+            "fieldID": "inbuild_comment",
+            "required": true,
+            "message": "Please add a comment explaining how this request was resolved."
+          }
+        ],
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "piiRequestCompletedAlert",
+            "target": "customer",
+            "appendEditUrl": false,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                    "For self",
+                    "On behalf",
+                    "For client representative"
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Rejected",
+        "name": "Rejected",
+        "finalState": true,
+        "backgroundColor": "#c0392b",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#f5b7b1",
+        "statusTextColor": "#641e16",
+        "fieldsValidation": [
+          {
+            "fieldID": "inbuild_comment",
+            "required": true,
+            "message": "Please add a comment explaining why this request was rejected."
+          }
+        ]
+      }
+    ]
+  },
+  "timeSpent": {
+    "name": "Time spent",
+    "type": "time_accumulation",
+    "hidden": true
+  },
+  "customFields": {
+    "consent": {
+      "name": "Initial Consent",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Yes I have read and understood the above notice and consent to submit this request",
+          "name": "Yes I have read and understood the above notice and consent to submit this request"
+        },
+        {
+          "id": "No I do not consent",
+          "name": "No I do not consent"
+        }
+      ]
+    },
+    "requesterType": {
+      "name": "Requester Type",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "For self",
+          "name": "For self"
+        },
+        {
+          "id": "On behalf",
+          "name": "On behalf"
+        },
+        {
+          "id": "For client representative",
+          "name": "For client representative"
+        }
+      ]
+    },
+    "requestType": {
+      "name": "Request Type",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Access to / copy of personal data",
+          "name": "Access to / copy of personal data"
+        },
+        {
+          "id": "Deletion / erasure of personal data",
+          "name": "Deletion / erasure of personal data"
+        },
+        {
+          "id": "Transfer / portability of personal data",
+          "name": "Transfer / portability of personal data"
+        },
+        {
+          "id": "Object to profiling or automated decision-making",
+          "name": "Object to profiling or automated decision-making"
+        },
+        {
+          "id": "Restrict or stop processing of personal data",
+          "name": "Restrict or stop processing of personal data"
+        },
+        {
+          "id": "Other",
+          "name": "Other"
+        },
+        {
+          "id": "Request a copy of PII data",
+          "name": "Request a copy of PII data"
+        },
+        {
+          "id": "Erasure PII data",
+          "name": "Erasure PII data"
+        },
+        {
+          "id": "Transfer PII data to another entity",
+          "name": "Transfer PII data to another entity"
+        },
+        {
+          "id": "Object against using PII Data for Profiling & Automated Decision Making",
+          "name": "Object against using PII Data for Profiling & Automated Decision Making"
+        },
+        {
+          "id": "Stop Processing PII Data",
+          "name": "Stop Processing PII Data"
+        }
+      ]
+    },
+    "selfFullName": {
+      "name": "Full Name",
+      "type": "string",
+      "readOnly": true
+    },
+    "selfEmail": {
+      "name": "Email Address",
+      "type": "string",
+      "readOnly": true
+    },
+    "selfContactNumber": {
+      "name": "Contact Number",
+      "type": "string",
+      "readOnly": true
+    },
+    "requestorFullName": {
+      "name": "Requestor Full Name",
+      "type": "string",
+      "readOnly": true
+    },
+    "requestorEmail": {
+      "name": "Requestor Email",
+      "type": "string",
+      "readOnly": true
+    },
+    "requestorContactNumber": {
+      "name": "Requestor Contact Number",
+      "type": "string",
+      "readOnly": true
+    },
+    "dataSubjectFullName": {
+      "name": "Data Subject Full Name",
+      "type": "string",
+      "readOnly": true
+    },
+    "dataSubjectEmail": {
+      "name": "Data Subject Email",
+      "type": "string",
+      "readOnly": true
+    },
+    "relationshipToDataSubject": {
+      "name": "Relationship To Data Subject",
+      "type": "string",
+      "readOnly": true
+    },
+    "representativeFullName": {
+      "name": "Representative Full Name",
+      "type": "string",
+      "readOnly": true
+    },
+    "representativeEmail": {
+      "name": "Representative Email",
+      "type": "string",
+      "readOnly": true
+    },
+    "clientCompanyName": {
+      "name": "Client/Company Name",
+      "type": "string",
+      "readOnly": true
+    },
+    "clientReferenceTicketId": {
+      "name": "Client Reference/Ticket ID",
+      "type": "string",
+      "readOnly": true
+    },
+    "interactedOrganization": {
+      "name": "Company, Brand, Or Organization Interacted With",
+      "type": "string",
+      "readOnly": true
+    },
+    "additionalInformation": {
+      "name": "Additional Information",
+      "type": "textArea",
+      "readOnly": true
+    },
+    "attachment": {
+      "name": "Attachment",
+      "type": "file",
+      "readOnly": true
+    },
+    "deleteReason": {
+      "name": "Deletion Reason",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "I'm concerned about my privacy",
+          "name": "I'm concerned about my privacy"
+        },
+        {
+          "id": "I'm not sure who uses my data or shared with",
+          "name": "I'm not sure who uses my data or shared with"
+        },
+        {
+          "id": "I have been getting lots of spam messages due to this",
+          "name": "I have been getting lots of spam messages due to this"
+        }
+      ]
+    },
+    "termsAccepted": {
+      "name": "Terms Accepted",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Yes",
+          "name": "Yes"
+        },
+        {
+          "id": "No",
+          "name": "No"
+        }
+      ]
+    },
+    "enterpriseTermsAccepted": {
+      "name": "Enterprise Terms Accepted",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Yes",
+          "name": "Yes"
+        },
+        {
+          "id": "No",
+          "name": "No"
+        }
+      ]
+    },
+    "contactName": {
+      "name": "Contact Name",
+      "type": "string",
+      "readOnly": true
+    },
+    "contactEmail": {
+      "name": "Contact Email",
+      "type": "string",
+      "readOnly": true
+    }
+  },
+  "workflowCreation": {
+    "email": "bot@emojot.com",
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "piiRequestCreationAlert",
+        "target": "admin",
+        "contacts": [
+          "shaveenf@emojot.com"
+        ],
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "For self",
+              "On behalf",
+              "For client representative"
+            ]
+          ]
+        }
+      },
+        {
+        "template": "piiRequestCreationAlertCustomer",
+        "channel": "email",
+        "target": "customer",
+        "appendEditUrl": false,
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "For self",
+              "On behalf",
+              "For client representative"
+            ]
+          ]
+        }
+      },
+      {
+        "channel": "fieldChange",
+        "changingFields": [
+          {
+            "id": "assignee",
+            "value": "privacy@emojot.com"
+          }
+        ]
+      }
+    ]
+  },
+  "assignment": {
+    "automaticAssignment": {
+      "isEnabled": true,
+      "email": "privacy@emojot.com",
+      "resolvedStatus": [
+        "Completed",
+        "Rejected"
+      ],
+      "maxLevel": 0,
+      "triggerFlows": []
+    }
+  },
+  "adminHierarchy": {
+    "id": "REPLACE_PLATFORMSEC_ADMIN_HIERARCHY_ID",
+    "list": "admin",
+    "headers": [
+      {
+        "id": "requesterType",
+        "name": "Requester Type",
+        "type": "customField"
+      },
+      {
+        "id": "requestType",
+        "name": "Request Type",
+        "type": "customField"
+      },
+      {
+        "id": "ticketAssignee",
+        "name": "Ticket Assignee",
+        "type": "contact"
+      }
+    ]
+  }
+}

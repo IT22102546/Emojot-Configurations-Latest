@@ -814,9 +814,9 @@ div#er_0q2900.col-xs-12.text-center.emoticonList.ng-scope {
     z-index: 1;
     position: relative;
     width: 36px;
-    height: 100%;
+    height: 10px;
     padding: 0 0 0 8px;
-    margin-top: 99px !important;
+    margin-top: 210px !important;
 }
 
 .intl-tel-input {
@@ -886,15 +886,15 @@ div#er_0q2900.col-xs-12.text-center.emoticonList.ng-scope {
     }
 
     .ng-valid-ng-intl-tel-input {
-        top: -460px !important;
+        top: -490px !important;
     }
 
     .ng-invalid-ng-intl-tel-input {
-        top: -460px !important;
+        top: -490px !important;
     }
 
     body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .ng-valid-ng-intl-tel-input {
-        top: -460px !important;
+        top: -490px !important;
     }
 
     body:has(.localisation-cont.clicked-emo-cont img[src*="ico8.png"]) .ng-valid-ng-intl-tel-input {
@@ -902,7 +902,7 @@ div#er_0q2900.col-xs-12.text-center.emoticonList.ng-scope {
     }
 
     body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .ng-invalid-ng-intl-tel-input {
-        top: -460px !important;
+        top: -490px !important;
     }
 
     body:has(.localisation-cont.clicked-emo-cont img[src*="ico8.png"]) .ng-invalid-ng-intl-tel-input {
@@ -913,20 +913,20 @@ div#er_0q2900.col-xs-12.text-center.emoticonList.ng-scope {
         z-index: 1;
         position: relative;
         width: 36px;
-        height: 100%;
+        height: 10px;
         padding: 0 0 0 8px;
-        margin-top: 97px !important;
+        margin-top: 200px !important;
     }
 
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
     .ng-valid-ng-intl-tel-input {
-        top: -460px !important;
+        top: -490px !important;
     }
 
     .ng-invalid-ng-intl-tel-input {
-        top: -460px !important;
+        top: -490px !important;
     }
 
     body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .ng-valid-ng-intl-tel-input {
@@ -938,11 +938,11 @@ div#er_0q2900.col-xs-12.text-center.emoticonList.ng-scope {
     }
 
     body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .ng-invalid-ng-intl-tel-input {
-        top: -460px !important;
+        top: -490px !important;
     }
 
     body:has(.localisation-cont.clicked-emo-cont img[src*="ico8.png"]) .ng-invalid-ng-intl-tel-input {
-        top: -460px !important;
+        top: -490px !important;
     }
 
     .btn-ok {

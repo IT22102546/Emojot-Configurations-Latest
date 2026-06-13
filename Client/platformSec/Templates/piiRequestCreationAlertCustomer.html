@@ -1,0 +1,244 @@
+<!--
+    Header - This the place which we add banner image. User can change banner image by changing src value in img tag inside the header section.
+
+    Content - This the place which we add content of the email.
+
+    Sensor Load Button  -  In here we can add sensor link to the href attribute. If you no need button you can remove this.
+
+    Footer - This the place we add footer element like company logo and 'power by emojot' text
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 100%;
+            line-height: 1.65;
+        }
+
+        img {
+            max-width: 100%;
+            margin: 0 auto;
+            display: block;
+        }
+
+        body,
+        .body-wrap {
+            width: 100% !important;
+            height: 100%;
+            background: #e5e5e5;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: black;
+        }
+
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .button {
+            display: inline-block;
+            color: white;
+            background: #017ABF;
+            border: solid #017ABF;
+            border-width: 10px 20px 8px;
+            font-weight: bold;
+            border-radius: 4px;
+        }
+
+        .button:hover {
+            text-decoration: none;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin-bottom: 20px;
+            line-height: 1.25;
+        }
+
+        h1 {
+            font-size: 32px;
+        }
+
+        h2 {
+            font-size: 28px;
+        }
+
+        h3 {
+            font-size: 24px;
+        }
+
+        h4 {
+            font-size: 20px;
+        }
+
+        h5 {
+            font-size: 16px;
+        }
+
+        p,
+        ul,
+        ol {
+            font-size: 16px;
+            font-weight: normal;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: block !important;
+            clear: both !important;
+            margin: 0 auto !important;
+            max-width: 580px !important;
+        }
+
+        .container table {
+            width: 100% !important;
+            border-collapse: collapse;
+        }
+
+
+        .container .masthead h1 {
+            margin: 0 auto !important;
+            max-width: 90%;
+            text-transform: uppercase;
+        }
+
+        .container .content {
+            background: white;
+            padding: 30px 35px;
+        }
+
+        .container .content.footer {
+            background: white;
+            height: 42px;
+            padding-top: 2px;
+            padding-bottom: 5px;
+        }
+
+        .container .content.footer p {
+            margin-bottom: 0;
+            color: #888;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .container .content.footer a {
+            color: #888;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .container .content.footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media only screen and (max-width: 699px) {
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 32px;
+            }
+
+            h3 {
+                font-size: 28px;
+            }
+
+            h4 {
+                font-size: 24px;
+            }
+
+            h5 {
+                font-size: 20px;
+            }
+
+            p,
+            ul,
+            ol {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<table class="body-wrap" style="color: black;">
+<tbody>
+<tr>
+<td><center>
+<table class="container" style="border-spacing: 0px;"><!-- Header -->
+<tbody>
+<tr>
+<td align="center" class="masthead"><!-- replace src url with image --> <img src="https://storage.emojot.com/pictures/emailImages/5ed61ef5d9da9d00129f62fd-skin12.png" caption="false" /></td>
+</tr>
+<tr style="background: white;">
+<td><hr style="border: 1px solid #efeeee;" /></td>
+</tr>
+<!-- Content -->
+<tr>
+<td class="content">
+<p>YourPII data rights request has been received.&nbsp;</p>
+<p><strong>Request ID</strong> -&nbsp;$incident_number$</p>
+<p><strong>Requestor Name</strong> -&nbsp;$client_name$</p>
+<p><strong>Requestor Email</strong> -&nbsp;$client_email$</p>
+<p><strong>Requestor Telephone</strong> -&nbsp;$client_telephone$</p>
+<p><strong>Request Type</strong> -&nbsp;$incident_customFields_requestType$</p>
+<p><strong>Company, Brand, Or Organization Interacted With</strong> -&nbsp;$incident_customFields_interactedOrganization$</p>
+
+
+<!-- remove this center element with child elements if you don't need a button --><center></center>
+<p>Thank you, <br />Emojot Security Team</p>
+</td>
+</tr>
+<tr style="background: white;">
+<td><hr style="border: 1px solid #efeeee;" /></td>
+</tr>
+<!-- Footer -->
+<tr>
+<td class="content footer" height="42">
+<table>
+<tbody>
+<tr>
+<td>
+<p align="left" style="text-align: left;">Powered by Emojot</p>
+</td>
+<td width="200"><a href="http://emojot.com/"><img style="width: 80px; float: right;" align="right" src="https://storage.emojot.com/logos/emojot/emojot2019.png" width="80" /></a></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</center></td>
+</tr>
+</tbody>
+</table>
+</body>
+
+</html>
