@@ -1,0 +1,133 @@
+<style>
+.lnksh-cc-title{
+    width:100%;
+    text-align:left;
+    font-size:20px;
+    font-weight:600;
+    color:#000000;
+    font-family:"Saira Semi Condensed", sans-serif;
+    margin:20px 0 16px;
+}
+
+.lnksh-cc-consent-wrap{
+    font-family:"Saira Semi Condensed", sans-serif;
+    margin:18px 6px 35px;
+    color:#444;
+}
+
+.lnksh-cc-consent-label{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    font-size:14px;
+    line-height:1.35;
+    text-align:left;
+    cursor:pointer;
+}
+
+.lnksh-cc-checkbox{
+    margin-top:3px;
+    min-width:16px;
+    width:16px;
+    height:16px;
+}
+
+.btn-ok.lnksh-cc-disabled{
+    opacity:0.35 !important;
+    pointer-events:none !important;
+    cursor:not-allowed !important;
+}
+
+.loyalty-bottom {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+</style>
+
+<div class="lnksh-cc-title" data-lnksh-source="commercial-credit-inline">
+   <span data-lnksh-key="title">We value your feedback. Kindly provide your details below to help us understand you better.</span>
+</div>
+
+<div class="lnksh-cc-consent-wrap" data-lnksh-source="commercial-credit-inline">
+    <label class="lnksh-cc-consent-label">
+        <input class="lnksh-cc-checkbox" type="checkbox">
+        <span data-lnksh-key="consent">
+    I consent to the collection and use of my personal information for banking and service improvement purposes, as per applicable privacy policies and regulations.
+        </span>
+    </label>
+</div>
+
+<script>
+(function () {
+    const COPY = {
+        en: {
+            title: 'We value your feedback. Kindly provide your details below to help us understand you better.',
+            consent: 'I consent to the collection and use of my personal information for banking and service improvement purposes, as per applicable privacy policies and regulation.'
+        },
+        si: {
+            title: 'ඔබගේ ප්‍රතිපෝෂණය අපට වැදගත් වේ. ඔබව වඩා හොඳින් අවබෝධ කර ගැනීමට කරුණාකර පහත ඔබගේ තොරතුරු ලබා දෙන්න.',
+            consent: 'අදාළ පෞද්ගලිකත්ව ප්‍රතිපත්ති සහ රෙගුලාසි අනුව, බැංකුකරණ සහ සේවා වැඩිදියුණු කිරීමේ අරමුණු සඳහා මගේ පුද්ගලික තොරතුරු රැස් කිරීම හා භාවිත කිරීම සඳහා මම එකඟ වෙමි.'
+        },
+        ta: {
+            title: 'உங்கள் கருத்து எங்களுக்கு மதிப்புமிக்கது. உங்களை மேலும் நன்கு புரிந்துகொள்ள, கீழே உங்கள் விவரங்களை வழங்கவும்.',
+            consent: 'பொருந்தக்கூடிய தனியுரிமைக் கொள்கைகள் மற்றும் விதிமுறைகளின்படி, வங்கி சேவைகள் மற்றும் சேவை மேம்பாட்டு நோக்கங்களுக்காக எனது தனிப்பட்ட தகவல்களை சேகரித்து பயன்படுத்துவதற்கு நான் சம்மதிக்கிறேன்.'
+}
+    };
+
+    function detectLang() {
+        const ngSelect = document.querySelector('select[ng-model="selectedLanguage.value"], select[ng-model*="selectedLanguage"]');
+        if (ngSelect) {
+            const opt = ngSelect.selectedOptions && ngSelect.selectedOptions[0];
+            const v = (opt?.textContent || ngSelect.value || '').toLowerCase();
+            if (v.includes('sinhala') || v.includes('සිංහල')) return 'si';
+            if (v.includes('tamil') || v.includes('தமிழ்')) return 'ta';
+            if (v.includes('english')) return 'en';
+        }
+        return 'en';
+    }
+
+    function apply() {
+        const lang = detectLang();
+        const copy = COPY[lang] || COPY.en;
+        const title = document.querySelector('[data-lnksh-source="commercial-credit-inline"] [data-lnksh-key="title"]');
+        const consent = document.querySelector('[data-lnksh-source="commercial-credit-inline"] [data-lnksh-key="consent"]');
+        if (title) title.textContent = copy.title;
+        if (consent) consent.textContent = copy.consent;
+    }
+
+    function place() {
+        const form = document.querySelector('#loyalty-form');
+        const okBtn = document.querySelector('.btn-ok');
+        const checkbox = document.querySelector('.lnksh-cc-checkbox');
+        if (!form || !okBtn || !checkbox) {
+            setTimeout(place, 500);
+            return;
+        }
+        const title = document.querySelector('.lnksh-cc-title[data-lnksh-source="commercial-credit-inline"]');
+        const consent = document.querySelector('.lnksh-cc-consent-wrap[data-lnksh-source="commercial-credit-inline"]');
+
+        if (title && form.parentNode) form.parentNode.insertBefore(title, form);
+        if (consent) form.insertAdjacentElement('afterend', consent);
+
+        okBtn.classList.add('lnksh-cc-disabled');
+        okBtn.setAttribute('disabled', 'disabled');
+
+        checkbox.addEventListener('change', function(){
+            if (checkbox.checked) { okBtn.classList.remove('lnksh-cc-disabled'); okBtn.removeAttribute('disabled'); }
+            else { okBtn.classList.add('lnksh-cc-disabled'); okBtn.setAttribute('disabled','disabled'); }
+        });
+
+        // listen language changes
+        const ngSelect = document.querySelector('select[ng-model="selectedLanguage.value"], select[ng-model*="selectedLanguage"]');
+        if (ngSelect) ngSelect.addEventListener('change', apply);
+        window.addEventListener('change', (e) => { if (e.target && e.target.tagName === 'SELECT') apply(); }, true);
+        window.addEventListener('click', () => setTimeout(apply, 0), true);
+
+        apply();
+    }
+
+    window.addEventListener('load', place);
+
+})();
+</script>
