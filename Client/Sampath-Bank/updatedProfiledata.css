@@ -1,0 +1,222 @@
+<div id="lnksh-smpth-cc-top" data-lnksh-smpth-source="commercial-credit-inline">
+    <div class="lnksh-smpth-cc-title">
+        <span data-lnksh-smpth-key="title">Contact Details Consent</span>
+    </div>
+
+    <div class="lnksh-smpth-cc-subtitle">
+        <span data-lnksh-smpth-key="subtitle">
+            Your information will be used solely to address your feedback or related service matters, stored securely, and retained only as necessary.
+        </span>
+    </div>
+</div>
+
+<div id="lnksh-smpth-cc-bottom" data-lnksh-smpth-source="commercial-credit-inline">
+    <div class="lnksh-smpth-cc-consent-wrap">
+        <div class="lnksh-smpth-cc-info">
+            <span data-lnksh-smpth-key="privacyText1">
+                Please refer to Sampath Bank’s Privacy Policy for further details.
+            </span>
+
+            <br><br>
+
+            <span data-lnksh-smpth-key="privacyText2">
+                For more information on how we handle personal data, please see
+            </span>
+            <a
+                href="https://www.sampath.lk/en/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-lnksh-smpth-key="privacyLink">
+                Sampath Bank’s Privacy Policy
+            </a>.
+        </div>
+
+        <div class="lnksh-smpth-cc-consent-text" data-lnksh-smpth-key="consent">
+            I agree to give my personal details:
+        </div>
+
+        <div class="lnksh-smpth-cc-actions">
+            <button type="button" class="lnksh-smpth-cc-yes">
+                <img
+                    class="lnksh-smpth-cc-option-img"
+                    src="https://storage.emojot.com/pictures/generalImages/67ca7d8244a092407d279491-skin3.png"
+                    alt="">
+                <span data-lnksh-smpth-key="yes">Yes</span>
+            </button>
+
+            <button type="button" class="lnksh-smpth-cc-no">
+                <img
+                    class="lnksh-smpth-cc-option-img"
+                    src="https://storage.emojot.com/pictures/generalImages/67ca7d8244a092407d279491-skin2.png"
+                    alt="">
+                <span data-lnksh-smpth-key="no">No</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    const STYLE_ID = 'lnksh-smpth-cc-style';
+
+    const COPY = {
+        en: {
+            title: 'Contact Details Consent',
+            subtitle: 'Your information will be used solely to address your feedback or related service matters, stored securely, and retained only as necessary.',
+            privacyText1: 'Please refer to Sampath Bank’s Privacy Policy for further details.',
+            privacyText2: 'For more information on how we handle personal data, please see',
+            privacyLink: 'Sampath Bank’s Privacy Policy',
+            consent: 'I agree to give my personal details:',
+            yes: 'Yes',
+            no: 'No'
+        },
+        si: {
+            title: 'සම්බන්ධතා තොරතුරු සඳහා එකඟතාවය',
+            subtitle: 'ඔබගේ තොරතුරු ඔබගේ ප්‍රතිචාරයට හෝ අදාළ සේවා කටයුතු සඳහා පමණක් භාවිතා කරනු ලබන අතර, ආරක්ෂිතව ගබඩා කර අවශ්‍ය කාලය පමණක් රඳවා තබනු ලැබේ.',
+            privacyText1: 'වැඩිදුර විස්තර සඳහා කරුණාකර සම්පත් බැංකුවේ පෞද්ගලිකත්ව ප්‍රතිපත්තිය බලන්න.',
+            privacyText2: 'අපි පුද්ගලික දත්ත හසුරුවන ආකාරය පිළිබඳ වැඩිදුර තොරතුරු සඳහා කරුණාකර බලන්න',
+            privacyLink: 'සම්පත් බැංකුවේ පෞද්ගලිකත්ව ප්‍රතිපත්තිය',
+            consent: 'මගේ පුද්ගලික විස්තර ලබා දීමට මම එකඟ වෙමි:',
+            yes: 'ඔව්',
+            no: 'නැත'
+        },
+        ta: {
+            title: 'தொடர்பு விவர ஒப்புதல்',
+            subtitle: 'உங்கள் தகவல் உங்கள் கருத்து அல்லது தொடர்புடைய சேவை விஷயங்களை கையாள்வதற்காக மட்டுமே பயன்படுத்தப்படும், பாதுகாப்பாக சேமிக்கப்படும் மற்றும் தேவையான காலத்திற்கு மட்டுமே வைத்திருக்கும்.',
+            privacyText1: 'மேலும் விவரங்களுக்கு சம்பத் வங்கியின் தனியுரிமைக் கொள்கையைப் பார்க்கவும்.',
+            privacyText2: 'நாங்கள் தனிப்பட்ட தரவை எவ்வாறு கையாளுகிறோம் என்பதைப் பற்றிய மேலும் தகவல்களுக்கு, தயவுசெய்து பார்க்கவும்',
+            privacyLink: 'சம்பத் வங்கியின் தனியுரிமைக் கொள்கை',
+            consent: 'எனது தனிப்பட்ட விவரங்களை வழங்க நான் ஒப்புக்கொள்கிறேன்:',
+            yes: 'ஆம்',
+            no: 'இல்லை'
+        }
+    };
+
+    function ensureStyles() {
+        if (document.querySelector('#' + STYLE_ID)) return;
+
+        const style = document.createElement('style');
+        style.id = STYLE_ID;
+        style.textContent = `
+            .lnksh-smpth-cc-title{width:100%;text-align:left;font-size:20px;font-weight:700;color:#000000;margin:20px 0 8px;}
+            .lnksh-smpth-cc-title span{font-weight:700;}
+            .lnksh-smpth-cc-subtitle{width:100%;text-align:left;font-size:16px;line-height:1.35;color:#000000;margin:0 0 24px;}
+            .lnksh-smpth-cc-consent-wrap{margin:18px 6px 35px;color:#444444;}
+            .lnksh-smpth-cc-info{font-size:14px;line-height:1.45;text-align:left;margin-bottom:4px;}
+            .lnksh-smpth-cc-info a{color:#0056b3;text-decoration:underline;}
+            .lnksh-smpth-cc-consent-text{font-size:14px;line-height:1.35;text-align:left;margin:4px 0 18px;}
+            .lnksh-smpth-cc-actions{display:flex;justify-content:center;align-items:stretch;gap:12px;width:100%;}
+            .lnksh-smpth-cc-yes,.lnksh-smpth-cc-no{flex:1;max-width:260px;min-height:76px;padding:10px 18px;border:1px solid #eeeeee;background:rgba(255,255,255,0.45);color:#000000;font-size:14px;cursor:pointer;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+            .lnksh-smpth-cc-option-img{display:block;width:34px;height:34px;object-fit:contain;margin:0 auto 6px;}
+            .lnksh-smpth-cc-yes.active,.lnksh-smpth-cc-no.active{border:2px solid #000000;}
+            .btn-ok.lnksh-smpth-cc-disabled{opacity:0.35 !important;pointer-events:none !important;cursor:not-allowed !important;}
+            .loyalty-bottom{text-align:center;margin-bottom:40px;}
+            @media (max-width:480px){
+                .lnksh-smpth-cc-actions{gap:8px;}
+                .lnksh-smpth-cc-yes,.lnksh-smpth-cc-no{max-width:none;min-height:72px;padding:8px 10px;}
+            }
+        `;
+        document.head.appendChild(style);
+    }
+
+    function detectLang() {
+        if (document.querySelector('.localisation-cont.clicked-emo-cont img[src*="ico7.png"]')) return 'ta';
+        if (document.querySelector('.localisation-cont.clicked-emo-cont img[src*="ico8.png"]')) return 'si';
+        return 'en';
+    }
+
+    function applyText() {
+        const lang = detectLang();
+        const copy = COPY[lang] || COPY.en;
+
+        document.querySelectorAll('[data-lnksh-smpth-key]').forEach(function(el) {
+            const key = el.getAttribute('data-lnksh-smpth-key');
+            if (copy[key]) el.textContent = copy[key];
+        });
+    }
+
+    function cleanDuplicates() {
+        document.querySelectorAll('#lnksh-smpth-cc-top').forEach(function(el, index) {
+            if (index > 0) el.remove();
+        });
+
+        document.querySelectorAll('#lnksh-smpth-cc-bottom').forEach(function(el, index) {
+            if (index > 0) el.remove();
+        });
+    }
+
+    function disableOk(okBtn) {
+        okBtn.classList.add('lnksh-smpth-cc-disabled');
+        okBtn.setAttribute('disabled', 'disabled');
+    }
+
+    function enableOk(okBtn) {
+        okBtn.classList.remove('lnksh-smpth-cc-disabled');
+        okBtn.removeAttribute('disabled');
+    }
+
+    function place() {
+        ensureStyles();
+        cleanDuplicates();
+
+        const form = document.querySelector('#loyalty-form');
+        const okBtn = document.querySelector('.btn-ok');
+        const topBlock = document.querySelector('#lnksh-smpth-cc-top');
+        const bottomBlock = document.querySelector('#lnksh-smpth-cc-bottom');
+
+        if (!form || !okBtn || !topBlock || !bottomBlock) {
+            setTimeout(place, 500);
+            return;
+        }
+
+        if (form.parentNode && topBlock.nextElementSibling !== form) {
+            form.parentNode.insertBefore(topBlock, form);
+        }
+
+        if (bottomBlock.previousElementSibling !== form) {
+            form.insertAdjacentElement('afterend', bottomBlock);
+        }
+
+        const yesBtn = bottomBlock.querySelector('.lnksh-smpth-cc-yes');
+        const noBtn = bottomBlock.querySelector('.lnksh-smpth-cc-no');
+
+        disableOk(okBtn);
+
+        if (!bottomBlock.dataset.eventsBound) {
+            yesBtn.addEventListener('click', function(){
+                yesBtn.classList.add('active');
+                noBtn.classList.remove('active');
+                enableOk(okBtn);
+            });
+
+            noBtn.addEventListener('click', function(){
+                noBtn.classList.add('active');
+                yesBtn.classList.remove('active');
+                disableOk(okBtn);
+            });
+
+            bottomBlock.dataset.eventsBound = 'true';
+        }
+
+        applyText();
+    }
+
+    function refreshAfterLocalization() {
+        setTimeout(place, 50);
+        setTimeout(place, 150);
+        setTimeout(place, 300);
+        setTimeout(place, 600);
+        setTimeout(place, 1000);
+    }
+
+    window.addEventListener('load', place);
+
+    window.addEventListener('click', function(e) {
+        if (e.target && e.target.closest && e.target.closest('.localisation-cont')) {
+            refreshAfterLocalization();
+        }
+    }, true);
+
+    setTimeout(place, 500);
+})();
+</script>

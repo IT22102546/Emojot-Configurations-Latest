@@ -38,6 +38,94 @@
     cursor:not-allowed !important;
 }
 
+.lnksh-language-select-hidden {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.lnksh-language-strip {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+    justify-content: center;
+    z-index: 20;
+    flex-wrap: wrap;
+    max-width: calc(100% - 280px);
+}
+
+.lnksh-language-btn {
+    width: 174px;
+    min-height: 100px;
+    padding: 10px 14px;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #111111;
+    font-family: "Be Vietnam Pro", sans-serif;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.lnksh-language-btn:hover {
+    border-color: #888888;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+}
+
+.lnksh-language-btn.is-active {
+    border: 4px solid #000000;
+    background: rgba(236, 233, 233, 0.92);
+    box-shadow: none;
+}
+
+.lnksh-language-badge {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.5px;
+}
+
+.lnksh-language-btn[data-lang-key="en"] .lnksh-language-badge {
+    background: linear-gradient(180deg, #ff8c72 0%, #ff3b30 100%);
+}
+
+.lnksh-language-btn[data-lang-key="si"] .lnksh-language-badge {
+    background: linear-gradient(180deg, #47b2ff 0%, #5f48df 100%);
+}
+
+.lnksh-language-btn[data-lang-key="ta"] .lnksh-language-badge {
+    background: linear-gradient(180deg, #f8c24a 0%, #e08a12 100%);
+}
+
+.lnksh-language-label {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.1;
+    text-align: center;
+    white-space: nowrap;
+}
+
 .loyalty-bottom {
     text-align: center;
     margin-bottom: 40px;
@@ -96,6 +184,68 @@
         if (consent) consent.textContent = copy.consent;
     }
 
+    function getLanguageKey(optionText) {
+        const value = (optionText || '').toLowerCase();
+        if (value.includes('sinhala') || value.includes('සිංහල')) return 'si';
+        if (value.includes('tamil') || value.includes('தமிழ்')) return 'ta';
+        return 'en';
+    }
+
+    function getBadgeText(langKey, optionText) {
+        if (langKey === 'si') return 'සි';
+        if (langKey === 'ta') return 'அ';
+        return 'E';
+    }
+
+    function syncLanguageButtons(ngSelect) {
+        const activeText = (ngSelect.selectedOptions && ngSelect.selectedOptions[0] && ngSelect.selectedOptions[0].textContent) || ngSelect.value || '';
+        const activeKey = getLanguageKey(activeText);
+        document.querySelectorAll('.lnksh-language-btn').forEach((button) => {
+            const isActive = button.dataset.langKey === activeKey || button.dataset.langValue === ngSelect.value;
+            button.classList.toggle('is-active', isActive);
+            button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+    }
+
+    function buildLanguageButtons(ngSelect) {
+        if (!ngSelect || document.querySelector('.lnksh-language-strip')) return;
+
+        const options = Array.from(ngSelect.options || []).filter((option) => (option.textContent || option.value || '').trim());
+        if (!options.length) return;
+
+        const strip = document.createElement('div');
+        strip.className = 'lnksh-language-strip';
+        strip.setAttribute('role', 'group');
+        strip.setAttribute('aria-label', 'Language selection');
+
+        options.forEach((option) => {
+            const langKey = getLanguageKey(option.textContent || option.value);
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'lnksh-language-btn';
+            button.dataset.langKey = langKey;
+            button.dataset.langValue = option.value;
+            button.setAttribute('aria-pressed', 'false');
+            button.innerHTML = '<span class="lnksh-language-badge">' + getBadgeText(langKey, option.textContent) + '</span><span class="lnksh-language-label">' + option.textContent.trim() + '</span>';
+            button.addEventListener('click', function () {
+                ngSelect.value = option.value;
+                ngSelect.dispatchEvent(new Event('change', { bubbles: true }));
+                syncLanguageButtons(ngSelect);
+            });
+            strip.appendChild(button);
+        });
+
+        const masterSection = document.querySelector('#master-section');
+        if (masterSection) {
+            masterSection.appendChild(strip);
+        } else {
+            document.body.appendChild(strip);
+        }
+
+        ngSelect.classList.add('lnksh-language-select-hidden');
+        syncLanguageButtons(ngSelect);
+    }
+
     function place() {
         const form = document.querySelector('#loyalty-form');
         const okBtn = document.querySelector('.btn-ok');
@@ -120,7 +270,9 @@
 
         // listen language changes
         const ngSelect = document.querySelector('select[ng-model="selectedLanguage.value"], select[ng-model*="selectedLanguage"]');
+        buildLanguageButtons(ngSelect);
         if (ngSelect) ngSelect.addEventListener('change', apply);
+        if (ngSelect) ngSelect.addEventListener('change', function () { syncLanguageButtons(ngSelect); });
         window.addEventListener('change', (e) => { if (e.target && e.target.tagName === 'SELECT') apply(); }, true);
         window.addEventListener('click', () => setTimeout(apply, 0), true);
 
