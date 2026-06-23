@@ -98,35 +98,28 @@
         "sourceState": "Transferred to CSM",
         "targetStates": [
           "Transferred to Privacy"
-          
         ]
       },
       {
         "sourceState": "Transferred to Client",
         "targetStates": [
           "Transferred to Emojot"
-         
         ]
       },
-     
-       {
+      {
         "sourceState": "Transferred to Privacy",
         "targetStates": [
           "Completed",
           "Rejected"
-         
         ]
       },
-     
       {
         "sourceState": "Transferred to Emojot",
         "targetStates": [
-         
           "Completed",
           "Rejected"
         ]
       },
-      
       {
         "sourceState": "Rejected",
         "targetStates": [
@@ -150,7 +143,7 @@
         "textColor": "#ffffff",
         "statusBackgroundColor": "#d6eaf8",
         "statusTextColor": "#154360",
-         "triggers": [
+        "triggers": [
           {
             "channel": "email",
             "template": "piiRequestAcknowledgmentAlert",
@@ -162,9 +155,9 @@
                   "var": "type"
                 },
                 [
-                    "For self",
-                    "On behalf",
-                    "For client representative"
+                  "For self",
+                  "On behalf",
+                  "For client representative"
                 ]
               ]
             }
@@ -187,7 +180,7 @@
         "statusBackgroundColor": "#eadcf8",
         "statusTextColor": "#4a235a"
       },
-       {
+      {
         "id": "Transferred to Emojot",
         "name": "Transferred to Emojot",
         "backgroundColor": "#9b59b6",
@@ -230,9 +223,9 @@
                   "var": "type"
                 },
                 [
-                    "For self",
-                    "On behalf",
-                    "For client representative"
+                  "For self",
+                  "On behalf",
+                  "For client representative"
                 ]
               ]
             }
@@ -496,7 +489,8 @@
         "template": "piiRequestCreationAlert",
         "target": "admin",
         "contacts": [
-          "shaveenf@emojot.com"
+          "shaveenf@emojot.com",
+          "sanjanan@emojot.com"
         ],
         "condition": {
           "in": [
@@ -511,7 +505,7 @@
           ]
         }
       },
-        {
+      {
         "template": "piiRequestCreationAlertCustomer",
         "channel": "email",
         "target": "customer",
@@ -541,6 +535,14 @@
     ]
   },
   "assignment": {
+    "triggers": [
+            {
+                "template": "piiReqAssignment",
+                "channel": "email",
+                "target": "employee",
+                "appendEditUrl": false
+            }
+        ],
     "automaticAssignment": {
       "isEnabled": true,
       "email": "privacy@emojot.com",
@@ -572,5 +574,49 @@
         "type": "contact"
       }
     ]
-  }
+  },
+  "finalState": true,
+  "incidentKeyFormat": {
+    "enabled": false,
+    "countDependentFields": {
+      "enabled": true,
+      "fields": [
+        "date",
+        "ticketCategory"
+      ]
+    },
+    "pattern": [
+      {
+        "key": "ticketCategory",
+        "format": "mapping"
+      },
+      {
+        "key": "date",
+        "format": "YYYYMMDD"
+      },
+      {
+        "key": "counter",
+        "format": 3
+      }
+    ],
+    "counterReset": "daily",
+    "fieldMappings": {
+      "ticketCategory": {
+        "mappings": {
+          "customerFeedbackSurvey": "CFS",
+          "WebsiteSurvey": "WBS",
+          "CallcenterSurvey": "CCS"
+        },
+        "default": "UCM"
+      }
+    }
+  },
+  "predefinedComments": [
+    "Case acknowledged and assigned.",
+    "Customer contacted; details requested.",
+    "Initial verification completed.",
+    "Escalated to relevant team.",
+    "Resolution confirmed; case closed."
+  ],
+  "tableEdit": "false"
 }
