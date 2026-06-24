@@ -154,7 +154,6 @@
     line-height: 1.2;
 }
 
-
 .btn-next {
     border: 2px solid #000000;
     color: #000000;
@@ -233,7 +232,6 @@ body.lang-ta .emj-media-upload-attach:before {
 }
 
 .btn-ok {
-    margin-top: 40px !important;
     border: 2px solid #000000;
     color: #000000;
 }
@@ -246,7 +244,6 @@ body.lang-ta .emj-media-upload-attach:before {
 .btn-skip {
     border: 2px solid #888888;
     color: #888888;
-    display: none !important;
 }
 
 .btn-skip:hover {
@@ -447,6 +444,14 @@ body:has(.localisation-cont.clicked-emo-cont img[src*="ico8.png"]) .access-user-
     font-size: 12pt;
     font-weight: 400;
     letter-spacing: 0.5px;
+}
+
+#loyalty-form > .form-group:nth-of-type(1) > label::after,
+#loyalty-form > .form-group:nth-of-type(2) > label::after,
+#loyalty-form > .form-group:nth-of-type(3) > label::after {
+    content: " *";
+    color: #ed3237;
+    font-weight: 700;
 }
 
 .loyalty-message {
@@ -714,20 +719,6 @@ body.lang-ta .nps-bar::after {
     color: #000000 !important;
 }
 
-div#er_0q4907.col-xs-12.flex.ng-scope {
-    font-family: "Be Vietnam Pro", sans-serif !important;
-    font-size: 15px !important;
-    font-weight: 500 !important;
-    font-style: italic !important;
-}
-
-div#er_1q4907.col-xs-12.flex.ng-scope {
-    font-family: "Be Vietnam Pro", sans-serif !important;
-    font-size: 15px !important;
-    font-weight: 500 !important;
-    font-style: italic !important;
-}
-
 span.ng-binding.ng-scope[ng-if*="supportTypes"] {
     display: none !important;
 }
@@ -735,100 +726,6 @@ span.ng-binding.ng-scope[ng-if*="supportTypes"] {
 body {
     position: relative;
 }
-
-.ng-valid-ng-intl-tel-input {
-    position: inherit;
-    top: -500px;
-    z-index: 999;
-}
-
-.ng-invalid-ng-intl-tel-input {
-    position: inherit;
-    top: -500px;
-    z-index: 999;
-}
-
-.ng-valid-ng-intl-tel-input {
-    display: block !important;
-    margin-bottom: -250px !important;
-}
-
-.ng-invalid-ng-intl-tel-input {
-    display: block !important;
-    margin-bottom: -250px !important;
-}
-
-body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .ng-valid-ng-intl-tel-input {
-    top: -495px;
-}
-
-body:has(.localisation-cont.clicked-emo-cont img[src*="ico8.png"]) .ng-valid-ng-intl-tel-input {
-    top: -495px;
-}
-
-body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .ng-valid-ng-intl-tel-input {
-    top: -495px;
-}
-
-body:has(.localisation-cont.clicked-emo-cont img[src*="ico8.png"]) .ng-valid-ng-intl-tel-input {
-    top: -495px;
-}
-
-.intl-tel-input .country-list {
-    margin-top: -90px !important;
-}
-
-
-.ng-valid-ng-intl-tel-input {
-    position: inherit !important;
-    top: -500px !important;
-    z-index: 999 !important;
-    display: block !important;
-    margin-bottom: -250px !important;
-}
-
-.ng-invalid-ng-intl-tel-input {
-    position: inherit !important;
-    top: -500px !important;
-    z-index: 999 !important;
-    display: block !important;
-    margin-bottom: -250px !important;
-}
-
-#qt_q2900.col-xs-12 {
-    display: block !important;
-    margin-top: 220px !important;
-    position: relative !important;
-}
-
-div#er_0q2900.col-xs-12.flex.ng-scope {
-    display: block !important;
-    position: relative !important;
-}
-
-div#er_0q2900.col-xs-12.text-center.emoticonList.ng-scope {
-    margin-bottom: -200px;
-}
-
-.intl-tel-input .selected-flag {
-    z-index: 1;
-    position: relative;
-    width: 36px;
-    height: 10px;
-    padding: 0 0 0 8px;
-    margin-top: 210px !important;
-}
-
-.intl-tel-input {
-    position: static !important;
-}
-
-#loyalty-form button.btn.btn-primary.btn-ok,
-#loyalty-form .btn-ok {
-    margin-top: 40px !important;
-}
-
-
 
 
 @media screen and (min-width: 1px) and (max-width: 768px) {
@@ -873,6 +770,7 @@ div#er_0q2900.col-xs-12.text-center.emoticonList.ng-scope {
     .btn-prev,
     .btn-clear,
     .btn-skip,
+    .btn-ok,
     .loyalty-redeem-button {
         margin-top: 5px !important;
     }
@@ -883,71 +781,5 @@ div#er_0q2900.col-xs-12.text-center.emoticonList.ng-scope {
 
     .progress_number {
         font-size: 8pt !important;
-    }
-
-    .ng-valid-ng-intl-tel-input {
-        top: -490px !important;
-    }
-
-    .ng-invalid-ng-intl-tel-input {
-        top: -490px !important;
-    }
-
-    body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .ng-valid-ng-intl-tel-input {
-        top: -490px !important;
-    }
-
-    body:has(.localisation-cont.clicked-emo-cont img[src*="ico8.png"]) .ng-valid-ng-intl-tel-input {
-        top: -475px !important;
-    }
-
-    body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .ng-invalid-ng-intl-tel-input {
-        top: -490px !important;
-    }
-
-    body:has(.localisation-cont.clicked-emo-cont img[src*="ico8.png"]) .ng-invalid-ng-intl-tel-input {
-        top: -475px !important;
-    }
-
-    .intl-tel-input .selected-flag {
-        z-index: 1;
-        position: relative;
-        width: 36px;
-        height: 10px;
-        padding: 0 0 0 8px;
-        margin-top: 200px !important;
-    }
-
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .ng-valid-ng-intl-tel-input {
-        top: -490px !important;
-    }
-
-    .ng-invalid-ng-intl-tel-input {
-        top: -490px !important;
-    }
-
-    body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .ng-valid-ng-intl-tel-input {
-        top: -475px !important;
-    }
-
-    body:has(.localisation-cont.clicked-emo-cont img[src*="ico8.png"]) .ng-valid-ng-intl-tel-input {
-        top: -475px !important;
-    }
-
-    body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .ng-invalid-ng-intl-tel-input {
-        top: -490px !important;
-    }
-
-    body:has(.localisation-cont.clicked-emo-cont img[src*="ico8.png"]) .ng-invalid-ng-intl-tel-input {
-        top: -490px !important;
-    }
-
-    .btn-ok {
-        margin-top: 40px !important;
-        border: 2px solid #000000;
-        color: #000000;
     }
 }

@@ -1,644 +1,222 @@
-<div style="display:flex;justify-content:center;align-items:center;text-align:center;font-family:sans-serif;">
-  Saving your response. Please do not click — you’ll be redirected automatically.
+<div id="lnksh-smpth-cc-top" data-lnksh-smpth-source="commercial-credit-inline">
+    <div class="lnksh-smpth-cc-title">
+        <span data-lnksh-smpth-key="title">Contact Details Consent</span>
+    </div>
+
+    <div class="lnksh-smpth-cc-subtitle">
+        <span data-lnksh-smpth-key="subtitle">
+            Your information will be used solely to address your feedback or related service matters, stored securely, and retained only as necessary.
+        </span>
+    </div>
 </div>
 
-<style>
-  .access-user-name { display: none !important; }
+<div id="lnksh-smpth-cc-bottom" data-lnksh-smpth-source="commercial-credit-inline">
+    <div class="lnksh-smpth-cc-consent-wrap">
+        <div class="lnksh-smpth-cc-info">
+            <span data-lnksh-smpth-key="privacyText1">
+                Please refer to Sampath Bank’s Privacy Policy for further details.
+            </span>
 
-  /* ✅ Soft fade for loyalty page only */
-  .emj-soft-fade {
-    opacity: 0.2 !important;
-    pointer-events: none !important;
-    transition: opacity 0.3s ease;
-  }
+            <br><br>
 
-  body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .sampath-privacy-text-2 {
-    margin-top: 0 !important;
-    margin-bottom: 10px !important;
-    padding-bottom: 0 !important;
-    line-height: 1.45 !important;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-  }
+            <span data-lnksh-smpth-key="privacyText2">
+                For more information on how we handle personal data, please see
+            </span>
+            <a
+                href="https://www.sampath.lk/en/privacy-policy"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-lnksh-smpth-key="privacyLink">
+                Sampath Bank’s Privacy Policy
+            </a>.
+        </div>
 
-  body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .sampath-privacy-text-2 + * {
-    margin-top: 0 !important;
-  }
+        <div class="lnksh-smpth-cc-consent-text" data-lnksh-smpth-key="consent">
+            I agree to give my personal details:
+        </div>
 
-  body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .intl-tel-input,
-  body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) input[type="tel"] {
-    margin-bottom: 18px !important;
-  }
+        <div class="lnksh-smpth-cc-actions">
+            <button type="button" class="lnksh-smpth-cc-yes">
+                <img
+                    class="lnksh-smpth-cc-option-img"
+                    src="https://storage.emojot.com/pictures/generalImages/67ca7d8244a092407d279491-skin3.png"
+                    alt="">
+                <span data-lnksh-smpth-key="yes">Yes</span>
+            </button>
 
-  body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .ng-valid-ng-intl-tel-input,
-  body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .ng-invalid-ng-intl-tel-input {
-    top: -460px !important;
-  }
-
-  @media screen and (max-width: 768px) {
-    body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .sampath-privacy-text-2 {
-      margin-bottom: 6px !important;
-      font-size: 14px !important;
-      line-height: 1.35 !important;
-    }
-
-    body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .intl-tel-input,
-    body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) input[type="tel"] {
-      margin-bottom: 24px !important;
-    }
-
-    body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .ng-valid-ng-intl-tel-input,
-    body:has(.localisation-cont.clicked-emo-cont img[src*="ico7.png"]) .ng-invalid-ng-intl-tel-input {
-      top: -445px !important;
-    }
-  }
-
-</style>
+            <button type="button" class="lnksh-smpth-cc-no">
+                <img
+                    class="lnksh-smpth-cc-option-img"
+                    src="https://storage.emojot.com/pictures/generalImages/67ca7d8244a092407d279491-skin2.png"
+                    alt="">
+                <span data-lnksh-smpth-key="no">No</span>
+            </button>
+        </div>
+    </div>
+</div>
 
 <script>
-/**
- * ✅ FULL REPLACEMENT SNIPPET
- * - Caches Name/Tel/Email typed in custom page into sessionStorage
- * - When loyalty popup (#loyalty-form) appears:
- *   - pastes values into DOM
- *   - forces Telephone to digits-only (no '+') using watchdog + listener
- *   - maps values into Angular scope loyaltyDataObject[*].value
- * - Shows console logs
- * - Submit-time validator banner for YES requires Name+Tel
- * - ✅ NO auto-click OK / SKIP
- */
-
 (function () {
-  const CACHE_KEY = "emj_profile_cache_v1";
+    const STYLE_ID = 'lnksh-smpth-cc-style';
 
-  // ---------- helpers ----------
-  const norm = (v) => (v || "").toString().trim();
-  const low  = (v) => norm(v).toLowerCase();
-  const safeParse = (v) => { try { return JSON.parse(v); } catch { return null; } };
-
-  // ✅ digits-only telephone sanitizer
-  function cleanTelephone(v) {
-    const s = norm(v);
-    if (!s) return "";
-    return s.replace(/[^\d]/g, "");
-  }
-
-  function cacheRead() {
-    const raw = sessionStorage.getItem(CACHE_KEY);
-    const obj = safeParse(raw) || {};
-    return {
-      name: norm(obj.name),
-      telephone: norm(obj.telephone),
-      email: norm(obj.email),
-      updatedAt: obj.updatedAt || null
-    };
-  }
-
-  function cacheWrite(patch) {
-    const current = cacheRead();
-    const next = {
-      ...current,
-      ...patch,
-      updatedAt: new Date().toISOString()
-    };
-    sessionStorage.setItem(CACHE_KEY, JSON.stringify(next));
-    return next;
-  }
-
-  function setNativeValue(el, value) {
-    if (!el) return;
-    el.value = value;
-    el.dispatchEvent(new Event("input", { bubbles: true }));
-    el.dispatchEvent(new Event("change", { bubbles: true }));
-    el.dispatchEvent(new Event("blur", { bubbles: true }));
-  }
-
-  function getNgModelCtrl(el) {
-    try {
-      if (!el || !window.angular || !angular.element) return null;
-      const $el = angular.element(el);
-      return ($el.controller && $el.controller("ngModel")) || $el.data("$ngModelController") || null;
-    } catch { return null; }
-  }
-
-  // Identify likely field type (Name/Tel/Email)
-  function classifyInput(el) {
-    const id = low(el.id);
-    const nm = low(el.name);
-    const ph = low(el.placeholder);
-    const aria = low(el.getAttribute?.("aria-label"));
-    const ngm = low(el.getAttribute?.("ng-model"));
-    const blob = `${id} ${nm} ${ph} ${aria} ${ngm}`;
-
-    if (blob.includes("email")) return "email";
-    if (blob.includes("telephone") || blob.includes("phone") || blob.includes("mobile") || el.type === "tel") return "telephone";
-    if (blob.includes("name") || blob.includes("fullname") || blob.includes("full name")) return "name";
-    return null;
-  }
-
-  function findInputs(context) {
-    const root = context || document;
-    const inputs = Array.from(root.querySelectorAll("input, textarea"));
-
-    let nameEl = null, telEl = null, emailEl = null;
-
-    for (const el of inputs) {
-      const key = classifyInput(el);
-      if (key === "name" && !nameEl) nameEl = el;
-      if (key === "telephone" && !telEl) telEl = el;
-      if (key === "email" && !emailEl) emailEl = el;
-    }
-
-    // intl-tel-input fallback
-    if (!telEl) {
-      telEl = root.querySelector(".iti input[type='tel'], input[type='tel']") || null;
-    }
-
-    return { nameEl, telEl, emailEl };
-  }
-
-  // ✅ Watchdog to stop tel plugin re-inserting '+'
-  function enforceNoPlusTel(el, desiredDigits, tries = 12, delay = 80) {
-    if (!el) return;
-
-    const desired = cleanTelephone(desiredDigits);
-
-    const tick = (n) => {
-      if (!el || n <= 0) return;
-
-      const currentRaw = (el.value || "").toString();
-      const currentDigits = cleanTelephone(currentRaw);
-
-      // If plugin injected formatting or '+' → force digits back
-      const shouldFix =
-        currentRaw.includes("+") ||
-        currentRaw !== currentDigits ||
-        (desired && currentDigits !== desired);
-
-      if (shouldFix) {
-        // clear -> set again (rebalance)
-        el.value = "";
-        el.dispatchEvent(new Event("input", { bubbles: true }));
-
-        el.value = desired || currentDigits;
-        el.dispatchEvent(new Event("input", { bubbles: true }));
-        el.dispatchEvent(new Event("change", { bubbles: true }));
-        el.dispatchEvent(new Event("blur", { bubbles: true }));
-
-        console.log("📞 Tel watchdog fixed:", { before: currentRaw, after: el.value });
-      }
-
-      setTimeout(() => tick(n - 1), delay);
+    const COPY = {
+        en: {
+            title: 'Contact Details Consent',
+            subtitle: 'Your information will be used solely to address your feedback or related service matters, stored securely, and retained only as necessary.',
+            privacyText1: 'Please refer to Sampath Bank’s Privacy Policy for further details.',
+            privacyText2: 'For more information on how we handle personal data, please see',
+            privacyLink: 'Sampath Bank’s Privacy Policy',
+            consent: 'I agree to give my personal details:',
+            yes: 'Yes',
+            no: 'No'
+        },
+        si: {
+            title: 'සම්බන්ධතා තොරතුරු සඳහා එකඟතාවය',
+            subtitle: 'ඔබගේ තොරතුරු ඔබගේ ප්‍රතිචාරයට හෝ අදාළ සේවා කටයුතු සඳහා පමණක් භාවිතා කරනු ලබන අතර, ආරක්ෂිතව ගබඩා කර අවශ්‍ය කාලය පමණක් රඳවා තබනු ලැබේ.',
+            privacyText1: 'වැඩිදුර විස්තර සඳහා කරුණාකර සම්පත් බැංකුවේ පෞද්ගලිකත්ව ප්‍රතිපත්තිය බලන්න.',
+            privacyText2: 'අපි පුද්ගලික දත්ත හසුරුවන ආකාරය පිළිබඳ වැඩිදුර තොරතුරු සඳහා කරුණාකර බලන්න',
+            privacyLink: 'සම්පත් බැංකුවේ පෞද්ගලිකත්ව ප්‍රතිපත්තිය',
+            consent: 'මගේ පුද්ගලික විස්තර ලබා දීමට මම එකඟ වෙමි:',
+            yes: 'ඔව්',
+            no: 'නැත'
+        },
+        ta: {
+            title: 'தொடர்பு விவர ஒப்புதல்',
+            subtitle: 'உங்கள் தகவல் உங்கள் கருத்து அல்லது தொடர்புடைய சேவை விஷயங்களை கையாள்வதற்காக மட்டுமே பயன்படுத்தப்படும், பாதுகாப்பாக சேமிக்கப்படும் மற்றும் தேவையான காலத்திற்கு மட்டுமே வைத்திருக்கும்.',
+            privacyText1: 'மேலும் விவரங்களுக்கு சம்பத் வங்கியின் தனியுரிமைக் கொள்கையைப் பார்க்கவும்.',
+            privacyText2: 'நாங்கள் தனிப்பட்ட தரவை எவ்வாறு கையாளுகிறோம் என்பதைப் பற்றிய மேலும் தகவல்களுக்கு, தயவுசெய்து பார்க்கவும்',
+            privacyLink: 'சம்பத் வங்கியின் தனியுரிமைக் கொள்கை',
+            consent: 'எனது தனிப்பட்ட விவரங்களை வழங்க நான் ஒப்புக்கொள்கிறேன்:',
+            yes: 'ஆம்',
+            no: 'இல்லை'
+        }
     };
 
-    tick(tries);
-  }
-
-  // ✅ Telephone setter (digits-only + rebalance + watchdog)
-  function setTelephoneValue(el, value) {
-    if (!el) return;
-    const cleaned = cleanTelephone(value);
-
-    try { el.focus?.(); } catch {}
-
-    // Clear first
-    el.value = "";
-    el.dispatchEvent(new Event("input", { bubbles: true }));
-    el.dispatchEvent(new Event("change", { bubbles: true }));
-
-    // Set digits-only
-    el.value = cleaned;
-    el.dispatchEvent(new Event("input", { bubbles: true }));
-    el.dispatchEvent(new Event("change", { bubbles: true }));
-    el.dispatchEvent(new Event("blur", { bubbles: true }));
-
-    console.log("📞 Telephone pasted (cleaned):", { raw: value, cleaned });
-
-    // Watchdog keeps it digits-only for a short window
-    enforceNoPlusTel(el, cleaned);
-  }
-
-  // ---------- 1) CUSTOM PAGE CACHER ----------
-  (function customPageCacher() {
-    const initial = findInputs(document);
-
-    if (initial.nameEl?.value) cacheWrite({ name: initial.nameEl.value });
-    if (initial.telEl?.value)  cacheWrite({ telephone: cleanTelephone(initial.telEl.value) });
-    if (initial.emailEl?.value) cacheWrite({ email: initial.emailEl.value });
-
-    document.addEventListener("input", (e) => {
-      const el = e.target;
-      if (!el || !(el instanceof HTMLElement)) return;
-
-      // don't cache loyalty popup inputs
-      if (document.querySelector("#loyalty-form")?.contains(el)) return;
-      if (!(el.matches("input, textarea"))) return;
-
-      const key = classifyInput(el);
-      if (!key) return;
-
-      let val = norm(el.value);
-      if (!val) return;
-
-      if (key === "telephone") val = cleanTelephone(val);
-
-      const next = cacheWrite({ [key]: val });
-      console.log("🧩 Cached from custom page:", { key, val, cache: next });
-    }, true);
-  })();
-
-
-  // ---------- 2) LOYALTY POPUP HANDLER ----------
-  (function loyaltyHandler() {
-    let handled = false;
-
-    const observer = new MutationObserver(() => {
-      const loyaltyForm = document.querySelector("#loyalty-form");
-      if (!loyaltyForm || loyaltyForm.offsetParent === null) return;
-      if (handled) return;
-      handled = true;
-
-      const cached = cacheRead();
-      const cachedTelClean = cleanTelephone(cached.telephone);
-
-      console.log("🧩 Loyalty popup opened. Cached profile:", {
-        ...cached,
-        telephoneCleaned: cachedTelClean
-      });
-
-      const { nameEl, telEl, emailEl } = findInputs(loyaltyForm);
-
-
-      // ✅ Ensure "Saving your response" message exists (language-aware)
-(function ensureSavingMessage() {
-  if (document.getElementById("emj-saving-message")) return;
-
-  const isSinhala =
-    document.querySelector('.localisation-cont.clicked-emo-cont img[src*="ico8"]');
-  const isTamil =
-    document.querySelector('.localisation-cont.clicked-emo-cont img[src*="ico7"]');
-
-  let message =
-    "Saving your response. Please do not click — you’ll be redirected automatically.";
-
-  if (isSinhala) {
-    message = "කරුණාකර ඔබගේ ප්‍රතිචාරය ගබඩා කරනතුරු මඳක් රැඳී සිටින්න.";
-  } else if (isTamil) {
-    message = "உங்கள் பதில் சேமிக்கப்படும் வரை சிறிது நேரம் காத்திருக்கவும்.";
-  }
-
-  const msg = document.createElement("div");
-  msg.id = "emj-saving-message";
-  msg.style.display = "flex";
-  msg.style.justifyContent = "center";
-  msg.style.alignItems = "center";
-  msg.style.textAlign = "center";
-  msg.style.fontFamily = "sans-serif";
-  msg.style.marginBottom = "12px";
-  msg.style.fontSize = "14px";
-  msg.style.fontWeight = "500";
-
-  msg.textContent = message;
-
-  // Insert ABOVE loyalty form
-  loyaltyForm.parentElement?.insertBefore(msg, loyaltyForm);
-
-  console.log("ℹ️ Saving message injected:", message);
-})();
-
-
-      // ✅ Add listener once to keep digits-only if user edits tel later
-      if (telEl && !telEl.dataset.noPlusWatcher) {
-        telEl.dataset.noPlusWatcher = "true";
-        telEl.addEventListener("input", () => {
-          const digits = cleanTelephone(telEl.value);
-          if (telEl.value !== digits) {
-            const before = telEl.value;
-            telEl.value = digits;
-            telEl.dispatchEvent(new Event("input", { bubbles: true }));
-            console.log("📞 Tel input cleaned:", { before, after: digits });
-          }
-        }, true);
-      }
-
-      // Paste into DOM fields if empty
-      if (nameEl && !norm(nameEl.value) && cached.name) setNativeValue(nameEl, cached.name);
-      if (telEl  && !norm(telEl.value)  && cachedTelClean) setTelephoneValue(telEl, cachedTelClean);
-      if (emailEl && !norm(emailEl.value) && cached.email) setNativeValue(emailEl, cached.email);
-
-      setTimeout(() => {
-        console.log("📝 Loyalty fields after paste:", {
-          Name: norm(nameEl?.value),
-          Telephone: norm(telEl?.value),
-          Email: norm(emailEl?.value)
-        });
-      }, 180);
-
-      // Push into Angular loyaltyDataObject[*].value
-      function pushIntoAngular(attempt = 0) {
-        const nameCtrl  = getNgModelCtrl(nameEl);
-        const telCtrl   = getNgModelCtrl(telEl);
-        const emailCtrl = getNgModelCtrl(emailEl);
-
-        if ((nameCtrl && telCtrl) || attempt > 12) {
-          try {
-            const scope = angular.element(loyaltyForm).scope?.() || angular.element(loyaltyForm).scope();
-            const ldo = scope?.loyaltyDataObject;
-
-            const nameVal  = norm(nameEl?.value) || cached.name;
-            const telVal   = cleanTelephone(norm(telEl?.value) || cachedTelClean);
-            const emailVal = norm(emailEl?.value) || cached.email;
-
-            // Run watchdog again just in case plugin re-added '+'
-            if (telEl) enforceNoPlusTel(telEl, telVal);
-
-            if (Array.isArray(ldo) && ldo.length) {
-              let mapped = { name: false, tel: false, email: false };
-
-              ldo.forEach(it => {
-                if (!it) return;
-                const id = low(it.id);
-                const nm = low(it.name);
-
-                const isName = id === "name" || nm === "name";
-                const isTel  =
-                  id === "telephone" || id === "phone" || id === "mobile" ||
-                  nm === "telephone" || nm === "phone" || nm === "mobile";
-                const isEmail = id === "email" || nm === "email";
-
-                if (isName) { it.value = nameVal || it.value; mapped.name = true; }
-                if (isTel)  { it.value = telVal  || it.value; mapped.tel = true; }
-                if (isEmail){ it.value = emailVal || it.value; mapped.email = true; }
-              });
-
-              if (scope.$applyAsync) scope.$applyAsync();
-              else if (!scope.$$phase && scope.$apply) scope.$apply();
-
-              console.log("✅ Angular mapping done:", {
-                mapped,
-                finalValues: { Name: nameVal, Telephone: telVal, Email: emailVal || "(empty)" }
-              });
-            } else {
-              console.log("⚠️ loyaltyDataObject not found on scope.");
-            }
-
-            // Sync ngModel controllers (extra-safe)
-            if (nameCtrl && nameVal) { nameCtrl.$setViewValue(nameVal); nameCtrl.$commitViewValue?.(); nameCtrl.$validate?.(); }
-            if (telCtrl && telVal)   { telCtrl.$setViewValue(telVal);   telCtrl.$commitViewValue?.();  telCtrl.$validate?.(); }
-            if (emailCtrl) {
-              emailCtrl.$setViewValue(emailVal || "");
-              emailCtrl.$commitViewValue?.();
-              emailCtrl.$validate?.();
-            }
-
-            console.log("✅ Final pasted values (AUTO OK):", {
-  Name: nameVal,
-  Telephone: telVal,
-  Email: emailVal || "(empty)",
-  CacheUpdatedAt: cached.updatedAt
-});
-
-// ✅ Soft fade loyalty page to discourage manual clicks
-loyaltyForm.classList.add("emj-soft-fade");
-
-// ✅ Auto-click OK ONLY when values are valid (after UI paint)
-if (nameVal && telVal) {
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        const okBtn = document.querySelector("button.btn.btn-primary.btn-ok");
-        if (okBtn) {
-          console.log("⚡ Auto-clicking OK (after UI paint)");
-          okBtn.click();
-        } else {
-          console.log("⚠️ OK button not found — not clicking");
-        }
-      }, 600);
-    });
-  });
-}
-
-
-
-          } catch (err) {
-            console.warn("⚠️ Loyalty angular sync error:", err);
-          }
-        } else {
-          setTimeout(() => pushIntoAngular(attempt + 1), 120);
-        }
-      }
-
-      // Wait a bit for tel rebalance + plugin formatting, then sync Angular
-      setTimeout(() => pushIntoAngular(), 260);
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
-  })();
-
-
-  // ---------- 3) SUBMIT-TIME VALIDATOR ----------
-  (function submitValidator() {
-    const observer = new MutationObserver(() => {
-      const yesButton    = document.querySelector("div#ec_0_0q2900.emo-cont.clickable.ng-scope");
-      const submitButton = document.querySelector("button#CampaignLastPageSubmit.btn-submit.btn.btn-default.ng-binding.ng-scope");
-
-      if (yesButton && submitButton && !submitButton.dataset.listenerAttached) {
-        submitButton.dataset.listenerAttached = "true";
-        console.log("🎯 Submit-time validator attached");
-
-        submitButton.addEventListener("click", (e) => {
-          const isYesSelected = yesButton.classList.contains("clicked-emo-cont");
-
-          const nameField = document.querySelector("#Name") || document.querySelector('input[name*="Name" i], input[id*="Name" i]');
-          const telField  = document.querySelector("#Telephone") || document.querySelector('.iti input[type="tel"], input[type="tel"], input[name*="Telephone" i], input[id*="Telephone" i]');
-
-          const nameEmpty = !nameField || !nameField.value.trim();
-          const telEmpty  = !telField  || !telField.value.trim();
-
-          if (isYesSelected && (nameEmpty || telEmpty)) {
-            e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
-            const isSinhala =
-  document.querySelector('.localisation-cont.clicked-emo-cont img[src*="ico8"]');
-const isTamil =
-  document.querySelector('.localisation-cont.clicked-emo-cont img[src*="ico7"]');
-
-let msg = "Please fill in your Name and Telephone or select 'No'.";
-if (isSinhala) msg = "කරුණාකර ඔබගේ නම සහ දුරකථන අංකය පුරවන්න හෝ 'නැත' තෝරන්න.";
-else if (isTamil) msg = "தயவு செய்து உங்கள் பெயரும் தொலைபேசி எண்ணையும் நிரப்பவும் அல்லது 'இல்லை' என்பதைத் தேர்வு செய்யவும்.";
-
-showBanner(msg);
-
-            console.log("🚫 Submission blocked: Name/Telephone required for YES.");
-            return false;
-          }
-        }, true);
-
-        function showBanner(message) {
-          let banner = document.querySelector(".emj-sampath-banner-v3");
-          if (banner) banner.remove();
-
-          banner = document.createElement("div");
-          banner.className = "emj-sampath-banner-v3";
-          banner.textContent = message;
-          document.body.appendChild(banner);
-
-          setTimeout(() => {
-            banner.classList.add("emj-fade-out-v3");
-            setTimeout(() => banner.remove(), 500);
-          }, 3000);
-        }
-
-        const style = document.createElement("style");
+    function ensureStyles() {
+        if (document.querySelector('#' + STYLE_ID)) return;
+
+        const style = document.createElement('style');
+        style.id = STYLE_ID;
         style.textContent = `
-          .emj-sampath-banner-v3 {
-            position: fixed;
-            top: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #FFA000 !important;
-            border: 1px solid #FFA000 !important;
-            color: #ffffff !important;
-            font-family: "Helvetica Neue", Arial, sans-serif;
-            font-size: 14px !important;
-            font-weight: 600 !important;
-            display: inline-flex !important;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 10px 28px !important;
-            border-radius: 8px !important;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-            z-index: 999999;
-            max-width: 95% !important;
-            min-width: 320px !important;
-            width: fit-content;
-            opacity: 0.95 !important;
-            backdrop-filter: blur(2px);
-            animation: emj-slide-down-v3 0.3s forwards;
-          }
-          @keyframes emj-slide-down-v3 {
-            from { opacity: 0; transform: translate(-50%, -20px); }
-            to   { opacity: 0.95; transform: translate(-50%, 0); }
-          }
-          .emj-fade-out-v3 { opacity: 0; transition: opacity 0.5s ease-out; }
-          @media (max-width: 480px) {
-            .emj-sampath-banner-v3 {
-              font-size: 13px !important;
-              padding: 8px 18px !important;
-              border-radius: 6px !important;
-              top: 20px;
-              width: 90% !important;
+            .lnksh-smpth-cc-title{width:100%;text-align:left;font-size:20px;font-weight:700;color:#000000;margin:20px 0 8px;}
+            .lnksh-smpth-cc-title span{font-weight:700;}
+            .lnksh-smpth-cc-subtitle{width:100%;text-align:left;font-size:16px;line-height:1.35;color:#000000;margin:0 0 24px;}
+            .lnksh-smpth-cc-consent-wrap{margin:18px 6px 35px;color:#444444;}
+            .lnksh-smpth-cc-info{font-size:14px;line-height:1.45;text-align:left;margin-bottom:4px;}
+            .lnksh-smpth-cc-info a{color:#0056b3;text-decoration:underline;}
+            .lnksh-smpth-cc-consent-text{font-size:14px;line-height:1.35;text-align:left;margin:4px 0 18px;}
+            .lnksh-smpth-cc-actions{display:flex;justify-content:center;align-items:stretch;gap:12px;width:100%;}
+            .lnksh-smpth-cc-yes,.lnksh-smpth-cc-no{flex:1;max-width:260px;min-height:76px;padding:10px 18px;border:1px solid #eeeeee;background:rgba(255,255,255,0.45);color:#000000;font-size:14px;cursor:pointer;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,0.08);}
+            .lnksh-smpth-cc-option-img{display:block;width:34px;height:34px;object-fit:contain;margin:0 auto 6px;}
+            .lnksh-smpth-cc-yes.active,.lnksh-smpth-cc-no.active{border:2px solid #000000;}
+            .btn-ok.lnksh-smpth-cc-disabled{opacity:0.35 !important;pointer-events:none !important;cursor:not-allowed !important;}
+            .loyalty-bottom{text-align:center;margin-bottom:40px;}
+            @media (max-width:480px){
+                .lnksh-smpth-cc-actions{gap:8px;}
+                .lnksh-smpth-cc-yes,.lnksh-smpth-cc-no{max-width:none;min-height:72px;padding:8px 10px;}
             }
-          }
         `;
         document.head.appendChild(style);
-      }
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
-  })();
-
-    // ---------- CLEAR PROFILE WHEN "NO" IS CLICKED ----------
-(function attachNoClickClearer() {
-  const CACHE_KEY = "emj_profile_cache_v1";
-
-  const norm = (v) => (v || "").toString().trim();
-  const low  = (v) => norm(v).toLowerCase();
-
-  function setNativeValue(el, value) {
-    if (!el) return;
-    el.value = value;
-    el.dispatchEvent(new Event("input", { bubbles: true }));
-    el.dispatchEvent(new Event("change", { bubbles: true }));
-    el.dispatchEvent(new Event("blur", { bubbles: true }));
-  }
-
-  function classifyInput(el) {
-    const blob = `${el.id} ${el.name} ${el.placeholder}`.toLowerCase();
-    if (blob.includes("email")) return "email";
-    if (blob.includes("telephone") || blob.includes("phone") || blob.includes("mobile") || el.type === "tel") return "telephone";
-    if (blob.includes("name")) return "name";
-    return null;
-  }
-
-  function findInputs(ctx) {
-    const root = ctx || document;
-    const inputs = Array.from(root.querySelectorAll("input, textarea"));
-    let nameEl = null, telEl = null, emailEl = null;
-
-    inputs.forEach(el => {
-      const k = classifyInput(el);
-      if (k === "name" && !nameEl) nameEl = el;
-      if (k === "telephone" && !telEl) telEl = el;
-      if (k === "email" && !emailEl) emailEl = el;
-    });
-
-    if (!telEl) telEl = root.querySelector(".iti input[type='tel'], input[type='tel']");
-    return { nameEl, telEl, emailEl };
-  }
-
-  function clearAngular(loyaltyForm) {
-    try {
-      if (!window.angular || !loyaltyForm) return;
-      const scope = angular.element(loyaltyForm).scope?.();
-      const ldo = scope?.loyaltyDataObject;
-      if (!Array.isArray(ldo)) return;
-
-      ldo.forEach(it => {
-        const id = low(it.id);
-        const nm = low(it.name);
-        if (id === "name" || nm === "name") it.value = "";
-        if (["telephone","phone","mobile"].includes(id) || ["telephone","phone","mobile"].includes(nm)) it.value = "";
-        if (id === "email" || nm === "email") it.value = "";
-      });
-
-      scope.$applyAsync?.();
-    } catch {}
-  }
-
-  function clearAll() {
-    // 1) Clear cache
-    try { sessionStorage.removeItem(CACHE_KEY); } catch {}
-
-    // 2) Clear custom page inputs
-    const custom = findInputs(document);
-    setNativeValue(custom.nameEl, "");
-    setNativeValue(custom.telEl, "");
-    setNativeValue(custom.emailEl, "");
-
-    // 3) Clear loyalty popup inputs + Angular
-    const loyaltyForm = document.querySelector("#loyalty-form");
-    if (loyaltyForm) {
-      const lp = findInputs(loyaltyForm);
-      setNativeValue(lp.nameEl, "");
-      setNativeValue(lp.telEl, "");
-      setNativeValue(lp.emailEl, "");
-      clearAngular(loyaltyForm);
     }
 
-    console.log("🧹 Cleared Name / Telephone / Email because NO was selected");
-  }
+    function detectLang() {
+        if (document.querySelector('.localisation-cont.clicked-emo-cont img[src*="ico7.png"]')) return 'ta';
+        if (document.querySelector('.localisation-cont.clicked-emo-cont img[src*="ico8.png"]')) return 'si';
+        return 'en';
+    }
 
-  // ✅ Exact NO button selector (your ID)
-  const NO_SELECTOR = "div#ec_0_1q2900.emo-cont.clickable.ng-scope";
-  const YES_SELECTOR = "div#ec_0_0q2900.emo-cont.clickable.ng-scope";
+    function applyText() {
+        const lang = detectLang();
+        const copy = COPY[lang] || COPY.en;
 
-  document.addEventListener("click", (e) => {
-    const noBtn = document.querySelector(NO_SELECTOR);
-    if (!noBtn) return;
+        document.querySelectorAll('[data-lnksh-smpth-key]').forEach(function(el) {
+            const key = el.getAttribute('data-lnksh-smpth-key');
+            if (copy[key]) el.textContent = copy[key];
+        });
+    }
 
-    if (e.target !== noBtn && !noBtn.contains(e.target)) return;
+    function cleanDuplicates() {
+        document.querySelectorAll('#lnksh-smpth-cc-top').forEach(function(el, index) {
+            if (index > 0) el.remove();
+        });
 
-    setTimeout(() => {
-      const yesBtn = document.querySelector(YES_SELECTOR);
-      const noSelected = noBtn.classList.contains("clicked-emo-cont");
-      const yesSelected = yesBtn?.classList.contains("clicked-emo-cont");
+        document.querySelectorAll('#lnksh-smpth-cc-bottom').forEach(function(el, index) {
+            if (index > 0) el.remove();
+        });
+    }
 
-      if (noSelected || !yesSelected) clearAll();
-    }, 80);
-  }, true);
-})();
+    function disableOk(okBtn) {
+        okBtn.classList.add('lnksh-smpth-cc-disabled');
+        okBtn.setAttribute('disabled', 'disabled');
+    }
 
+    function enableOk(okBtn) {
+        okBtn.classList.remove('lnksh-smpth-cc-disabled');
+        okBtn.removeAttribute('disabled');
+    }
 
+    function place() {
+        ensureStyles();
+        cleanDuplicates();
+
+        const form = document.querySelector('#loyalty-form');
+        const okBtn = document.querySelector('.btn-ok');
+        const topBlock = document.querySelector('#lnksh-smpth-cc-top');
+        const bottomBlock = document.querySelector('#lnksh-smpth-cc-bottom');
+
+        if (!form || !okBtn || !topBlock || !bottomBlock) {
+            setTimeout(place, 500);
+            return;
+        }
+
+        if (form.parentNode && topBlock.nextElementSibling !== form) {
+            form.parentNode.insertBefore(topBlock, form);
+        }
+
+        if (bottomBlock.previousElementSibling !== form) {
+            form.insertAdjacentElement('afterend', bottomBlock);
+        }
+
+        const yesBtn = bottomBlock.querySelector('.lnksh-smpth-cc-yes');
+        const noBtn = bottomBlock.querySelector('.lnksh-smpth-cc-no');
+
+        disableOk(okBtn);
+
+        if (!bottomBlock.dataset.eventsBound) {
+            yesBtn.addEventListener('click', function(){
+                yesBtn.classList.add('active');
+                noBtn.classList.remove('active');
+                enableOk(okBtn);
+            });
+
+            noBtn.addEventListener('click', function(){
+                noBtn.classList.add('active');
+                yesBtn.classList.remove('active');
+                disableOk(okBtn);
+            });
+
+            bottomBlock.dataset.eventsBound = 'true';
+        }
+
+        applyText();
+    }
+
+    function refreshAfterLocalization() {
+        setTimeout(place, 50);
+        setTimeout(place, 150);
+        setTimeout(place, 300);
+        setTimeout(place, 600);
+        setTimeout(place, 1000);
+    }
+
+    window.addEventListener('load', place);
+
+    window.addEventListener('click', function(e) {
+        if (e.target && e.target.closest && e.target.closest('.localisation-cont')) {
+            refreshAfterLocalization();
+        }
+    }, true);
+
+    setTimeout(place, 500);
 })();
 </script>
