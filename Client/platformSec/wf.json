@@ -170,7 +170,30 @@
         "backgroundColor": "#9b59b6",
         "textColor": "#ffffff",
         "statusBackgroundColor": "#eadcf8",
-        "statusTextColor": "#4a235a"
+        "statusTextColor": "#4a235a",
+         "triggers": [
+          {
+            "channel": "email",
+            "template": "piiReqAssignment",
+            "target": "admin",
+            "contacts": [
+              "csm@emojot.com"
+            ],
+            "appendEditUrl": false,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "For self",
+                  "On behalf",
+                  "For client representative"
+                ]
+              ]
+            }
+          }
+        ]
       },
       {
         "id": "Transferred to Privacy",
@@ -178,7 +201,30 @@
         "backgroundColor": "#9b59b6",
         "textColor": "#ffffff",
         "statusBackgroundColor": "#eadcf8",
-        "statusTextColor": "#4a235a"
+        "statusTextColor": "#4a235a",
+           "triggers": [
+          {
+            "channel": "email",
+            "template": "piiReqAssignment",
+            "target": "admin",
+            "contacts": [
+              "privacy@emojot.com"
+            ],
+            "appendEditUrl": false,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "For self",
+                  "On behalf",
+                  "For client representative"
+                ]
+              ]
+            }
+          }
+        ]
       },
       {
         "id": "Transferred to Emojot",
@@ -186,7 +232,34 @@
         "backgroundColor": "#9b59b6",
         "textColor": "#ffffff",
         "statusBackgroundColor": "#eadcf8",
-        "statusTextColor": "#4a235a"
+        "statusTextColor": "#4a235a",
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "piiReqAssignment",
+            "target": "admin",
+            "contacts": [
+              "bot@emojot.com"
+            ],
+            "appendEditUrl": false,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "For self",
+                  "On behalf",
+                  "For client representative"
+                ]
+              ]
+            }
+          }
+        ]
+
+
+      
+       
       },
       {
         "id": "Transferred to Client",
@@ -536,13 +609,13 @@
   },
   "assignment": {
     "triggers": [
-            {
-                "template": "piiReqAssignment",
-                "channel": "email",
-                "target": "employee",
-                "appendEditUrl": false
-            }
-        ],
+      {
+        "template": "piiReqAssignment",
+        "channel": "email",
+        "target": "employee",
+        "appendEditUrl": false
+      }
+    ],
     "automaticAssignment": {
       "isEnabled": true,
       "email": "privacy@emojot.com",
