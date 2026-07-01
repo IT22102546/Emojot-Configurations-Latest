@@ -1,0 +1,716 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
+
+
+#master-section {
+    background: url("https://storage.emojot.com/pictures/skinImages/6a3a299dcd7f207424fd2ba5-skin1.png");
+    /* background: linear-gradient(160deg, #e4f0f8 0%, #f7fafd 50%, #eaf5f2 100%); */
+    /* background-color: #ffffff; */
+    min-height: 657px;
+    /* min-height: 100vh; */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+    padding-bottom: 50px;
+}
+
+#headerCompanyInfo {
+    color: #151D46 !important;
+    min-height: 90px;
+    padding: 20px 28px 12px 28px;
+    background: transparent !important;
+}
+
+.container[style] {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.emote-title {
+    color: #151D46;
+    font-family: "Manrope", sans-serif !important;
+    font-size: 15pt;
+    font-weight: 600;
+    line-height: 1.5;
+    padding: 0 28px;
+    margin: 16px 0 24px 0;
+}
+
+.form-group label {
+    color: #151D46 !important;
+    font-family: "Manrope", sans-serif !important;
+    font-size: 15pt !important;
+    font-weight: 600 !important;
+}
+
+.emo-text {
+    font-size: 12pt;
+    color: #1E305F;
+    font-family: "Manrope", sans-serif !important;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.emo-text-only {
+    font-size: 15pt;
+    font-family: "Manrope", sans-serif !important;
+}
+
+.loyalty-message {
+    font-size: 13pt;
+    color: #151D46;
+    font-family: "Manrope", sans-serif !important;
+    font-weight: 500;
+}
+
+.emo-text-dropdown {
+    color: #151D46 !important;
+}
+
+.middle-box {
+    margin-top: 10px;
+    padding: 16px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(21, 29, 70, 0.06);
+}
+
+.emo-cont {
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    margin: 8px 6px;
+    text-align: center;
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(16px) saturate(170%);
+    -webkit-backdrop-filter: blur(16px) saturate(170%);
+    box-shadow:
+        0 4px 20px rgba(21, 29, 70, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    padding: 16px 12px 12px;
+    border-radius: 18px;
+    color: #4263AD;
+    transition: opacity 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    min-width: 108px;
+}
+
+.panel-body:has(.clicked-emo-cont) .emo-cont:not(.clicked-emo-cont),
+.middle-box:has(.clicked-emo-cont) .emo-cont:not(.clicked-emo-cont),
+.row:has(.clicked-emo-cont) .emo-cont:not(.clicked-emo-cont) {
+    opacity: 0.82;
+}
+
+.clicked-emo-cont {
+    border: 1px solid rgba(255, 255, 255, 0.95) !important;
+    background: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    padding: 16px 12px 12px;
+    border-radius: 18px;
+    opacity: 1 !important;
+    animation: emoGlow 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes emoGlow {
+    from {
+        box-shadow:
+            0 0 12px rgba(64, 197, 233, 0.4),
+            0 0 0 2px rgba(64, 197, 233, 0.5),
+            0 6px 24px rgba(48, 174, 136, 0.12),
+            inset 0 1px 0 rgba(255, 255, 255, 1);
+        border-color: rgba(64, 197, 233, 0.6) !important;
+    }
+    to {
+        box-shadow:
+            0 0 20px rgba(48, 174, 136, 0.5),
+            0 0 0 2px rgba(48, 174, 136, 0.6),
+            0 6px 28px rgba(66, 99, 173, 0.15),
+            inset 0 1px 0 rgba(255, 255, 255, 1);
+        border-color: rgba(48, 174, 136, 0.7) !important;
+    }
+}
+
+.emo-ico img {
+    width: 80%;
+    display: inline-block;
+    text-align: center;
+    max-width: 55px;
+    margin: 5px;
+}
+
+.btn {
+    border-radius: 50px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.02em;
+}
+
+.btn-next {
+    color: #ffffff;
+}
+
+.btn-submit {
+    color: #ffffff;
+}
+
+.btn-prev {
+    color: #333;
+}
+
+.btn-clear {
+    color: #333;
+}
+
+.btn-next,
+.btn-submit,
+.btn-prev,
+.btn-clear,
+.btn-skip,
+.btn-ok,
+.loyalty-redeem-button {
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    margin: 16px 6px;
+    text-align: center;
+    min-width: 120px;
+    display: inline-block;
+    box-shadow: 0 4px 14px rgba(21, 29, 70, 0.1);
+    padding: 12px 32px;
+    font-family: "Manrope", sans-serif !important;
+    font-size: 12pt;
+    background: rgba(255, 255, 255, 0.85);
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(240, 244, 248, 1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(100%, rgba(240, 244, 248, 1)));
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(240, 244, 248, 1) 100%);
+    background: -o-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(240, 244, 248, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(240, 244, 248, 1) 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(240, 244, 248, 1) 100%);
+}
+
+.btn-next,
+.btn-submit,
+.btn-ok {
+    color: #ffffff;
+    border: none;
+    background: #30AE88;
+    background: -moz-linear-gradient(135deg, #40C5E9 0%, #30AE88 50%, #4263AD 100%);
+    background: -webkit-linear-gradient(135deg, #40C5E9 0%, #30AE88 50%, #4263AD 100%);
+    background: -o-linear-gradient(135deg, #40C5E9 0%, #30AE88 50%, #4263AD 100%);
+    background: linear-gradient(135deg, #40C5E9 0%, #30AE88 50%, #4263AD 100%);
+    box-shadow: 0 6px 20px rgba(48, 174, 136, 0.28);
+}
+
+.clear-submit-row {
+    text-align: center !important;
+    padding: 8px 0 20px 0 !important;
+}
+
+.clear-submit-row,
+.draft-response-row {
+    padding-right: 0 !important;
+}
+
+.panel-collapse.collapse:not(.in) .clear-submit-row,
+.panel-collapse.collapse:not(.in) .draft-response-row,
+.panel-collapse.collapsing .clear-submit-row,
+.panel-collapse.collapsing .draft-response-row,
+.panel-collapse.collapse:not(.in) ~ .clear-submit-row,
+.panel-collapse.collapse:not(.in) ~ .draft-response-row,
+.panel-collapse.collapsing ~ .clear-submit-row,
+.panel-collapse.collapsing ~ .draft-response-row {
+    display: none !important;
+}
+
+.panel-collapse.collapse:not(.in) {
+    display: none !important;
+}
+
+.panel-group .panel-heading {
+    display: none !important;
+}
+
+.panel-group .panel {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    margin-bottom: 0 !important;
+}
+
+.btn:hover {
+    color: #4263AD;
+    text-decoration: none;
+}
+
+.btn-next:hover,
+.btn-submit:hover,
+.btn-ok:hover {
+    color: #ffffff;
+    box-shadow: 0 8px 24px rgba(48, 174, 136, 0.35);
+}
+
+.btn-ok {
+    color: #ffffff;
+}
+
+.btn-skip {
+    color: #333;
+}
+
+.btn-fb {
+    color: white;
+}
+
+.loyalty-redeem-button {
+    border-color: #151D46;
+}
+
+.logo-cust {
+    margin: 8px 0 0 16px;
+    height: 50px;
+}
+
+.sensor-title {
+    color: #4263AD;
+    font-size: 20pt;
+    font-family: "Manrope", sans-serif !important;
+    background: rgba(255, 255, 255, 0);
+    line-height: 1.3;
+    font-weight: 700;
+    padding: 8px 28px 0 28px;
+    margin-bottom: 8px;
+    margin-left: 18px;
+}
+
+.form-control {
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(16px) saturate(170%);
+    -webkit-backdrop-filter: blur(16px) saturate(170%);
+    box-shadow:
+        0 4px 20px rgba(21, 29, 70, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    font-family: "Manrope", sans-serif !important;
+    padding: 10px 14px;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border: 1px solid rgba(255, 255, 255, 0.95) !important;
+    background: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    animation: emoGlow 2.5s ease-in-out infinite alternate;
+}
+
+.panel {
+    margin: 0 10px;
+}
+
+.panel-group .panel {
+    margin-bottom: 0;
+    border-radius: 20px;
+    box-shadow: none;
+    background: transparent;
+}
+
+.panel-group .panel-heading {
+    box-shadow: none;
+    border-radius: 20px;
+    color: #4263AD;
+    background: transparent;
+}
+
+.panel-title {
+    font-size: 11pt;
+    max-width: 90%;
+    font-family: "Manrope", sans-serif !important;
+    line-height: 1.6;
+}
+
+.row {
+    background: transparent !important;
+}
+
+.my-emojots {
+    display: none;
+}
+
+.panel-body {
+    background: transparent !important;
+    padding: 8px 18px 16px 18px !important;
+}
+
+.thank-you-note {
+    color: white !important;
+}
+
+#headerCompanyInfo>.access-user {
+    text-align: center;
+    float: right;
+    text-shadow: none;
+    font-family: "Manrope", sans-serif !important;
+    font-style: normal;
+    font-size: 15px;
+    background-size: 120px 80px;
+    background-repeat: no-repeat;
+    background-position: right center;
+    position: relative;
+    padding-top: 8px;
+}
+
+.access-user-name {
+    font-family: "Manrope", sans-serif !important;
+}
+
+.company-logo {
+    z-index: 2 !important;
+    padding: 8px 0 4px 4px;
+}
+
+.company-logo img {
+    height: 90px;
+    margin: 4px 0 8px 0;
+    filter: drop-shadow(0 4px 14px rgba(21, 29, 70, 0.18));
+}
+
+.footer {
+    background: linear-gradient(135deg, #151D46 0%, #1E305F 50%, #262E67 100%) !important;
+    color: #fff;
+    position: absolute;
+    right: 10px;
+    left: 0;
+    z-index: 1030;
+    bottom: 0;
+    height: 40px;
+    padding: 12px 13px;
+    font-size: 8pt;
+    margin: 0 -10px 0px 0;
+    font-family: 'Manrope', sans-serif;
+}
+
+.form-group label {
+    columns: #fff !important;
+    font-family: "Manrope", sans-serif !important;
+    font-size: 12pt;
+}
+
+.loyalty-message {
+    color: #151D46;
+    font-size: 16pt;
+    font-weight: 500;
+}
+
+.loyalty-bottom {
+    text-align: center;
+}
+
+.loyalty-dialog div:nth-child(3) {}
+
+.email-emote-message {
+    color: white !important;
+}
+
+#progressfill {
+    background-color: #30AE88;
+    background: linear-gradient(90deg, #028471 0%, #30AE88 40%, #40C5E9 70%, #446DB3 100%);
+    animation: colorShift 3s infinite alternate ease-in-out;
+    border-radius: 4px;
+}
+
+.media-uploaded {
+    border: 2px solid #151D46;
+    background: rgba(21, 29, 70, 0.15);
+    border-radius: 12px;
+}
+
+@keyframes colorShift {
+    from {
+        background-color: #30AE88;
+    }
+    to {
+        background-color: #4263AD;
+    }
+}
+
+.progress_bar .progress_number {
+    font-family: "Manrope", sans-serif !important;
+    color: #4263AD;
+    margin-top: 4px;
+    margin-bottom: 2px;
+}
+
+.progress_bar {
+    margin-bottom: 4px !important;
+}
+
+#groupCommentBuzzModal .modal-header {
+    background: #fff;
+    color: #e4e4e4;
+}
+
+#groupCommentBuzzModal .modal-body {
+    background: #fff;
+    color: #333333;
+}
+
+#groupCommentBuzzModal .modal-footer {
+    background: #fff;
+    color: white;
+}
+
+#groupCommentBuzzModal .panel-body.comment-panel {
+    background: #f6f6f6 !important;
+}
+
+#groupCommentBuzzModal .panel-footer.comment-footer {
+    color: #333333;
+}
+
+#commentBuzzPanel i span {
+    font-size: 18px !important;
+    display: none;
+}
+
+#commentBuzzPanel {
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    margin: 16px auto;
+    text-align: center;
+    min-width: 120px;
+    display: inline-block;
+    box-shadow: 0 4px 14px rgba(21, 29, 70, 0.1);
+    padding: 12px 32px;
+    font-family: "Manrope", sans-serif !important;
+    font-size: 12pt;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border-radius: 50px !important;
+    color: #333;
+    background: rgba(255, 255, 255, 0.85);
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(240, 244, 248, 1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(100%, rgba(240, 244, 248, 1)));
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(240, 244, 248, 1) 100%);
+    background: -o-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(240, 244, 248, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(255, 255, 255, 1) 0%, rgba(240, 244, 248, 1) 100%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(240, 244, 248, 1) 100%);
+    cursor: pointer;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    width: max-content;
+}
+
+#commentBuzzPanel:hover {
+    color: #4263AD;
+    text-decoration: none;
+}
+
+#commentBuzzPanel i.fa {
+    color: #333;
+}
+
+#commentBuzzPanel:hover i.fa {
+    color: #4263AD;
+}
+
+#commentBuzzPanel i.fa::after {
+    content: 'View Questions';
+    font-family: "Manrope", sans-serif !important;
+    font-size: 12pt;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-left: 14px;
+    padding-left: 2px;
+}
+
+.thank-you-note {
+    color: #4263AD !important;
+    font-size: 15px !important;
+}
+
+#barChart {
+    width: 100%;
+}
+
+.nps-bar::before,
+.nps-bar::after {
+    content: "";
+    position: absolute;
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: bold;
+    top: 100%;
+    transform: translateY(8px);
+    font-family: "Manrope", sans-serif !important;
+}
+
+.nps-bar::before {
+    content: "Less Likely";
+    left: 10px;
+    color: #4263AD;
+    margin-left: 5px;
+}
+
+.nps-bar::after {
+    content: "More Likely";
+    right: 10px;
+    color: #4263AD;
+    margin-right: 5px;
+}
+
+.evz-nps-position-0,
+.evz-nps-position-1,
+.evz-nps-position-2,
+.evz-nps-position-3,
+.evz-nps-position-4,
+.evz-nps-position-5,
+.evz-nps-position-6 {
+    background: #ff2942;
+    color: white;
+    border: 1px solid rgba(255, 0, 55, 0.61);
+    border-radius: 10px;
+}
+
+.evz-nps-position-7,
+.evz-nps-position-8 {
+    background: #ff7924;
+    color: white;
+    border: 1px solid rgba(195, 117, 34, 0.61);
+    border-radius: 10px;
+}
+
+.evz-nps-position-9,
+.evz-nps-position-10 {
+    background: #1ca757;
+    color: white;
+    border: 1px solid rgba(17, 144, 74, 0.61);
+    border-radius: 10px;
+}
+
+.clicked-nps-icon {
+    border: 3px solid #151D46;
+    box-shadow: 0px 2px 6px #716868;
+    border-radius: 10px;
+}
+
+.ui-select-container .ui-select-match span {
+    font-weight: 500 !important;
+}
+
+div.col-xs-7.ng-scope {
+    font-family: "Manrope", sans-serif !important;
+}
+
+@media (max-width: 768px) {
+    #headerCompanyInfo {
+        padding: 16px 20px 10px 20px;
+    }
+
+    .emote-title,
+    .form-group label {
+        font-size: 12pt !important;
+    }
+
+    .emo-text {
+        font-size: 10pt !important;
+    }
+
+    .panel-title {
+        font-size: 8pt !important;
+    }
+
+    .loyalty-message {
+        font-size: 13pt !important;
+    }
+
+    .progress_bar .progress_number {
+        font-size: 10pt !important;
+        margin-top: 2px;
+        margin-bottom: 0;
+    }
+
+    .nps-bar::before,
+    .nps-bar::after {
+        font-size: 12pt !important;
+    }
+
+    .btn-next,
+    .btn-submit,
+    .btn-prev,
+    .btn-clear,
+    .btn-skip,
+    .btn-ok,
+    .loyalty-redeem-button {
+        font-size: 10pt !important;
+        padding: 10px 26px !important;
+        min-width: 100px !important;
+    }
+
+    .access-user-name,
+    #headerCompanyInfo>.access-user {
+        font-size: 12pt !important;
+    }
+
+    .company-logo img,
+    .logo-cust {
+        height: 70px !important;
+    }
+
+    .emo-ico img {
+        max-width: 50px !important;
+        width: 75% !important;
+    }
+
+    .emo-cont {
+        min-width: 0;
+        width: calc(50% - 12px);
+        box-sizing: border-box;
+        padding: 14px 8px 12px;
+        border-radius: 16px;
+        margin: 6px;
+        white-space: normal;
+    }
+
+    .clicked-emo-cont {
+        border-radius: 16px;
+        padding: 14px 8px 12px;
+    }
+
+    .middle-box {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0;
+    }
+
+    .middle-box .row,
+    .middle-box .col-xs-6,
+    .middle-box .col-xs-12 {
+        width: 100% !important;
+        float: none !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .middle-box .emo-cont {
+        flex: 0 1 calc(50% - 12px);
+    }
+
+    .form-control {
+        font-size: 11pt !important;
+    }
+
+    .loyalty-message {
+        font-size: 12pt;
+        color: #151D46;
+        font-family: "Manrope", sans-serif !important;
+        font-weight: 500;
+    }
+
+    .sensor-title {
+        padding: 8px 20px 0 20px;
+    }
+}

@@ -446,19 +446,6 @@ body:has(.localisation-cont.clicked-emo-cont img[src*="ico8.png"]) .access-user-
     letter-spacing: 0.5px;
 }
 
-/* Add red asterisk before required fields: Name, Email, Telephone/Mobile */
-/* Uses :has() to detect form-groups containing those inputs (modern browsers) */
-.form-group:has(input[id*="name" i], input[name*="name" i], input[placeholder*="name" i],
-                 input[id*="email" i], input[name*="email" i], input[placeholder*="email" i],
-                 input[id*="mobile" i], input[name*="mobile" i], input[placeholder*="mobile" i],
-                 input[id*="telephone" i], input[name*="telephone" i], input[placeholder*="telephone" i],
-                 input[id*="phone" i], input[name*="phone" i], input[placeholder*="phone" i],
-                 input[type="tel"]) label::before {
-    content: "*";
-    color: #d00;
-    margin-right: 6px;
-    font-weight: 700;
-}
 
 /* Fallback for browsers without :has() support */
 .form-group label[for*="name" i]::before,
