@@ -419,55 +419,6 @@
       "type": "textArea",
       "readOnly": true
     },
-     "overdue": {
-      "name": "Overdue",
-      "type": "enum",
-      "hidden": true,
-      "values": [
-        {
-          "id": "1st Level",
-          "name": "1st Level",
-          "triggers": [
-            {
-              "channel": "email",
-              "template": "overdueAlertEmail_1stLevel",
-              "target": "admin",
-              "contacts": [
-                "sanjanan@emojot.com"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "2nd Level",
-          "name": "2nd Level",
-          "triggers": [
-            {
-              "channel": "email",
-              "template": "overdueAlertEmail_2ndLevel",
-              "target": "admin",
-              "contacts": [
-                "sanjanan@emojot.com"
-              ]
-            }
-          ]
-        },
-        {
-          "id": "3rd Level",
-          "name": "3rd Level",
-          "triggers": [
-            {
-              "channel": "email",
-              "template": "overdueAlertEmail_3rdLevel",
-              "target": "admin",
-              "contacts": [
-                "sanjanan@emojot.com"
-              ]
-            }
-          ]
-        }
-      ]
-    },
     "attachment": {
       "name": "Attachment",
       "type": "file",
@@ -531,6 +482,56 @@
       "name": "Contact Email",
       "type": "string",
       "readOnly": true
+    },
+    "overdue": {
+      "name": "Overdue",
+      "readOnly": true,
+      "type": "enum",
+      "hidden": true,
+      "values": [
+        {
+          "id": "1st Level",
+          "name": "1st Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_1stLevel",
+              "target": "admin",
+              "contacts": [
+                "shaveenf@emojot.com"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2nd Level",
+          "name": "2nd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_2ndLevel",
+              "target": "admin",
+              "contacts": [
+                "shaveenf@emojot.com"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3rd Level",
+          "name": "3rd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_3rdLevel",
+              "target": "admin",
+              "contacts": [
+                "shaveenf@emojot.com"
+              ]
+            }
+          ]
+        }
+      ]
     }
   },
   "workflowCreation": {
@@ -541,7 +542,7 @@
         "template": "piiRequestCreationAlert",
         "target": "admin",
         "contacts": [
-          "privacy@emojot.com"
+          "shaveenf@emojot.com"
         ],
         "condition": {
           "in": [
@@ -579,7 +580,7 @@
         "changingFields": [
           {
             "id": "assignee",
-            "value": "privacy@emojot.com"
+            "value": "shaveenf@emojot.com"
           }
         ]
       }
@@ -588,12 +589,13 @@
   "assignment": {
     "automaticAssignment": {
       "isEnabled": true,
-      "email": "privacy@emojot.com",
+      "email": "shaveenf@emojot.com",
       "resolvedStatus": [
-        "Completed"
+        "Completed",
+        "Rejected"
       ],
       "maxLevel": 4,
-       "triggerFlows": [
+      "triggerFlows": [
         {
           "condition": {
             "and": [
@@ -602,7 +604,7 @@
                   {
                     "var": "status"
                   },
-                  "Completed"
+                  "Resolved"
                 ]
               }
             ]
@@ -610,10 +612,10 @@
           "skipAssignment": true,
           "levels": [
             {
-              "nextLevelTime": 604800000
+              "nextLevelTime": 3600000
             },
             {
-              "nextLevelTime": 604800000,
+              "nextLevelTime": 3600000,
               "fieldsChange": [
                 {
                   "id": "overdue",
@@ -622,7 +624,7 @@
               ]
             },
             {
-              "nextLevelTime": 604800000,
+              "nextLevelTime": 3600000,
               "fieldsChange": [
                 {
                   "id": "overdue",
@@ -631,7 +633,7 @@
               ]
             },
             {
-              "nextLevelTime": 604800000,
+              "nextLevelTime": 3600000,
               "fieldsChange": [
                 {
                   "id": "overdue",
@@ -708,5 +710,5 @@
     "Escalated to relevant team.",
     "Resolution confirmed; case closed."
   ],
-  "tableEdit": "false"
+  "tableEdit": "true"
 }
