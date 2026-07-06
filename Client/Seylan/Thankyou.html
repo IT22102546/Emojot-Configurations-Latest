@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seylan Bank Google Review QR</title>
+
+  <style>
+    :root {
+      --card-bg: rgba(255, 255, 255, 0.96);
+      --card-border: rgba(199, 210, 229, 0.85);
+      --heading: #143365;
+      --body: #52627a;
+      --accent: #e31b23;
+      --qr-size: clamp(132px, min(22vw, 19vh), 190px);
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100dvh;
+      overflow: hidden;
+    }
+
+    body {
+      position: relative;
+      font-family: "Outfit", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    #qrBox {
+      display: none;
+      position: fixed;
+      left: 50%;
+      top: 59%;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      width: min(88vw, 440px);
+      background: var(--card-bg);
+      padding: 18px 18px 24px;
+      border-radius: 18px;
+      border: 1px solid var(--card-border);
+      box-shadow:
+        0 16px 32px rgba(15, 40, 84, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(1.5px);
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .qr-eyebrow {
+      margin: 0 0 6px;
+      color: var(--accent);
+      font-size: clamp(10px, 0.8vw, 12px);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    #qrBox h3 {
+      margin: 0 0 8px;
+      color: var(--heading);
+      font-size: clamp(18px, 1.6vw, 24px);
+      line-height: 1.22;
+      font-weight: 700;
+      letter-spacing: -0.018em;
+      text-wrap: balance;
+    }
+
+    #qrHint {
+      margin: 0 auto 14px;
+      color: var(--body);
+      font-size: clamp(12px, 0.95vw, 15px);
+      line-height: 1.45;
+      max-width: 36ch;
+      text-wrap: pretty;
+    }
+
+    .qr-frame {
+      width: calc(var(--qr-size) + 18px);
+      height: calc(var(--qr-size) + 18px);
+      margin: 0 auto 6px;
+      border-radius: 14px;
+      border: 1px solid #dce5f2;
+      background: #ffffff;
+      display: grid;
+      place-items: center;
+      box-shadow: inset 0 0 0 4px #f5f8ff;
+    }
+
+    #qrImage {
+      width: var(--qr-size);
+      height: var(--qr-size);
+      display: block;
+      border-radius: 6px;
+    }
+
+    .qr-note {
+      margin: 12px auto 0;
+      color: #6a778c;
+      font-size: clamp(10px, 0.78vw, 12px);
+      line-height: 1.35;
+      max-width: 34ch;
+    }
+
+    @media (max-width: 480px) {
+      :root {
+        --qr-size: clamp(126px, min(46vw, 25vh), 170px);
+      }
+
+      #qrBox {
+        width: min(90vw, 400px);
+        top: 55%;
+        padding: 16px 14px 24px;
+        border-radius: 16px;
+      }
+    }
+
+    @media (max-height: 760px) {
+      :root {
+        --qr-size: clamp(118px, 16.5vh, 150px);
+      }
+
+      #qrBox {
+        top: 56%;
+        padding-top: 14px;
+        padding-bottom: 24px;
+      }
+
+      #qrHint {
+        margin-bottom: 10px;
+      }
+
+      .qr-note {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) and (max-height: 760px) {
+      #qrBox {
+        top: 55%;
+        padding-bottom: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="qrBox" role="region" aria-label="Google review QR code">
+    <p class="qr-eyebrow">Google Review</p>
+
+    <h3>We’re glad you had a good experience</h3>
+
+    <p id="qrHint">
+      Scan the QR code to share your experience with Seylan Bank on Google.
+    </p>
+
+    <div class="qr-frame">
+      <img id="qrImage" alt="QR code to share a Seylan Bank review on Google" />
+    </div>
+
+    <p class="qr-note">
+      Thank you for helping us improve our service.
+    </p>
+  </div>
+
+  <script>
+    function buildQrImageUrl(data) {
+      return `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(data)}`;
+    }
+
+    function getSignatureValue(signature, keys) {
+      for (const key of keys) {
+        if (signature && signature[key]) {
+          return signature[key];
+        }
+      }
+
+      return null;
+    }
+
+    function showQr(qrImageUrl) {
+      const qrBox = document.getElementById("qrBox");
+      const qrImage = document.getElementById("qrImage");
+
+      if (!qrBox || !qrImage) {
+        console.warn("QR elements not found.");
+        return;
+      }
+
+      qrImage.src = qrImageUrl;
+      qrBox.style.display = "block";
+    }
+
+    function redirectToReview(url) {
+      if (!url || typeof url !== "string") {
+        console.warn("Google review URL is missing or invalid:", url);
+        return;
+      }
+
+      console.log("Redirecting to Google review URL:", url);
+      window.location.href = url;
+    }
+
+    function loadQrOrRedirect() {
+      const signature = window.emoSignature;
+
+      if (!signature) {
+        return false;
+      }
+
+      const location = getSignatureValue(signature, [
+        "Location",
+        "location"
+      ]);
+
+      const googleReviewLink = getSignatureValue(signature, [
+        "GoogleReviewLink",
+        "googleReviewLink",
+        "google_review_link",
+        "googleReviewUrl",
+        "googleReviewURL",
+        "reviewLink",
+        "reviewUrl",
+        "reviewURL"
+      ]);
+
+      const fallbackQrImage = getSignatureValue(signature, [
+        "branchQR",
+        "branchQr",
+        "qrcode",
+        "qrCode",
+        "QRCode",
+        "qr"
+      ]);
+
+      const normalizedLocation =
+        typeof location === "string"
+          ? location.trim().toLowerCase()
+          : "";
+
+      const isTabLocation = normalizedLocation === "tab";
+
+      console.log("emoSignature:", signature);
+      console.log("Location:", location);
+      console.log("Normalized location:", normalizedLocation);
+      console.log("Is tab location:", isTabLocation);
+      console.log("Google review link:", googleReviewLink);
+
+      // Consider googleReviewLink invalid when it's null, empty or explicitly 'NA'/'N/A'/'-'/'null'
+      const isValidGoogleLink = (function () {
+        if (typeof googleReviewLink !== "string") return false;
+        const v = googleReviewLink.trim().toLowerCase();
+        if (!v) return false;
+        if (v === "na" || v === "n/a" || v === "-" || v === "null") return false;
+        return true;
+      })();
+
+      if (isTabLocation) {
+        if (isValidGoogleLink) {
+          const qrImageUrl = buildQrImageUrl(googleReviewLink);
+          showQr(qrImageUrl);
+        } else {
+          // Explicitly avoid showing a QR when the link is not valid
+          console.warn("Google review link absent or marked NA; not showing QR.");
+        }
+
+        return true;
+      }
+
+      if (isValidGoogleLink) {
+        redirectToReview(googleReviewLink);
+        return true;
+      }
+
+      console.warn("Location is not tab, but GoogleReviewLink is missing.");
+      return true;
+    }
+
+    function waitForEmoSignatureAndRun() {
+      let attempts = 0;
+      const maxAttempts = 40;
+      const intervalMs = 250;
+
+      const timer = setInterval(function () {
+        attempts++;
+
+        const handled = loadQrOrRedirect();
+
+        if (handled || attempts >= maxAttempts) {
+          clearInterval(timer);
+
+          if (!handled) {
+            console.warn("emoSignature was not available after waiting.");
+          }
+        }
+      }, intervalMs);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", waitForEmoSignatureAndRun);
+    } else {
+      waitForEmoSignatureAndRun();
+    }
+  </script>
+
+</body>
+</html>
