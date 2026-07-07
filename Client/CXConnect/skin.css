@@ -296,6 +296,18 @@
     box-shadow: 0 6px 20px rgba(48, 174, 136, 0.28);
 }
 
+#CampaignLastPageSubmit.btn-submit[disabled],
+.btn-submit[disabled],
+.btn-submit[aria-disabled="true"],
+.btn-submit.is-submitting,
+.btn-submit.is-disabled {
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+    opacity: 0.55 !important;
+    box-shadow: none !important;
+    filter: saturate(0.75);
+}
+
 .clear-submit-row {
     text-align: center !important;
     padding: 8px 0 20px 0 !important;
@@ -706,7 +718,7 @@ div.col-xs-7.ng-scope {
         bottom: auto;
         transform: none;
         display: block !important;
-        width: 100%;
+        width: max-content;
         margin: 12px 0 0 0;
         padding-left: 28px;
         text-align: left;
