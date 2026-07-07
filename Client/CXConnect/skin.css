@@ -65,6 +65,13 @@
     font-weight: 600 !important;
 }
 
+.form-group label::after {
+    content: "*";
+    color: #d93025;
+    font-weight: 700;
+    margin-left: 4px;
+}
+
 .emo-text {
     font-size: 12pt;
     color: #1E305F;
@@ -509,6 +516,13 @@
     columns: #fff !important;
     font-family: "Manrope", sans-serif !important;
     font-size: 12pt;
+}
+
+.form-group label::after {
+    content: "*";
+    color: #d93025;
+    font-weight: 700;
+    margin-left: 4px;
 }
 
 .loyalty-message {
