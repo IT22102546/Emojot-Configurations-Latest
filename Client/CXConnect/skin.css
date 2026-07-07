@@ -364,6 +364,13 @@
     color: #333;
 }
 
+.btn-skip,
+.btn-skip:hover,
+.btn-skip:focus,
+.btn-skip:active {
+    display: none !important;
+}
+
 .btn-fb {
     color: white;
 }
