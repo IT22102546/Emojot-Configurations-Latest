@@ -573,14 +573,23 @@ div.col-xs-7.ng-scope {
     #headerCompanyInfo {
         min-height: auto;
         padding: 4px 10px 0;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
     }
 
     #headerCompanyInfo > .access-user {
         float: none;
-        width: 100%;
+        width: auto;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
         text-align: right;
         font-size: 11pt !important;
-        margin-top: 4px;
+        margin-top: 3px;
+        margin-left: auto;
+        white-space: nowrap;
     }
 
     .company-logo img,
