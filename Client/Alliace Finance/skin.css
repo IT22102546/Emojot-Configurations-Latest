@@ -1,6 +1,4 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
 :root {
     --af-orange: #f58220;
     --af-orange-dark: #d96b10;
@@ -44,7 +42,7 @@
 
 .emote-title {
     color: var(--af-blue-deep);
-    font-family: "Saira Semi Condensed", cursive !important;
+    font-family: "Times New Roman", Times, serif !important;
     font-size: 15pt;
     font-weight: 600;
 }
@@ -53,7 +51,7 @@
 
 .form-group label {
     color: var(--af-text) !important;
-    font-family: "Saira Semi Condensed", cursive !important;
+    font-family: "Times New Roman", Times, serif !important;
     font-size: 15pt !important;
     font-weight: 600 !important;
 }
@@ -61,19 +59,19 @@
 .emo-text {
     font-size: 13pt;
     color: var(--af-muted);
-    font-family: "Saira Semi Condensed", cursive !important;
+    font-family: "Times New Roman", Times, serif !important;
     font-weight: 500;
 }
 
 .emo-text-only {
     font-size: 15pt;
-    font-family: "Saira Semi Condensed", cursive !important;
+    font-family: "Times New Roman", Times, serif !important;
 }
 
 .loyalty-message {
     font-size: 13pt;
     color: var(--af-text);
-    font-family: "Saira Semi Condensed", cursive !important;
+    font-family: "Times New Roman", Times, serif !important;
     font-weight: 500;
 }
 
@@ -164,7 +162,7 @@
     display: inline-block;
     box-shadow: 0px 2px 10px rgba(17, 17, 17, 0.10);
     padding: 9px 25px;
-    font-family: "Saira Semi Condensed", cursive !important;
+    font-family: "Times New Roman", Times, serif !important;
     font-size: 12pt;
     background: linear-gradient(180deg, #ffffff 0%, #eef9fd 100%);
 }
@@ -207,7 +205,7 @@
 .sensor-title {
     color: var(--af-blue-deep);
     font-size: 20pt;
-    font-family: "Saira Semi Condensed", cursive !important;
+    font-family: "Times New Roman", Times, serif !important;
     background: rgba(255, 255, 255, 0);
     line-height: 40px;
     font-weight: 700;
@@ -242,7 +240,7 @@
 .panel-title {
     font-size: 11pt;
     max-width: 90%;
-    font-family: "Saira Semi Condensed", cursive !important;
+    font-family: "Times New Roman", Times, serif !important;
     line-height: 1.6;
 }
 
@@ -266,7 +264,7 @@
     text-align: center;
     float: right;
     text-shadow: 1px 1px 1px #000;
-    font-family: "Saira Semi Condensed", cursive !important;
+    font-family: "Times New Roman", Times, serif !important;
     font-style: italic;
     font-size: 15px;
     background-size: 120px 80px;
@@ -276,7 +274,7 @@
 }
 
 .access-user-name {
-    font-family: "Saira Semi Condensed", cursive !important;
+    font-family: "Times New Roman", Times, serif !important;
 }
 
 .company-logo {
@@ -300,11 +298,11 @@
     padding: 12px 13px;
     font-size: 8pt;
     margin: 0 -10px 0px 0;
-    font-family: 'Saira Semi Condensed', sans-serif;
+    font-family: 'Times New Roman', Times, serif;
 }
 .form-group label {
     color: var(--af-text) !important;
-    font-family: "Saira Semi Condensed", cursive !important;
+    font-family: "Times New Roman", Times, serif !important;
     font-size: 12pt;
 }
 
@@ -346,7 +344,7 @@
 
 
 .progress_bar .progress_number {
-    font-family: "Saira Semi Condensed", cursive !important;
+    font-family: "Times New Roman", Times, serif !important;
     color: var(--af-blue-deep);
     margin-top: 5px;
     margin-bottom: 5px;
@@ -393,7 +391,7 @@
     font-weight: bold;
     top: 100%;
     transform: translateY(8px);
-    font-family: "Saira Semi Condensed", cursive !important;
+    font-family: "Times New Roman", Times, serif !important;
 }
 
 .nps-bar::before {
@@ -447,7 +445,7 @@
 
 
 div.col-xs-7.ng-scope {
-    font-family: "Saira Semi Condensed", cursive !important;
+    font-family: "Times New Roman", Times, serif !important;
 }
 
 /* Primary buttons */
@@ -535,7 +533,7 @@ div.col-xs-7.ng-scope {
     .loyalty-message {
         font-size: 12pt;
         color: var(--af-text);
-        font-family: "Saira Semi Condensed", cursive !important;
+        font-family: "Times New Roman", Times, serif !important;
         font-weight: 500;
     }
 }
