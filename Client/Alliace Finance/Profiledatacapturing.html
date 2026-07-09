@@ -12,7 +12,13 @@
 .lnksh-cc-consent-wrap{
     font-family:"Times New Roman", Times, serif;
     margin:18px 6px 35px;
-    color:#444;
+    color:#000000 !important;
+    background:rgba(255, 255, 255, 0.92);
+    border-radius:4px;
+    display:inline-block;
+    max-width:calc(100% - 12px);
+    padding:8px 12px;
+    box-sizing:border-box;
 }
 
 .lnksh-cc-consent-label{
@@ -24,6 +30,14 @@
     text-align:left;
     cursor:pointer;
     font-family:"Times New Roman", Times, serif;
+    color:#000000 !important;
+    font-weight:700;
+}
+
+.lnksh-cc-consent-label span{
+    color:#000000 !important;
+    opacity:1 !important;
+    text-shadow:0 1px 1px rgba(255, 255, 255, 0.85);
 }
 
 .lnksh-cc-checkbox{
@@ -71,8 +85,9 @@
         ta: {
             title: 'உங்கள் கருத்து எங்களுக்கு மிகவும் முக்கியமானது. உங்களை மேலும் நன்கு புரிந்துகொள்ள, தயவுசெய்து கீழே உங்கள் விவரங்களை வழங்கவும்.',
             consent: 'பொருந்தக்கூடிய தனியுரிமைக் கொள்கைகள் மற்றும் ஒழுங்குமுறை விதிமுறைகளின்படி, வங்கி சேவைகள் மற்றும் சேவை மேம்பாட்டு நோக்கங்களுக்காக எனது தனிப்பட்ட தகவல்களை சேகரித்து பயன்படுத்துவதற்கு நான் சம்மதிக்கிறேன்.'
-}
+        }
     };
+    let languageListenersBound = false;
 
     function detectLang() {
         const ngSelect = document.querySelector('select[ng-model="selectedLanguage.value"], select[ng-model*="selectedLanguage"]');
@@ -96,15 +111,16 @@
     }
 
     function findTelephoneBlock(form) {
-        const fields = Array.from(form.querySelectorAll('.form-group, .form-field, .loyalty-field, div'));
-        const telephoneField = fields.find(function (field) {
-            const text = (field.textContent || '').toLowerCase();
+        const labels = Array.from(form.querySelectorAll('label'));
+        const telephoneLabel = labels.find(function (label) {
+            const text = (label.textContent || '').toLowerCase();
             return text.includes('telephone') || text.includes('phone') || text.includes('mobile');
         });
+        const telephoneField = telephoneLabel && (telephoneLabel.closest('.form-group, .form-field, .loyalty-field') || telephoneLabel.parentElement);
 
         if (telephoneField) return telephoneField;
 
-        const input = form.querySelector('input[type="tel"], input[name*="Telephone" i], input[id*="Telephone" i], input[placeholder*="071" i]');
+        const input = form.querySelector('input[type="tel"], input[name*="Telephone"], input[name*="telephone"], input[id*="Telephone"], input[id*="telephone"], input[placeholder*="071"]');
         return input ? (input.closest('.form-group, .form-field, .loyalty-field') || input.parentElement) : null;
     }
 
@@ -117,10 +133,17 @@
 
     function blockDisabledOk(event) {
         const okBtn = event.target && event.target.closest && event.target.closest('.btn-ok');
-        if (!okBtn || !okBtn.classList.contains('lnksh-cc-disabled')) return;
+        const checkbox = document.querySelector('.lnksh-cc-checkbox');
+        const isBlocked = okBtn && (okBtn.classList.contains('lnksh-cc-disabled') || (checkbox && !checkbox.checked));
+        if (!isBlocked) return;
         event.preventDefault();
         event.stopImmediatePropagation();
     }
+
+    document.addEventListener('click', blockDisabledOk, true);
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' || event.key === ' ') blockDisabledOk(event);
+    }, true);
 
     function place() {
         const form = document.querySelector('#loyalty-form');
@@ -147,21 +170,14 @@
             checkbox.dataset.lnkshCcBound = 'true';
         }
 
-        if (!okBtn.dataset.lnkshCcBound) {
-            okBtn.addEventListener('click', blockDisabledOk, true);
-            okBtn.addEventListener('keydown', function(event) {
-                if ((event.key === 'Enter' || event.key === ' ') && okBtn.classList.contains('lnksh-cc-disabled')) {
-                    blockDisabledOk(event);
-                }
-            }, true);
-            okBtn.dataset.lnkshCcBound = 'true';
-        }
-
         // listen language changes
-        const ngSelect = document.querySelector('select[ng-model="selectedLanguage.value"], select[ng-model*="selectedLanguage"]');
-        if (ngSelect) ngSelect.addEventListener('change', apply);
-        window.addEventListener('change', (e) => { if (e.target && e.target.tagName === 'SELECT') apply(); }, true);
-        window.addEventListener('click', () => setTimeout(apply, 0), true);
+        if (!languageListenersBound) {
+            const ngSelect = document.querySelector('select[ng-model="selectedLanguage.value"], select[ng-model*="selectedLanguage"]');
+            if (ngSelect) ngSelect.addEventListener('change', apply);
+            window.addEventListener('change', (e) => { if (e.target && e.target.tagName === 'SELECT') apply(); }, true);
+            window.addEventListener('click', () => setTimeout(apply, 0), true);
+            languageListenersBound = true;
+        }
 
         apply();
     }

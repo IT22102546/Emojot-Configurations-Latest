@@ -1,32 +1,156 @@
-<div style="min-height: 360px; display: flex; align-items: center; justify-content: center; padding: 24px 16px; background: radial-gradient(circle at top left, rgba(245, 130, 32, 0.12), transparent 34%), radial-gradient(circle at top right, rgba(72, 192, 232, 0.14), transparent 32%), linear-gradient(135deg, #f8fbff 0%, #ffffff 56%, #eef7f0 100%); font-family: 'Times New Roman', Times, serif;">
-	<div style="max-width: 700px; width: 100%; overflow: hidden; border-radius: 26px; background: rgba(255, 255, 255, 0.96); box-shadow: 0 24px 55px rgba(17, 17, 17, 0.12); border: 1px solid rgba(72, 192, 232, 0.10); font-family: 'Times New Roman', Times, serif;">
-		<div style="height: 10px; background: linear-gradient(90deg, #f58220 0%, #7bc043 50%, #48c0e8 100%);"></div>
-		<div style="display: flex; flex-wrap: wrap;">
-			<div style="flex: 1 1 210px; min-width: 210px; padding: 30px 24px; background: linear-gradient(180deg, rgba(245, 130, 32, 0.08), rgba(72, 192, 232, 0.05)); border-right: 1px solid rgba(72, 192, 232, 0.10); font-family: 'Times New Roman', Times, serif;">
-				<div style="display: inline-block; padding: 8px 14px; border-radius: 999px; background: #ffffff; color: #1780b8; font-size: 13px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; box-shadow: 0 6px 14px rgba(17, 17, 17, 0.08); margin-bottom: 18px; font-family: 'Times New Roman', Times, serif;">
-					Alliance Finance
-				</div>
-				<div style="font-size: 44px; line-height: 0.95; font-weight: 800; color: #111111; letter-spacing: 0.2px; margin-bottom: 12px; font-family: 'Times New Roman', Times, serif;">
-					Thank you
-				</div>
-				<div style="font-size: 17px; line-height: 1.6; color: #4b4b4b; font-family: 'Times New Roman', Times, serif;">
-					We have received your feedback.
-				</div>
-			</div>
-			<div style="flex: 1 1 290px; min-width: 290px; padding: 30px 28px; font-family: 'Times New Roman', Times, serif;">
-				<div style="font-size: 14px; font-weight: 700; letter-spacing: 1px; color: #7bc043; text-transform: uppercase; margin-bottom: 10px; font-family: 'Times New Roman', Times, serif;">
-					All set
-				</div>
-				<div style="font-size: 20px; line-height: 1.65; color: #111111; margin-bottom: 18px; font-family: 'Times New Roman', Times, serif;">
-					Thanks for taking the time to share your experience with Alliance Finance Sri Lanka.
-				</div>
-				<div style="font-size: 16px; line-height: 1.7; color: #4b4b4b; margin-bottom: 24px; font-family: 'Times New Roman', Times, serif;">
-					Your input helps us keep improving the service we provide and the way we support you.
-				</div>
-				<div style="display: inline-block; padding: 11px 20px; border-radius: 999px; background: linear-gradient(135deg, #f58220 0%, #7bc043 52%, #48c0e8 100%); color: #ffffff; font-size: 15px; font-weight: 700; box-shadow: 0 10px 22px rgba(17, 17, 17, 0.12); font-family: 'Times New Roman', Times, serif;">
-					You can close this page now
-				</div>
-			</div>
-		</div>
-	</div>
+<style>
+.af-thankyou-wrap {
+    width: 100%;
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 16px 88px;
+    box-sizing: border-box;
+    background: transparent;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.af-thankyou-panel {
+    width: min(920px, 100%);
+    overflow: hidden;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.72);
+    box-shadow: 0 22px 48px rgba(0, 0, 0, 0.22);
+}
+
+.af-thankyou-strip {
+    height: 10px;
+    background: linear-gradient(90deg, #f58220 0%, #7bc043 52%, #48c0e8 100%);
+}
+
+.af-thankyou-content {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.86fr) minmax(280px, 1.14fr);
+}
+
+.af-thankyou-brand,
+.af-thankyou-message {
+    padding: 42px 38px;
+    box-sizing: border-box;
+}
+
+.af-thankyou-brand {
+    background: linear-gradient(180deg, rgba(245, 130, 32, 0.10), rgba(72, 192, 232, 0.08));
+    border-right: 1px solid rgba(72, 192, 232, 0.18);
+}
+
+.af-thankyou-pill {
+    display: inline-block;
+    padding: 8px 18px;
+    margin-bottom: 28px;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #1780b8;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.10);
+}
+
+.af-thankyou-title {
+    margin: 0 0 14px;
+    color: #111111;
+    font-size: clamp(42px, 6vw, 76px);
+    line-height: 0.95;
+    font-weight: 800;
+}
+
+.af-thankyou-subtitle {
+    margin: 0;
+    color: #333333;
+    font-size: clamp(20px, 2.4vw, 30px);
+    line-height: 1.25;
+    font-weight: 700;
+}
+
+.af-thankyou-kicker {
+    margin: 0 0 18px;
+    color: #7bc043;
+    font-size: 20px;
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.af-thankyou-copy {
+    margin: 0 0 20px;
+    color: #111111;
+    font-size: clamp(24px, 3vw, 38px);
+    line-height: 1.45;
+    font-weight: 700;
+    text-align: center;
+}
+
+.af-thankyou-note {
+    margin: 0 auto 30px;
+    max-width: 520px;
+    color: #333333;
+    font-size: clamp(18px, 2vw, 26px);
+    line-height: 1.5;
+    font-weight: 600;
+    text-align: center;
+}
+
+.af-thankyou-close {
+    display: table;
+    margin: 0 auto;
+    padding: 14px 34px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #f58220 0%, #7bc043 52%, #48c0e8 100%);
+    color: #ffffff;
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 800;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+}
+
+@media (max-width: 700px) {
+    .af-thankyou-wrap {
+        min-height: 520px;
+        padding: 28px 12px 72px;
+    }
+
+    .af-thankyou-content {
+        grid-template-columns: 1fr;
+    }
+
+    .af-thankyou-brand,
+    .af-thankyou-message {
+        padding: 30px 22px;
+        text-align: center;
+    }
+
+    .af-thankyou-brand {
+        border-right: 0;
+        border-bottom: 1px solid rgba(72, 192, 232, 0.18);
+    }
+}
+</style>
+
+<div class="af-thankyou-wrap">
+    <div class="af-thankyou-panel">
+        <div class="af-thankyou-strip"></div>
+        <div class="af-thankyou-content">
+            <div class="af-thankyou-brand">
+                <div class="af-thankyou-pill">Alliance Finance</div>
+                <h1 class="af-thankyou-title">Thank you</h1>
+                <p class="af-thankyou-subtitle">We have received your feedback.</p>
+            </div>
+            <div class="af-thankyou-message">
+                <p class="af-thankyou-kicker">All set</p>
+                <p class="af-thankyou-copy">Thanks for sharing your experience with Alliance Finance Sri Lanka.</p>
+                <p class="af-thankyou-note">Your input helps us keep improving the service we provide and the way we support you.</p>
+                <div class="af-thankyou-close">You can close this page now</div>
+            </div>
+        </div>
+    </div>
 </div>
