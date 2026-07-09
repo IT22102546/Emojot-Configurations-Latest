@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<cepRules>
+    <cepRule id="1" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q8537"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <name>emoteNumericValue</name>
+                <operator>ld</operator>
+                <value>1</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>incident</type>
+                <data>
+                    <workflowID>6826f02fb89d7c09aaef913e</workflowID>
+                    <name>Guest Experience Survey Complaint</name>
+                    <assignee>defaultassignee@emojot.com</assignee>
+                    <type>Rooms</type>
+                    <priority>High</priority>
+                    <status>Open</status>
+                    <description>
+                        Customer Name: $$loyalty_Name_value$$
+                        Customer Telephone: $$loyalty_Telephone_value$$
+                        Experience : $$q8537_emote$$
+                        Issue Type: $$q8921_emote$$
+                        Comment: $$gp1351_c1_comment_value$$
+                        Room Number: $$gp1351_c2_comment_value$$
+                    </description>
+                    <customFields>
+                        <field>
+                            <key>Location</key>
+                            <value>$$emoSignature_Location_value$$</value>
+                        </field>
+                        <field>
+                            <key>Touchpoint</key>
+                            <value>Rooms</value>
+                        </field>
+                        <field>
+                            <key>satisfactionValue</key>
+                            <value>$$q8537_emote$$</value>
+                        </field>
+                        <field>
+                            <key>complaintType</key>
+                            <value>$$q8921_emote$$</value>
+                        </field>
+                           <field>
+                            <key>RoomNumber</key>
+                            <value>$$gp1351_c2_comment_value$$</value>
+                        </field>
+                        <field>
+                            <key>comment</key>
+                            <value>$$gp1351_c1_comment_value$$</value>
+                        </field>
+                    </customFields>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+</cepRules>

@@ -35,7 +35,6 @@
 
 .btn-ok.lnksh-cc-disabled{
     opacity:0.35 !important;
-    pointer-events:none !important;
     cursor:not-allowed !important;
 }
 
@@ -54,8 +53,7 @@
 <div class="lnksh-cc-consent-wrap" data-lnksh-source="commercial-credit-inline">
     <label class="lnksh-cc-consent-label">
         <input class="lnksh-cc-checkbox" type="checkbox">
-        <span data-lnksh-key="consent">
-    I consent to the collection and use of my personal information for banking and service improvement purposes, as per applicable privacy policies and regulation. 
+        <span data-lnksh-key="consent">I consent to the collection and use of my personal information for banking and service improvement purposes, as per applicable privacy policies and regulation.</span>
     </label>
 </div>
 
@@ -97,6 +95,33 @@
         if (consent) consent.textContent = copy.consent;
     }
 
+    function findTelephoneBlock(form) {
+        const fields = Array.from(form.querySelectorAll('.form-group, .form-field, .loyalty-field, div'));
+        const telephoneField = fields.find(function (field) {
+            const text = (field.textContent || '').toLowerCase();
+            return text.includes('telephone') || text.includes('phone') || text.includes('mobile');
+        });
+
+        if (telephoneField) return telephoneField;
+
+        const input = form.querySelector('input[type="tel"], input[name*="Telephone" i], input[id*="Telephone" i], input[placeholder*="071" i]');
+        return input ? (input.closest('.form-group, .form-field, .loyalty-field') || input.parentElement) : null;
+    }
+
+    function setOkState(okBtn, checkbox) {
+        const enabled = checkbox.checked;
+        okBtn.classList.toggle('lnksh-cc-disabled', !enabled);
+        okBtn.toggleAttribute('disabled', !enabled);
+        okBtn.setAttribute('aria-disabled', enabled ? 'false' : 'true');
+    }
+
+    function blockDisabledOk(event) {
+        const okBtn = event.target && event.target.closest && event.target.closest('.btn-ok');
+        if (!okBtn || !okBtn.classList.contains('lnksh-cc-disabled')) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+    }
+
     function place() {
         const form = document.querySelector('#loyalty-form');
         const okBtn = document.querySelector('.btn-ok');
@@ -107,17 +132,30 @@
         }
         const title = document.querySelector('.lnksh-cc-title[data-lnksh-source="commercial-credit-inline"]');
         const consent = document.querySelector('.lnksh-cc-consent-wrap[data-lnksh-source="commercial-credit-inline"]');
+        const telephoneBlock = findTelephoneBlock(form);
 
         if (title && form.parentNode) form.parentNode.insertBefore(title, form);
-        if (consent) form.insertAdjacentElement('afterend', consent);
+        if (consent && telephoneBlock) telephoneBlock.insertAdjacentElement('afterend', consent);
+        else if (consent) form.insertAdjacentElement('beforeend', consent);
 
-        okBtn.classList.add('lnksh-cc-disabled');
-        okBtn.setAttribute('disabled', 'disabled');
+        setOkState(okBtn, checkbox);
 
-        checkbox.addEventListener('change', function(){
-            if (checkbox.checked) { okBtn.classList.remove('lnksh-cc-disabled'); okBtn.removeAttribute('disabled'); }
-            else { okBtn.classList.add('lnksh-cc-disabled'); okBtn.setAttribute('disabled','disabled'); }
-        });
+        if (!checkbox.dataset.lnkshCcBound) {
+            checkbox.addEventListener('change', function(){
+                setOkState(okBtn, checkbox);
+            });
+            checkbox.dataset.lnkshCcBound = 'true';
+        }
+
+        if (!okBtn.dataset.lnkshCcBound) {
+            okBtn.addEventListener('click', blockDisabledOk, true);
+            okBtn.addEventListener('keydown', function(event) {
+                if ((event.key === 'Enter' || event.key === ' ') && okBtn.classList.contains('lnksh-cc-disabled')) {
+                    blockDisabledOk(event);
+                }
+            }, true);
+            okBtn.dataset.lnkshCcBound = 'true';
+        }
 
         // listen language changes
         const ngSelect = document.querySelector('select[ng-model="selectedLanguage.value"], select[ng-model*="selectedLanguage"]');
@@ -128,7 +166,11 @@
         apply();
     }
 
+    place();
     window.addEventListener('load', place);
+    setTimeout(place, 250);
+    setTimeout(place, 750);
+    setTimeout(place, 1500);
 
 })();
 </script>

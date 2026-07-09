@@ -1,0 +1,661 @@
+{
+  "reportNamePrefix": "Complaint",
+  "nameTemplate": "User Review From: $type$",
+  "reporterNamePrefix": "Customer",
+  "descriptionFormat": "text",
+  "type": {
+    "name": "Type",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Rooms",
+        "name": "Rooms",
+        "highPriorityFields": [
+          "Location",
+          "Touchpoint",
+          "complaintType",
+          "comment",
+          "RoomNumber",
+          "overdue",
+          "resolutionTimeRange"
+        ]
+      },
+      {
+        "id": "Bistro",
+        "name": "Bistro",
+        "highPriorityFields": [
+          "Location",
+          "Touchpoint",
+          "complaintType",
+          "comment",
+          "overdue",
+          "resolutionTimeRange"
+        ]
+      },
+      {
+        "id": "googleMap",
+        "name": "Google",
+        "highPriorityFields": [
+          "Location",
+          "comment",
+          "overdue",
+          "resolutionTimeRange",
+          "author",
+          "rating"
+        ]
+      },
+      {
+        "id": "booking",
+        "name": "Booking.com",
+        "highPriorityFields": [
+          "Location",
+          "comment",
+          "overdue",
+          "resolutionTimeRange",
+          "author",
+          "rating"
+        ]
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Open",
+        "name": "Open"
+      },
+      {
+        "id": "In Progress",
+        "name": "In Progress"
+      },
+      {
+        "id": "Resolved",
+        "name": "Resolved",
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "complaintResolutionAlert",
+            "target": "admin",
+            "contactFilters": [
+              "ticketResolutionAlert"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "type",
+                  "operator": "eq",
+                  "value": "$type$"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Low",
+        "name": "Low"
+      },
+      {
+        "id": "Medium",
+        "name": "Medium"
+      },
+      {
+        "id": "High",
+        "name": "High"
+      }
+    ]
+  },
+  "timeSpent": {
+    "name": "Time spent",
+    "type": "time_accumulation"
+  },
+  "customFields": {
+    "Location": {
+      "name": "Location",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Sesaya Rajagiriya",
+          "name": "Sesaya Rajagiriya"
+        }
+      ]
+    },
+    "Touchpoint": {
+      "name": "Touchpoint",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Rooms",
+          "name": "Rooms"
+        },
+        {
+          "id": "Bistro",
+          "name": "Bistro"
+        },
+        {
+          "id": "googleMap",
+          "name": "Google"
+        },
+        {
+          "id": "booking",
+          "name": "Booking.com"
+        }
+      ]
+    },
+    "author": {
+      "name": "Reviwer Name",
+      "type": "string",
+      "readOnly": true
+    },
+    "rating": {
+      "name": "Rating",
+      "type": "number",
+      "readOnly": true
+    },
+    "complaintType": {
+      "name": "Complaint Type",
+      "readOnly": true,
+      "type": "string"
+    },
+    "comment": {
+      "name": "Comment",
+      "readOnly": true,
+      "type": "textArea"
+    },
+    "RoomNumber": {
+      "name": "Room Number",
+      "readOnly": true,
+      "type": "string"
+    },
+    "overdue": {
+      "name": "Overdue",
+      "type": "enum",
+      "values": [
+        {
+          "id": "2nd Level",
+          "name": "2nd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_2ndLevel",
+              "target": "admin",
+              "contactFilters": [
+                "2ndlevel"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Location",
+                    "operator": "eq",
+                    "value": "$Location$"
+                  },
+                  {
+                    "field": "Touchpoint",
+                    "operator": "eq",
+                    "value": "$Touchpoint$"
+                  }
+                ]
+              }
+            },
+            {
+              "channel": "sms",
+              "template": "reminderSMS",
+              "target": "admin",
+              "appendEditUrl": true,
+              "contactFilters": [
+                "2ndlevel"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Location",
+                    "operator": "eq",
+                    "value": "$Location$"
+                  },
+                  {
+                    "field": "Touchpoint",
+                    "operator": "eq",
+                    "value": "$Touchpoint$"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "3rd Level",
+          "name": "3rd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_3rdLevel",
+              "target": "admin",
+              "contactFilters": [
+                "3rdlevel"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Location",
+                    "operator": "eq",
+                    "value": "$Location$"
+                  },
+                  {
+                    "field": "Touchpoint",
+                    "operator": "eq",
+                    "value": "$Touchpoint$"
+                  }
+                ]
+              }
+            },
+            {
+              "channel": "sms",
+              "template": "overdueSMS",
+              "target": "admin",
+              "appendEditUrl": true,
+              "contactFilters": [
+                "3rdlevel"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Location",
+                    "operator": "eq",
+                    "value": "$Location$"
+                  },
+                  {
+                    "field": "Touchpoint",
+                    "operator": "eq",
+                    "value": "$Touchpoint$"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "resolutionTimeRange": {
+      "name": "Resolved Ticket Time",
+      "type": "enum",
+      "values": [
+        {
+          "id": "<15 min",
+          "name": "<15 min"
+        },
+        {
+          "id": "15 - 30 min",
+          "name": "15 - 30 min"
+        },
+        {
+          "id": "30 - 45 min",
+          "name": "30 - 45 min"
+        },
+        {
+          "id": "45 - 60 min",
+          "name": "45 - 60 min"
+        },
+        {
+          "id": "1 - 1.5 hours",
+          "name": "1 - 1.5 hours"
+        },
+        {
+          "id": "1.5 - 2 hours",
+          "name": "1.5 - 2 hours"
+        },
+        {
+          "id": "2 - 3 hours",
+          "name": "2 - 3 hours"
+        },
+        {
+          "id": "3 - 4 hours",
+          "name": "3 - 4 hours"
+        },
+        {
+          "id": "4 - 5 hours",
+          "name": "4 - 5 hours"
+        },
+        {
+          "id": "5 - 7 hours",
+          "name": "5 - 7 hours"
+        },
+        {
+          "id": "7 - 12 hours",
+          "name": "7 - 12 hours"
+        },
+        {
+          "id": "12 - 24 hours",
+          "name": "12 - 24 hours"
+        },
+        {
+          "id": "> 1 day",
+          "name": "> 1 day"
+        }
+      ]
+    }
+  },
+  "workflowCreation": {
+    "email": "bot@emojot.com",
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "complaintCreationAlert",
+        "target": "admin",
+        "condition": {
+          "or": [
+            {
+              "==": [
+                {
+                  "var": "type"
+                },
+                "Rooms"
+              ]
+            },
+            {
+              "==": [
+                {
+                  "var": "type"
+                },
+                "Bistro"
+              ]
+            }
+          ]
+        },
+        "contactFilters": [
+          "ticketAssignee",
+          "1stlevel"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "Location",
+              "operator": "eq",
+              "value": "$Location$"
+            },
+            {
+              "field": "Touchpoint",
+              "operator": "eq",
+              "value": "$Touchpoint$"
+            }
+          ]
+        }
+      },
+      {
+        "channel": "email",
+        "template": "ormticketCreationAlert",
+        "target": "admin",
+        "condition": {
+          "or": [
+            {
+              "==": [
+                {
+                  "var": "type"
+                },
+                "googleMap"
+              ]
+            },
+            {
+              "==": [
+                {
+                  "var": "type"
+                },
+                "booking"
+              ]
+            }
+          ]
+        },
+        "contactFilters": [
+          "ticketAssignee",
+          "1stlevel"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "Location",
+              "operator": "eq",
+              "value": "$Location$"
+            }
+          ]
+        }
+      },
+      {
+        "channel": "sms",
+        "template": "Negative Alert SMS V1",
+        "target": "admin",
+        "contactFilters": [
+          "ticketAssignee",
+          "1stlevel"
+        ],
+        "appendEditUrl": true,
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "Location",
+              "operator": "eq",
+              "value": "$Location$"
+            },
+            {
+              "field": "Touchpoint",
+              "operator": "eq",
+              "value": "$Touchpoint$"
+            }
+          ]
+        }
+      },
+      {
+        "channel": "fieldChange",
+        "changingFields": [
+          {
+            "id": "assignee",
+            "contactFilters": [
+              "ticketAssignee"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "Location",
+                  "operator": "eq",
+                  "value": "$Location$"
+                },
+                {
+                  "field": "Touchpoint",
+                  "operator": "eq",
+                  "value": "$Touchpoint$"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "adminHierarchy": {
+    "list": "admin",
+    "headers": [
+      {
+        "id": "Location",
+        "name": "Location",
+        "type": "customField"
+      },
+      {
+        "id": "Touchpoint",
+        "name": "Touchpoint",
+        "type": "customField"
+      },
+      {
+        "id": "ticketAssignee",
+        "name": "Ticket Assignee",
+        "type": "contact"
+      },
+      {
+        "id": "ticketResolutionAlert",
+        "name": "Ticket Resolution Alert",
+        "type": "contact"
+      },
+      {
+        "id": "1stlevel",
+        "name": "1st Level Alert",
+        "type": "contact"
+      },
+      {
+        "id": "2ndlevel",
+        "name": "2nd Level Alert",
+        "type": "contact"
+      },
+      {
+        "id": "3rdlevel",
+        "name": "3rd Level Alert",
+        "type": "contact"
+      }
+    ],
+    "id": "AHI_1715755467000_7876333"
+  },
+  "assignment": {
+    "automaticAssignment": {
+      "isEnabled": true,
+      "email": "bot@gmail.com",
+      "resolvedStatus": [
+        "Resolved"
+      ],
+      "filteringQuery": {
+        "condition": "and",
+        "rules": [
+          {
+            "field": "overdue",
+            "operator": "ne",
+            "value": "3rd Level"
+          }
+        ]
+      },
+      "triggerFlows": [
+        {
+          "condition": {
+            "==": [
+              {
+                "var": "status"
+              },
+              "Open"
+            ]
+          },
+          "skipAssignment": true,
+          "levels": [
+            {
+              "nextLevelTime": 600000
+            },
+            {
+              "nextLevelTime": 1200000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "2nd Level"
+                }
+              ]
+            },
+            {
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "3rd Level"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "==": [
+                  {
+                    "var": "status"
+                  },
+                  "In Progress"
+                ]
+              },
+              {
+                "!=": [
+                  {
+                    "var": "overdue"
+                  },
+                  "2nd Level"
+                ]
+              }
+            ]
+          },
+          "skipAssignment": true,
+          "levels": [
+            {
+              "nextLevelTime": 1200000
+            },
+            {
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "3rd Level"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "==": [
+                  {
+                    "var": "status"
+                  },
+                  "In Progress"
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "overdue"
+                  },
+                  "2nd Level"
+                ]
+              }
+            ]
+          },
+          "skipAssignment": true,
+          "levels": [
+            {
+              "nextLevelTime": 1200000
+            },
+            {
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "3rd Level"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "name": "sesaya_wf",
+  "descriptionTemplate": "Channel - $type$"
+}

@@ -65,11 +65,11 @@
     font-weight: 600 !important;
 }
 
-.form-group label::after {
+.form-group label::before {
     content: "*";
     color: #d93025;
     font-weight: 700;
-    margin-left: 4px;
+    margin-right: 4px;
 }
 
 .emo-text {
@@ -518,11 +518,11 @@
     font-size: 12pt;
 }
 
-.form-group label::after {
+.form-group label::before {
     content: "*";
     color: #d93025;
     font-weight: 700;
-    margin-left: 4px;
+    margin-right: 4px;
 }
 
 .loyalty-message {
