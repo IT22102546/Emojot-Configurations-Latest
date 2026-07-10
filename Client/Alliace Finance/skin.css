@@ -718,3 +718,79 @@ div.col-xs-7.ng-scope {
         width: auto;
     }
 }
+
+/* Exactly four emotes should stay in one row. Five or more keep the normal layout. */
+.flex:has(.emo-cont:nth-child(4 of .emo-cont)):not(:has(.emo-cont:nth-child(5 of .emo-cont))) {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+}
+
+.flex:has(.emo-cont:nth-child(4 of .emo-cont)):not(:has(.emo-cont:nth-child(5 of .emo-cont))) .emo-cont {
+    flex: 0 0 calc(25% - 6px) !important;
+    width: calc(25% - 6px) !important;
+    max-width: calc(25% - 6px) !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    float: none !important;
+    box-sizing: border-box !important;
+}
+
+.flex:has(.emo-cont:nth-child(4 of .emo-cont)):not(:has(.emo-cont:nth-child(5 of .emo-cont))) > [class*="col-"] {
+    flex: 0 0 calc(25% - 6px) !important;
+    width: calc(25% - 6px) !important;
+    max-width: calc(25% - 6px) !important;
+    min-width: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    float: none !important;
+    box-sizing: border-box !important;
+}
+
+.flex:has(.emo-cont:nth-child(4 of .emo-cont)):not(:has(.emo-cont:nth-child(5 of .emo-cont))) [class*="col-"] {
+    flex: 0 0 calc(25% - 6px) !important;
+    width: calc(25% - 6px) !important;
+    max-width: calc(25% - 6px) !important;
+    min-width: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    float: none !important;
+    box-sizing: border-box !important;
+}
+
+.flex:has(.emo-cont:nth-child(4 of .emo-cont)):not(:has(.emo-cont:nth-child(5 of .emo-cont))) > [class*="col-"] .emo-cont {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+@media (max-width: 640px) {
+    .flex:has(.emo-cont:nth-child(4 of .emo-cont)):not(:has(.emo-cont:nth-child(5 of .emo-cont))) {
+        gap: 4px !important;
+    }
+
+    .flex:has(.emo-cont:nth-child(4 of .emo-cont)):not(:has(.emo-cont:nth-child(5 of .emo-cont))) .emo-cont,
+    .flex:has(.emo-cont:nth-child(4 of .emo-cont)):not(:has(.emo-cont:nth-child(5 of .emo-cont))) > [class*="col-"],
+    .flex:has(.emo-cont:nth-child(4 of .emo-cont)):not(:has(.emo-cont:nth-child(5 of .emo-cont))) [class*="col-"] {
+        flex-basis: calc(25% - 3px) !important;
+        width: calc(25% - 3px) !important;
+        max-width: calc(25% - 3px) !important;
+    }
+
+    .flex:has(.emo-cont:nth-child(4 of .emo-cont)):not(:has(.emo-cont:nth-child(5 of .emo-cont))) .emo-cont {
+        min-height: 86px !important;
+        padding: 7px 3px !important;
+    }
+
+    .flex:has(.emo-cont:nth-child(4 of .emo-cont)):not(:has(.emo-cont:nth-child(5 of .emo-cont))) .emo-ico img {
+        max-width: 32px !important;
+        width: auto !important;
+    }
+
+    .flex:has(.emo-cont:nth-child(4 of .emo-cont)):not(:has(.emo-cont:nth-child(5 of .emo-cont))) .emo-text {
+        font-size: 8pt !important;
+        line-height: 1.05 !important;
+        word-break: break-word;
+    }
+}
