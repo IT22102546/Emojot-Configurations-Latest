@@ -1,156 +1,109 @@
 <style>
-.af-thankyou-wrap {
+.af-thankyou-page {
     width: 100%;
-    min-height: 560px;
+    min-height: 320px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 40px 16px 88px;
+    padding: 24px 18px;
     box-sizing: border-box;
     background: transparent;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.af-thankyou-panel {
-    width: min(920px, 100%);
-    overflow: hidden;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(255, 255, 255, 0.72);
-    box-shadow: 0 22px 48px rgba(0, 0, 0, 0.22);
-}
-
-.af-thankyou-strip {
-    height: 10px;
-    background: linear-gradient(90deg, #f58220 0%, #7bc043 52%, #48c0e8 100%);
-}
-
-.af-thankyou-content {
-    display: grid;
-    grid-template-columns: minmax(220px, 0.86fr) minmax(280px, 1.14fr);
-}
-
-.af-thankyou-brand,
-.af-thankyou-message {
-    padding: 42px 38px;
+.af-thankyou-card {
+    width: min(520px, 100%);
+    text-align: center;
+    padding: 24px 30px;
     box-sizing: border-box;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    box-shadow: none;
+}
+
+.af-thankyou-mark {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f58220 0%, #7bc043 52%, #48c0e8 100%);
+    color: #ffffff;
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 700;
 }
 
 .af-thankyou-brand {
-    background: linear-gradient(180deg, rgba(245, 130, 32, 0.10), rgba(72, 192, 232, 0.08));
-    border-right: 1px solid rgba(72, 192, 232, 0.18);
-}
-
-.af-thankyou-pill {
-    display: inline-block;
-    padding: 8px 18px;
-    margin-bottom: 28px;
-    border-radius: 4px;
-    background: #ffffff;
+    margin: 0 0 10px;
     color: #1780b8;
-    font-size: 16px;
+    font-size: 14px;
+    line-height: 1.2;
     font-weight: 700;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.6px;
     text-transform: uppercase;
-    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.10);
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
 }
 
 .af-thankyou-title {
-    margin: 0 0 14px;
+    margin: 0 0 10px;
     color: #111111;
-    font-size: clamp(42px, 6vw, 76px);
-    line-height: 0.95;
-    font-weight: 800;
-}
-
-.af-thankyou-subtitle {
-    margin: 0;
-    color: #333333;
-    font-size: clamp(20px, 2.4vw, 30px);
-    line-height: 1.25;
+    font-size: 30px;
+    line-height: 1.15;
     font-weight: 700;
-}
-
-.af-thankyou-kicker {
-    margin: 0 0 18px;
-    color: #7bc043;
-    font-size: 20px;
-    line-height: 1.1;
-    font-weight: 800;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
 }
 
 .af-thankyou-copy {
-    margin: 0 0 20px;
-    color: #111111;
-    font-size: clamp(24px, 3vw, 38px);
+    margin: 0 auto 18px;
+    max-width: 420px;
+    color: #222222;
+    font-size: 16px;
     line-height: 1.45;
-    font-weight: 700;
-    text-align: center;
-}
-
-.af-thankyou-note {
-    margin: 0 auto 30px;
-    max-width: 520px;
-    color: #333333;
-    font-size: clamp(18px, 2vw, 26px);
-    line-height: 1.5;
-    font-weight: 600;
-    text-align: center;
+    font-weight: 400;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
 }
 
 .af-thankyou-close {
-    display: table;
-    margin: 0 auto;
-    padding: 14px 34px;
+    display: inline-block;
+    padding: 11px 24px;
     border-radius: 999px;
-    background: linear-gradient(135deg, #f58220 0%, #7bc043 52%, #48c0e8 100%);
+    background: #1780b8;
     color: #ffffff;
-    font-size: 20px;
+    font-size: 15px;
     line-height: 1.2;
-    font-weight: 800;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.16);
+    font-weight: 700;
 }
 
-@media (max-width: 700px) {
-    .af-thankyou-wrap {
-        min-height: 520px;
-        padding: 28px 12px 72px;
+@media (max-width: 520px) {
+    .af-thankyou-page {
+        min-height: 300px;
+        padding: 20px 14px;
     }
 
-    .af-thankyou-content {
-        grid-template-columns: 1fr;
+    .af-thankyou-card {
+        padding: 22px 20px;
     }
 
-    .af-thankyou-brand,
-    .af-thankyou-message {
-        padding: 30px 22px;
-        text-align: center;
+    .af-thankyou-title {
+        font-size: 28px;
     }
 
-    .af-thankyou-brand {
-        border-right: 0;
-        border-bottom: 1px solid rgba(72, 192, 232, 0.18);
+    .af-thankyou-copy {
+        font-size: 16px;
     }
 }
 </style>
 
-<div class="af-thankyou-wrap">
-    <div class="af-thankyou-panel">
-        <div class="af-thankyou-strip"></div>
-        <div class="af-thankyou-content">
-            <div class="af-thankyou-brand">
-                <div class="af-thankyou-pill">Alliance Finance</div>
-                <h1 class="af-thankyou-title">Thank you</h1>
-                <p class="af-thankyou-subtitle">We have received your feedback.</p>
-            </div>
-            <div class="af-thankyou-message">
-                <p class="af-thankyou-kicker">All set</p>
-                <p class="af-thankyou-copy">Thanks for sharing your experience with Alliance Finance Sri Lanka.</p>
-                <p class="af-thankyou-note">Your input helps us keep improving the service we provide and the way we support you.</p>
-                <div class="af-thankyou-close">You can close this page now</div>
-            </div>
-        </div>
+<div class="af-thankyou-page">
+    <div class="af-thankyou-card">
+        <div class="af-thankyou-mark">✓</div>
+        <p class="af-thankyou-brand">Alliance Finance</p>
+        <h1 class="af-thankyou-title">Thank you</h1>
+        <p class="af-thankyou-copy">We have received your feedback. Your input helps us improve the service we provide.</p>
+        <div class="af-thankyou-close">You can close this page now</div>
     </div>
 </div>

@@ -1,0 +1,52 @@
+/* Keep four emote options in one row on desktop and mobile. */
+.flex {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: stretch !important;
+    gap: 6px;
+}
+
+.flex > .emo-cont {
+    flex: 0 1 calc((100% - 18px) / 4) !important;
+    width: calc((100% - 18px) / 4) !important;
+    max-width: 150px !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    box-sizing: border-box;
+}
+
+.flex > .clicked-emo-cont {
+    flex: 0 1 calc((100% - 18px) / 4) !important;
+    width: calc((100% - 18px) / 4) !important;
+}
+
+@media (max-width: 640px) {
+    .flex {
+        gap: 4px;
+    }
+
+    .flex > .emo-cont {
+        flex-basis: calc((100% - 12px) / 4) !important;
+        width: calc((100% - 12px) / 4) !important;
+        max-width: none !important;
+        min-height: 92px !important;
+        padding: 8px 4px !important;
+    }
+
+    .flex > .clicked-emo-cont {
+        flex-basis: calc((100% - 12px) / 4) !important;
+        width: calc((100% - 12px) / 4) !important;
+        padding: 8px 4px !important;
+    }
+
+    .flex > .emo-cont .emo-ico img {
+        max-width: 34px !important;
+    }
+
+    .flex > .emo-cont .emo-text {
+        font-size: 8.5pt !important;
+        line-height: 1.05 !important;
+        word-break: break-word;
+    }
+}
