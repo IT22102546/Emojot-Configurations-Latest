@@ -1,109 +1,65 @@
+<div class="af-thankyou">
+  <div class="af-thankyou-title">Thank You for Your Feedback!</div>
+  <div class="af-thankyou-message">We really appreciate you taking the time to share your thoughts with us. Your feedback helps us serve you better every day.</div>
+  <button class="af-thankyou-button" type="button" onclick="afCloseSurvey()">Close Survey</button>
+</div>
+
 <style>
-.af-thankyou-page {
-    width: 100%;
-    min-height: 320px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px 18px;
-    box-sizing: border-box;
-    background: transparent;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.af-thankyou-card {
-    width: min(520px, 100%);
-    text-align: center;
-    padding: 24px 30px;
-    box-sizing: border-box;
-    border: 0;
-    border-radius: 8px;
-    background: transparent;
-    box-shadow: none;
-}
-
-.af-thankyou-mark {
-    width: 44px;
-    height: 44px;
-    margin: 0 auto 14px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #f58220 0%, #7bc043 52%, #48c0e8 100%);
-    color: #ffffff;
-    font-size: 24px;
-    line-height: 1;
-    font-weight: 700;
-}
-
-.af-thankyou-brand {
-    margin: 0 0 10px;
-    color: #1780b8;
-    font-size: 14px;
-    line-height: 1.2;
-    font-weight: 700;
-    letter-spacing: 1.6px;
-    text-transform: uppercase;
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
+.af-thankyou {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 28px 16px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #111111;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
 }
 
 .af-thankyou-title {
-    margin: 0 0 10px;
-    color: #111111;
-    font-size: 30px;
-    line-height: 1.15;
-    font-weight: 700;
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
+  color: #f47922;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 10px;
 }
 
-.af-thankyou-copy {
-    margin: 0 auto 18px;
-    max-width: 420px;
-    color: #222222;
-    font-size: 16px;
-    line-height: 1.45;
-    font-weight: 400;
-    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
+.af-thankyou-message {
+  font-size: 17px;
+  line-height: 1.5;
+  margin-bottom: 18px;
 }
 
-.af-thankyou-close {
-    display: inline-block;
-    padding: 11px 24px;
-    border-radius: 999px;
-    background: #1780b8;
-    color: #ffffff;
-    font-size: 15px;
-    line-height: 1.2;
-    font-weight: 700;
+.af-thankyou-button {
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 24px;
+  background: #f47922;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
-@media (max-width: 520px) {
-    .af-thankyou-page {
-        min-height: 300px;
-        padding: 20px 14px;
-    }
-
-    .af-thankyou-card {
-        padding: 22px 20px;
-    }
-
-    .af-thankyou-title {
-        font-size: 28px;
-    }
-
-    .af-thankyou-copy {
-        font-size: 16px;
-    }
+.af-thankyou-button:hover {
+  background: #d96612;
 }
 </style>
 
-<div class="af-thankyou-page">
-    <div class="af-thankyou-card">
-        <div class="af-thankyou-mark">✓</div>
-        <p class="af-thankyou-brand">Alliance Finance</p>
-        <h1 class="af-thankyou-title">Thank you</h1>
-        <p class="af-thankyou-copy">We have received your feedback. Your input helps us improve the service we provide.</p>
-        <div class="af-thankyou-close">You can close this page now</div>
-    </div>
-</div>
+<script type="text/javascript">
+function afCloseSurvey() {
+  var closedPage = '<!doctype html><html><head><meta charset="utf-8"><title>Survey Closed</title><style>body{font-family:Arial,sans-serif;text-align:center;padding:40px;color:#444;}</style></head><body><h2>Survey Closed</h2><p>Thank you for your feedback.</p></body></html>';
+
+  try {
+    window.open('', '_self');
+    window.close();
+  } catch (error) {}
+
+  setTimeout(function () {
+    document.open();
+    document.write(closedPage);
+    document.close();
+  }, 150);
+}
+</script>
