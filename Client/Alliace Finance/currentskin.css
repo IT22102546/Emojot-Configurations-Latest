@@ -1,0 +1,508 @@
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 200 500;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Jo02SuCgQ.woff2) format('woff2');
+}
+
+ #master-section {
+     background-color: #0c2561;
+     background-image: url('https://storage.emojot.com/pictures/skinImages/6a4e20b0f9aa04ffc8de16b5-skin3.png');
+     min-height: 657px;
+     background-size:cover;
+     background-repeat: no-repeat;
+     background-position: bottom;
+     position: relative;
+}
+
+/* #master-section {
+    min-height: 657px;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 18% 18%, rgba(255,255,255,.18) 0%, transparent 18%),
+        radial-gradient(circle at 82% 22%, rgba(255,255,255,.12) 0%, transparent 22%),
+        radial-gradient(circle at 55% 72%, rgba(255,255,255,.10) 0%, transparent 20%),
+
+        radial-gradient(circle at 15% 20%, rgba(2,152,185,.75) 0%, transparent 40%),
+        radial-gradient(circle at 78% 18%, rgba(2,152,185,.60) 0%, transparent 42%),
+        radial-gradient(circle at 65% 82%, rgba(2,152,185,.55) 0%, transparent 45%),
+
+        radial-gradient(circle at 88% 70%, rgba(1,33,172,.28) 0%, transparent 38%),
+        radial-gradient(circle at 28% 78%, rgba(1,33,172,.22) 0%, transparent 35%),
+
+        linear-gradient(135deg, #1a46d8 0%, #0188d4 55%, #03bdd6 100%);
+} */
+
+ #headerCompanyInfo {
+    color: #000000 !important;
+    background: #ffffff !important;
+    box-shadow: 0 12px 10px -10px rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.access-user {
+    font-size: 1.1em;
+    text-align: right;
+    float: right;
+    font-weight: 400;
+    text-shadow: 0 0 black;
+    margin-top: 0 !important;
+}
+
+ .container[style]{
+     padding-left:0px !important;
+     padding-right:0px !important;
+}
+ .emote-title {
+     color: #ffffff;
+     font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+     font-size:16pt;
+     font-weight: 500;
+     text-shadow:
+         0 1px 2px rgba(0, 0, 0, 0.55),
+         0 2px 8px rgba(0, 0, 0, 0.5),
+         0 4px 16px rgba(0, 0, 0, 0.4);
+}
+.emo-text {
+    font-size: 11pt;
+    color: #000000;
+    font-family: 'Plus Jakarta Sans',Helvetica, Arial, sans-serif;
+    font-weight: 500;
+}
+ .middle-box {
+     margin-top: 10px;
+     padding: 10px;
+     border: 1px solid #f3f3f3;
+}
+ 
+.emo-cont {
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    margin: 3px 0;
+    text-align: center;
+    display: inline-block;
+    border-radius: 25px;
+    color: #000000;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        border-color .3s ease,
+        background .3s ease,
+        color .3s ease,
+        opacity .3s ease;
+    padding: 10px;
+
+    /* animation: emoBreath 3.5s ease-in-out infinite; */
+}
+
+.panel-body:has(.clicked-emo-cont) .emo-cont:not(.clicked-emo-cont),
+.middle-box:has(.clicked-emo-cont) .emo-cont:not(.clicked-emo-cont),
+.row:has(.clicked-emo-cont) .emo-cont:not(.clicked-emo-cont) {
+    opacity: 0.55;
+}
+
+@keyframes emoBreath {
+    0%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    50% {
+        transform: translateY(-2px) scale(1.01);
+    }
+}
+
+.clicked-emo-cont {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #ff6900 !important;
+    transform: translateY(-2px);
+    box-shadow:
+        0 0 0 2px #fcb900,
+        0 0 0 4px rgba(255, 105, 0, 0.3),
+        0 4px 14px rgba(0, 0, 0, 0.15) !important;
+    padding: 10px;
+    opacity: 1 !important;
+}
+
+.clicked-emo-cont .emo-text {
+    color: #000000 !important;
+}
+.emo-ico img {
+    width: 80%;
+    display: inline-block;
+    text-align: center;
+    max-width: 55px;
+    margin: 5px;
+}
+
+ .btn-next {
+    color: #ffffff;
+     background: #0c2561 !important;
+}
+ .btn-submit {
+    color: #ffffff;
+     background: #0c2561 !important;
+}
+ .btn-prev {
+    color: #000000;
+     background: #fcb900 !important;
+     background: -moz-linear-gradient(left, #fcb900 0%, #ff6900 100%) !important;
+     background: -webkit-linear-gradient(left, #fcb900 0%, #ff6900 100%) !important;
+     background: linear-gradient(to right, #fcb900 0%, #ff6900 100%) !important;
+}
+ .btn-clear {
+    color: #000000;
+     background: #fcb900 !important;
+     background: -moz-linear-gradient(left, #fcb900 0%, #ff6900 100%) !important;
+     background: -webkit-linear-gradient(left, #fcb900 0%, #ff6900 100%) !important;
+     background: linear-gradient(to right, #fcb900 0%, #ff6900 100%) !important;
+}
+
+.btn-next,.btn-submit,.btn-prev,.btn-clear,.btn-skip,.btn-ok,.loyalty-redeem-button{
+    border: none;
+    margin: 10px 5px;
+    text-align: center;
+    min-width: 90px;
+    display: inline-block;
+    border-radius: 40px;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+    padding: 9px 25px;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    font-size: 12pt;
+    text-transform: uppercase;
+    background: rgba(249,249,249,1);
+     background: -moz-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+     background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(249,249,249,1)), color-stop(100%, rgba(227,227,227,1)));
+     background: -webkit-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+     background: -o-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+     background: -ms-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+     background: linear-gradient(to bottom, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+}
+
+ .clear-submit-row{
+    text-align:center !important;
+}
+
+.panel-collapse.collapse:not(.in),
+.panel-collapse.collapsing {
+    display: none !important;
+}
+
+.panel-group .panel:not(:has(.panel-collapse.in)) .clear-submit-row,
+.panel-group .panel:not(:has(.panel-collapse.in)) .draft-response-row {
+    display: none !important;
+}
+
+.btn:hover {
+    transform: translateY(-4px);
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+    transition:
+        transform 0.28s ease,
+        box-shadow 0.28s ease;
+}
+
+.btn-next:hover,
+.btn-submit:hover,
+.btn-ok:hover,
+.loyalty-redeem-button:hover {
+    color: #ffffff !important;
+    background: #0c2561 !important;
+}
+
+.btn-prev:hover,
+.btn-clear:hover,
+.btn-skip:hover {
+    color: #000000 !important;
+    background: #fcb900 !important;
+    background: -moz-linear-gradient(left, #fcb900 0%, #ff6900 100%) !important;
+    background: -webkit-linear-gradient(left, #fcb900 0%, #ff6900 100%) !important;
+    background: linear-gradient(to right, #fcb900 0%, #ff6900 100%) !important;
+}
+
+.btn-ok{
+    color: #ffffff;
+    background:#0c2561 !important; 
+}
+.btn-skip{
+    color: #000000;
+    background: #fcb900 !important;
+    background: -moz-linear-gradient(left, #fcb900 0%, #ff6900 100%) !important;
+    background: -webkit-linear-gradient(left, #fcb900 0%, #ff6900 100%) !important;
+    background: linear-gradient(to right, #fcb900 0%, #ff6900 100%) !important;
+}
+.btn-fb{
+    color:white;
+}
+
+.loyalty-redeem-button{
+    color: #ffffff;
+    background:#0c2561 !important; 
+}
+
+ .logo-cust {
+    margin: 3px 0 -3px 9px;
+     height: 50px;
+}
+
+.sensor-title {
+    position: relative;
+    font-size: 0 !important;
+    color: transparent !important;
+    background: transparent !important;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.sensor-title::before {
+    content: "Customer Experience ";
+    color: #000000;
+    background: transparent;
+    font-size: 26px;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
+    line-height: 40px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.pdGroupTitle {
+    color: #ffffff !important;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
+    font-size: 14pt;
+    margin-bottom: 30px;
+    font-weight: 200 !important;
+}
+
+.sensor-title::after {
+    content: " Survey";
+    font-size: 26px;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
+    font-weight: 200;
+    line-height: 40px;
+    margin-left: 3px;
+    color: #000000;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.form-control {
+    border-radius: 0px;
+}
+
+.panel {
+    margin: 0 10px;
+}
+
+ .panel-group .panel {
+     margin-bottom: 0;
+     border-radius: 5px;
+     box-shadow: none;
+     background: rgba(250, 247, 247, 0.64);
+}
+ 
+ .panel-group .panel-heading {
+     box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+     border-radius: 5px;
+     color: black;
+     background: rgba(249,249,249,1);
+     background: -moz-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+     background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(249,249,249,1)), color-stop(100%, rgba(227,227,227,1)));
+     background: -webkit-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+     background: -o-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+     background: -ms-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+     background: linear-gradient(to bottom, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+}
+ .panel-title {
+    font-size: 11pt;
+     max-width: 90%;
+     font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+     line-height: 1.6;
+}
+ .row {
+     background: transparent !important;
+}
+ .my-emojots{
+     display:none;
+}
+ .panel-body {
+     background: transparent !important;
+}
+ .thank-you-note{
+     color:white !important;
+}
+ 
+ #headerCompanyInfo > .access-user{
+     text-align: center;
+     float: right;
+     text-shadow: 1px 1px 1px #000;
+     font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+     font-style: italic;
+     font-size: 15px;
+     background-size: 120px 80px;
+     background-repeat: no-repeat;
+     background-position: right center;
+     position: relative;
+}
+
+.access-user-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 25px;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    font-style: normal;
+}
+
+ .company-logo img{
+     height: 80px;
+}
+.footer {
+    background: rgba(255, 255, 255, 0.08) !important; /* almost transparent */
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+
+    color: #fff;
+    position: absolute;
+    right: 10px;
+    left: 0;
+    z-index: 1030;
+    bottom: 0;
+    height: 40px;
+    padding: 12px 13px;
+    font-size: 8pt;
+    margin: 0 -10px 0 0;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+}
+ .form-group label{
+
+     columns: #ffffff !important;
+     font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+     font-size:16pt;
+     color: #ffffff;
+}
+ .loyalty-message{
+     color:#591350;
+     font-size: 14pt;
+}
+ .loyalty-bottom{
+     text-align:center;
+}
+ 
+ .loyalty-dialog div:nth-child(3){
+    
+}
+ 
+ .email-emote-message{
+     color:white !important;
+}
+
+#progressfill{
+    background-color: #fcb900;
+    background: -moz-linear-gradient(left, #fcb900 0%, #ff6900 100%);
+    background: -webkit-linear-gradient(left, #fcb900 0%, #ff6900 100%);
+    background: linear-gradient(to right, #fcb900 0%, #ff6900 100%);
+}
+
+.progress_bar .progress_number {
+    float: right;
+    color: #000000;
+}
+
+#groupCommentBuzzModal .modal-header{
+	background:#fff ;
+	color:#e4e4e4;
+}
+
+#groupCommentBuzzModal .modal-body{
+	background:#fff;
+	color:#333333;
+}
+
+#groupCommentBuzzModal .modal-footer{
+	background:#fff;
+	color:white;
+}
+
+#groupCommentBuzzModal .panel-body.comment-panel{
+	background:#f6f6f6 !important;
+}
+
+#groupCommentBuzzModal .panel-footer.comment-footer{
+	color:#333333;
+}
+
+.thank-you-note{
+    color: #333 !important; 
+}
+
+#barChart{
+    width:100%;
+}
+
+.nps-bar::before,
+.nps-bar::after {
+    content: "";
+    position: absolute;
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: 500;
+    top: 100%;
+    transform: translateY(8px);
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.nps-bar::before {
+    content: "Less Likely";
+    left: 10px;
+    margin-left: 5px;
+}
+
+.nps-bar::after {
+    content: "More Likely";
+    right: 10px;
+    margin-right: 5px;
+}
+
+.evz-nps-position-0,
+.evz-nps-position-1,
+.evz-nps-position-2,
+.evz-nps-position-3,
+.evz-nps-position-4,
+.evz-nps-position-5,
+.evz-nps-position-6 {
+    background: #ff2942;
+    color: white;
+    border: 1px solid rgba(255, 0, 55, 0.61);
+}
+
+.evz-nps-position-7,
+.evz-nps-position-8 {
+    background: #ff7924;
+    color: white;
+    border: 1px solid rgba(195, 117, 34, 0.61);
+}
+
+.evz-nps-position-9,
+.evz-nps-position-10 {
+    background: #1ca757;
+    color: white;
+    border: 1px solid rgba(17, 144, 74, 0.61);
+}
+
+.clicked-nps-icon {
+    border: 3px solid #333;
+    box-shadow: 0px 2px 6px #716868;
+}
+
+@media (max-width: 768px) {
+
+     .company-logo img{
+     height: 60px;
+}
+}
