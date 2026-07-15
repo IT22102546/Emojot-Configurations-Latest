@@ -1,264 +1,915 @@
-@import url('https://fonts.googleapis.com/css?family=Exo:300,400');
- #master-section {
-     background:url('https://storage.emojot.com/pictures/skinImages/59b64d50a430d8b91b542843-skin1.png');
-     min-height: 657px;
-     background-size:cover;
-     background-repeat: no-repeat;
-     background-position: bottom;
-     position: relative;
-}
- #headerCompanyInfo {
-     color:white !important
-}
- .container[style]{
-     padding-left:0px !important;
-     padding-right:0px !important;
-}
- .emote-title {
-     color: #57114e;
-     font-family: 'exo 2.0', Helvetica, Arial, sans-serif;
-     font-size:12pt;
-     font-weight: bold;
-}
-.emo-text {
-    font-size: 11pt;
-    color: #666;
-    font-family: 'Exo 2.0',Helvetica, Arial, sans-serif;
-    font-weight: 300;
-}
- .middle-box {
-     margin-top: 10px;
-     padding: 10px;
-     border: 1px solid #f3f3f3;
-}
- 
- .emo-cont {
-     border: 2px solid #3330;
-     margin: 3px 0px;
-     text-align: center;
-     display: inline-block;
-     border-radius: 0px;
-     box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
-     padding: 7px 0;
-     border-radius: 4px;
-     color:#666;
-     background: rgb(255, 255, 255);
-     }
+@import url("https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600;700;800&display=swap");
 
-.clicked-emo-cont {
-    border: 3px #2a92ce solid !important;
-}
-.emo-ico img {
-    width: 80%;
-    display: inline-block;
-    text-align: center;
-    max-width: 55px;
-    margin: 5px;
-}
- .btn {
-     
-     color: ed1c24;
-     
+/* =========================================================
+   EVA PROMOTION FORM — CSS MATCHED TO REAL MARKUP (v3)
+   No JS. Every selector below targets an element that
+   actually exists in the page you sent (ids/classes/tags
+   copied verbatim), so there's no guessing left.
+========================================================= */
+
+:root {
+    --eva-purple: #7631a5;
+    --eva-purple-dark: #552184;
+    --eva-teal: #00aeba;
+    --eva-yellow: #ffd20a;
+    --eva-yellow-dark: #ffc400;
+    --eva-text: #292333;
+    --eva-muted: #918a9b;
+    --eva-border: #e5dfeb;
+    --eva-white: #ffffff;
 }
 
- .btn-next {
-     color: #2a92ce;
-}
- .btn-submit {
-     color: #2a92ce;
-}
- .btn-prev {
-     color: #333;
-}
- .btn-clear {
-     color: #333;
+#master-section *,
+#master-section *::before,
+#master-section *::after {
+    box-sizing: border-box;
 }
 
-.btn-next,.btn-submit,.btn-prev,.btn-clear,.btn-skip,.btn-ok,.loyalty-redeem-button{
-    border: 1px solid rgba(255,255,255, 0.5);
-    margin: 10px 5px;
-    text-align: center;
-    min-width: 90px;
-    display: inline-block;
-    border-radius: 40px;
-    box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
-    padding: 9px 25px;
-    font-family: 'Exo 2.0', Helvetica, Arial, sans-serif;
-    font-size: 12pt;
-    background: rgba(249,249,249,1);
-     background: -moz-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
-     background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(249,249,249,1)), color-stop(100%, rgba(227,227,227,1)));
-     background: -webkit-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
-     background: -o-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
-     background: -ms-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
-     background: linear-gradient(to bottom, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+/* =========================================================
+   FULL-BLEED BACKGROUND
+========================================================= */
+
+#master-section {
+    position: relative !important;
+    min-height: 100vh !important;
+    padding-bottom: 40px !important;
+
+    background-color: #163b96 !important;
+    background-image:
+        linear-gradient(90deg, rgba(0, 112, 170, 0.12), rgba(103, 38, 153, 0.18)),
+        url("https://storage.emojot.com/pictures/skinImages/59b64d50a430d8b91b542843-skin1.png") !important;
+    background-repeat: no-repeat !important;
+    background-position: center bottom !important;
+    background-size: cover !important;
+
+    font-family: "Exo", Arial, sans-serif !important;
 }
 
- .clear-submit-row{
-    text-align:center !important;
-}
- .btn:hover {
-     color: #196d9e;
-     text-decoration: none;
-}
-.btn-ok{
-    color:#333 
-}
-.btn-skip{
-    color:#333;
-}
-.btn-fb{
-    color:white;
+body,
+#mainContainer,
+#middle-container,
+#engagementInfoRow,
+#headerCompanyInfo,
+#headerCompanyInfo * {
+    background: transparent !important;
 }
 
-.loyalty-redeem-button{
-    border-color: #2a92ce;
+/* =========================================================
+   WIDTH-CONSTRAINED CONTENT — real wrapper is #mainContainer
+========================================================= */
+
+#master-section #mainContainer {
+    display: block !important;
+    width: min(900px, calc(100% - 24px)) !important;
+    max-width: 900px !important;
+    margin: 0 auto !important;
+    padding: 15px 20px 40px !important;
 }
 
- .logo-cust {
-    margin: 3px 0 -3px 9px;
-     height: 50px;
-}
- .sensor-title {
-     color: #333;
-     font-size: 17pt;
-     padding: 10px 10px 0px 10px;
-     margin-bottom: 10px;
-     font-family: 'Exo 2.0', Helvetica, Arial, sans-serif;
-     border-bottom: 2px solid #8db8ea;
-     letter-spacing: -0.5px;
-     background: rgba(255, 255, 255, 0);
-     line-height: 40px;
-     font-weight: bold;
+/* =========================================================
+   PAGE TITLE + PROGRESS BAR
+========================================================= */
+
+.sensor-title {
+    margin: 0 0 8px !important;
+    padding: 5px 2px 9px !important;
+    border: 0 !important;
+    background: transparent !important;
+    color: var(--eva-purple-dark) !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+    text-align: center !important;
+    text-shadow: none !important;
 }
 
-.form-control {
-    border-radius: 0px;
+#progressfill {
+    background: linear-gradient(90deg, var(--eva-purple), var(--eva-teal)) !important;
 }
 
-.panel {
-    margin: 0 10px;
+/* =========================================================
+   THE CARD — #gs_0 is the grid holding every field
+========================================================= */
+
+#gs_0 {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 16px 18px !important;
+    align-content: start !important;
+
+    width: 100% !important;
+    max-width: 860px !important;
+    margin: 20px auto 0 !important;
+    padding: 30px 38px 26px !important;
+
+    border: 1px solid rgba(118, 49, 165, 0.14) !important;
+    border-radius: 34px !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    box-shadow: 0 18px 42px rgba(36, 20, 66, 0.25) !important;
+
+    color: var(--eva-text) !important;
 }
 
- .panel-group .panel {
-     margin-bottom: 0;
-     border-radius: 5px;
-     box-shadow: none;
-     background: rgba(250, 247, 247, 0.64);
-}
- 
- .panel-group .panel-heading {
-     box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
-     border-radius: 5px;
-     color: black;
-     background: rgba(249,249,249,1);
-     background: -moz-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
-     background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(249,249,249,1)), color-stop(100%, rgba(227,227,227,1)));
-     background: -webkit-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
-     background: -o-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
-     background: -ms-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
-     background: linear-gradient(to bottom, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
-}
- .panel-title {
-    font-size: 11pt;
-     max-width: 90%;
-     font-family: 'Exo', Helvetica, Arial, sans-serif;
-     line-height: 1.6;
-}
- .row {
-     background: transparent !important;
-}
- .my-emojots{
-     display:none;
-}
- .panel-body {
-     background: transparent !important;
-}
- .thank-you-note{
-     color:white !important;
-}
- 
- #headerCompanyInfo > .access-user{
-     text-align: center;
-     float: right;
-     text-shadow: 1px 1px 1px #000;
-     font-family: 'Exo 2.0', Helvetica, Arial, sans-serif;
-     font-style: italic;
-     font-size: 15px;
-     background-size: 120px 80px;
-     background-repeat: no-repeat;
-     background-position: right center;
-     position: relative;
-}
- .company-logo img{
-     height: 50px;
-}
- .footer {
-     background: #333 !important;
-     color: #fff;
-     position: absolute;
-     right: 10px;
-     left: 0;
-     z-index: 1030;
-     bottom: 0;
-     height: 40px;
-     padding: 12px 13px;
-     font-size: 8pt;
-     margin: 0 -10px 0px 0;
-     font-family: 'Exo', Helvetica, Arial, sans-serif;
-}
- .form-group label{
-     columns: #fff !important;
-     font-family: 'Exo 2.0', Helvetica, Arial, sans-serif;
-     font-size:12pt;
-}
- .loyalty-message{
-     color:#591350;
-     font-size: 14pt;
-}
- .loyalty-bottom{
-     text-align:center;
-}
- 
- .loyalty-dialog div:nth-child(3){
-    
-}
- 
- .email-emote-message{
-     color:white !important;
+#gs_0 > br.clearfix,
+#gs_0 .npsEmoticonList {
+    display: none !important;
 }
 
-#progressfill{
-    background-color: #337ab7;
+/* =========================================================
+   UNWRAP the Bootstrap wrapper <div>s so the real fields
+   (Full Name / Mobile / Upload) become direct grid children
+   of #gs_0. These selectors match your exact markup, no
+   :has() needed, so there's nothing fragile left here.
+========================================================= */
+
+/* The two plain <div class="col-xs-12"> that wrap the
+   comment-form and the media-upload form */
+#gs_0 > div.col-xs-12:not(.pdGroupTitle):not(.button-panel) {
+    display: contents !important;
 }
 
-#groupCommentBuzzModal .modal-header{
-	background:#fff ;
-	color:#e4e4e4;
+/* Their inner <div class="col-xs-12 xf"> wrappers
+   (one plain, one is also #emj-media-upload-section) */
+#gs_0 .xf {
+    display: contents !important;
 }
 
-#groupCommentBuzzModal .modal-body{
-	background:#fff;
-	color:#333333;
+/* The actual <form> tags */
+#gs_0 form[name="groupWiseCommentForm"],
+#gs_0 form[name="mediaUploadForm"] {
+    display: contents !important;
 }
 
-#groupCommentBuzzModal .modal-footer{
-	background:#fff;
-	color:white;
+/* =========================================================
+   CARD HEADER — #gt_0 is present but its bound text
+   (ng-bind-html="groupTitle") is empty, so we supply the
+   whole heading via ::before and the subtitle via ::after.
+========================================================= */
+
+#gt_0.pdGroupTitle {
+    grid-column: 1 / -1 !important;
+    order: 0 !important;
+
+    margin: 0 0 4px !important;
+    padding: 0 !important;
+
+    color: var(--eva-purple-dark) !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 27px !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+    letter-spacing: 0.2px !important;
+    text-align: center !important;
 }
 
-#groupCommentBuzzModal .panel-body.comment-panel{
-	background:#f6f6f6 !important;
+#gt_0.pdGroupTitle::before {
+    content: "‹  ENTER YOUR DETAILS  ›" !important;
 }
 
-#groupCommentBuzzModal .panel-footer.comment-footer{
-	color:#333333;
+#gt_0.pdGroupTitle::after {
+    content: "Submit your purchase details below" !important;
+    display: block !important;
+    margin-top: 6px !important;
+    color: var(--eva-text) !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
 }
 
-.thank-you-note{
-    color: #333 !important; 
+/* =========================================================
+   DISTRICT — the .repeated-item IS the field box
+========================================================= */
+
+#gs_0 .repeated-item {
+    grid-column: 1 / -1 !important;
+    order: 3 !important;
+    position: relative !important;
+
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 14px 44px 12px 78px !important;
+
+    border: 1px solid var(--eva-border) !important;
+    border-radius: 13px !important;
+    background-color: var(--eva-white) !important;
+    box-shadow: 0 2px 7px rgba(50, 29, 76, 0.05) !important;
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%237631a5' d='M32 2C19 2 9 12 9 25c0 17 23 37 23 37s23-20 23-37C55 12 45 2 32 2zm0 32c-6 0-10-4-10-10s4-10 10-10 10 4 10 10-4 10-10 10z'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: 22px center !important;
+    background-size: 39px 39px !important;
 }
 
-#barChart{
-    width:100%;
+#gs_0 .repeated-item::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 50% !important;
+    right: 20px !important;
+    transform: translateY(-50%) !important;
+    width: 0 !important;
+    height: 0 !important;
+    border-left: 6px solid transparent !important;
+    border-right: 6px solid transparent !important;
+    border-top: 7px solid #332d3c !important;
+    pointer-events: none !important;
+}
+
+#gs_0 .repeated-item .emote-title {
+    margin: 0 0 6px !important;
+    color: var(--eva-text) !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    line-height: 1.15 !important;
+    text-align: left !important;
+}
+
+#gs_0 .repeated-item .emj-dropdown-master-container,
+#gs_0 .repeated-item .emj-dropdown-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    text-align: left !important;
+}
+
+#gs_0 .repeated-item .ui-select-toggle.form-control {
+    display: block !important;
+    width: 100% !important;
+    height: 28px !important;
+    min-height: 28px !important;
+    padding: 0 20px 0 0 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    outline: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: var(--eva-muted) !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    text-align: left !important;
+}
+
+#gs_0 .repeated-item .ui-select-placeholder {
+    color: var(--eva-muted) !important;
+    font-size: 0 !important;
+}
+
+#gs_0 .repeated-item .ui-select-placeholder::before {
+    content: "Select District" !important;
+    display: inline !important;
+    color: var(--eva-muted) !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+}
+
+#gs_0 .repeated-item .caret {
+    display: none !important;
+}
+
+/* =========================================================
+   FULL NAME + MOBILE NUMBER
+   Now direct grid children of #gs_0 thanks to the unwrap
+   rules above — nth-of-type(1)=Full Name, (2)=Mobile,
+   in the exact order they appear in your markup.
+========================================================= */
+
+#gs_0 form[name="groupWiseCommentForm"] > .form-group {
+    position: relative !important;
+    grid-column: span 1 !important;
+
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 82px !important;
+
+    margin: 0 !important;
+    padding: 14px 16px 12px 78px !important;
+
+    border: 1px solid var(--eva-border) !important;
+    border-radius: 13px !important;
+    background-color: var(--eva-white) !important;
+    box-shadow: 0 2px 7px rgba(50, 29, 76, 0.05) !important;
+
+    background-repeat: no-repeat !important;
+    background-position: 22px center !important;
+    background-size: 39px 39px !important;
+}
+
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:nth-of-type(1) {
+    order: 1 !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='18' r='12' fill='%237631a5'/%3E%3Cpath d='M10 58c0-14 9-23 22-23s22 9 22 23H10z' fill='%237631a5'/%3E%3C/svg%3E") !important;
+}
+
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:nth-of-type(2) {
+    order: 2 !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%237631a5' d='M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z'/%3E%3C/svg%3E") !important;
+    background-size: 38px 38px !important;
+}
+
+#gs_0 .form-group label {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 0 6px !important;
+    padding: 0 !important;
+    color: var(--eva-text) !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    line-height: 1.15 !important;
+    text-align: left !important;
+}
+
+#gs_0 input[id="Full Name"],
+#gs_0 input[id="Mobile Number"] {
+    display: block !important;
+    width: 100% !important;
+    height: 28px !important;
+    min-height: 28px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    outline: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: var(--eva-text) !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+}
+
+#master-section input::placeholder {
+    color: var(--eva-muted) !important;
+    opacity: 1 !important;
+}
+
+/* Hide the flag/dial-code selector so the phone field reads
+   as a flat "icon + text" like the target design */
+#gs_0 .intl-tel-input .flag-container {
+    display: none !important;
+}
+#gs_0 .intl-tel-input {
+    width: 100% !important;
+}
+#gs_0 input[id="Mobile Number"] {
+    padding-left: 0 !important;
+}
+
+/* =========================================================
+   UPLOAD RECEIPT
+========================================================= */
+
+#gs_0 form[name="mediaUploadForm"] > .form-group {
+    grid-column: 1 / -1 !important;
+    order: 4 !important;
+    margin: 4px 0 0 !important;
+    padding: 0 !important;
+}
+
+#gs_0 form[name="mediaUploadForm"] > .form-group:not(:has(.emj-media-upload-btn-section)) label {
+    display: block !important;
+    margin: 0 0 4px !important;
+    color: var(--eva-text) !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+}
+
+#gs_0 form[name="mediaUploadForm"] > .form-group:not(:has(.emj-media-upload-btn-section)) label::after {
+    content: "\A Upload receipt showing purchase of an EVA Bangkok Promotional Pack" !important;
+    white-space: pre-line !important;
+    display: block !important;
+    margin-top: 4px !important;
+    color: #4c4655 !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    line-height: 1.3 !important;
+}
+
+#gs_0 .emj-media-upload-attach {
+    grid-column: 1 / -1 !important;
+    order: 4 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 20px !important;
+
+    width: 100% !important;
+    min-height: 83px !important;
+    margin: 0 !important;
+    padding: 12px 20px !important;
+
+    border: 2px dashed rgba(118, 49, 165, 0.56) !important;
+    border-radius: 13px !important;
+    background-color: #fffdfa !important;
+
+    color: transparent !important;
+    font-size: 0 !important;
+    box-shadow: none !important;
+}
+
+#gs_0 .emj-media-upload-attach::before {
+    content: "" !important;
+    display: block !important;
+    flex: 0 0 50px !important;
+    width: 50px !important;
+    height: 50px !important;
+    margin: 0 !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%237631a5' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 22V9h13M42 9h13v13M55 42v13H42M22 55H9V42'/%3E%3Cpath d='M22 22h20v20H22zM32 17v30M17 32h30'/%3E%3C/g%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: contain !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+#gs_0 .emj-media-upload-attach::after {
+    content: "CLICK TO UPLOAD RECEIPT\A JPG, JPEG, PNG (Max 5MB)" !important;
+    display: block !important;
+    white-space: pre-line !important;
+    color: var(--eva-purple) !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    line-height: 1.45 !important;
+    text-align: left !important;
+}
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+#gs_0 .button-panel {
+    grid-column: 1 / -1 !important;
+    order: 5 !important;
+    width: 100% !important;
+    margin: 8px 0 0 !important;
+    padding: 0 !important;
+    text-align: center !important;
+}
+
+.btn-submit {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: min(450px, 100%) !important;
+    min-height: 58px !important;
+    margin: 0 auto !important;
+    padding: 12px 60px 12px 28px !important;
+
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: linear-gradient(180deg, var(--eva-yellow), var(--eva-yellow-dark)) !important;
+
+    color: transparent !important;
+    font-size: 0 !important;
+
+    box-shadow:
+        inset 0 -3px 0 rgba(88, 37, 124, 0.18),
+        0 4px 9px rgba(45, 29, 66, 0.3) !important;
+}
+
+.btn-submit::before {
+    content: "SUBMIT MY ENTRY" !important;
+    color: var(--eva-purple-dark) !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 21px !important;
+    font-weight: 800 !important;
+    line-height: 1 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
+}
+
+.btn-submit::after {
+    content: "›" !important;
+    display: grid !important;
+    place-items: center !important;
+    position: absolute !important;
+    top: 50% !important;
+    right: 13px !important;
+    width: 37px !important;
+    height: 37px !important;
+    border-radius: 50% !important;
+    background: var(--eva-purple) !important;
+    color: #ffffff !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 31px !important;
+    line-height: 1 !important;
+    transform: translateY(-50%) !important;
+}
+
+.btn-save-response,
+.btn-next {
+    display: none !important;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+    #master-section #mainContainer {
+        width: calc(100% - 12px) !important;
+        padding: 10px 8px 30px !important;
+    }
+
+    #gs_0 {
+        grid-template-columns: 1fr !important;
+        padding: 24px 16px 20px !important;
+        border-radius: 25px !important;
+    }
+
+    #gt_0.pdGroupTitle {
+        font-size: 21px !important;
+    }
+
+    #gt_0.pdGroupTitle::after {
+        font-size: 13px !important;
+    }
+
+    #gs_0 form[name="groupWiseCommentForm"] > .form-group,
+    #gs_0 .repeated-item {
+        grid-column: 1 / -1 !important;
+        min-height: 77px !important;
+        padding: 13px 13px 11px 70px !important;
+        background-position: 18px center !important;
+        background-size: 35px 35px !important;
+    }
+
+    #gs_0 .emj-media-upload-attach {
+        gap: 12px !important;
+        padding: 10px 12px !important;
+    }
+
+    #gs_0 .emj-media-upload-attach::before {
+        flex-basis: 43px !important;
+        width: 43px !important;
+        height: 43px !important;
+    }
+
+    #gs_0 .emj-media-upload-attach::after {
+        font-size: 13px !important;
+    }
+
+    .btn-submit {
+        width: 100% !important;
+        min-height: 54px !important;
+    }
+
+    .btn-submit::before {
+        font-size: 18px !important;
+    }
+}
+/* =========================================================
+   FINAL ALIGNMENT + REQUIRED FIELD FIXES
+   Keeps Full Name first, Mobile Number second, both in one
+   desktop row, and makes every required asterisk red.
+========================================================= */
+
+/* Use the actual input inside each form-group instead of DOM order. */
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]) {
+    order: 1 !important;
+    grid-column: 1 !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='18' r='12' fill='%237631a5'/%3E%3Cpath d='M10 58c0-14 9-23 22-23s22 9 22 23H10z' fill='%237631a5'/%3E%3C/svg%3E") !important;
+    background-position: 22px 50% !important;
+    background-size: 39px 39px !important;
+}
+
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Mobile Number"]) {
+    order: 2 !important;
+    grid-column: 2 !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%237631a5' d='M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z'/%3E%3C/svg%3E") !important;
+    background-position: 22px 50% !important;
+    background-size: 36px 36px !important;
+}
+
+/* Rebuild the labels so only the asterisk is red. */
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]) > label,
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Mobile Number"]) > label {
+    font-size: 0 !important;
+}
+
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]) > label::before {
+    content: "Full Name" !important;
+    color: var(--eva-text) !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+}
+
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Mobile Number"]) > label::before {
+    content: "Mobile Number" !important;
+    color: var(--eva-text) !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+}
+
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]) > label::after,
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Mobile Number"]) > label::after {
+    content: " *" !important;
+    color: #e32636 !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+}
+
+/* District required label. */
+#gs_0 .repeated-item .emote-title {
+    font-size: 0 !important;
+}
+
+#gs_0 .repeated-item .emote-title::before {
+    content: "District" !important;
+    color: var(--eva-text) !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+}
+
+#gs_0 .repeated-item .emote-title::after {
+    content: " *" !important;
+    color: #e32636 !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+}
+
+/* Upload Receipt required label and helper text — scoped to
+   ONLY the static title block (the first .form-group), never
+   the file-preview .form-group that appears after a file is
+   attached (identified by containing .emj-media-upload-btn-section) */
+#gs_0 form[name="mediaUploadForm"] > .form-group {
+    display: block !important;
+    grid-column: 1 / -1 !important;
+    order: 4 !important;
+    margin: 4px 0 0 !important;
+    padding: 0 !important;
+}
+
+#gs_0 form[name="mediaUploadForm"] > .form-group:not(:has(.emj-media-upload-btn-section)) label {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 0 12px !important;
+    padding: 0 !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+}
+
+#gs_0 form[name="mediaUploadForm"] > .form-group:not(:has(.emj-media-upload-btn-section)) label::before {
+    content: "Upload Receipt" !important;
+    display: inline !important;
+    color: var(--eva-text) !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    line-height: 1.25 !important;
+}
+
+#gs_0 form[name="mediaUploadForm"] > .form-group:not(:has(.emj-media-upload-btn-section)) label::after {
+    content: " *" !important;
+    display: inline !important;
+    color: #e32636 !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    line-height: 1.25 !important;
+    white-space: normal !important;
+}
+
+#gs_0 form[name="mediaUploadForm"] > .form-group:not(:has(.emj-media-upload-btn-section))::after {
+    content: "Upload receipt showing purchase of an EVA Bangkok Promotional Pack" !important;
+    display: block !important;
+    width: 100% !important;
+    margin: -7px 0 12px !important;
+    padding: 0 !important;
+    color: #4c4655 !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+}
+
+/* The file-preview .form-group (filename, trash icon, file
+   label input, upload button) — just fit it into the grid,
+   don't touch its label content */
+#gs_0 form[name="mediaUploadForm"] > .form-group:has(.emj-media-upload-btn-section) {
+    grid-column: 1 / -1 !important;
+    order: 4 !important;
+    margin: 8px 0 0 !important;
+}
+
+/* Exact desktop spacing similar to the reference image. */
+@media (min-width: 701px) {
+    #gs_0 {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+        column-gap: 18px !important;
+    }
+
+    #gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]),
+    #gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Mobile Number"]) {
+        width: 100% !important;
+        min-height: 82px !important;
+        padding: 14px 16px 12px 78px !important;
+    }
+}
+
+/* Stack cleanly on phones. */
+@media (max-width: 700px) {
+    #gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]),
+    #gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Mobile Number"]) {
+        grid-column: 1 / -1 !important;
+        background-position: 18px 50% !important;
+        background-size: 35px 35px !important;
+    }
+}
+
+/* =========================================================
+   ROW REWORK — Full Name gets its own full-width row.
+   Mobile Number and District then share the next row,
+   Mobile on the left, District on the right.
+   This whole block is appended last so it wins every tie.
+========================================================= */
+
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]) {
+    order: 1 !important;
+    grid-column: 1 / -1 !important;
+}
+
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Mobile Number"]) {
+    order: 2 !important;
+    grid-column: 1 !important;
+}
+
+#gs_0 .repeated-item {
+    order: 3 !important;
+    grid-column: 2 !important;
+    min-height: 82px !important;
+}
+
+@media (max-width: 700px) {
+    #gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]),
+    #gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Mobile Number"]),
+    #gs_0 .repeated-item {
+        grid-column: 1 / -1 !important;
+        min-height: 77px !important;
+    }
+}
+
+/* =========================================================
+   CSS-ONLY FAKE PLACEHOLDERS (no JS)
+   Full Name has no native placeholder attribute at all, and
+   Mobile Number's native placeholder text can't be edited
+   with CSS (only its color can). Both fields are `required`
+   with no native `pattern` attribute set, so the browser's
+   built-in :invalid state is true exactly when the field is
+   empty — the same moment a placeholder would show — and
+   flips to :valid the instant the person types anything.
+   That gives a reliable, JS-free "is this field empty" hook.
+========================================================= */
+
+/* Hide the real "071 234 5678" placeholder so it doesn't
+   show through underneath our custom overlay text */
+#gs_0 input[id="Mobile Number"]::placeholder {
+    color: transparent !important;
+}
+
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]:invalid),
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Mobile Number"]:invalid) {
+    position: relative !important;
+}
+
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]:invalid)::after,
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Mobile Number"]:invalid)::after {
+    position: absolute !important;
+    left: 78px !important;
+    right: 16px !important;
+    top: 38px !important;
+    height: 28px !important;
+    line-height: 28px !important;
+
+    color: var(--eva-muted) !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    pointer-events: none !important;
+}
+
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]:invalid)::after {
+    content: "Enter your full name" !important;
+}
+
+#gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Mobile Number"]:invalid)::after {
+    content: "Enter mobile number" !important;
+}
+
+/* =========================================================
+   MERGE THE FOOTER INTO THE CARD
+   #footer-container is a sibling of #gs_0, not a child, so it
+   can't be moved inside with CSS alone. Instead: collapse all
+   the empty spacing between them (hidden accordion panels,
+   empty clearfix <br>s, Bootstrap's default panel-group
+   margin) down to zero, then style the "Powered by Emojot"
+   row to sit flush against #gs_0's bottom edge with matching
+   width/border/radius, so the two read as one continuous card.
+========================================================= */
+
+/* Collapse everything between the grid and the footer row
+   that has no real visible content */
+#master-section br.clearfix {
+    display: none !important;
+}
+
+#master-section .panel-group {
+    margin-bottom: 0 !important;
+}
+
+#master-section #accordionContainer {
+    display: none !important;
+}
+
+#footer-container {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Match #footer-container's width/centering to the card above it */
+#footer-container {
+    width: 100% !important;
+    max-width: 860px !important;
+    margin: 0 auto !important;
+}
+
+/* #gs_0 keeps its rounded top, but stops rounding/shadowing
+   its own bottom edge since the footer row continues the shape */
+#gs_0 {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-bottom: 0 !important;
+    margin-bottom: 0 !important;
+    box-shadow: 0 -6px 24px rgba(36, 20, 66, 0.18) !important;
+}
+
+/* The footer row itself becomes the bottom of that same card:
+   same white background, same side borders, rounded only at
+   the bottom, flush against #gs_0 with zero gap */
+#footer-container .row.footer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+
+    width: 100% !important;
+    max-width: 860px !important;
+
+    margin: 0 auto !important;
+    padding: 16px 38px 22px !important;
+
+    border: 1px solid rgba(118, 49, 165, 0.14) !important;
+    border-top: 0 !important;
+    border-bottom-left-radius: 34px !important;
+    border-bottom-right-radius: 34px !important;
+
+    background: rgba(255, 255, 255, 0.98) !important;
+    box-shadow: 0 18px 42px rgba(36, 20, 66, 0.25) !important;
+
+    color: var(--eva-muted) !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 13px !important;
+}
+
+#footer-container .row.footer .logo {
+    height: 22px !important;
+    width: auto !important;
+}
+
+@media (max-width: 700px) {
+    #gs_0 {
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+
+    #footer-container {
+        width: calc(100% - 12px) !important;
+    }
+
+    #footer-container .row.footer {
+        border-bottom-left-radius: 25px !important;
+        border-bottom-right-radius: 25px !important;
+        padding: 14px 16px 18px !important;
+    }
+}
+
+@media (max-width: 700px) {
+    #gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]:invalid)::after,
+    #gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Mobile Number"]:invalid)::after {
+        left: 70px !important;
+        top: 37px !important;
+    }
 }
