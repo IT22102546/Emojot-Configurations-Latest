@@ -34,10 +34,15 @@
     min-height: 100vh !important;
     padding-bottom: 40px !important;
 
-    background-color: #163b96 !important;
+    background-color: #340431  !important;
     background-image:
-        linear-gradient(90deg, rgba(0, 112, 170, 0.12), rgba(103, 38, 153, 0.18)),
-        url("https://storage.emojot.com/pictures/skinImages/59b64d50a430d8b91b542843-skin1.png") !important;
+    linear-gradient(
+        90deg,
+        rgba(255, 20, 147, 0.20),
+        rgba(239, 80, 157, 0.25),
+        rgba(255, 105, 180, 0.20)
+    ),
+    url("https://storage.emojot.com/pictures/skinImages/59b64d50a430d8b91b542843-skin1.png") !important;
     background-repeat: no-repeat !important;
     background-position: center bottom !important;
     background-size: cover !important;
@@ -75,9 +80,9 @@ body,
     padding: 5px 2px 9px !important;
     border: 0 !important;
     background: transparent !important;
-    color: var(--eva-purple-dark) !important;
+    color: #2820accc !important;
     font-family: "Exo", Arial, sans-serif !important;
-    font-size: 22px !important;
+    font-size: 28px !important;
     font-weight: 700 !important;
     line-height: 1.25 !important;
     text-align: center !important;
@@ -202,18 +207,47 @@ body,
     background-size: 39px 39px !important;
 }
 
-#gs_0 .repeated-item::after {
-    content: "" !important;
-    position: absolute !important;
-    top: 50% !important;
-    right: 20px !important;
-    transform: translateY(-50%) !important;
-    width: 0 !important;
-    height: 0 !important;
-    border-left: 6px solid transparent !important;
-    border-right: 6px solid transparent !important;
-    border-top: 7px solid #332d3c !important;
-    pointer-events: none !important;
+/* =========================================================
+   RESET BOOTSTRAP GRID REMNANTS INSIDE .repeated-item
+   #qt_q2540 (label wrapper) and .emj-dropdown-master-container
+   (dropdown wrapper) both carry Bootstrap's "col-xs-12" class,
+   which brings float:left, min-height:1px and grid padding that
+   were never neutralized like the comment/media forms were.
+   Force them back to plain, predictable block boxes so this
+   field's internal layout matches .form-group exactly.
+========================================================= */
+
+#gs_0 .repeated-item #qt_q2540,
+#gs_0 .repeated-item .emj-dropdown-master-container,
+#gs_0 .repeated-item .emj-dropdown-container {
+    display: block !important;
+    float: none !important;
+    width: 100% !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* =========================================================
+   FLUSH-LEFT GUARANTEE
+   The "District" title was rendering further right than the
+   "Select District" placeholder below it — a leftover text
+   indent/margin on the title wrapper that the block-level
+   reset above didn't fully zero out. Force zero left padding,
+   margin, and text-indent on every element in the title and
+   dropdown chain so both lines start at the exact same x,
+   matching how Mobile Number's label/input line up.
+========================================================= */
+
+#gs_0 .repeated-item #qt_q2540,
+#gs_0 .repeated-item .emote-title,
+#gs_0 .repeated-item .emj-dropdown-master-container,
+#gs_0 .repeated-item .emj-dropdown-container,
+#gs_0 .repeated-item .ui-select-container,
+#gs_0 .repeated-item .ui-select-toggle.form-control {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    text-indent: 0 !important;
 }
 
 #gs_0 .repeated-item .emote-title {
@@ -228,8 +262,6 @@ body,
 
 #gs_0 .repeated-item .emj-dropdown-master-container,
 #gs_0 .repeated-item .emj-dropdown-container {
-    padding: 0 !important;
-    margin: 0 !important;
     text-align: left !important;
 }
 
@@ -268,6 +300,56 @@ body,
 
 #gs_0 .repeated-item .caret {
     display: none !important;
+}
+
+/* =========================================================
+   CHEVRON — anchored to the dropdown ROW, not the whole box
+   Anchoring it to .emj-dropdown-container (the row that
+   actually contains the toggle/placeholder) guarantees it
+   always centers on that exact line, regardless of title
+   height above it.
+========================================================= */
+
+#gs_0 .repeated-item .emj-dropdown-container {
+    position: relative !important;
+}
+
+#gs_0 .repeated-item .emj-dropdown-container::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 50% !important;
+    right: -24px !important;
+    transform: translateY(-50%) !important;
+    width: 0 !important;
+    height: 0 !important;
+    border-left: 6px solid transparent !important;
+    border-right: 6px solid transparent !important;
+    border-top: 7px solid #332d3c !important;
+    pointer-events: none !important;
+}
+
+/* =========================================================
+   MAKE THE CHEVRON CLICKABLE
+   The real click target (.ui-select-toggle) only spans the
+   content box, which ends before the chevron's reserved
+   padding. Grow the toggle's actual hit-box (box-sizing:
+   border-box keeps the visible padding identical so nothing
+   shifts visually) so it reaches under the chevron.
+========================================================= */
+
+#gs_0 .repeated-item .ui-select-container,
+#gs_0 .repeated-item .ui-select-match,
+#gs_0 .repeated-item .ui-select-toggle.form-control {
+    box-sizing: border-box !important;
+    width: calc(100% + 44px) !important;
+    margin-right: -44px !important;
+    padding-right: 44px !important;
+}
+
+/* Whole row now reads as clickable */
+#gs_0 .repeated-item,
+#gs_0 .repeated-item .ui-select-toggle.form-control {
+    cursor: pointer !important;
 }
 
 /* =========================================================
@@ -510,6 +592,51 @@ body,
 }
 
 /* =========================================================
+   FIX SUBMIT BUTTON CENTERING (DESKTOP)
+   The button sits inside .clear-submit-row-perception, which
+   the site's own bespoke/custom CSS turns into a flex container
+   (default justify-content: flex-start), hugging the button to
+   the left. .btn-submit's margin:0 auto can't fix this because
+   inline-flex elements don't auto-center via margin — only the
+   parent's alignment controls it. Force the wrapper to center
+   its child explicitly.
+========================================================= */
+
+#gs_0 .button-panel .clear-submit-row,
+#gs_0 .button-panel .clear-submit-row-perception {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* =========================================================
+   DISCLAIMER TEXT BELOW SUBMIT BUTTON
+   No JS/HTML edits allowed, so this is injected as a ::after
+   pseudo-element on .button-panel — it renders right after
+   the button since .button-panel already wraps the button
+   and its inner row, and ::after is the last child of that box.
+========================================================= */
+
+#gs_0 .button-panel::after {
+    content: "One valid entry per eligible purchase. Duplicate entries will not be considered." !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 450px !important;
+    margin: 10px auto 0 !important;
+    padding: 0 4px !important;
+
+    color: var(--eva-muted) !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 12.5px !important;
+    font-weight: 500 !important;
+    line-height: 1.4 !important;
+    text-align: center !important;
+}
+
+/* =========================================================
    MOBILE
 ========================================================= */
 
@@ -569,6 +696,21 @@ body,
         background-size: 35px 35px !important;
     }
 
+    /* Chevron re-matched to mobile's smaller right padding
+       (13px instead of desktop's 44px), still anchored to the
+       dropdown row itself rather than the whole box. */
+    #gs_0 .repeated-item .emj-dropdown-container::after {
+        right: -1px !important;
+    }
+
+    #gs_0 .repeated-item .ui-select-container,
+    #gs_0 .repeated-item .ui-select-match,
+    #gs_0 .repeated-item .ui-select-toggle.form-control {
+        width: calc(100% + 13px) !important;
+        margin-right: -13px !important;
+        padding-right: 22px !important;
+    }
+
     #gs_0 .emj-media-upload-attach {
         gap: 12px !important;
         padding: 10px 12px !important;
@@ -591,6 +733,11 @@ body,
 
     .btn-submit::before {
         font-size: 18px !important;
+    }
+
+    #gs_0 .button-panel::after {
+        max-width: 100% !important;
+        font-size: 12px !important;
     }
 }
 /* =========================================================

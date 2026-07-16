@@ -663,8 +663,10 @@
               "channel": "email",
               "template": "eventSupportOverdueAlert_1stLevel",
               "target": "admin",
-              "contactFilters": [
-                "ticketCreationAlert"
+              "contacts": [
+                "sanjanan@emojot.com",
+                "sanjanan@emojot.com",
+                "leads@emojot.com"
               ]
             }
           ]
@@ -677,8 +679,10 @@
               "channel": "email",
               "template": "eventSupportOverdueAlert_2ndLevel",
               "target": "admin",
-              "contactFilters": [
-                "ticketCreationAlert"
+              "contacts": [
+                "sanjanan@emojot.com",
+                "sanjanan@emojot.com",
+                "leads@emojot.com"
               ]
             }
           ]
