@@ -1,0 +1,870 @@
+{
+  "descriptionFormat": "text",
+  "reportNamePrefix": "Event Support",
+  "reporterNamePrefix": "Attendee",
+  "name": "AI Everything Abu Dhabi - Event Support",
+  "nameTemplate": "Event Support: $type$",
+  "descriptionTemplate": "$description$",
+  "type": {
+    "name": "Inquiry Category",
+    "readOnly": false,
+    "type": "enum",
+    "values": [
+      {
+        "id": "Session or agenda inquiry",
+        "name": "Session or agenda inquiry",
+        "highPriorityFields": [
+         
+          "memberType",
+          "registrationId",
+          "fullName",
+          "preferredLanguage",
+          "location",
+          "description",
+          "overdue",
+          "department",
+          "sourceChannel",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Venue navigation",
+        "name": "Venue navigation",
+        "highPriorityFields": [
+          
+          "memberType",
+          "registrationId",
+          "fullName",
+          "preferredLanguage",
+          "location",
+          "description",
+          "organization",
+          "department",
+          "sourceChannel",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Registration or badge support",
+        "name": "Registration or badge support",
+        "highPriorityFields": [
+          
+          "memberType",
+          "registrationId",
+          "fullName",
+          "preferredLanguage",
+          "location",
+          "description",
+          "organization",
+          "department",
+          "sourceChannel",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Exhibitor support",
+        "name": "Exhibitor support",
+        "highPriorityFields": [
+          
+          "memberType",
+          "registrationId",
+          "fullName",
+          "preferredLanguage",
+          "location",
+          "description",
+          "organization",
+          "department",
+          "sourceChannel",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Speaker or moderator support",
+        "name": "Speaker or moderator support",
+        "highPriorityFields": [
+          
+          "memberType",
+          "registrationId",
+          "fullName",
+          "preferredLanguage",
+          "location",
+          "description",
+          "organization",
+          "department",
+          "sourceChannel",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Investor or startup support",
+        "name": "Investor or startup support",
+        "highPriorityFields": [
+          
+          "memberType",
+          "registrationId",
+          "fullName",
+          "preferredLanguage",
+          "location",
+          "description",
+          "organization",
+          "department",
+          "sourceChannel",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Media or VIP support",
+        "name": "Media or VIP support",
+        "highPriorityFields": [
+         
+          "memberType",
+          "registrationId",
+          "fullName",
+          "preferredLanguage",
+          "location",
+          "description",
+          "organization",
+          "department",
+          "sourceChannel",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Food, beverage, or facilities",
+        "name": "Food, beverage, or facilities",
+        "highPriorityFields": [
+         
+          "memberType",
+          "registrationId",
+          "fullName",
+          "preferredLanguage",
+          "location",
+          "description",
+          "organization",
+          "department",
+          "sourceChannel",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Lost and found",
+        "name": "Lost and found",
+        "highPriorityFields": [
+         
+           "memberType",
+          "registrationId",
+          "fullName",
+          "preferredLanguage",
+          "location",
+          "description",
+          "organization",
+          "department",
+          "sourceChannel",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Medical or security assistance",
+        "name": "Medical or security assistance",
+        "highPriorityFields": [
+         
+          "memberType",
+          "registrationId",
+          "fullName",
+          "preferredLanguage",
+          "location",
+          "description",
+          "organization",
+          "department",
+          "sourceChannel",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Event app or technical support",
+        "name": "Event app or technical support",
+        "highPriorityFields": [
+         
+          "memberType",
+          "registrationId",
+          "fullName",
+          "preferredLanguage",
+          "location",
+          "description",
+          "organization",
+          "department",
+          "sourceChannel",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Feedback or complaint",
+        "name": "Feedback or complaint",
+        "highPriorityFields": [
+          
+          "memberType",
+          "registrationId",
+          "fullName",
+          "preferredLanguage",
+          "location",
+          "description",
+          "organization",
+          "department",
+          "sourceChannel",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Other",
+        "name": "Other",
+        "highPriorityFields": [
+        
+          "memberType",
+          "registrationId",
+          "fullName",
+          "preferredLanguage",
+          "location",
+          "description",
+          "organization",
+          "department",
+          "sourceChannel",
+          "overdue"
+        ]
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Open",
+        "name": "Open",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000",
+        "statusBackgroundColor": "#fff7d6",
+        "statusTextColor": "#7a5a00"
+      },
+      {
+        "id": "Assigned",
+        "name": "Assigned",
+        "backgroundColor": "#3498db",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#e8f4fd",
+        "statusTextColor": "#1b5f91"
+      },
+      {
+        "id": "In Progress",
+        "name": "In Progress",
+        "backgroundColor": "#9b59b6",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#f0e6f5",
+        "statusTextColor": "#6c3483"
+      },
+      {
+        "id": "Pending Attendee",
+        "name": "Pending Attendee",
+        "backgroundColor": "#e67e22",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#fdebd0",
+        "statusTextColor": "#935116"
+      },
+      {
+        "id": "Resolved",
+        "name": "Resolved",
+        "backgroundColor": "#2ecc71",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#e9f7ef",
+        "statusTextColor": "#1e8449",
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "customerEventSupportResolution",
+            "target": "customer",
+            "appendEditUrl": false
+          },
+          {
+            "channel": "email",
+            "template": "eventSupportResolutionAlert",
+            "target": "admin",
+            "contactFilters": [
+              "ticketResolutionAlert"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "department",
+                  "operator": "equal",
+                  "value": "$incident_customFields_department$"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Closed",
+        "name": "Closed",
+        "backgroundColor": "#7f8c8d",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#eef2f3",
+        "statusTextColor": "#566573"
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Low",
+        "name": "Low"
+      },
+      {
+        "id": "Medium",
+        "name": "Medium"
+      },
+      {
+        "id": "High",
+        "name": "High"
+      },
+      {
+        "id": "Urgent",
+        "name": "Urgent"
+      }
+    ]
+  },
+  "customFields": {
+    "contactName": {
+      "name": "Contact Name",
+      "type": "string"
+    },
+    "contactEmail": {
+      "name": "Contact Email",
+      "type": "string"
+    },
+    "contactTelephone": {
+      "name": "Contact Telephone",
+      "type": "string"
+    },
+    "consent": {
+      "name": "Consent to Share Details",
+      "type": "string",
+      "readOnly": true
+    },
+    "memberType": {
+      "name": "Member Type",
+      "type": "string"
+    },
+    "registrationId": {
+      "name": "Registration ID",
+      "type": "string"
+    },
+    "fullName": {
+      "name": "Full Name",
+      "type": "string"
+    },
+    "organization": {
+      "name": "Organization",
+      "type": "string"
+    },
+    "preferredLanguage": {
+      "name": "Preferred Language",
+      "type": "string"
+    },
+    "location": {
+      "name": "Current Location",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Hall 3",
+          "name": "Hall 3"
+        },
+        {
+          "id": "Main Concourse",
+          "name": "Main Concourse"
+        },
+        {
+          "id": "Registration",
+          "name": "Registration"
+        },
+        {
+          "id": "Startup Zone",
+          "name": "Startup Zone"
+        },
+        {
+          "id": "Main Summit Stage",
+          "name": "Main Summit Stage"
+        },
+        {
+          "id": "Food Court",
+          "name": "Food Court"
+        },
+        {
+          "id": "Other",
+          "name": "Other"
+        }
+      ]
+    },
+    "description": {
+      "name": "Request or Issue Details",
+      "type": "textArea"
+    },
+    "department": {
+      "name": "Assigned Department",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Event Management",
+          "name": "Event Management"
+        },
+        {
+          "id": "CSA",
+          "name": "CSA"
+        },
+        {
+          "id": "Programme / Agenda",
+          "name": "Programme / Agenda"
+        },
+        {
+          "id": "Wayfinding / Venue",
+          "name": "Wayfinding / Venue"
+        },
+        {
+          "id": "Registration / Badging",
+          "name": "Registration / Badging"
+        },
+        {
+          "id": "Exhibitor Services",
+          "name": "Exhibitor Services"
+        },
+        {
+          "id": "Speaker Operations",
+          "name": "Speaker Operations"
+        },
+        {
+          "id": "Investor / Startup Relations",
+          "name": "Investor / Startup Relations"
+        },
+        {
+          "id": "Media / VIP",
+          "name": "Media / VIP"
+        },
+        {
+          "id": "Food and Beverage / Facilities",
+          "name": "Food and Beverage / Facilities"
+        },
+        {
+          "id": "Lost and Found",
+          "name": "Lost and Found"
+        },
+        {
+          "id": "Medical / Security",
+          "name": "Medical / Security"
+        },
+        {
+          "id": "Event App / Technical",
+          "name": "Event App / Technical"
+        },
+        {
+          "id": "Other",
+          "name": "Other"
+        }
+      ]
+    },
+    "sourceChannel": {
+      "name": "Source Channel",
+      "type": "enum",
+      "values": [
+        {
+          "id": "sensor",
+          "name": "Sensor"
+        },
+        {
+          "id": "csa_text",
+          "name": "CSA Text"
+        },
+        {
+          "id": "whatsapp",
+          "name": "WhatsApp"
+        },
+        {
+          "id": "manual",
+          "name": "Manual"
+        },
+        {
+          "id": "email",
+          "name": "Email"
+        },
+        {
+          "id": "phone",
+          "name": "Phone"
+        }
+      ]
+    },
+    "channel": {
+      "name": "CSA Raw Channel",
+      "type": "string",
+      "hidden": true,
+      "readOnly": true
+    },
+    "uniqueId": {
+      "name": "CSA Unique ID / Phone Number",
+      "type": "string"
+    },
+    "tags": {
+      "name": "CSA Tags",
+      "type": "multiselect",
+      "values": [
+        {
+          "id": "Immediate Attention",
+          "name": "Immediate Attention"
+        },
+        {
+          "id": "Safety Risk",
+          "name": "Safety Risk"
+        },
+        {
+          "id": "Medical Assistance",
+          "name": "Medical Assistance"
+        },
+        {
+          "id": "Security Concern",
+          "name": "Security Concern"
+        },
+        {
+          "id": "Access Blocked",
+          "name": "Access Blocked"
+        },
+        {
+          "id": "VIP / Protocol",
+          "name": "VIP / Protocol"
+        },
+        {
+          "id": "Speaker / Stage Critical",
+          "name": "Speaker / Stage Critical"
+        },
+        {
+          "id": "Exhibitor Booth Critical",
+          "name": "Exhibitor Booth Critical"
+        },
+        {
+          "id": "Live Session Impact",
+          "name": "Live Session Impact"
+        },
+        {
+          "id": "Crowd / Queue Issue",
+          "name": "Crowd / Queue Issue"
+        },
+        {
+          "id": "Accessibility Support",
+          "name": "Accessibility Support"
+        },
+        {
+          "id": "Technical Issue",
+          "name": "Technical Issue"
+        },
+        {
+          "id": "App / Wi-Fi Issue",
+          "name": "App / Wi-Fi Issue"
+        },
+        {
+          "id": "Facilities / Housekeeping",
+          "name": "Facilities / Housekeeping"
+        },
+        {
+          "id": "F&B Issue",
+          "name": "F&B Issue"
+        },
+        {
+          "id": "Lost Item",
+          "name": "Lost Item"
+        },
+        {
+          "id": "Found Item",
+          "name": "Found Item"
+        },
+        {
+          "id": "Negative Experience",
+          "name": "Negative Experience"
+        },
+        {
+          "id": "Service Delay",
+          "name": "Service Delay"
+        },
+        {
+          "id": "Staff Support Required",
+          "name": "Staff Support Required"
+        },
+        {
+          "id": "Follow-up Required",
+          "name": "Follow-up Required"
+        },
+        {
+          "id": "Pending Attendee Response",
+          "name": "Pending Attendee Response"
+        },
+        {
+          "id": "Escalated",
+          "name": "Escalated"
+        },
+        {
+          "id": "Duplicate / Repeated Issue",
+          "name": "Duplicate / Repeated Issue"
+        },
+        {
+          "id": "Resolved Onsite",
+          "name": "Resolved Onsite"
+        },
+        {
+          "id": "Post-event Follow-up",
+          "name": "Post-event Follow-up"
+        }
+      ]
+    },
+    "ecaConversationLink": {
+      "name": "Go to CSA Conversation",
+      "type": "link"
+    },
+    "clientId": {
+      "name": "CSA Client ID",
+      "type": "string",
+      "hidden": true,
+      "readOnly": true
+    },
+    "csaSessionId": {
+      "name": "CSA Session ID",
+      "type": "string",
+      "hidden": true,
+      "readOnly": true
+    },
+    "requestDate": {
+      "name": "Request Date",
+      "type": "date"
+    },
+    "externalReference": {
+      "name": "External Reference",
+      "type": "string"
+    },
+    "resolutionNotes": {
+      "name": "Resolution Notes",
+      "type": "textArea"
+    },
+    "overdue": {
+      "name": "Overdue",
+      "type": "enum",
+      "values": [
+        {
+          "id": "1st Level",
+          "name": "1st Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "eventSupportOverdueAlert_1stLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketCreationAlert"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2nd Level",
+          "name": "2nd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "eventSupportOverdueAlert_2ndLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketCreationAlert"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "adminHierarchy": {
+    "list": "admin",
+    "headers": [
+      {
+        "id": "department",
+        "name": "Department",
+        "type": "customField"
+      },
+      {
+        "id": "location",
+        "name": "Location",
+        "type": "customField"
+      },
+      {
+        "id": "ticketCreationAlert",
+        "name": "Ticket Creation Alert",
+        "type": "contact"
+      },
+      {
+        "id": "ticketResolutionAlert",
+        "name": "Ticket Resolution Alert",
+        "type": "contact"
+      }
+    ],
+    "id": "AHI_ID_00966838433"
+  },
+  "workflowCreation": {
+    "email": "bot@emojot.com",
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "eventSupportCreationAlert",
+        "target": "admin",
+        "contacts": [
+          "salmanf@emojot.com",
+          "leads@emojot.com",
+          "sanjanan@emojot.com"
+        ],
+          "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Session or agenda inquiry",
+              "Venue navigation",
+              "Registration or badge support",
+              "Exhibitor support",
+              "Speaker or moderator support",
+              "Investor or startup support",
+              "Media or VIP support",
+              "Food, beverage, or facilities",
+              "Lost and found",
+              "Medical or security assistance",
+              "Event app or technical support",
+              "Feedback or complaint",
+              "Other"
+            ]
+          ]
+        }
+      },
+      {
+        "channel": "email",
+        "template": "eventSupportCreationAlert",
+        "target": "admin",
+        "contactFilters": [
+          "ticketCreationAlert"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "department",
+              "operator": "equal",
+              "value": "$department$"
+            }
+          ]
+        }
+      },
+      {
+        "channel": "email",
+        "template": "customerEventSupportAcknowledgement",
+        "target": "customer",
+        "appendEditUrl": false,
+            "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Session or agenda inquiry",
+              "Venue navigation",
+              "Registration or badge support",
+              "Exhibitor support",
+              "Speaker or moderator support",
+              "Investor or startup support",
+              "Media or VIP support",
+              "Food, beverage, or facilities",
+              "Lost and found",
+              "Medical or security assistance",
+              "Event app or technical support",
+              "Feedback or complaint",
+              "Other"
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "assignment": {
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "eventSupportAssignmentAlert",
+        "target": "admin"
+      }
+    ],
+    "automaticAssignment": {
+      "isEnabled": false,
+      "email": "bot@emojot.com",
+      "resolvedStatus": [
+        "Resolved",
+        "Closed"
+      ],
+      "maxLevel": 3,
+      "triggerFlows": [
+        {
+          "condition": {
+            "and": [
+              {
+                "!=": [
+                  {
+                    "var": "status"
+                  },
+                  "Resolved"
+                ]
+              },
+              {
+                "!=": [
+                  {
+                    "var": "status"
+                  },
+                  "Closed"
+                ]
+              }
+            ]
+          },
+          "skipAssignment": true,
+          "levels": [
+            {
+              "nextLevelTime": 1800000
+            },
+            {
+              "nextLevelTime": 1800000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "1st Level"
+                }
+              ]
+            },
+            {
+              "nextLevelTime": 3600000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "2nd Level"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "tableEdit": "true",
+  "timeSpent": {
+    "name": "Time Spent",
+    "type": "time_accumulation"
+  },
+  "timeZone": -330
+}

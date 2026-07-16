@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<cepRules>
+    <cepRule id="1" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q5"</value>
+            </param>
+        </params>
+        <engagementActions>
+            <action>
+                <type>incident</type>
+                <data>
+                    <workflowID>6a44d5c4946d1b99f747fc8a</workflowID>
+                    <name>AI Everything Event Support - $$q5_emote$$</name>
+                    <assignee>dwtc@emojot.com</assignee>
+                    <type>$$q5_emote$$</type>
+                    <priority>Medium</priority>
+                    <status>Open</status>
+                    <description><![CDATA[
+<b>Source:</b> Event Support Sensor<br><br>
+<b>Inquiry Category:</b> $$q5_emote$$<br><br>
+<b>Current Location:</b> $$q9_emote$$<br><br>
+<b>description:</b>$$gp4_c1_comment_value$$<br><br>
+<b>Request or Issue Details:</b> $$gp6_c1_comment_value$$<br><br>
+<b>Consent:</b> $$q19_value$$<br><br>
+<b>Name:</b> $$loyalty_Name_value$$<br><br>
+<b>Email:</b> $$loyalty_Email_value$$<br><br>
+<b>Telephone:</b> $$loyalty_Telephone_value$$<br><br>
+<b>Member Type:</b> $$emoSignature_Member Type_value$$<br><br>
+<b>Registration ID:</b> $$emoSignature_Registration ID_value$$<br><br>
+<b>Full Name:</b> $$emoSignature_Full Name_value$$<br><br>
+<b>Organization:</b> $$emoSignature_Organization_value$$<br><br>
+<b>Preferred Language:</b> $$emoSignature_Preferred Language_value$$
+                    ]]></description>
+                    <customFields>
+                        <field>
+                            <key>location</key>
+                            <value>$$q9_emote$$</value>
+                        </field>
+                        <field>
+                            <key>description</key>
+                            <value>$$gp4_c1_comment_value$$</value>
+                        </field>
+                        <field>
+                            <key>department</key>
+                            <value>Event Management</value>
+                        </field>
+                        <field>
+                            <key>sourceChannel</key>
+                            <value>sensor</value>
+                        </field>
+                        <field>
+                            <key>contactName</key>
+                            <value>$$loyalty_Name_value$$</value>
+                        </field>
+                        <field>
+                            <key>contactEmail</key>
+                            <value>$$loyalty_Email_value$$</value>
+                        </field>
+                        <field>
+                            <key>contactTelephone</key>
+                            <value>$$loyalty_Telephone_value$$</value>
+                        </field>
+                        <field>
+                            <key>memberType</key>
+                            <value>$$emoSignature_Member Type_value$$</value>
+                        </field>
+                        <field>
+                            <key>registrationId</key>
+                            <value>$$emoSignature_Registration ID_value$$</value>
+                        </field>
+                        <field>
+                            <key>fullName</key>
+                            <value>$$emoSignature_Full Name_value$$</value>
+                        </field>
+                        <field>
+                            <key>organization</key>
+                            <value>$$emoSignature_Organization_value$$</value>
+                        </field>
+                        <field>
+                            <key>preferredLanguage</key>
+                            <value>$$emoSignature_Preferred Language_value$$</value>
+                        </field>
+                        <field>
+                            <key>consent</key>
+                            <value>$$q19_value$$</value>
+                        </field>
+                    </customFields>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+</cepRules>

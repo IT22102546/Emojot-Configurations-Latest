@@ -514,6 +514,33 @@ body,
 ========================================================= */
 
 @media (max-width: 700px) {
+    /* Kill the gray gutters on mobile: Bootstrap's body.container
+       adds 15px left/right padding, and there's also an inline
+       style="padding-left:15px" on <body> which needs !important
+       to override. #master-section then stretches edge-to-edge. */
+    html,
+    body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    body.container {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    #master-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+    }
+
     #master-section #mainContainer {
         width: calc(100% - 12px) !important;
         padding: 10px 8px 30px !important;
@@ -896,7 +923,7 @@ body,
     }
 
     #footer-container {
-        width: calc(100% - 12px) !important;
+        width: 100% !important;
     }
 
     #footer-container .row.footer {
