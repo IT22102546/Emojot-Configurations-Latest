@@ -1,0 +1,109 @@
+<style>
+.af-thankyou-page {
+    width: 100%;
+    min-height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 18px;
+    box-sizing: border-box;
+    background: transparent;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.af-thankyou-card {
+    width: min(520px, 100%);
+    text-align: center;
+    padding: 42px 34px;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    box-shadow: none;
+}
+
+.af-thankyou-mark {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f58220 0%, #7bc043 52%, #48c0e8 100%);
+    color: #ffffff;
+    font-size: 30px;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.af-thankyou-brand {
+    margin: 0 0 18px;
+    color: #1780b8;
+    font-size: 14px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
+}
+
+.af-thankyou-title {
+    margin: 0 0 14px;
+    color: #111111;
+    font-size: 34px;
+    line-height: 1.15;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
+}
+
+.af-thankyou-copy {
+    margin: 0 auto 26px;
+    max-width: 420px;
+    color: hwb(139 30% 24%);
+    font-size: 18px;
+    line-height: 1.55;
+    font-weight: 400;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.85);
+}
+
+.af-thankyou-close {
+    display: inline-block;
+    padding: 11px 24px;
+    border-radius: 999px;
+    background: #1780b8;
+    color: #ffffff;
+    font-size: 15px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+@media (max-width: 520px) {
+    .af-thankyou-page {
+        min-height: 460px;
+        padding: 32px 14px;
+    }
+
+    .af-thankyou-card {
+        padding: 34px 22px;
+    }
+
+    .af-thankyou-title {
+        font-size: 30px;
+    }
+
+    .af-thankyou-copy {
+        font-size: 16px;
+    }
+}
+</style>
+
+<div class="af-thankyou-page">
+    <div class="af-thankyou-card">
+        <div class="af-thankyou-mark">✓</div>
+        <p class="af-thankyou-brand">Alliance Finance</p>
+        <h1 class="af-thankyou-title">Thank you</h1>
+        <p class="af-thankyou-copy">We have received your feedback. Your input helps us improve the service we provide.</p>
+        <div class="af-thankyou-close">You can close this page now</div>
+    </div>
+</div>

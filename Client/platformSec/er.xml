@@ -25,14 +25,14 @@
           <priority>Medium</priority>
           <status>Triage</status>
           <description><![CDATA[
-<b>Source:</b> Event Support Sensor<br>
-<b>Inquiry Category:</b> $$q5_emote$$<br>
-<b>Current Location:</b> $$q9_emote$$<br>
-<b>Request or Issue Details:</b> $$gp4_c1_comment_value$$<br>
-<b>Telephone:</b> $$loyalty_Telephone_value$$<br>
-<b>Full Name:</b> $$loyalty_Name_value$$<br>
-<b>Email:</b> $$loyalty_Email_value$$
-]]></description>
+<b>Full Name:</b>$$loyalty_Name_value$$<br>
+<b>Email Address:</b>$$loyalty_Email_value$$<br>
+<b>Contact Number:</b>$$loyalty_Telephone_value$$<br><br>
+<b>Request Type:</b> $$q372_emote$$<br><br>
+<b>Company, Brand, Or Organization Interacted With:</b> $$gp4483_c1_comment_value$$<br>
+<b>Additional Information:</b> $$gp4483_c2_comment_value$$<br>
+<b>Attachment:</b> $$mediafile_p4483$$<br>
+          ]]></description>
           <customFields>
             <field>
               <key>consent</key>
