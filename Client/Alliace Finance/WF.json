@@ -21,6 +21,12 @@
           "Branch",
           "Satisfaction",
           "AFC_Familiarity",
+          "Vehicle_Process_understanding",
+          "Vehicle_Decision_Influence",
+          "Vehicle_Application_Process",
+          "Vehicle_Status_Updates",
+          "Vehicle_Handover_Process",
+          "Vehicle_Relationship_Officer_Support",
           "nps",
           "overdue"
         ]
@@ -417,6 +423,97 @@
       "type": "string",
       "readOnly": true
     },
+     "AFC_Familiarity": {
+      "name": "Familiarity with AFC Initiatives",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Familiar",
+          "name": "Very Familiar"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "Not Familiar",
+          "name": "Not Familiar"
+        }
+
+      ]
+    },
+    "Vehicle_Process_understanding": {
+  "name": "Understanding of Vehicle Process",
+  "type": "enum",
+  "readOnly": true,
+  "values": [
+    { "id": "Very Easy", "name": "Very Easy" },
+    { "id": "Somewhat easy", "name": "Somewhat easy" },
+    { "id": "Not easy", "name": "Not easy" }
+  ]
+},
+
+"Vehicle_Decision_Influence": {
+  "name": "Decision Influence",
+  "type": "enum",
+  "readOnly": true,
+  "values": [
+    { "id": "Yes", "name": "Yes" },
+    { "id": "Somewhat", "name": "Somewhat" },
+    { "id": "No", "name": "No" }
+  ]
+},
+
+"Vehicle_Application_Process": {
+  "name": "Application Process",
+  "type": "enum",
+  "readOnly": true,
+  "values": [
+    { "id": "Very Satisfied", "name": "Very Satisfied" },
+    { "id": "Satisfied", "name": "Satisfied" },
+    { "id": "Neutral", "name": "Neutral" },
+    { "id": "Unsatisfied", "name": "Unsatisfied" },
+    { "id": "Very Unsatisfied", "name": "Very Unsatisfied" }
+  ]
+},
+
+"Vehicle_Status_Updates": {
+  "name": "Status Updates",
+  "type": "enum",
+  "readOnly": true,
+  "values": [
+    { "id": "Always", "name": "Always" },
+    { "id": "Sometimes", "name": "Sometimes" },
+    { "id": "Neutral", "name": "Neutral" },
+    { "id": "Rarely", "name": "Rarely" },
+    { "id": "Never", "name": "Never" }
+  ]
+},
+
+"Vehicle_Handover_Process": {
+  "name": "Handover Process",
+  "type": "enum",
+  "readOnly": true,
+  "values": [
+    { "id": "Very Smooth", "name": "Very Smooth" },
+    { "id": "Smooth", "name": "Smooth" },
+    { "id": "Not Smooth", "name": "Not Smooth" }
+  ]
+},
+
+"Vehicle_Relationship_Officer_Support": {
+  "name": "Relationship Officer Support",
+  "type": "enum",
+  "readOnly": true,
+  "values": [
+    { "id": "Very Satisfied", "name": "Very Satisfied" },
+    { "id": "Satisfied", "name": "Satisfied" },
+    { "id": "Neutral", "name": "Neutral" },
+    { "id": "Unsatisfied", "name": "Unsatisfied" },
+    { "id": "Very Unsatisfied", "name": "Very Unsatisfied" }
+  ]
+},
     "Satisfaction": {
         "name": "Satisfaction",
         "type": "enum",
@@ -444,26 +541,7 @@
             }
         ]
     },
-    "AFC_Familiarity": {
-      "name": "Familiarity with AFC Initiatives",
-      "type": "enum",
-      "readOnly": true,
-      "values": [
-        {
-          "id": "Very Familiar",
-          "name": "Very Familiar"
-        },
-        {
-          "id": "Somewhat",
-          "name": "Somewhat"
-        },
-        {
-          "id": "Not Familiar",
-          "name": "Not Familiar"
-        }
-
-      ]
-    },
+   
     "nps": {
       "name": "NPS Score",
       "type": "enum",

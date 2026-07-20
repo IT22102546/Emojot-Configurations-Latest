@@ -38,7 +38,7 @@
 
           <customFields>
 
-            <field>
+             <field>
               <key>complaintType</key>
               <value>$$q4626_emote$$</value>
             </field>
@@ -52,26 +52,62 @@
               <key>Email</key>
               <value>$$loyalty_Email_value$$</value>
             </field>
-            <field>
-              <key>Satisfaction</key>
-              <value>$$q9263_emote$$</value>
-            </field>
+
             <field>
               <key>ContactNumber</key>
               <value>$$loyalty_Telephone_value$$</value>
             </field>
+
             <field>
               <key>Branch</key>
               <value>$$emoSignature_Branch_value$$</value>
             </field>
+
             <field>
-              <key>nps</key>
-              <value>$$q8527_emote$$</value>
+              <key>Satisfaction</key>
+              <value>$$q9263_emote$$</value>
             </field>
+
             <field>
               <key>AFC_Familiarity</key>
               <value>$$q9626_emote$$</value>
             </field>
+
+            <field>
+              <key>Vehicle_Process_understanding</key>
+              <value>$$q1452_emote$$</value>
+            </field>
+
+            <field>
+              <key>Vehicle_Decision_Influence</key>
+              <value>$$q3978_emote$$</value>
+            </field>
+
+            <field>
+              <key>Vehicle_Application_Process</key>
+              <value>$$q4291_emote$$</value>
+            </field>
+
+            <field>
+              <key>Vehicle_Status_Updates</key>
+              <value>$$q7971_emote$$</value>
+            </field>
+
+            <field>
+              <key>Vehicle_Handover_Process</key>
+              <value>$$q9094_emote$$</value>
+            </field>
+
+            <field>
+              <key>Vehicle_Relationship_Officer_Support</key>
+              <value>$$q4715_emote$$</value>
+            </field>
+
+            <field>
+              <key>nps</key>
+              <value>$$q8527_emote$$</value>
+            </field>
+
 
           </customFields>
         </data>
