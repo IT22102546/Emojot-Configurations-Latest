@@ -1,0 +1,750 @@
+{
+  "name": "complaintWorkflow",
+  "reportNamePrefix": "Alliancd Finalance Complaint",
+  "nameTemplate": "Alliancd Finalance Complaint: $type$ - $complaintType$",
+  "reporterNamePrefix": "Complaint",
+  "descriptionFormat": "text",
+  "timeZone": "+330",
+  "type": {
+    "name": "Complaint Type",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Vehicle / Equipment Leasing",
+        "name": "Vehicle / Equipment Leasing",
+        "highPriorityFields": [
+          "complaintType",
+          "FullName",
+          "Email",
+          "ContactNumber",
+          "Branch",
+          "Satisfaction",
+          "AFC_Familiarity",
+          "nps",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Fixed Deposit (FD)",   
+        "name": "Fixed Deposit (FD)",
+        "highPriorityFields": [
+          "complaintType",
+          "FullName",
+          "Email",
+          "ContactNumber",
+          "Branch",
+          "Satisfaction",
+          "AFC_Familiarity",
+          "nps",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Hapannu Minor Savings (Children’s Savings)",
+        "name": "Hapannu Minor Savings (Children’s Savings)",
+        "highPriorityFields": [
+          "complaintType",
+          "FullName",
+          "Email",
+          "ContactNumber",
+          "AFC_Familiarity",
+          "Branch",
+          "Satisfaction",
+          "nps",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Solar Loan",
+        "name": "Solar Loan",
+        "highPriorityFields": [
+          "complaintType",
+          "FullName",
+          "Email",
+          "ContactNumber",
+          "AFC_Familiarity",
+          "Branch",
+          "Satisfaction",
+          "nps",
+          "overdue"
+        ]
+      },
+     {
+        "id": "Gold Loan",
+        "name": "Gold Loan",
+        "highPriorityFields": [
+           "complaintType",
+           "FullName",
+           "Email",
+           "ContactNumber",
+           "AFC_Familiarity",
+           "Branch",
+           "Satisfaction",
+           "nps",
+           "overdue"
+        ]
+     },
+     {
+        "id": "Regular - Savings",
+        "name": "Regular - Savings",
+        "highPriorityFields": [
+           "complaintType",
+           "FullName",
+           "Email",
+           "ContactNumber",
+           "AFC_Familiarity",
+           "Branch",
+           "Satisfaction",
+           "nps",
+           "overdue"
+        ]
+     },
+     {
+        "id": "Ran Ayojana",
+        "name": "Ran Ayojana",
+        "highPriorityFields": [
+           "complaintType",
+           "FullName",
+           "Email",
+           "ContactNumber",
+           "AFC_Familiarity",
+           "Branch",
+           "Satisfaction",
+           "nps",
+           "overdue"
+        ]
+     }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Low",
+        "name": "Low"
+      },
+      {
+        "id": "Medium",
+        "name": "Medium"
+      },
+      {
+        "id": "High",
+        "name": "High"
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "transitions": [
+      {
+        "sourceState": "Open",
+        "targetStates": [
+          "Transferred",
+          "In Progress"
+        ]
+      },
+      {
+        "sourceState": "Transferred",
+        "targetStates": [
+          "In Progress"
+        ]
+      },
+      {
+        "sourceState": "In Progress",
+        "targetStates": [
+          "Transferred",
+          "Resolved"
+        ]
+      },
+      {
+        "sourceState": "Resolved",
+        "targetStates": [
+          "Open",
+          "Transferred"
+        ]
+      }
+    ],
+    "values": [
+      {
+        "id": "Open",
+        "name": "Open",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000",
+        "statusBackgroundColor": "#fcf3cf",
+        "statusTextColor": "#7d6608",
+        "fieldsValidation": [
+          {
+            "fieldID": "validateStatusChange",
+            "required": true,
+            "message": "Status change confirmation required before saving updates."
+          }
+        ]
+      },
+      {
+        "id": "Transferred",
+        "name": "Transferred",
+        "backgroundColor": "#f39c12",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#fdebd0",
+        "statusTextColor": "#7e5109",
+        "fieldsValidation": [
+          {
+            "fieldID": "validateStatusChange",
+            "required": true,
+            "message": "Status change confirmation required before saving updates."
+          }
+        ]
+      },
+      {
+        "id": "In Progress",
+        "name": "In Progress",
+        "backgroundColor": "#3498db",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d6eaf8",
+        "statusTextColor": "#154360",
+        "fieldsValidation": [
+          {
+            "fieldID": "validateStatusChange",
+            "required": true,
+            "message": "Status change confirmation required before saving updates."
+          }
+        ],
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "customerWIPalert",
+            "target": "customer",
+            "appendEditUrl": false,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                    "Vehicle / Equipment Leasing",
+                    "Fixed Deposit (FD)",
+                    "Hapannu Minor Savings (Children’s Savings)",
+                    "Solar Loan",
+                    "Gold Loan",
+                    "Regular - Savings",
+                    "Ran Ayojana"
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Resolved",
+        "name": "Resolved",
+        "finalState": true,
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d5f5e3",
+        "statusTextColor": "#145a32",
+        "fieldsValidation": [
+          {
+            "fieldID": "inbuild_comment",
+            "required": true,
+            "name": "Please add a comment explaining how this complaint was resolved.",
+            "message": "Please add a comment explaining how this complaint was resolved."
+          }
+        ],
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "complaintResolutionAlertInternal",
+            "target": "admin",
+            "contacts": [
+              "sanjanan@emojot.com"
+            ],
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Vehicle / Equipment Leasing",
+                    "Fixed Deposit (FD)",
+                    "Hapannu Minor Savings (Children’s Savings)",
+                    "Solar Loan",
+                    "Gold Loan",
+                    "Regular - Savings",
+                    "Ran Ayojana"
+                ]
+              ]
+            }
+          },
+          {
+            "channel": "email",
+            "template": "customerResolutionAlert",
+            "target": "customer",
+            "appendEditUrl": false,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Vehicle / Equipment Leasing",
+                    "Fixed Deposit (FD)",
+                    "Hapannu Minor Savings (Children’s Savings)",
+                    "Solar Loan",
+                    "Gold Loan",
+                    "Regular - Savings",
+                    "Ran Ayojana"
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "timeSpent": {
+    "name": "Time spent",
+    "type": "time_accumulation",
+    "hidden": true
+  },
+  "customFields": {
+    
+    "complaintType": {
+      "name": "Complaint Type",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Vehicle / Equipment Leasing",
+          "name": "Vehicle / Equipment Leasing"
+        },
+        {
+          "id": "Fixed Deposit (FD)",
+          "name": "Fixed Deposit (FD)"
+        },
+        {
+          "id": "Hapannu Minor Savings (Children’s Savings)",
+          "name": "Hapannu Minor Savings (Children’s Savings)"
+        },
+        {
+          "id": "Solar Loan",
+          "name": "Solar Loan"
+        },
+        {
+          "id": "Gold Loan",
+          "name": "Gold Loan"
+        },
+        {
+          "id": "Regular - Savings",
+          "name": "Regular - Savings"
+        },
+        {
+          "id": "Ran Ayojana",
+          "name": "Ran Ayojana"
+        }
+      ]
+    },
+    "requestType": {
+      "name": "Request Type",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Access to / copy of personal data",
+          "name": "Access to / copy of personal data"
+        },
+        {
+          "id": "Deletion / erasure of personal data",
+          "name": "Deletion / erasure of personal data"
+        },
+        {
+          "id": "Transfer / portability of personal data",
+          "name": "Transfer / portability of personal data"
+        },
+        {
+          "id": "Object to profiling or automated decision-making",
+          "name": "Object to profiling or automated decision-making"
+        },
+        {
+          "id": "Restrict or stop processing of personal data",
+          "name": "Restrict or stop processing of personal data"
+        },
+        {
+          "id": "Other",
+          "name": "Other"
+        },
+        {
+          "id": "Request a copy of PII data",
+          "name": "Request a copy of PII data"
+        },
+        {
+          "id": "Erasure PII data",
+          "name": "Erasure PII data"
+        },
+        {
+          "id": "Transfer PII data to another entity",
+          "name": "Transfer PII data to another entity"
+        },
+        {
+          "id": "Object against using PII Data for Profiling & Automated Decision Making",
+          "name": "Object against using PII Data for Profiling & Automated Decision Making"
+        },
+        {
+          "id": "Stop Processing PII Data",
+          "name": "Stop Processing PII Data"
+        }
+      ]
+    },
+    "FullName": {
+      "name": "Full Name",
+      "type": "string",
+      "readOnly": true
+    },
+    "Email": {
+      "name": "Email Address",
+      "type": "string",
+      "readOnly": true
+    },
+    "ContactNumber": {
+      "name": "Contact Number",
+      "type": "string",
+      "readOnly": true
+    },
+    "Branch": {
+      "name": "Branch",
+      "type": "string",
+      "readOnly": true
+    },
+    "Satisfaction": {
+        "name": "Satisfaction",
+        "type": "enum",
+        "readOnly": true,
+        "values": [
+            {
+            "id": "Very Satisfied",
+            "name": "Very Satisfied"
+            },
+            {
+            "id": "Satisfied",
+            "name": "Satisfied"
+            },
+            {
+            "id": "Neutral",
+            "name": "Neutral"
+            },
+            {
+            "id": "Unsatisfied",
+            "name": "Unsatisfied"
+            },
+            {
+            "id": "Very Unsatisfied",
+            "name": "Very Unsatisfied"
+            }
+        ]
+    },
+    "AFC_Familiarity": {
+      "name": "Familiarity with AFC Initiatives",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Familiar",
+          "name": "Very Familiar"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "Not Familiar",
+          "name": "Not Familiar"
+        }
+
+      ]
+    },
+    "nps": {
+      "name": "NPS Score",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "0",
+          "name": "0"
+        },
+        {
+          "id": "1",
+          "name": "1"
+        },
+        {
+          "id": "2",
+          "name": "2"
+        },
+        {
+          "id": "3",
+          "name": "3"
+        },
+        {
+          "id": "4",
+          "name": "4"
+        },
+        {
+          "id": "5",
+          "name": "5"
+        },
+        {
+          "id": "6",
+          "name": "6"
+        },
+        {
+          "id": "7",
+          "name": "7"
+        },
+        {
+          "id": "8",
+          "name": "8"
+        },
+        {
+          "id": "9",
+          "name": "9"
+        },
+        {
+          "id": "10",
+          "name": "10"
+        }
+      ]
+    },
+   
+    "additionalInformation": {
+      "name": "Additional Information",
+      "type": "textArea",
+      "readOnly": true
+    },
+    "attachment": {
+      "name": "Attachment",
+      "type": "file",
+      "readOnly": true
+    },
+    
+    "overdue": {
+      "name": "Overdue",
+      "readOnly": true,
+      "type": "enum",
+      "hidden": true,
+      "values": [
+        {
+          "id": "1st Level",
+          "name": "1st Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_1stLevel",
+              "target": "admin",
+              "contacts": [
+                "sanjanan@emojot.com"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2nd Level",
+          "name": "2nd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_2ndLevel",
+              "target": "admin",
+              "contacts": [
+                "sanjanan@emojot.com"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3rd Level",
+          "name": "3rd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_3rdLevel",
+              "target": "admin",
+              "contacts": [
+                "sanjanan@emojot.com"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "workflowCreation": {
+    "email": "bot@emojot.com",
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "piiRequestCreationAlert",
+        "target": "admin",
+        "contacts": [
+          "sanjanan@emojot.com"
+        ],
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Vehicle / Equipment Leasing",
+              "Fixed Deposit (FD)",
+              "Hapannu Minor Savings (Children’s Savings)",
+              "Solar Loan",
+              "Gold Loan",
+              "Regular - Savings",
+              "Ran Ayojana"
+            ]
+          ]
+        }
+      },
+      {
+        "template": "piiRequestCreationAlertCustomer",
+        "channel": "email",
+        "target": "customer",
+        "appendEditUrl": false,
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Vehicle / Equipment Leasing",
+              "Fixed Deposit (FD)",
+              "Hapannu Minor Savings (Children’s Savings)",
+              "Solar Loan",
+              "Gold Loan",
+              "Regular - Savings",
+              "Ran Ayojana"
+            ]
+          ]
+        }
+      },
+      {
+        "channel": "fieldChange",
+        "changingFields": [
+          {
+            "id": "assignee",
+            "value": "sanjanan@emojot.com"
+          }
+        ]
+      }
+    ]
+  },
+  "assignment": {
+    "automaticAssignment": {
+      "isEnabled": true,
+      "email": "sanjanan@emojot.com",
+      "resolvedStatus": [
+        "Completed",
+        "Rejected"
+      ],
+      "maxLevel": 4,
+      "triggerFlows": [
+        {
+          "condition": {
+            "and": [
+              {
+                "!=": [
+                  {
+                    "var": "status"
+                  },
+                  "Resolved"
+                ]
+              }
+            ]
+          },
+          "skipAssignment": true,
+          "levels": [
+            {
+              "nextLevelTime": 3600000
+            },
+            {
+              "nextLevelTime": 3600000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "1st Level"
+                }
+              ]
+            },
+            {
+              "nextLevelTime": 3600000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "2nd Level"
+                }
+              ]
+            },
+            {
+              "nextLevelTime": 3600000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "3rd Level"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "adminHierarchy": {
+    "id": "REPLACE_PLATFORMSEC_ADMIN_HIERARCHY_ID",
+    "list": "admin",
+    "headers": [
+      {
+        "id": "requesterType",
+        "name": "Requester Type",
+        "type": "customField"
+      },
+      {
+        "id": "requestType",
+        "name": "Request Type",
+        "type": "customField"
+      },
+      {
+        "id": "ticketAssignee",
+        "name": "Ticket Assignee",
+        "type": "contact"
+      }
+    ]
+  },
+  "finalState": true,
+  "incidentKeyFormat": {
+    "enabled": false,
+    "countDependentFields": {
+      "enabled": true,
+      "fields": [
+        "date",
+        "ticketCategory"
+      ]
+    },
+    "pattern": [
+      {
+        "key": "ticketCategory",
+        "format": "mapping"
+      },
+      {
+        "key": "date",
+        "format": "YYYYMMDD"
+      },
+      {
+        "key": "counter",
+        "format": 3
+      }
+    ],
+    "counterReset": "daily"
+  },
+ 
+  "tableEdit": "true"
+}

@@ -20,12 +20,12 @@
                     <status>Open</status>
                     <description><![CDATA[
 <b>Source:</b> Event Support Sensor<br><br>
-<b>Inquiry Category:</b> $$q5_emote$$<br><br>
+<b>Inquiry Category:</b>$$q5_emote$$<br><br>
 <b>Current Location:</b> $$q9_emote$$<br><br>
 <b>description:</b>$$gp4_c1_comment_value$$<br><br>
 <b>Request or Issue Details:</b> $$gp6_c1_comment_value$$<br><br>
 <b>Consent:</b> $$q19_value$$<br><br>
-<b>Name:</b> $$loyalty_Name_value$$<br><br>
+<b>Name:</b>$$loyalty_Name_value$$<br><br>
 <b>Email:</b> $$loyalty_Email_value$$<br><br>
 <b>Telephone:</b> $$loyalty_Telephone_value$$<br><br>
 <b>Member Type:</b> $$emoSignature_Member Type_value$$<br><br>
