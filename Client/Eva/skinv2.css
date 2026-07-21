@@ -31,8 +31,7 @@
 
 #master-section {
     position: relative !important;
-    min-height: 100vh !important;
-    padding-bottom: 40px !important;
+    padding-bottom: 0 !important;
 
     background-color: #ffffff !important;
     background-image: none !important;
@@ -62,7 +61,7 @@ body,
     width: min(900px, calc(100% - 24px)) !important;
     max-width: 900px !important;
     margin: 0 auto !important;
-    padding: 15px 20px 40px !important;
+    padding: 15px 20px 0 !important;
 }
 
 /* =========================================================
@@ -82,7 +81,6 @@ body,
     line-height: 1.25 !important;
     text-align: center !important;
     text-shadow: none !important;
-    
 }
 
 #progressfill {
@@ -129,28 +127,21 @@ body,
    :has() needed, so there's nothing fragile left here.
 ========================================================= */
 
-/* The two plain <div class="col-xs-12"> that wrap the
-   comment-form and the media-upload form */
 #gs_0 > div.col-xs-12:not(.pdGroupTitle):not(.button-panel) {
     display: contents !important;
 }
 
-/* Their inner <div class="col-xs-12 xf"> wrappers
-   (one plain, one is also #emj-media-upload-section) */
 #gs_0 .xf {
     display: contents !important;
 }
 
-/* The actual <form> tags */
 #gs_0 form[name="groupWiseCommentForm"],
 #gs_0 form[name="mediaUploadForm"] {
     display: contents !important;
 }
 
 /* =========================================================
-   CARD HEADER — #gt_0 is present but its bound text
-   (ng-bind-html="groupTitle") is empty, so we supply the
-   whole heading via ::before and the subtitle via ::after.
+   CARD HEADER
 ========================================================= */
 
 #gt_0.pdGroupTitle {
@@ -185,7 +176,7 @@ body,
 }
 
 /* =========================================================
-   DISTRICT — the .repeated-item IS the field box
+   DISTRICT
 ========================================================= */
 
 #gs_0 .repeated-item {
@@ -208,16 +199,6 @@ body,
     background-size: 39px 39px !important;
 }
 
-/* =========================================================
-   RESET BOOTSTRAP GRID REMNANTS INSIDE .repeated-item
-   #qt_q2540 (label wrapper) and .emj-dropdown-master-container
-   (dropdown wrapper) both carry Bootstrap's "col-xs-12" class,
-   which brings float:left, min-height:1px and grid padding that
-   were never neutralized like the comment/media forms were.
-   Force them back to plain, predictable block boxes so this
-   field's internal layout matches .form-group exactly.
-========================================================= */
-
 #gs_0 .repeated-item #qt_q2540,
 #gs_0 .repeated-item .emj-dropdown-master-container,
 #gs_0 .repeated-item .emj-dropdown-container {
@@ -228,17 +209,6 @@ body,
     padding: 0 !important;
     margin: 0 !important;
 }
-
-/* =========================================================
-   FLUSH-LEFT GUARANTEE
-   The "District" title was rendering further right than the
-   "Select District" placeholder below it — a leftover text
-   indent/margin on the title wrapper that the block-level
-   reset above didn't fully zero out. Force zero left padding,
-   margin, and text-indent on every element in the title and
-   dropdown chain so both lines start at the exact same x,
-   matching how Mobile Number's label/input line up.
-========================================================= */
 
 #gs_0 .repeated-item #qt_q2540,
 #gs_0 .repeated-item .emote-title,
@@ -303,14 +273,6 @@ body,
     display: none !important;
 }
 
-/* =========================================================
-   CHEVRON — anchored to the dropdown ROW, not the whole box
-   Anchoring it to .emj-dropdown-container (the row that
-   actually contains the toggle/placeholder) guarantees it
-   always centers on that exact line, regardless of title
-   height above it.
-========================================================= */
-
 #gs_0 .repeated-item .emj-dropdown-container {
     position: relative !important;
 }
@@ -329,15 +291,6 @@ body,
     pointer-events: none !important;
 }
 
-/* =========================================================
-   MAKE THE CHEVRON CLICKABLE
-   The real click target (.ui-select-toggle) only spans the
-   content box, which ends before the chevron's reserved
-   padding. Grow the toggle's actual hit-box (box-sizing:
-   border-box keeps the visible padding identical so nothing
-   shifts visually) so it reaches under the chevron.
-========================================================= */
-
 #gs_0 .repeated-item .ui-select-container,
 #gs_0 .repeated-item .ui-select-match,
 #gs_0 .repeated-item .ui-select-toggle.form-control {
@@ -347,7 +300,6 @@ body,
     padding-right: 44px !important;
 }
 
-/* Whole row now reads as clickable */
 #gs_0 .repeated-item,
 #gs_0 .repeated-item .ui-select-toggle.form-control {
     cursor: pointer !important;
@@ -355,9 +307,6 @@ body,
 
 /* =========================================================
    FULL NAME + MOBILE NUMBER
-   Now direct grid children of #gs_0 thanks to the unwrap
-   rules above — nth-of-type(1)=Full Name, (2)=Mobile,
-   in the exact order they appear in your markup.
 ========================================================= */
 
 #gs_0 form[name="groupWiseCommentForm"] > .form-group {
@@ -429,8 +378,6 @@ body,
     opacity: 1 !important;
 }
 
-/* Hide the flag/dial-code selector so the phone field reads
-   as a flat "icon + text" like the target design */
 #gs_0 .intl-tel-input .flag-container {
     display: none !important;
 }
@@ -592,17 +539,6 @@ body,
     display: none !important;
 }
 
-/* =========================================================
-   FIX SUBMIT BUTTON CENTERING (DESKTOP)
-   The button sits inside .clear-submit-row-perception, which
-   the site's own bespoke/custom CSS turns into a flex container
-   (default justify-content: flex-start), hugging the button to
-   the left. .btn-submit's margin:0 auto can't fix this because
-   inline-flex elements don't auto-center via margin — only the
-   parent's alignment controls it. Force the wrapper to center
-   its child explicitly.
-========================================================= */
-
 #gs_0 .button-panel .clear-submit-row,
 #gs_0 .button-panel .clear-submit-row-perception {
     display: flex !important;
@@ -612,14 +548,6 @@ body,
     margin: 0 !important;
     padding: 0 !important;
 }
-
-/* =========================================================
-   DISCLAIMER TEXT BELOW SUBMIT BUTTON
-   No JS/HTML edits allowed, so this is injected as a ::after
-   pseudo-element on .button-panel — it renders right after
-   the button since .button-panel already wraps the button
-   and its inner row, and ::after is the last child of that box.
-========================================================= */
 
 #gs_0 .button-panel::after {
     content: "One valid entry per eligible purchase. Duplicate entries will not be considered." !important;
@@ -642,10 +570,6 @@ body,
 ========================================================= */
 
 @media (max-width: 700px) {
-    /* Kill the gray gutters on mobile: Bootstrap's body.container
-       adds 15px left/right padding, and there's also an inline
-       style="padding-left:15px" on <body> which needs !important
-       to override. #master-section then stretches edge-to-edge. */
     html,
     body {
         margin: 0 !important;
@@ -697,9 +621,6 @@ body,
         background-size: 35px 35px !important;
     }
 
-    /* Chevron re-matched to mobile's smaller right padding
-       (13px instead of desktop's 44px), still anchored to the
-       dropdown row itself rather than the whole box. */
     #gs_0 .repeated-item .emj-dropdown-container::after {
         right: -1px !important;
     }
@@ -741,13 +662,11 @@ body,
         font-size: 12px !important;
     }
 }
+
 /* =========================================================
    FINAL ALIGNMENT + REQUIRED FIELD FIXES
-   Keeps Full Name first, Mobile Number second, both in one
-   desktop row, and makes every required asterisk red.
 ========================================================= */
 
-/* Use the actual input inside each form-group instead of DOM order. */
 #gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]) {
     order: 1 !important;
     grid-column: 1 !important;
@@ -764,7 +683,6 @@ body,
     background-size: 36px 36px !important;
 }
 
-/* Rebuild the labels so only the asterisk is red. */
 #gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]) > label,
 #gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Mobile Number"]) > label {
     font-size: 0 !important;
@@ -792,7 +710,6 @@ body,
     font-weight: 800 !important;
 }
 
-/* District required label. */
 #gs_0 .repeated-item .emote-title {
     font-size: 0 !important;
 }
@@ -811,10 +728,6 @@ body,
     font-weight: 800 !important;
 }
 
-/* Upload Receipt required label and helper text — scoped to
-   ONLY the static title block (the first .form-group), never
-   the file-preview .form-group that appears after a file is
-   attached (identified by containing .emj-media-upload-btn-section) */
 #gs_0 form[name="mediaUploadForm"] > .form-group {
     display: block !important;
     grid-column: 1 / -1 !important;
@@ -867,16 +780,12 @@ body,
     line-height: 1.4 !important;
 }
 
-/* The file-preview .form-group (filename, trash icon, file
-   label input, upload button) — just fit it into the grid,
-   don't touch its label content */
 #gs_0 form[name="mediaUploadForm"] > .form-group:has(.emj-media-upload-btn-section) {
     grid-column: 1 / -1 !important;
     order: 4 !important;
     margin: 8px 0 0 !important;
 }
 
-/* Exact desktop spacing similar to the reference image. */
 @media (min-width: 701px) {
     #gs_0 {
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
@@ -891,7 +800,6 @@ body,
     }
 }
 
-/* Stack cleanly on phones. */
 @media (max-width: 700px) {
     #gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]),
     #gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Mobile Number"]) {
@@ -902,10 +810,7 @@ body,
 }
 
 /* =========================================================
-   ROW REWORK — Full Name gets its own full-width row.
-   Mobile Number and District then share the next row,
-   Mobile on the left, District on the right.
-   This whole block is appended last so it wins every tie.
+   ROW REWORK
 ========================================================= */
 
 #gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]) {
@@ -934,19 +839,9 @@ body,
 }
 
 /* =========================================================
-   CSS-ONLY FAKE PLACEHOLDERS (no JS)
-   Full Name has no native placeholder attribute at all, and
-   Mobile Number's native placeholder text can't be edited
-   with CSS (only its color can). Both fields are `required`
-   with no native `pattern` attribute set, so the browser's
-   built-in :invalid state is true exactly when the field is
-   empty — the same moment a placeholder would show — and
-   flips to :valid the instant the person types anything.
-   That gives a reliable, JS-free "is this field empty" hook.
+   CSS-ONLY FAKE PLACEHOLDERS
 ========================================================= */
 
-/* Hide the real "071 234 5678" placeholder so it doesn't
-   show through underneath our custom overlay text */
 #gs_0 input[id="Mobile Number"]::placeholder {
     color: transparent !important;
 }
@@ -985,18 +880,21 @@ body,
 }
 
 /* =========================================================
-   MERGE THE FOOTER INTO THE CARD
-   #footer-container is a sibling of #gs_0, not a child, so it
-   can't be moved inside with CSS alone. Instead: collapse all
-   the empty spacing between them (hidden accordion panels,
-   empty clearfix <br>s, Bootstrap's default panel-group
-   margin) down to zero, then style the "Powered by Emojot"
-   row to sit flush against #gs_0's bottom edge with matching
-   width/border/radius, so the two read as one continuous card.
+   MERGE THE REAL FOOTER INTO THE CARD + REMOVE VERTICAL GAP
+
+   #footer-container contains the unused accordion panels and
+   is hidden. The visible footer is div.row.footer, which is a
+   sibling of #footer-container.
+
+   The remaining space is removed by resetting the wrappers
+   and the empty .social-media-row immediately before the footer.
 ========================================================= */
 
-/* Collapse everything between the grid and the footer row
-   that has no real visible content */
+#footer-container,
+#master-section #accordionContainer {
+    display: none !important;
+}
+
 #master-section br.clearfix {
     display: none !important;
 }
@@ -1005,61 +903,92 @@ body,
     margin-bottom: 0 !important;
 }
 
-#master-section #accordionContainer {
+/* Remove theme spacing above the real footer */
+#master-section #middle-container,
+#master-section #mainContainer,
+#master-section #engagementInfoRow {
+    margin-bottom: 0 !important;
+}
+
+#master-section #middle-container {
+    padding-bottom: 0 !important;
+}
+
+#master-section .social-media-row,
+#master-section div.social-media-row {
     display: none !important;
-}
-
-#footer-container {
-    background: transparent !important;
+    height: 0 !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
     border: 0 !important;
-    box-shadow: none !important;
+    overflow: hidden !important;
 }
 
-/* Match #footer-container's width/centering to the card above it */
-#footer-container {
-    width: 100% !important;
-    max-width: 860px !important;
-    margin: 0 auto !important;
-}
-
-/* #gs_0 keeps its rounded top, but stops rounding/shadowing
-   its own bottom edge since the footer row continues the shape */
+/* Pull the footer directly against the card */
 #gs_0 {
     border-bottom-left-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
     border-bottom: 0 !important;
     margin-bottom: 0 !important;
-    box-shadow: 0 -6px 24px rgba(36, 20, 66, 0.18) !important;
+    position: relative !important;
+    z-index: 1 !important;
 }
 
-/* The footer row itself becomes the bottom of that same card:
-   same white background, same side borders, rounded only at
-   the bottom, flush against #gs_0 with zero gap */
-#footer-container .row.footer {
+#master-section div.row.footer {
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
 
+    position: relative !important;
     width: 100% !important;
     max-width: 860px !important;
+    height: auto !important;
 
-    margin: 0 auto !important;
+    margin: -1px auto 0 !important;
     padding: 16px 38px 22px !important;
 
     border: 1px solid rgba(118, 49, 165, 0.14) !important;
     border-top: 0 !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
     border-bottom-left-radius: 34px !important;
     border-bottom-right-radius: 34px !important;
 
     background: rgba(255, 255, 255, 0.98) !important;
-    box-shadow: 0 18px 42px rgba(36, 20, 66, 0.25) !important;
+    box-shadow: none !important;
 
-    color: var(--eva-muted) !important;
+    color: #000000 !important;
     font-family: "Exo", Arial, sans-serif !important;
     font-size: 13px !important;
+    z-index: 2 !important;
 }
 
-#footer-container .row.footer .logo {
+#master-section div.row.footer::before,
+#master-section div.row.footer::after {
+    display: none !important;
+}
+
+#master-section div.row.footer * {
+    color: #292333 !important;
+    float: none !important;
+}
+
+#master-section div.row.footer .col-xs-7 {
+    width: auto !important;
+    padding: 0 !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+}
+
+#master-section div.row.footer .col-xs-5 {
+    width: auto !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+}
+
+#master-section div.row.footer .logo {
     height: 22px !important;
     width: auto !important;
 }
@@ -1070,16 +999,14 @@ body,
         border-bottom-right-radius: 0 !important;
     }
 
-    #footer-container {
-        width: 100% !important;
-    }
-
-    #footer-container .row.footer {
+    #master-section div.row.footer {
+        margin-top: -1px !important;
         border-bottom-left-radius: 25px !important;
         border-bottom-right-radius: 25px !important;
         padding: 14px 16px 18px !important;
     }
 }
+
 
 @media (max-width: 700px) {
     #gs_0 form[name="groupWiseCommentForm"] > .form-group:has(input[id="Full Name"]:invalid)::after,
