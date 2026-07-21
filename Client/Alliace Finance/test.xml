@@ -140,7 +140,7 @@
           <workflowID>6a5d9fbc7f2daf6389796beb</workflowID>
           <name>Complaint - Fixed Deposit</name>
           <assignee>privacy@emojot.com</assignee>
-          <type>Vehicle Equipment Leasing</type>
+          <type>Fixed Deposit</type>
           <priority>Medium</priority>
           <status>Open</status>
 
@@ -234,7 +234,7 @@
           <workflowID>6a5d9fbc7f2daf6389796beb</workflowID>
           <name>Complaint - Hapannu Minor Savings</name>
           <assignee>privacy@emojot.com</assignee>
-          <type>Vehicle Equipment Leasing</type>
+          <type>Hapannu Minor Savings</type>
           <priority>Medium</priority>
           <status>Open</status>
 
@@ -253,6 +253,382 @@
             <field>
               <key>complaintType</key>
               <value>Hapannu Minor Savings</value>
+            </field>
+
+            <field>
+              <key>FullName</key>
+              <value>$$loyalty_Name_value$$</value>
+            </field>
+
+            <field>
+              <key>Email</key>
+              <value>$$loyalty_Email_value$$</value>
+            </field>
+
+            <field>
+              <key>ContactNumber</key>
+              <value>$$loyalty_Telephone_value$$</value>
+            </field>
+
+            <field>
+              <key>AFC_Familiarity</key>
+              <value>$$q9626_emote$$</value>
+            </field>
+
+          </customFields>
+        </data>
+
+        <validityPeriod>5</validityPeriod>
+      </action>
+    </engagementActions>
+  </cepRule>
+   <cepRule id="4" timeWindow="5">
+    <params>
+
+      <param>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>"q9263"</value>
+      </param>
+
+      <joinOperator>and</joinOperator>
+
+      <joinParam>
+        <derivedValue>emoteNumericValue</derivedValue>
+        <operator>ld</operator>
+        <value>1</value>
+      </joinParam>
+
+    </params>
+
+    <joinOperator>and</joinOperator>
+
+    <params>
+        <joinParam>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>"q4626"</value>
+      </joinParam>
+
+      <joinOperator>and</joinOperator>
+
+      <joinParam>
+        <derivedValue>emoteNumericValue</derivedValue>
+        <operator>eq</operator>
+        <value>0</value>
+      </joinParam>
+
+    </params>
+
+    <engagementActions>
+      <action>
+        <type>incident</type>
+
+        <data>
+          <workflowID>6a5d9fbc7f2daf6389796beb</workflowID>
+          <name>Complaint - Solar Loan</name>
+          <assignee>privacy@emojot.com</assignee>
+          <type>Solar Loan</type>
+          <priority>Medium</priority>
+          <status>Open</status>
+
+          <description><![CDATA[
+<b>Full Name:</b> $$loyalty_Name_value$$<br>
+<b>Email Address:</b> $$loyalty_Email_value$$<br>
+<b>Contact Number:</b> $$loyalty_Telephone_value$$<br><br>
+<b>Complaint Type:</b>$$q4626_emote$$<br><br>
+<b>Satisfaction:</b> $$q9263_emote$$<br>
+<b>Branch:</b> $$emoSignature_Branch_value$$<br>
+<br><br>
+          ]]></description>
+
+          <customFields>
+
+            <field>
+              <key>complaintType</key>
+              <value>Solar Loan</value>
+            </field>
+
+            <field>
+              <key>FullName</key>
+              <value>$$loyalty_Name_value$$</value>
+            </field>
+
+            <field>
+              <key>Email</key>
+              <value>$$loyalty_Email_value$$</value>
+            </field>
+
+            <field>
+              <key>ContactNumber</key>
+              <value>$$loyalty_Telephone_value$$</value>
+            </field>
+
+            <field>
+              <key>AFC_Familiarity</key>
+              <value>$$q9626_emote$$</value>
+            </field>
+
+          </customFields>
+        </data>
+
+        <validityPeriod>5</validityPeriod>
+      </action>
+    </engagementActions>
+  </cepRule>
+     <cepRule id="5" timeWindow="5">
+    <params>
+
+      <param>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>"q9263"</value>
+      </param>
+
+      <joinOperator>and</joinOperator>
+
+      <joinParam>
+        <derivedValue>emoteNumericValue</derivedValue>
+        <operator>ld</operator>
+        <value>1</value>
+      </joinParam>
+
+    </params>
+
+    <joinOperator>and</joinOperator>
+
+    <params>
+        <joinParam>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>"q4626"</value>
+      </joinParam>
+
+      <joinOperator>and</joinOperator>
+
+      <joinParam>
+        <derivedValue>emoteNumericValue</derivedValue>
+        <operator>eq</operator>
+        <value>1</value>
+      </joinParam>
+
+    </params>
+
+    <engagementActions>
+      <action>
+        <type>incident</type>
+
+        <data>
+          <workflowID>6a5d9fbc7f2daf6389796beb</workflowID>
+          <name>Complaint - Gold Loan</name>
+          <assignee>privacy@emojot.com</assignee>
+          <type>Gold Loan</type>
+          <priority>Medium</priority>
+          <status>Open</status>
+
+          <description><![CDATA[
+<b>Full Name:</b> $$loyalty_Name_value$$<br>
+<b>Email Address:</b> $$loyalty_Email_value$$<br>
+<b>Contact Number:</b> $$loyalty_Telephone_value$$<br><br>
+<b>Complaint Type:</b>$$q4626_emote$$<br><br>
+<b>Satisfaction:</b> $$q9263_emote$$<br>
+<b>Branch:</b> $$emoSignature_Branch_value$$<br>
+<br><br>
+          ]]></description>
+
+          <customFields>
+
+            <field>
+              <key>complaintType</key>
+              <value>Gold Loan</value>
+            </field>
+
+            <field>
+              <key>FullName</key>
+              <value>$$loyalty_Name_value$$</value>
+            </field>
+
+            <field>
+              <key>Email</key>
+              <value>$$loyalty_Email_value$$</value>
+            </field>
+
+            <field>
+              <key>ContactNumber</key>
+              <value>$$loyalty_Telephone_value$$</value>
+            </field>
+
+            <field>
+              <key>AFC_Familiarity</key>
+              <value>$$q9626_emote$$</value>
+            </field>
+
+          </customFields>
+        </data>
+
+        <validityPeriod>5</validityPeriod>
+      </action>
+    </engagementActions>
+  </cepRule>
+      <cepRule id="6" timeWindow="5">
+    <params>
+
+      <param>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>"q9263"</value>
+      </param>
+
+      <joinOperator>and</joinOperator>
+
+      <joinParam>
+        <derivedValue>emoteNumericValue</derivedValue>
+        <operator>ld</operator>
+        <value>1</value>
+      </joinParam>
+
+    </params>
+
+    <joinOperator>and</joinOperator>
+
+    <params>
+        <joinParam>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>"q4626"</value>
+      </joinParam>
+
+      <joinOperator>and</joinOperator>
+
+      <joinParam>
+        <derivedValue>emoteNumericValue</derivedValue>
+        <operator>eq</operator>
+        <value>2</value>
+      </joinParam>
+
+    </params>
+
+    <engagementActions>
+      <action>
+        <type>incident</type>
+
+        <data>
+          <workflowID>6a5d9fbc7f2daf6389796beb</workflowID>
+          <name>Complaint - Regular Savings</name>
+          <assignee>privacy@emojot.com</assignee>
+          <type>Regular Savings</type>
+          <priority>Medium</priority>
+          <status>Open</status>
+
+          <description><![CDATA[
+<b>Full Name:</b> $$loyalty_Name_value$$<br>
+<b>Email Address:</b> $$loyalty_Email_value$$<br>
+<b>Contact Number:</b> $$loyalty_Telephone_value$$<br><br>
+<b>Complaint Type:</b>$$q4626_emote$$<br><br>
+<b>Satisfaction:</b> $$q9263_emote$$<br>
+<b>Branch:</b> $$emoSignature_Branch_value$$<br>
+<br><br>
+          ]]></description>
+
+          <customFields>
+
+            <field>
+              <key>complaintType</key>
+              <value>Regular Savings</value>
+            </field>
+
+            <field>
+              <key>FullName</key>
+              <value>$$loyalty_Name_value$$</value>
+            </field>
+
+            <field>
+              <key>Email</key>
+              <value>$$loyalty_Email_value$$</value>
+            </field>
+
+            <field>
+              <key>ContactNumber</key>
+              <value>$$loyalty_Telephone_value$$</value>
+            </field>
+
+            <field>
+              <key>AFC_Familiarity</key>
+              <value>$$q9626_emote$$</value>
+            </field>
+
+          </customFields>
+        </data>
+
+        <validityPeriod>5</validityPeriod>
+      </action>
+    </engagementActions>
+  </cepRule>
+  <cepRule id="7" timeWindow="5">
+    <params>
+
+      <param>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>"q9263"</value>
+      </param>
+
+      <joinOperator>and</joinOperator>
+
+      <joinParam>
+        <derivedValue>emoteNumericValue</derivedValue>
+        <operator>ld</operator>
+        <value>1</value>
+      </joinParam>
+
+    </params>
+
+    <joinOperator>and</joinOperator>
+
+    <params>
+        <joinParam>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>"q4626"</value>
+      </joinParam>
+
+      <joinOperator>and</joinOperator>
+
+      <joinParam>
+        <derivedValue>emoteNumericValue</derivedValue>
+        <operator>eq</operator>
+        <value>3</value>
+      </joinParam>
+
+    </params>
+
+    <engagementActions>
+      <action>
+        <type>incident</type>
+
+        <data>
+          <workflowID>6a5d9fbc7f2daf6389796beb</workflowID>
+          <name>Complaint - Ran Ayojana</name>
+          <assignee>privacy@emojot.com</assignee>
+          <type>Ran Ayojana</type>
+          <priority>Medium</priority>
+          <status>Open</status>
+
+          <description><![CDATA[
+<b>Full Name:</b> $$loyalty_Name_value$$<br>
+<b>Email Address:</b> $$loyalty_Email_value$$<br>
+<b>Contact Number:</b> $$loyalty_Telephone_value$$<br><br>
+<b>Complaint Type:</b>$$q4626_emote$$<br><br>
+<b>Satisfaction:</b> $$q9263_emote$$<br>
+<b>Branch:</b> $$emoSignature_Branch_value$$<br>
+<br><br>
+          ]]></description>
+
+          <customFields>
+
+            <field>
+              <key>complaintType</key>
+              <value>Ran Ayojana</value>
             </field>
 
             <field>
