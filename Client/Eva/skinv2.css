@@ -31,7 +31,7 @@
 
 #master-section {
     position: relative !important;
-    padding-bottom: 0 !important;
+    padding-bottom: 25px !important;
 
     background-color: #ffffff !important;
     background-image: none !important;
@@ -939,15 +939,10 @@ body,
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
-
     position: relative !important;
-    width: 100% !important;
     max-width: 860px !important;
     height: auto !important;
-
-    margin: -1px auto 0 !important;
     padding: 16px 38px 22px !important;
-
     border: 1px solid rgba(118, 49, 165, 0.14) !important;
     border-top: 0 !important;
     border-top-left-radius: 0 !important;

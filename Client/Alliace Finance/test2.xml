@@ -52,7 +52,10 @@
               <key>Email</key>
               <value>$$loyalty_Email_value$$</value>
             </field>
-            
+            <field>
+              <key>Satisfaction</key>
+              <value>$$q9263_emote$$</value>
+            </field>
             <field>
               <key>ContactNumber</key>
               <value>$$loyalty_Telephone_value$$</value>

@@ -104,6 +104,197 @@
             </field>
 
             <field>
+                <key>Gold_Product_Explanation</key>
+                <value>$$q5836_emote$$</value>
+            </field>
+
+            <field>
+                <key>Gold_Decision_Influence</key>
+                <value>$$q6929_emote$$</value>
+            </field>
+
+            <field>
+                <key>Gold_Valuation_Fairness</key>
+                <value>$$q1219_emote$$</value>
+            </field>
+
+            <field>
+                <key>Gold_Approval_Time</key>
+                <value>$$q5209_emote$$</value>
+            </field>
+
+            <field>
+                <key>Gold_Need_Fulfilment</key>
+                <value>$$q3004_emote$$</value>
+            </field>
+
+            <field>
+                <key>Repayment_Clarity</key>
+                <value>$$q743_emote$$</value>
+            </field>
+
+            <field>
+                <key>FD_Interest_Rate_Clarity</key>
+                <value>$$q6116_emote$$</value>
+            </field>
+
+            <field>
+                <key>FD_AFC_Decision_Influence</key>
+                <value>$$q6461_emote$$</value>
+            </field>
+
+            <field>
+                <key>FD_Account_Opening_Process</key>
+                <value>$$q139_emote$$</value>
+            </field>
+
+            <field>
+                <key>FD_Documentation_Process</key>
+                <value>$$q1630_emote$$</value>
+            </field>
+
+            <field>
+                <key>FD_Maturity_Reminders</key>
+                <value>$$q6367_emote$$</value>
+            </field>
+
+            <field>
+                <key>FD_Branch_Service</key>
+                <value>$$q8819_emote$$</value>
+            </field>
+
+            <field>
+                <key>FD_Customer_Retention</key>
+                <value>$$q8042_emote$$</value>
+            </field>
+
+            <field>
+                <key>Solar_Loan_Benefits_Understanding</key>
+                <value>$$q5366_emote$$</value>
+            </field>
+
+            <field>
+                <key>Solar_Product_Explanation</key>
+                <value>$$q1854_emote$$</value>
+            </field>
+
+            <field>
+                <key>Solar_Decision_Influence</key>
+                <value>$$q4940_emote$$</value>
+            </field>
+
+            <field>
+                <key>Solar_Documentation_Process</key>
+                <value>$$q8902_emote$$</value>
+            </field>
+
+            <field>
+                <key>Solar_Approval_Time</key>
+                <value>$$q6376_emote$$</value>
+            </field>
+
+            <field>
+                <key>Solar_Energy_Cost_Reduction</key>
+                <value>$$q3218_emote$$</value>
+            </field>
+
+            <field>
+                <key>Solar_Staff_Helpfulness</key>
+                <value>$$q9654_emote$$</value>
+            </field>
+
+            <field>
+                <key>Hapannu_Benefits_Explanation</key>
+                <value>$$q9832_emote$$</value>
+            </field>
+
+            <field>
+                <key>Hapannu_Decision_Influence</key>
+                <value>$$q4568_emote$$</value>
+            </field>
+
+            <field>
+                <key>Hapannu_Account_Opening_Process</key>
+                <value>$$q8808_emote$$</value>
+            </field>
+
+            <field>
+                <key>Hapannu_Account_Updates_Clarity</key>
+                <value>$$q5444_emote$$</value>
+            </field>
+
+            <field>
+                <key>Hapannu_Child_Future_Benefit</key>
+                <value>$$q397_emote$$</value>
+            </field>
+
+            <field>
+                <key>Hapannu_Staff_Support</key>
+                <value>$$q8312_emote$$</value>
+            </field>
+
+
+            <field>
+                <key>Regular_Fees_Benefits_Explanation</key>
+                <value>$$q6324_emote$$</value>
+            </field>
+
+            <field>
+                <key>Regular_Decision_Influence</key>
+                <value>$$q9395_emote$$</value>
+            </field>
+
+            <field>
+                <key>Regular_Account_Opening_Process</key>
+                <value>$$q9232_emote$$</value>
+            </field>
+
+            <field>
+                <key>Regular_Branch_Service</key>
+                <value>$$q9726_emote$$</value>
+            </field>
+
+            <field>
+                <key>Regular_Account_Access_Convenience</key>
+                <value>$$q9739_emote$$</value>
+            </field>
+
+            <field>
+                <key>Regular_Service_Satisfaction</key>
+                <value>$$q9035_emote$$</value>
+            </field>
+
+            <field>
+                <key>Ran_Process_Understanding</key>
+                <value>$$q650_emote$$</value>
+            </field>
+
+            <field>
+                <key>Ran_Decision_Influence</key>
+                <value>$$q7838_emote$$</value>
+            </field>
+
+            <field>
+                <key>Ran_Application_Process</key>
+                <value>$$q9848_emote$$</value>
+            </field>
+
+            <field>
+                <key>Ran_Application_Status_Updates</key>
+                <value>$$q1558_emote$$</value>
+            </field>
+
+            <field>
+                <key>Ran_Article_Handover_Process</key>
+                <value>$$q3629_emote$$</value>
+            </field>
+
+            <field>
+                <key>Ran_Relationship_Officer_Support</key>
+                <value>$$q9792_emote$$</value>
+            </field>
+
+            <field>
               <key>nps</key>
               <value>$$q8527_emote$$</value>
             </field>
