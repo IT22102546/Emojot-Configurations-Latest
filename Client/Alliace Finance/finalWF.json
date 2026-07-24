@@ -1,0 +1,2379 @@
+{
+  "name": "ComplaintWF",
+  "reportNamePrefix": "Alliance Finalance Complaint",
+  "nameTemplate": "Alliance Finalance Complaint: $type$ - $complaintType$",
+  "reporterNamePrefix": "Complaint",
+  "descriptionFormat": "text",
+  "timeZone": "+330",
+  "type": {
+    "name": "Complaint Type",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Vehicle / Equipment Leasing",
+        "name": "Vehicle / Equipment Leasing",
+        "highPriorityFields": [
+          "complaintType",
+          "FullName",
+          "Email",
+          "ContactNumber",
+          "Branch",
+          "Satisfaction",
+          "AFC_Familiarity",
+          "Vehicle_Process_understanding",
+          "Vehicle_Decision_Influence",
+          "Vehicle_Application_Process",
+          "Vehicle_Status_Updates",
+          "Vehicle_Handover_Process",
+          "Vehicle_Relationship_Officer_Support",
+          "nps",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Fixed Deposit (FD)",
+        "name": "Fixed Deposit (FD)",
+        "highPriorityFields": [
+          "complaintType",
+          "FullName",
+          "Email",
+          "ContactNumber",
+          "Branch",
+          "Satisfaction",
+          "AFC_Familiarity",
+          "FD_Interest_Rate_Clarity",
+          "FD_AFC_Decision_Influence",
+          "FD_Account_Opening_Process",
+          "FD_Documentation_Process",
+          "FD_Maturity_Reminders",
+          "FD_Branch_Service",
+          "FD_Customer_Retention",
+          "nps",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Hapannu Minor Savings (Children’s Savings)",
+        "name": "Hapannu Minor Savings (Children’s Savings)",
+        "highPriorityFields": [
+          "complaintType",
+          "FullName",
+          "Email",
+          "ContactNumber",
+          "AFC_Familiarity",
+          "Branch",
+          "Satisfaction",
+          "Hapannu_Benefits_Explanation",
+          "Hapannu_Decision_Influence",
+          "Hapannu_Account_Opening_Process",
+          "Hapannu_Account_Updates_Clarity",
+          "Hapannu_Child_Future_Benefit",
+          "Hapannu_Staff_Support",
+          "nps",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Solar Loan",
+        "name": "Solar Loan",
+        "highPriorityFields": [
+          "complaintType",
+          "FullName",
+          "Email",
+          "ContactNumber",
+          "AFC_Familiarity",
+          "Branch",
+          "Satisfaction",
+          "Solar_Loan_Benefits_Understanding",
+          "Solar_Product_Explanation",
+          "Solar_Decision_Influence",
+          "Solar_Documentation_Process",
+          "Solar_Approval_Time",
+          "Solar_Energy_Cost_Reduction",
+          "Solar_Staff_Helpfulness",
+          "nps",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Gold Loan",
+        "name": "Gold Loan",
+        "highPriorityFields": [
+          "complaintType",
+          "FullName",
+          "Email",
+          "ContactNumber",
+          "AFC_Familiarity",
+          "Branch",
+          "Satisfaction",
+          "Gold_Product_Explanation",
+          "Gold_Decision_Influence",
+          "Gold_Valuation_Fairness",
+          "Gold_Approval_Time",
+          "Gold_Need_Fulfilment",
+          "Repayment_Clarity",
+          "nps",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Regular - Savings",
+        "name": "Regular - Savings",
+        "highPriorityFields": [
+          "complaintType",
+          "FullName",
+          "Email",
+          "ContactNumber",
+          "AFC_Familiarity",
+          "Branch",
+          "Satisfaction",
+          "Regular_Fees_Benefits_Explanation",
+          "Regular_Decision_Influence",
+          "Regular_Account_Opening_Process",
+          "Regular_Branch_Service",
+          "Regular_Account_Access_Convenience",
+          "Regular_Service_Satisfaction",
+          "nps",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Ran Ayojana",
+        "name": "Ran Ayojana",
+        "highPriorityFields": [
+          "complaintType",
+          "FullName",
+          "Email",
+          "ContactNumber",
+          "AFC_Familiarity",
+          "Branch",
+          "Satisfaction",
+          "Ran_Process_Understanding",
+          "Ran_Decision_Influence",
+          "Ran_Application_Process",
+          "Ran_Application_Status_Updates",
+          "Ran_Article_Handover_Process",
+          "Ran_Relationship_Officer_Support",
+          "nps",
+          "overdue"
+        ]
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Low",
+        "name": "Low"
+      },
+      {
+        "id": "Medium",
+        "name": "Medium"
+      },
+      {
+        "id": "High",
+        "name": "High"
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "transitions": [
+      {
+        "sourceState": "Open",
+        "targetStates": [
+          "Transferred",
+          "In Progress"
+        ]
+      },
+      {
+        "sourceState": "Transferred",
+        "targetStates": [
+          "In Progress"
+        ]
+      },
+      {
+        "sourceState": "In Progress",
+        "targetStates": [
+          "Transferred",
+          "Resolved"
+        ]
+      },
+      {
+        "sourceState": "Resolved",
+        "targetStates": [
+          "Open",
+          "Transferred"
+        ]
+      }
+    ],
+    "values": [
+      {
+        "id": "Open",
+        "name": "Open",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000",
+        "statusBackgroundColor": "#fcf3cf",
+        "statusTextColor": "#7d6608",
+        "fieldsValidation": [
+          {
+            "fieldID": "validateStatusChange",
+            "required": true,
+            "message": "Status change confirmation required before saving updates."
+          }
+        ]
+      },
+      {
+        "id": "Transferred",
+        "name": "Transferred",
+        "backgroundColor": "#f39c12",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#fdebd0",
+        "statusTextColor": "#7e5109",
+        "fieldsValidation": [
+          {
+            "fieldID": "validateStatusChange",
+            "required": true,
+            "message": "Status change confirmation required before saving updates."
+          }
+        ]
+      },
+      {
+        "id": "In Progress",
+        "name": "In Progress",
+        "backgroundColor": "#3498db",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d6eaf8",
+        "statusTextColor": "#154360",
+        "fieldsValidation": [
+          {
+            "fieldID": "validateStatusChange",
+            "required": true,
+            "message": "Status change confirmation required before saving updates."
+          }
+        ],
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "customerWIPalert",
+            "target": "customer",
+            "appendEditUrl": false,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Vehicle / Equipment Leasing",
+                  "Fixed Deposit (FD)",
+                  "Hapannu Minor Savings (Children’s Savings)",
+                  "Solar Loan",
+                  "Gold Loan",
+                  "Regular - Savings",
+                  "Ran Ayojana"
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Resolved",
+        "name": "Resolved",
+        "finalState": true,
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d5f5e3",
+        "statusTextColor": "#145a32",
+        "fieldsValidation": [
+          {
+            "fieldID": "inbuild_comment",
+            "required": true,
+            "name": "Please add a comment explaining how this complaint was resolved.",
+            "message": "Please add a comment explaining how this complaint was resolved."
+          }
+        ],
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "complaintResolutionAlertInternal",
+            "target": "admin",
+            "contactFilters": [
+              "ticketResolutionAlert"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "Branch",
+                  "operator": "eq",
+                  "value": "$Branch$"
+                }
+              ]
+            },
+            "appendEditUrl": true,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Vehicle / Equipment Leasing",
+                  "Fixed Deposit (FD)",
+                  "Hapannu Minor Savings (Children’s Savings)",
+                  "Solar Loan",
+                  "Gold Loan",
+                  "Regular - Savings",
+                  "Ran Ayojana"
+                ]
+              ]
+            }
+          },
+          {
+            "channel": "sms",
+            "template": "complaintResolutionAlertInternal_sms",
+            "target": "admin",
+            "contactFilters": [
+              "ticketResolutionAlert"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "Branch",
+                  "operator": "eq",
+                  "value": "$Branch$"
+                }
+              ]
+            },
+            "appendEditUrl": true,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Vehicle / Equipment Leasing",
+                  "Fixed Deposit (FD)",
+                  "Hapannu Minor Savings (Children’s Savings)",
+                  "Solar Loan",
+                  "Gold Loan",
+                  "Regular - Savings",
+                  "Ran Ayojana"
+                ]
+              ]
+            }
+          },
+          {
+            "channel": "email",
+            "template": "customerResolutionAlert",
+            "target": "customer",
+            "appendEditUrl": false,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Vehicle / Equipment Leasing",
+                  "Fixed Deposit (FD)",
+                  "Hapannu Minor Savings (Children’s Savings)",
+                  "Solar Loan",
+                  "Gold Loan",
+                  "Regular - Savings",
+                  "Ran Ayojana"
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "timeSpent": {
+    "name": "Time spent",
+    "type": "time_accumulation",
+    "hidden": true
+  },
+  "customFields": {
+    "complaintType": {
+      "name": "Complaint Type",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Vehicle / Equipment Leasing",
+          "name": "Vehicle / Equipment Leasing"
+        },
+        {
+          "id": "Fixed Deposit (FD)",
+          "name": "Fixed Deposit (FD)"
+        },
+        {
+          "id": "Hapannu Minor Savings (Children’s Savings)",
+          "name": "Hapannu Minor Savings (Children’s Savings)"
+        },
+        {
+          "id": "Solar Loan",
+          "name": "Solar Loan"
+        },
+        {
+          "id": "Gold Loan",
+          "name": "Gold Loan"
+        },
+        {
+          "id": "Regular - Savings",
+          "name": "Regular - Savings"
+        },
+        {
+          "id": "Ran Ayojana",
+          "name": "Ran Ayojana"
+        }
+      ]
+    },
+    "requestType": {
+      "name": "Request Type",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Access to / copy of personal data",
+          "name": "Access to / copy of personal data"
+        },
+        {
+          "id": "Deletion / erasure of personal data",
+          "name": "Deletion / erasure of personal data"
+        },
+        {
+          "id": "Transfer / portability of personal data",
+          "name": "Transfer / portability of personal data"
+        },
+        {
+          "id": "Object to profiling or automated decision-making",
+          "name": "Object to profiling or automated decision-making"
+        },
+        {
+          "id": "Restrict or stop processing of personal data",
+          "name": "Restrict or stop processing of personal data"
+        },
+        {
+          "id": "Other",
+          "name": "Other"
+        },
+        {
+          "id": "Request a copy of PII data",
+          "name": "Request a copy of PII data"
+        },
+        {
+          "id": "Erasure PII data",
+          "name": "Erasure PII data"
+        },
+        {
+          "id": "Transfer PII data to another entity",
+          "name": "Transfer PII data to another entity"
+        },
+        {
+          "id": "Object against using PII Data for Profiling & Automated Decision Making",
+          "name": "Object against using PII Data for Profiling & Automated Decision Making"
+        },
+        {
+          "id": "Stop Processing PII Data",
+          "name": "Stop Processing PII Data"
+        }
+      ]
+    },
+    "FullName": {
+      "name": "Full Name",
+      "type": "string",
+      "readOnly": true
+    },
+    "Email": {
+      "name": "Email Address",
+      "type": "string",
+      "readOnly": true
+    },
+    "ContactNumber": {
+      "name": "Contact Number",
+      "type": "string",
+      "readOnly": true
+    },
+    "Branch": {
+      "name": "Branch",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Gampaha",
+          "name": "Gampaha"
+        },
+        {
+          "id": "Ja Ela",
+          "name": "Ja Ela"
+        },
+        {
+          "id": "Ja Ela (Second Officer)",
+          "name": "Ja Ela (Second Officer)"
+        },
+        {
+          "id": "Negombo",
+          "name": "Negombo"
+        },
+        {
+          "id": "Nittambuwa",
+          "name": "Nittambuwa"
+        },
+        {
+          "id": "Kirindiwela",
+          "name": "Kirindiwela"
+        },
+        {
+          "id": "Pugoda",
+          "name": "Pugoda"
+        },
+        {
+          "id": "Head Office",
+          "name": "Head Office"
+        },
+        {
+          "id": "Ganemulla",
+          "name": "Ganemulla"
+        },
+        {
+          "id": "Kadawatha",
+          "name": "Kadawatha"
+        },
+        {
+          "id": "Kelaniya",
+          "name": "Kelaniya"
+        },
+        {
+          "id": "Kiribathgoda",
+          "name": "Kiribathgoda"
+        },
+        {
+          "id": "Kaduruwela",
+          "name": "Kaduruwela"
+        },
+        {
+          "id": "Dambulla",
+          "name": "Dambulla"
+        },
+        {
+          "id": "Galewela",
+          "name": "Galewela"
+        },
+        {
+          "id": "Hingurakgoda",
+          "name": "Hingurakgoda"
+        },
+        {
+          "id": "Matale",
+          "name": "Matale"
+        },
+        {
+          "id": "Thambuttegama",
+          "name": "Thambuttegama"
+        },
+        {
+          "id": "Anuradhapura",
+          "name": "Anuradhapura"
+        },
+        {
+          "id": "Medawachchiya",
+          "name": "Medawachchiya"
+        },
+        {
+          "id": "Trincomalee",
+          "name": "Trincomalee"
+        },
+        {
+          "id": "Parakramapura",
+          "name": "Parakramapura"
+        },
+        {
+          "id": "Trincomalee 2",
+          "name": "Trincomalee 2"
+        },
+        {
+          "id": "Dehiattakandiya",
+          "name": "Dehiattakandiya"
+        },
+        {
+          "id": "Mahiyanganaya",
+          "name": "Mahiyanganaya"
+        },
+        {
+          "id": "Hatton",
+          "name": "Hatton"
+        },
+        {
+          "id": "Kandy",
+          "name": "Kandy"
+        },
+        {
+          "id": "Gampola",
+          "name": "Gampola"
+        },
+        {
+          "id": "Ragala",
+          "name": "Ragala"
+        },
+        {
+          "id": "Mawanella",
+          "name": "Mawanella"
+        },
+        {
+          "id": "Nawalapitiya",
+          "name": "Nawalapitiya"
+        },
+        {
+          "id": "Rikillagaskada",
+          "name": "Rikillagaskada"
+        },
+        {
+          "id": "Bogawanthalawa",
+          "name": "Bogawanthalawa"
+        },
+        {
+          "id": "Nuwara Eliya",
+          "name": "Nuwara Eliya"
+        },
+        {
+          "id": "Kegalle",
+          "name": "Kegalle"
+        },
+        {
+          "id": "Thalawakele",
+          "name": "Thalawakele"
+        },
+        {
+          "id": "Chavakachcheri GL",
+          "name": "Chavakachcheri GL"
+        },
+        {
+          "id": "Chunnakkam GL",
+          "name": "Chunnakkam GL"
+        },
+        {
+          "id": "Thirunelvely",
+          "name": "Thirunelvely"
+        },
+        {
+          "id": "Vavuniya",
+          "name": "Vavuniya"
+        },
+        {
+          "id": "Mannar",
+          "name": "Mannar"
+        },
+        {
+          "id": "Kilinochchi",
+          "name": "Kilinochchi"
+        },
+        {
+          "id": "Jaffna City Branch",
+          "name": "Jaffna City Branch"
+        },
+        {
+          "id": "Kurumankadu",
+          "name": "Kurumankadu"
+        },
+        {
+          "id": "Mulankavil",
+          "name": "Mulankavil"
+        },
+        {
+          "id": "Point Pedro/Nelliaddy",
+          "name": "Point Pedro/Nelliaddy"
+        },
+        {
+          "id": "Puthukkudiyiruppu",
+          "name": "Puthukkudiyiruppu"
+        },
+        {
+          "id": "Chankanai GL",
+          "name": "Chankanai GL"
+        },
+        {
+          "id": "Jaffna",
+          "name": "Jaffna"
+        },
+        {
+          "id": "Rathnapura",
+          "name": "Rathnapura"
+        },
+        {
+          "id": "Athurugiriya",
+          "name": "Athurugiriya"
+        },
+        {
+          "id": "Avissawella",
+          "name": "Avissawella"
+        },
+        {
+          "id": "Horana",
+          "name": "Horana"
+        },
+        {
+          "id": "Horana GL OIC",
+          "name": "Horana GL OIC"
+        },
+        {
+          "id": "Kalutara",
+          "name": "Kalutara"
+        },
+        {
+          "id": "Panadura",
+          "name": "Panadura"
+        },
+        {
+          "id": "Maharagama",
+          "name": "Maharagama"
+        },
+        {
+          "id": "Piliyandala",
+          "name": "Piliyandala"
+        },
+        {
+          "id": "Kaduwela",
+          "name": "Kaduwela"
+        },
+        {
+          "id": "Malabe",
+          "name": "Malabe"
+        },
+        {
+          "id": "Aluthgama",
+          "name": "Aluthgama"
+        },
+        {
+          "id": "Homagama",
+          "name": "Homagama"
+        },
+        {
+          "id": "Ampara",
+          "name": "Ampara"
+        },
+        {
+          "id": "Kalawanchikudy",
+          "name": "Kalawanchikudy"
+        },
+        {
+          "id": "Balangoda",
+          "name": "Balangoda"
+        },
+        {
+          "id": "Kalmunai",
+          "name": "Kalmunai"
+        },
+        {
+          "id": "Batticaloa",
+          "name": "Batticaloa"
+        },
+        {
+          "id": "Embilipitiya",
+          "name": "Embilipitiya"
+        },
+        {
+          "id": "Wellawaya",
+          "name": "Wellawaya"
+        },
+        {
+          "id": "Monaragala",
+          "name": "Monaragala"
+        },
+        {
+          "id": "Passara",
+          "name": "Passara"
+        },
+        {
+          "id": "Badulla",
+          "name": "Badulla"
+        },
+        {
+          "id": "Chenkaladi",
+          "name": "Chenkaladi"
+        },
+        {
+          "id": "Welimada",
+          "name": "Welimada"
+        },
+        {
+          "id": "Galle",
+          "name": "Galle"
+        },
+        {
+          "id": "Ambalangoda",
+          "name": "Ambalangoda"
+        },
+        {
+          "id": "Ambalanthota",
+          "name": "Ambalanthota"
+        },
+        {
+          "id": "Thissamaharama",
+          "name": "Thissamaharama"
+        },
+        {
+          "id": "Deniyaya",
+          "name": "Deniyaya"
+        },
+        {
+          "id": "Matara",
+          "name": "Matara"
+        },
+        {
+          "id": "Akuressa",
+          "name": "Akuressa"
+        },
+        {
+          "id": "Kuliyapitiya",
+          "name": "Kuliyapitiya"
+        },
+        {
+          "id": "Kurunegala",
+          "name": "Kurunegala"
+        },
+        {
+          "id": "Nikawaratiya",
+          "name": "Nikawaratiya"
+        },
+        {
+          "id": "Kalpitiya",
+          "name": "Kalpitiya"
+        },
+        {
+          "id": "Puttalam 1",
+          "name": "Puttalam 1"
+        },
+        {
+          "id": "Galgamuwa",
+          "name": "Galgamuwa"
+        },
+        {
+          "id": "Udappuwa",
+          "name": "Udappuwa"
+        },
+        {
+          "id": "Chilaw",
+          "name": "Chilaw"
+        },
+        {
+          "id": "Palavi",
+          "name": "Palavi"
+        },
+        {
+          "id": "Wennappuwa",
+          "name": "Wennappuwa"
+        },
+        {
+          "id": "Kohuwala",
+          "name": "Kohuwala"
+        },
+        {
+          "id": "Super Branch",
+          "name": "Super Branch"
+        }
+      ]
+    },
+    "Satisfaction": {
+      "name": "Satisfaction",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Satisfied",
+          "name": "Very Satisfied"
+        },
+        {
+          "id": "Satisfied",
+          "name": "Satisfied"
+        },
+        {
+          "id": "Neutral",
+          "name": "Neutral"
+        },
+        {
+          "id": "Unsatisfied",
+          "name": "Unsatisfied"
+        },
+        {
+          "id": "Very Unsatisfied",
+          "name": "Very Unsatisfied"
+        }
+      ]
+    },
+    "AFC_Familiarity": {
+      "name": "Familiarity with AFC Initiatives",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Familiar",
+          "name": "Very Familiar"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "Not Familiar",
+          "name": "Not Familiar"
+        }
+      ]
+    },
+    "Vehicle_Process_understanding": {
+      "name": "Understanding of Vehicle Process",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Easy",
+          "name": "Very Easy"
+        },
+        {
+          "id": "Somewhat easy",
+          "name": "Somewhat easy"
+        },
+        {
+          "id": "Not easy",
+          "name": "Not easy"
+        }
+      ]
+    },
+    "Vehicle_Decision_Influence": {
+      "name": "Decision Influence",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Yes",
+          "name": "Yes"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "No",
+          "name": "No"
+        }
+      ]
+    },
+    "Vehicle_Application_Process": {
+      "name": "Application Process",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very easy",
+          "name": "Very easy"
+        },
+        {
+          "id": "Easy",
+          "name": "Easy"
+        },
+        {
+          "id": "Neutral",
+          "name": "Neutral"
+        },
+        {
+          "id": "Difficult",
+          "name": "Difficult"
+        },
+        {
+          "id": "Very Difficult",
+          "name": "Very Difficult"
+        }
+      ]
+    },
+    "Vehicle_Status_Updates": {
+      "name": "Status Updates",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Always",
+          "name": "Always"
+        },
+        {
+          "id": "Sometimes",
+          "name": "Sometimes"
+        },
+        {
+          "id": "Rarely",
+          "name": "Rarely"
+        },
+        {
+          "id": "Never",
+          "name": "Never"
+        }
+      ]
+    },
+    "Vehicle_Handover_Process": {
+      "name": "Handover Process",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very smooth",
+          "name": "Very smooth"
+        },
+        {
+          "id": "Smooth",
+          "name": "Smooth"
+        },
+        {
+          "id": "Not smooth",
+          "name": "Not smooth"
+        }
+      ]
+    },
+    "Vehicle_Relationship_Officer_Support": {
+      "name": "Relationship Officer Support",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Satisfied",
+          "name": "Very Satisfied"
+        },
+        {
+          "id": "Satisfied",
+          "name": "Satisfied"
+        },
+        {
+          "id": "Neutral",
+          "name": "Neutral"
+        },
+        {
+          "id": "Unsatisfied",
+          "name": "Unsatisfied"
+        },
+        {
+          "id": "Very Unsatisfied",
+          "name": "Very Unsatisfied"
+        }
+      ]
+    },
+    "Gold_Product_Explanation": {
+      "name": "Product Explanation",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Clearly",
+          "name": "Very Clearly"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "Not Clearly",
+          "name": "Not Clearly"
+        }
+      ]
+    },
+    "Gold_Decision_Influence": {
+      "name": "Decision Influence",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Yes",
+          "name": "Yes"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "No",
+          "name": "No"
+        }
+      ]
+    },
+    "Gold_Valuation_Fairness": {
+      "name": "Valuation Fairness",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Fair",
+          "name": "Very Fair"
+        },
+        {
+          "id": "Somewhat fair",
+          "name": "Somewhat fair"
+        },
+        {
+          "id": "Not fair",
+          "name": "Not fair"
+        }
+      ]
+    },
+    "Gold_Approval_Time": {
+      "name": "Approval Time",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very fast",
+          "name": "Very fast"
+        },
+        {
+          "id": "Acceptable",
+          "name": "Acceptable"
+        },
+        {
+          "id": "Slow",
+          "name": "Slow"
+        }
+      ]
+    },
+    "Gold_Need_Fulfilment": {
+      "name": "Need Fulfilment",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Fully helped",
+          "name": "Fully helped"
+        },
+        {
+          "id": "Partially helped",
+          "name": "Partially helped"
+        },
+        {
+          "id": "Did Not help",
+          "name": "Did Not help"
+        }
+      ]
+    },
+    "Repayment_Clarity": {
+      "name": "Repayment Clarity",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Yes",
+          "name": "Yes"
+        },
+        {
+          "id": "Partially",
+          "name": "Partially"
+        },
+        {
+          "id": "No",
+          "name": "No"
+        }
+      ]
+    },
+    "FD_Interest_Rate_Clarity": {
+      "name": "Interest Rate Clarity",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very clearly",
+          "name": "Very clearly"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "Not clearly",
+          "name": "Not clearly"
+        }
+      ]
+    },
+    "FD_AFC_Decision_Influence": {
+      "name": "AFC Decision Influence",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Yes",
+          "name": "Yes"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "No",
+          "name": "No"
+        }
+      ]
+    },
+    "FD_Account_Opening_Process": {
+      "name": "Account Opening Process",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Easy",
+          "name": "Very Easy"
+        },
+        {
+          "id": "Easy",
+          "name": "Easy"
+        },
+        {
+          "id": "Neutral",
+          "name": "Neutral"
+        },
+        {
+          "id": "Difficult",
+          "name": "Difficult"
+        }
+      ]
+    },
+    "FD_Documentation_Process": {
+      "name": "Documentation Process",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Simple",
+          "name": "Very Simple"
+        },
+        {
+          "id": "Manageable",
+          "name": "Manageable"
+        },
+        {
+          "id": "Complex",
+          "name": "Complex"
+        }
+      ]
+    },
+    "FD_Maturity_Reminders": {
+      "name": "Maturity Reminders",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Yes",
+          "name": "Yes"
+        },
+        {
+          "id": "No",
+          "name": "No"
+        },
+        {
+          "id": "Not yet due",
+          "name": "Not yet due"
+        }
+      ]
+    },
+    "FD_Branch_Service": {
+      "name": "Branch Service",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Satisfied",
+          "name": "Very Satisfied"
+        },
+        {
+          "id": "Satisfied",
+          "name": "Satisfied"
+        },
+        {
+          "id": "Neutral",
+          "name": "Neutral"
+        },
+        {
+          "id": "Unsatisfied",
+          "name": "Unsatisfied"
+        },
+        {
+          "id": "Very Unsatisfied",
+          "name": "Very Unsatisfied"
+        }
+      ]
+    },
+    "FD_Customer_Retention": {
+      "name": "Customer Retention",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Definitely",
+          "name": "Definitely"
+        },
+        {
+          "id": "Probably",
+          "name": "Probably"
+        },
+        {
+          "id": "Not sure",
+          "name": "Not sure"
+        },
+        {
+          "id": "Probably not",
+          "name": "Probably not"
+        }
+      ]
+    },
+    "Solar_Loan_Benefits_Understanding": {
+      "name": "Solar Loan Benefits Understanding",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very well",
+          "name": "Very well"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "Not Really",
+          "name": "Not Really"
+        }
+      ]
+    },
+    "Solar_Product_Explanation": {
+      "name": "Product Explanation",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very well",
+          "name": "Very well"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "Not Really",
+          "name": "Not Really"
+        }
+      ]
+    },
+    "Solar_Decision_Influence": {
+      "name": "Decision Influence",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Yes",
+          "name": "Yes"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "No",
+          "name": "No"
+        }
+      ]
+    },
+    "Solar_Documentation_Process": {
+      "name": "Documentation Process",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Simple",
+          "name": "Very Simple"
+        },
+        {
+          "id": "Manageable",
+          "name": "Manageable"
+        },
+        {
+          "id": "Complex",
+          "name": "Complex"
+        }
+      ]
+    },
+    "Solar_Approval_Time": {
+      "name": "Approval Time",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Reasonable",
+          "name": "Very Reasonable"
+        },
+        {
+          "id": "Reasonable",
+          "name": "Reasonable"
+        },
+        {
+          "id": "Too slow",
+          "name": "Too slow"
+        }
+      ]
+    },
+    "Solar_Energy_Cost_Reduction": {
+      "name": "Energy Cost Reduction",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Yes Significantly",
+          "name": "Yes Significantly"
+        },
+        {
+          "id": "Slightly",
+          "name": "Slightly"
+        },
+        {
+          "id": "Not Yet",
+          "name": "Not Yet"
+        }
+      ]
+    },
+    "Solar_Staff_Helpfulness": {
+      "name": "Staff Helpfulness",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "very Satisfied",
+          "name": "very Satisfied"
+        },
+        {
+          "id": "Satisfied",
+          "name": "Satisfied"
+        },
+        {
+          "id": "Neutral",
+          "name": "Neutral"
+        },
+        {
+          "id": "Unsatisfied",
+          "name": "Unsatisfied"
+        },
+        {
+          "id": "Very Unsatisfied",
+          "name": "Very Unsatisfied"
+        }
+      ]
+    },
+    "Hapannu_Benefits_Explanation": {
+      "name": "Benefits Explanation",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Clearly",
+          "name": "Very Clearly"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "Not Clearly",
+          "name": "Not Clearly"
+        }
+      ]
+    },
+    "Hapannu_Decision_Influence": {
+      "name": "Decision Influence",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Yes",
+          "name": "Yes"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "No",
+          "name": "No"
+        }
+      ]
+    },
+    "Hapannu_Account_Opening_Process": {
+      "name": "Account Opening Process",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Simple",
+          "name": "Very Simple"
+        },
+        {
+          "id": "Simple",
+          "name": "Simple"
+        },
+        {
+          "id": "Complicated",
+          "name": "Complicated"
+        }
+      ]
+    },
+    "Hapannu_Account_Updates_Clarity": {
+      "name": "Account Updates and Statements Clarity",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Clear",
+          "name": "Very Clear"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "Not Clear",
+          "name": "Not Clear"
+        }
+      ]
+    },
+    "Hapannu_Child_Future_Benefit": {
+      "name": "Child Future Benefit",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Strongly Agree",
+          "name": "Strongly Agree"
+        },
+        {
+          "id": "Agree",
+          "name": "Agree"
+        },
+        {
+          "id": "Neutral",
+          "name": "Neutral"
+        },
+        {
+          "id": "Disagree",
+          "name": "Disagree"
+        }
+      ]
+    },
+    "Hapannu_Staff_Support": {
+      "name": "Staff Support",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Satisfied",
+          "name": "Very Satisfied"
+        },
+        {
+          "id": "Satisfied",
+          "name": "Satisfied"
+        },
+        {
+          "id": "Neutral",
+          "name": "Neutral"
+        },
+        {
+          "id": "Unsatisfied",
+          "name": "Unsatisfied"
+        },
+        {
+          "id": "Very Unsatisfied",
+          "name": "Very Unsatisfied"
+        }
+      ]
+    },
+    "Regular_Fees_Benefits_Explanation": {
+      "name": "Fees and Benefits Explanation",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Clearly",
+          "name": "Very Clearly"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "Not Clearly",
+          "name": "Not Clearly"
+        }
+      ]
+    },
+    "Regular_Decision_Influence": {
+      "name": "Decision Influence",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Yes",
+          "name": "Yes"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "No",
+          "name": "No"
+        }
+      ]
+    },
+    "Regular_Account_Opening_Process": {
+      "name": "Account Opening Process",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Easy",
+          "name": "Very Easy"
+        },
+        {
+          "id": "Easy",
+          "name": "Easy"
+        },
+        {
+          "id": "Neutral",
+          "name": "Neutral"
+        },
+        {
+          "id": "Difficult",
+          "name": "Difficult"
+        }
+      ]
+    },
+    "Regular_Branch_Service": {
+      "name": "Branch Service",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Smooth",
+          "name": "Very Smooth"
+        },
+        {
+          "id": "Smooth",
+          "name": "Smooth"
+        },
+        {
+          "id": "Not Smooth",
+          "name": "Not Smooth"
+        }
+      ]
+    },
+    "Regular_Account_Access_Convenience": {
+      "name": "Account Access Convenience",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very convenient",
+          "name": "Very convenient"
+        },
+        {
+          "id": "Convenient",
+          "name": "Convenient"
+        },
+        {
+          "id": "Not convenient",
+          "name": "Not convenient"
+        }
+      ]
+    },
+    "Regular_Service_Satisfaction": {
+      "name": "Service Satisfaction",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Satisfied",
+          "name": "Very Satisfied"
+        },
+        {
+          "id": "Satisfied",
+          "name": "Satisfied"
+        },
+        {
+          "id": "Neutral",
+          "name": "Neutral"
+        },
+        {
+          "id": "Unsatisfied",
+          "name": "Unsatisfied"
+        },
+        {
+          "id": "Very Unsatisfied",
+          "name": "Very Unsatisfied"
+        }
+      ]
+    },
+    "Ran_Process_Understanding": {
+      "name": "Process Understanding",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very clear",
+          "name": "Very clear"
+        },
+        {
+          "id": "Somewhat clear",
+          "name": "Somewhat clear"
+        },
+        {
+          "id": "Not clear",
+          "name": "Not clear"
+        }
+      ]
+    },
+    "Ran_Decision_Influence": {
+      "name": "Decision Influence",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Yes",
+          "name": "Yes"
+        },
+        {
+          "id": "Somewhat",
+          "name": "Somewhat"
+        },
+        {
+          "id": "No",
+          "name": "No"
+        }
+      ]
+    },
+    "Ran_Application_Process": {
+      "name": "Application Process",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very easy",
+          "name": "Very easy"
+        },
+        {
+          "id": "Easy",
+          "name": "Easy"
+        },
+        {
+          "id": "Neutral",
+          "name": "Neutral"
+        },
+        {
+          "id": "Difficult",
+          "name": "Difficult"
+        },
+        {
+          "id": "Very Difficult",
+          "name": "Very Difficult"
+        }
+      ]
+    },
+    "Ran_Application_Status_Updates": {
+      "name": "Application Status Updates",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Always",
+          "name": "Always"
+        },
+        {
+          "id": "Sometimes",
+          "name": "Sometimes"
+        },
+        {
+          "id": "Rarely",
+          "name": "Rarely"
+        },
+        {
+          "id": "Never",
+          "name": "Never"
+        }
+      ]
+    },
+    "Ran_Article_Handover_Process": {
+      "name": "Article Handover Process",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very smooth",
+          "name": "Very smooth"
+        },
+        {
+          "id": "Smooth",
+          "name": "Smooth"
+        },
+        {
+          "id": "Not smooth",
+          "name": "Not smooth"
+        }
+      ]
+    },
+    "Ran_Relationship_Officer_Support": {
+      "name": "Relationship Officer Support",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very Satisfied",
+          "name": "Very Satisfied"
+        },
+        {
+          "id": "Satisfied",
+          "name": "Satisfied"
+        },
+        {
+          "id": "Neutral",
+          "name": "Neutral"
+        },
+        {
+          "id": "Unsatisfied",
+          "name": "Unsatisfied"
+        },
+        {
+          "id": "Very Unsatisfied",
+          "name": "Very Unsatisfied"
+        }
+      ]
+    },
+    "nps": {
+      "name": "NPS Score",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "0",
+          "name": "0"
+        },
+        {
+          "id": "1",
+          "name": "1"
+        },
+        {
+          "id": "2",
+          "name": "2"
+        },
+        {
+          "id": "3",
+          "name": "3"
+        },
+        {
+          "id": "4",
+          "name": "4"
+        },
+        {
+          "id": "5",
+          "name": "5"
+        },
+        {
+          "id": "6",
+          "name": "6"
+        },
+        {
+          "id": "7",
+          "name": "7"
+        },
+        {
+          "id": "8",
+          "name": "8"
+        },
+        {
+          "id": "9",
+          "name": "9"
+        },
+        {
+          "id": "10",
+          "name": "10"
+        }
+      ]
+    },
+    "additionalInformation": {
+      "name": "Additional Information",
+      "type": "textArea",
+      "readOnly": true
+    },
+    "attachment": {
+      "name": "Attachment",
+      "type": "file",
+      "readOnly": true
+    },
+    "overdue": {
+      "name": "Overdue",
+      "readOnly": false,
+      "type": "enum",
+      "hidden": true,
+      "values": [
+        {
+          "id": "1st Level",
+          "name": "1st Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_1stLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_01"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "sms",
+              "template": "overdueAlertSMS_1stLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_01"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "assignee",
+                  "contactFilters": [
+                    "ticketOverdueAssignee_01"
+                  ],
+                  "adminUserQuery": {
+                    "condition": "and",
+                    "rules": [
+                      {
+                        "field": "Branch",
+                        "operator": "eq",
+                        "value": "$Branch$"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2nd Level",
+          "name": "2nd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_2ndLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_02"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "sms",
+              "template": "overdueAlertSMS_2ndLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_02"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "assignee",
+                  "contactFilters": [
+                    "ticketOverdueAssignee_02"
+                  ],
+                  "adminUserQuery": {
+                    "condition": "and",
+                    "rules": [
+                      {
+                        "field": "Branch",
+                        "operator": "eq",
+                        "value": "$Branch$"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3rd Level",
+          "name": "3rd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_3rdLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_03"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "sms",
+              "template": "overdueAlertSMS_3rdLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_03"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "assignee",
+                  "contactFilters": [
+                    "ticketOverdueAssignee_03"
+                  ],
+                  "adminUserQuery": {
+                    "condition": "and",
+                    "rules": [
+                      {
+                        "field": "Branch",
+                        "operator": "eq",
+                        "value": "$Branch$"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "workflowCreation": {
+    "email": "bot@emojot.com",
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "complaintCreationAlert",
+        "target": "admin",
+        "contactFilters": [
+          "ticketCreationAlert"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "Branch",
+              "operator": "eq",
+              "value": "$Branch$"
+            }
+          ]
+        },
+        "appendEditUrl": true,
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Vehicle / Equipment Leasing",
+              "Fixed Deposit (FD)",
+              "Hapannu Minor Savings (Children’s Savings)",
+              "Solar Loan",
+              "Gold Loan",
+              "Regular - Savings",
+              "Ran Ayojana"
+            ]
+          ]
+        }
+      },
+      {
+        "channel": "sms",
+        "template": "complaintCreationAlert_sms",
+        "target": "admin",
+        "contactFilters": [
+          "ticketCreationAlert"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "Branch",
+              "operator": "eq",
+              "value": "$Branch$"
+            }
+          ]
+        },
+        "appendEditUrl": true,
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Vehicle / Equipment Leasing",
+              "Fixed Deposit (FD)",
+              "Hapannu Minor Savings (Children’s Savings)",
+              "Solar Loan",
+              "Gold Loan",
+              "Regular - Savings",
+              "Ran Ayojana"
+            ]
+          ]
+        }
+      },
+      {
+        "template": "customerComplaintCreation",
+        "channel": "email",
+        "target": "customer",
+        "appendEditUrl": false,
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Vehicle / Equipment Leasing",
+              "Fixed Deposit (FD)",
+              "Hapannu Minor Savings (Children’s Savings)",
+              "Solar Loan",
+              "Gold Loan",
+              "Regular - Savings",
+              "Ran Ayojana"
+            ]
+          ]
+        }
+      },
+      {
+        "channel": "fieldChange",
+        "changingFields": [
+          {
+            "id": "assignee",
+            "value": "sanjanan@emojot.com"
+          }
+        ]
+      }
+    ]
+  },
+  "assignment": {
+    "triggers": [
+      {
+        "template": "complaintCreationAlert",
+        "channel": "email",
+        "target": "employee"
+      }
+    ],
+    "automaticAssignment": {
+      "isEnabled": true,
+      "email": "sanjanan@emojot.com",
+      "resolvedStatus": [
+        "Resolved"
+      ],
+      "maxLevel": 4,
+      "triggerFlows": [
+        {
+          "condition": {
+            "and": [
+              {
+                "!=": [
+                  {
+                    "var": "status"
+                  },
+                  "Resolved"
+                ]
+              }
+            ]
+          },
+          "skipAssignment": true,
+          "levels": [
+            {
+              "nextLevelTime": 604800000
+            },
+            {
+              "nextLevelTime": 604800000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "1st Level"
+                }
+              ]
+            },
+            {
+              "nextLevelTime": 604800000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "2nd Level"
+                }
+              ]
+            },
+            {
+              "nextLevelTime": 604800000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "3rd Level"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "adminHierarchy": {
+    "list": "admin",
+    "headers": [
+      {
+        "id": "complaintType",
+        "name": "Complaint Type",
+        "type": "customField"
+      },
+      {
+        "id": "Branch",
+        "name": "Branch",
+        "type": "customField"
+      },
+      {
+        "id": "ticketCreationAlert",
+        "name": "Ticket Creation Alert",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAlert_01",
+        "name": "Ticket Overdue Alert 01",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAlert_02",
+        "name": "Ticket Overdue Alert 02",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAlert_03",
+        "name": "Ticket Overdue Alert 03",
+        "type": "contact"
+      },
+      {
+        "id": "ticketResolutionAlert",
+        "name": "Ticket Resolution Alert",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAssignee_01",
+        "name": "Ticket Overdue Assignee 01",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAssignee_02",
+        "name": "Ticket Overdue Assignee 02",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAssignee_03",
+        "name": "Ticket Overdue Assignee 03",
+        "type": "contact"
+      }
+    ],
+    "id": "REPLACE_ALLIANCE_FINANCE_ADMIN_HIERARCHY_ID"
+  },
+  "finalState": true,
+  "incidentKeyFormat": {
+    "enabled": false,
+    "countDependentFields": {
+      "enabled": true,
+      "fields": [
+        "date",
+        "ticketCategory"
+      ]
+    },
+    "pattern": [
+      {
+        "key": "ticketCategory",
+        "format": "mapping"
+      },
+      {
+        "key": "date",
+        "format": "YYYYMMDD"
+      },
+      {
+        "key": "counter",
+        "format": 3
+      }
+    ],
+    "counterReset": "daily"
+  },
+  "predefinedComments": [
+    "Case acknowledged and assigned.",
+    "Customer contacted; details requested.",
+    "Initial verification completed.",
+    "Escalated to relevant team.",
+    "Resolution confirmed; case closed."
+  ],
+  "tableEdit": "true"
+}

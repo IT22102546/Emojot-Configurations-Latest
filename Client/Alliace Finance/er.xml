@@ -10,8 +10,8 @@
       <joinOperator>and</joinOperator>
       <joinParam>
         <name>emoteNumericValue</name>
-        <operator>ld</operator>
-        <value>1</value>
+        <operator>gd</operator>
+        <value>-1</value>
       </joinParam>
     </params>
     <engagementActions>
