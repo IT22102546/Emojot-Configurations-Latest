@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<cepRules>
+    <cepRule id="1" timeWindow="5">
+      <params>
+      <param>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>"q7"</value>
+      </param>
+      <joinOperator>and</joinOperator>
+      <joinParam>
+        <name>emoteNumericValue</name>
+        <operator>ld</operator>
+        <value>2</value>
+      </joinParam>
+    </params>
+        <engagementActions>
+            <action>
+                <type>incident</type>
+                <data>
+                    <workflowID>6a17e3d1bfe31a8cf8de3148</workflowID>
+                    <name>Product Experience</name>
+                    <assignee>sanjanan@emojot.com</assignee>
+                    <type>Product Experience Survey</type>
+                    <priority>High</priority>
+                    <status>Open</status>
+                    <description><![CDATA[
+<b>Event Attended Location:</b>$$q3_emote$$<br><br>
+<b>Tea Category:</b>$$q5_emote$$<br><br>
+<b>Aroma and Taste:</b>$$q7_emote$$<br><br>
+<b>Impressing to Buy After Event:</b>$$q9_emote$$<br>. 
+                    ]]></description>
+                   <customFields>
+                        <field>
+                            <key>eventAttendedLocation</key>
+                            <value>$$q3_emote$$</value>
+                        </field>
+
+                        <field>
+                            <key>teaCategory</key>
+                            <value>$$q5_emote$$</value>
+                        </field>
+
+                        <field>
+                            <key>aromaAndTaste</key>
+                            <value>$$q7_emote$$</value>
+                        </field>
+
+                        <field>
+                            <key>impressingToBuyAfterEvent</key>
+                            <value>$$q9_emote$$</value>
+                        </field>
+                    </customFields>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+</cepRules>

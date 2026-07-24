@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<cepRules>
+    <cepRule id="1" timeWindow="5">
+      <params>
+      <param>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>"q3"</value>
+      </param>
+      <joinOperator>and</joinOperator>
+      <joinParam>
+        <name>emoteNumericValue</name>
+        <operator>ld</operator>
+        <value>2</value>
+      </joinParam>
+    </params>
+        <engagementActions>
+            <action>
+                <type>incident</type>
+                <data>
+                    <workflowID>6a17e3d1bfe31a8cf8de3148</workflowID>
+                    <name>Product Experience</name>
+                    <assignee>sanjanan@emojot.com</assignee>
+                    <type>Product Experience Survey</type>
+                    <priority>High</priority>
+                    <status>Open</status>
+                    <description><![CDATA[
+<b>First Impressions:</b>$$q3_emote$$<br><br>
+<b>Purchase Product Type:</b>$$q5_emote$$<br><br>
+<b>Purchase At:</b>$$q7_emote$$<br><br>
+<b>Impressing After Open Pack or Scan QR:</b>$$q9_emote$$<br>. 
+                    ]]></description>
+                    <customFields>
+                        
+                        
+                        <field>
+                            <key>firstImpression</key>
+                            <value>$$q3_emote$$</value>
+                        </field>
+                        <field>
+                            <key>purchaseAt</key>
+                            <value>$$q5_emote$$</value>
+                        </field>
+                        <field>
+                            <key>purchasedProduct</key>
+                            <value>$$q7_emote$$</value>
+                        </field>
+                        <field>
+                            <key>afterImpression</key>
+                            <value>$$q9_emote$$</value>
+                        </field>
+                    </customFields>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+</cepRules>
