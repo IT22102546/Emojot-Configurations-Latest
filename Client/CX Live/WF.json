@@ -1,0 +1,322 @@
+{
+  "reportNamePrefix": "Survey",
+  "reporterNamePrefix": "Respondent",
+  "descriptionFormat": "text",
+  "name": "WF",
+  "finalState": true,
+  "tableEdit": "false",
+  "timeZone": -330,
+  "type": {
+    "name": "Survey Type",
+    "readOnly": false,
+    "type": "enum",
+    "values": [
+      {
+        "id": "Product Experience Survey",
+        "name": "Product Experience Survey",
+        "highPriorityFields": [
+          "firstImpression",
+          "purchaseAt",
+          "purchasedProduct",
+          "afterImpression",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Raffle Draw Survey",
+        "name": "Raffle Draw Survey",
+        "highPriorityFields": [
+          "teaCategory",
+          "purchaseAt",
+          "code",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Tea Tasting Survey",
+        "name": "Tea Tasting Survey",
+        "highPriorityFields": [
+          "eventAttendedLocation",
+          "teaCategory",
+          "aromaAndTaste",
+          "impressingToBuyAfterEvent",
+          "overdue"
+        ]
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Low",
+        "name": "Low"
+      },
+      {
+        "id": "Medium",
+        "name": "Medium"
+      },
+      {
+        "id": "High",
+        "name": "High"
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "transitions": [
+      {
+        "sourceState": "Open",
+        "targetStates": [
+          "In Progress"
+        ]
+      },
+      {
+        "sourceState": "In Progress",
+        "targetStates": [
+          "Resolved"
+        ]
+      },
+      {
+        "sourceState": "Resolved",
+        "targetStates": [
+          "Open"
+        ]
+      }
+    ],
+    "values": [
+      {
+        "id": "Open",
+        "name": "Open",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000",
+        "statusBackgroundColor": "#fcf3cf",
+        "statusTextColor": "#7d6608"
+      },
+      {
+        "id": "In Progress",
+        "name": "In Progress",
+        "backgroundColor": "#3498db",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d6eaf8",
+        "statusTextColor": "#154360"
+      },
+      {
+        "id": "Resolved",
+        "name": "Resolved",
+        "finalState": true,
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d5f5e3",
+        "statusTextColor": "#145a32",
+        "fieldsValidation": [
+          {
+            "fieldID": "inbuild_comment",
+            "required": true,
+            "name": "Please add a comment explaining how this survey response was handled.",
+            "message": "Please add a comment explaining how this survey response was handled."
+          }
+        ]
+      }
+    ]
+  },
+  "customFields": {
+    "firstImpression": {
+      "name": "First Impression",
+      "type": "string",
+      "readOnly": true
+    },
+    "purchaseAt": {
+      "name": "Purchase At",
+      "type": "string",
+      "readOnly": true
+    },
+    "purchasedProduct": {
+      "name": "Purchased Product Type",
+      "type": "string",
+      "readOnly": true
+    },
+    "afterImpression": {
+      "name": "Impression After Opening Pack / Scanning QR",
+      "type": "string",
+      "readOnly": true
+    },
+    "teaCategory": {
+      "name": "Tea Category",
+      "type": "string",
+      "readOnly": true
+    },
+    "code": {
+      "name": "Pack Code / Receipt Number",
+      "type": "string",
+      "readOnly": true
+    },
+    "eventAttendedLocation": {
+      "name": "Event Attended Location",
+      "type": "string",
+      "readOnly": true
+    },
+    "aromaAndTaste": {
+      "name": "Aroma and Taste",
+      "type": "string",
+      "readOnly": true
+    },
+    "impressingToBuyAfterEvent": {
+      "name": "Impressing to Buy After Event",
+      "type": "string",
+      "readOnly": true
+    },
+    "overdue": {
+      "name": "Overdue",
+      "type": "enum",
+      "hidden": true,
+      "values": [
+        {
+          "id": "1st Level",
+          "name": "1st Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_1stLevel",
+              "target": "admin",
+              "contacts": [
+                "sanjanan@emojot.com",
+                "leads@emojot.com"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2nd Level",
+          "name": "2nd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_2ndLevel",
+              "target": "admin",
+              "contacts": [
+                "sanjanan@emojot.com",
+                "leads@emojot.com"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3rd Level",
+          "name": "3rd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_3rdLevel",
+              "target": "admin",
+              "contacts": [
+                "sanjanan@emojot.com",
+                "leads@emojot.com"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "workflowCreation": {
+    "email": "bot@emojot.com",
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "surveyCreationAlert",
+        "target": "admin",
+        "contacts": [
+          "sanjanan@emojot.com",
+          "leads@emojot.com"
+        ],
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Product Experience Survey",
+              "Raffle Draw Survey",
+              "Tea Tasting Survey"
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  "predefinedComments": [
+    "Response acknowledged.",
+    "Follow-up contact made with respondent.",
+    "Entered into raffle draw.",
+    "Reviewed and closed."
+  ],
+  "assignment": {
+    "triggers": [
+      {
+        "template": "surveyCreationAlert",
+        "channel": "email",
+        "target": "employee"
+      }
+    ],
+    "automaticAssignment": {
+      "isEnabled": true,
+      "email": "leads@emojot.com",
+      "resolvedStatus": [
+        "Resolved"
+      ],
+      "maxLevel": 4,
+      "triggerFlows": [
+        {
+          "condition": {
+            "and": [
+              {
+                "!=": [
+                  {
+                    "var": "status"
+                  },
+                  "Resolved"
+                ]
+              }
+            ]
+          },
+          "skipAssignment": true,
+          "levels": [
+            {
+              "nextLevelTime": 604800000
+            },
+            {
+              "nextLevelTime": 604800000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "1st Level"
+                }
+              ]
+            },
+            {
+              "nextLevelTime": 604800000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "2nd Level"
+                }
+              ]
+            },
+            {
+              "nextLevelTime": 604800000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "3rd Level"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

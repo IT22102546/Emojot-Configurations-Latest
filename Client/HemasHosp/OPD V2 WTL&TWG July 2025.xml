@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cepRules>
+    <cepRule id="1" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q9353"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>ldOrEq</operator>
+                <value>2</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>sms</type>
+                <data>
+                    <smsType>smsbody</smsType>
+                    <emoSignatureBasedRecipientSelection>true</emoSignatureBasedRecipientSelection>
+                    <emoSignatureBasedSMSRecipientList>
+                    <recipient>
+                            <emoSignatureCondition>
+                                <Location>Wattala</Location>
+                            </emoSignatureCondition>
+                            <smsTo>+94767503102,+94779618860,+94773638447,+94703907815</smsTo>
+                        </recipient>
+                        <recipient>
+                            <emoSignatureCondition>
+                                <Location>Thalawathugoda</Location>
+                            </emoSignatureCondition>
+                            <smsTo>+94765883866,+94768563772,+94773638447,+94767740201,+94779029564,+94760187182,+94770471413</smsTo>
+                        </recipient>
+                            <recipient>
+                            <emoSignatureCondition>
+                                <Location>CR Medi Wattala</Location>
+                            </emoSignatureCondition>
+                            <smsTo>+94770810583,+94764691475,+94770353298</smsTo>
+                        </recipient>
+                            <recipient>
+                            <emoSignatureCondition>
+                                <Location>ATG Thalawathugoda</Location>
+                            </emoSignatureCondition>
+                            <smsTo>+9474229827</smsTo>
+                        </recipient>
+                          <recipient>
+                            <emoSignatureCondition>
+                                <Location>WLW Wattala</Location>
+                            </emoSignatureCondition>
+                            <smsTo>+94728608851,+94706108571</smsTo>
+                        </recipient>
+                    </emoSignatureBasedSMSRecipientList>
+                    <smsbody>You got low rating for OPD $$emoSignature_Location_value$$. Patient - $$loyalty_Name_value$$/ $$loyalty_Telephone_value$$</smsbody>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    <cepRule id="2" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q9353"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>gdOrEq</operator>
+                <value>2</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>sms</type>
+                <data>
+                    <smsType>smsbody</smsType>
+                    <emoSignatureBasedRecipientSelection>true</emoSignatureBasedRecipientSelection>
+                    <emoSignatureBasedSMSRecipientList>
+                        <recipient>
+                            <emoSignatureCondition>
+                                <Location>Thalawathugoda</Location>
+                            </emoSignatureCondition>
+                            <smsTo>$$emoter$$</smsTo>
+                        </recipient>
+                    </emoSignatureBasedSMSRecipientList>
+                    <smsbody>ඔබ තලවතුගොඩ හේමාස් රෝහල වෙත පැමිණියාට ස්තූතියි. කරුණාකර ඔබේ අත්දැකීම් පිළිබඳ ඔබේ අදහස් අපට ලබා දෙන්න. අපගේ රෝහල සහ සේවාවන් Google හි ශ්‍රේණිගත කර නොමිලේ සෞඛ්‍ය පරීක්‍ෂණ පැකේජයක් දිනා ගැනීමට අවස්ථාවක් ලබාගන්න.Thank you for your visit to Hemas Thalawathugoda Hospital. Please give us your feedback of your experience. Rate our hospital and services on google to win a chance to get a free health check package. https://g.page/r/Cdc_xYhCKHFHEAg/review</smsbody>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    <cepRule id="3" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q9353"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>gd</operator>
+                <value>3</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>sms</type>
+                <data>
+                    <smsType>smsbody</smsType>
+                    <emoSignatureBasedRecipientSelection>true</emoSignatureBasedRecipientSelection>
+                    <emoSignatureBasedSMSRecipientList>
+                        <recipient>
+                            <emoSignatureCondition>
+                                <Location>Wattala</Location>
+                            </emoSignatureCondition>
+                            <smsTo>$$emoter$$</smsTo>
+                        </recipient>
+                    </emoSignatureBasedSMSRecipientList>
+                    <smsbody>ඔබ වත්තල හේමාස් රෝහල වෙත පැමිණියාට ස්තූතියි. කරුණාකර ඔබේ අත්දැකීම් පිළිබඳ ඔබේ අදහස් අපට ලබා දෙන්න. අපගේ රෝහල සහ සේවාවන් Google හි ශ්‍රේණිගත කර නොමිලේ සෞඛ්‍ය පරීක්‍ෂණ පැකේජයක් දිනා ගැනීමට අවස්ථාවක් ලබාගන්න.Thank you for your visit to Hemas Wattala Hospital. Please give us your feedback of your experience. Rate our hospital and services on google to win a chance to get a free health check package. https://g.page/r/Cdww7JwqAEksEAg/review</smsbody>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+</cepRules>

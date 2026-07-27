@@ -10,7 +10,7 @@
       <joinOperator>and</joinOperator>
       <joinParam>
         <name>emoteNumericValue</name>
-        <operator>ld</operator>
+        <operator>eq</operator>
         <value>2</value>
       </joinParam>
     </params>
@@ -18,37 +18,34 @@
             <action>
                 <type>incident</type>
                 <data>
-                    <workflowID>6a17e3d1bfe31a8cf8de3148</workflowID>
-                    <name>Product Experience</name>
+                    <workflowID>6a631a4dda0c56a255690dfd</workflowID>
+                    <name>Tea Tasting Event</name>
                     <assignee>sanjanan@emojot.com</assignee>
-                    <type>Product Experience Survey</type>
+                    <type>Tea Tasting Survey</type>
                     <priority>High</priority>
                     <status>Open</status>
                     <description><![CDATA[
 <b>Event Attended Location:</b>$$q3_emote$$<br><br>
 <b>Tea Category:</b>$$q5_emote$$<br><br>
 <b>Aroma and Taste:</b>$$q7_emote$$<br><br>
-<b>Impressing to Buy After Event:</b>$$q9_emote$$<br>. 
+<b>Impressing to Buy After Event:</b>$$gp10_c1_comment_value$$<br>. 
                     ]]></description>
                    <customFields>
                         <field>
                             <key>eventAttendedLocation</key>
                             <value>$$q3_emote$$</value>
                         </field>
-
                         <field>
                             <key>teaCategory</key>
                             <value>$$q5_emote$$</value>
                         </field>
-
                         <field>
                             <key>aromaAndTaste</key>
                             <value>$$q7_emote$$</value>
                         </field>
-
                         <field>
                             <key>impressingToBuyAfterEvent</key>
-                            <value>$$q9_emote$$</value>
+                            <value>$$gp10_c1_comment_value$$</value>
                         </field>
                     </customFields>
                 </data>

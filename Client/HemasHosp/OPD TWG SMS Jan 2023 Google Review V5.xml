@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cepRules>
+    <cepRule id="1" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q11"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>ld</operator>
+                <value>0</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>sms</type>
+                <data>
+                    <smsType>smsbody</smsType>
+                    <smsTo>+94765883866,+94768563772,+94773638447,+94767740201,+94779029564,+94770471413</smsTo>
+                    <smsbody>You got low rating for OPD Thalawathugoda. Patient - $$loyalty_Name_value$$/$$loyalty_Telephone_value$$</smsbody>
+
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    <cepRule id="2" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q4684"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>gd</operator>
+                <value>2</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>sms</type>
+                <data>
+                    <smsType>smsbody</smsType>
+                    <smsTo>$$emoter$$</smsTo>
+                    <smsbody>ඔබ තලවතුගොඩ හේමාස් රෝහල වෙත පැමිණියාට ස්තූතියි. කරුණාකර ඔබේ අත්දැකීම් පිළිබඳ ඔබේ අදහස් අපට ලබා දෙන්න. අපගේ රෝහල සහ සේවාවන් Google හි ශ්‍රේණිගත කර නොමිලේ සෞඛ්‍ය පරීක්‍ෂණ පැකේජයක් දිනා ගැනීමට අවස්ථාවක් ලබාගන්න.Thank you for your visit to Hemas Thalawathugoda Hospital. Please give us your feedback of your experience. Rate our hospital and services on google to win a chance to get a free health check package. https://g.page/r/Cdc_xYhCKHFHEAg/review</smsbody>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+</cepRules>

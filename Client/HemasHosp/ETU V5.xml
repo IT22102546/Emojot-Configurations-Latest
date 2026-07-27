@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cepRules>
+    <cepRule id="1" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q3946"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>eq</operator>
+                <value>1</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>sms</type>
+                <data>
+                    <smsType>smsbody</smsType>
+                    <smsTo>+94765883866,+94779029564,+94770471413,+94766587325,+94773078127,+94763033439,+94774380927,+94773638447,+94767740201,+94760187182</smsTo>
+                    <smsbody>You got low rating for first impression about of ETU TWG. Patient - $$loyalty_Name_value$$/$$loyalty_Telephone_value$$</smsbody>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    <cepRule id="2" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q2260"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>eq</operator>
+                <value>1</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>sms</type>
+                <data>
+                    <smsType>smsbody</smsType>
+                    <smsTo>+94765883866,+94779029564,+94770471413,+94766587325,+94773078127,+94763033439,+94774380927,+94773638447,+94767740201,+94760187182</smsTo>
+                    <smsbody>You got low rating for ETU TWG Medical Officers. Patient - $$loyalty_Name_value$$/$$loyalty_Telephone_value$$</smsbody>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    <cepRule id="3" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q1102"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>eq</operator>
+                <value>1</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>sms</type>
+                <data>
+                    <smsType>smsbody</smsType>
+                    <smsTo>+94765883866,+94779029564,+94770471413,+94766587325,+94773078127,+94763033439,+94774380927,+94773638447,+94767740201,+94760187182</smsTo>
+                    <smsbody>You got low rating for ETU TWG Nursing. Patient - $$loyalty_Name_value$$/$$loyalty_Telephone_value$$</smsbody>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    <cepRule id="4" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q9575"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>gd</operator>
+                <value>0</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>sms</type>
+                <data>
+                    <smsType>smsbody</smsType>
+                    <smsTo>+94770471413,+94779029564,+94765883866,+94766587325,+94773078127,+94763033439,+94774380927,+94773638447,+94767740201,+94760187182</smsTo>
+                    <smsbody>You got overall low rating for ETU TWG. Patient - $$loyalty_Name_value$$/$$loyalty_Telephone_value$$</smsbody>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    <cepRule id="5" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q3043"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>ld</operator>
+                <value>2</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>sms</type>
+                <data>
+                    <smsType>smsbody</smsType>
+                    <smsTo>+94770471413,+94779029564,+94765883866,+94766587325,+94773078127,+94763033439,+94774380927,+94773638447,+94767740201,+94760187182</smsTo>
+                    <smsbody>You got low NPS for ETU TWG. Patient - $$loyalty_Name_value$$/$$loyalty_Telephone_value$$</smsbody>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+</cepRules>

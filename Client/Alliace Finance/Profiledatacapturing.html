@@ -1,22 +1,26 @@
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;600&family=Noto+Serif+Tamil:wght@400;600&display=swap');
+
 .lnksh-cc-title{
     width:100%;
-    box-sizing:border-box;
     text-align:left;
     font-size:20px;
     font-weight:600;
-    color:#000000;
-    font-family:"Times New Roman", Times, "Noto Serif Sinhala", "Noto Serif Tamil", serif;
+    font-family:"Times New Roman", Times, serif;
     margin:20px 0 16px;
-    padding:0 24px;
+    color:#070000 !important;
+    opacity:1 !important;
+    text-shadow:
+        0 1px 2px rgba(0,0,0,0.55),
+        0 2px 8px rgba(0,0,0,0.5),
+        0 4px 16px rgba(0,0,0,0.4);
 }
 
 .lnksh-cc-consent-wrap{
-    box-sizing:border-box;
-    font-family:"Times New Roman", Times, "Noto Serif Sinhala", "Noto Serif Tamil", serif;
-    margin:18px 0 35px;
-    padding:0 24px;
-    color:#f5f5f5;
+    font-family:"Times New Roman", Times, serif;
+    margin:18px 6px 35px;
+    color:#ffffff !important;
+    opacity:1 !important;
 }
 
 .lnksh-cc-consent-label{
@@ -27,7 +31,12 @@
     line-height:1.35;
     text-align:left;
     cursor:pointer;
-    font-family:"Times New Roman", Times, "Noto Serif Sinhala", "Noto Serif Tamil", serif;
+    font-family:"Times New Roman", Times, serif;
+    color:#ffffff !important;
+    opacity:1 !important;
+    text-shadow:
+        0 1px 2px rgba(0,0,0,0.55),
+        0 2px 6px rgba(0,0,0,0.45);
 }
 
 .lnksh-cc-checkbox{
@@ -35,6 +44,7 @@
     min-width:16px;
     width:16px;
     height:16px;
+    opacity:1 !important;
 }
 
 .btn-ok.lnksh-cc-disabled{
@@ -49,6 +59,32 @@
     font-family:"Times New Roman", Times, serif;
 }
 
+/* --- Sinhala / Tamil font fixes --- */
+.lnksh-cc-title[data-lnksh-lang="si"],
+.lnksh-cc-consent-wrap[data-lnksh-lang="si"],
+.lnksh-cc-consent-label[data-lnksh-lang="si"] {
+    font-family: "Noto Serif Sinhala", sans-serif !important;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.lnksh-cc-title[data-lnksh-lang="ta"],
+.lnksh-cc-consent-wrap[data-lnksh-lang="ta"],
+.lnksh-cc-consent-label[data-lnksh-lang="ta"] {
+    font-family: "Noto Serif Tamil", sans-serif !important;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.lnksh-cc-title[data-lnksh-lang="si"],
+.lnksh-cc-title[data-lnksh-lang="ta"] {
+    font-size: 18px;
+}
+
+.lnksh-cc-consent-label[data-lnksh-lang="si"],
+.lnksh-cc-consent-label[data-lnksh-lang="ta"] {
+    font-size: 15px;
+}
 </style>
 
 <div class="lnksh-cc-title" data-lnksh-source="commercial-credit-inline">
@@ -77,28 +113,13 @@
         ta: {
             title: 'உங்கள் கருத்து எங்களுக்கு மிகவும் முக்கியமானது. உங்களை மேலும் நன்கு புரிந்துகொள்ள, தயவுசெய்து கீழே உங்கள் விவரங்களை வழங்கவும்.',
             consent: 'பொருந்தக்கூடிய தனியுரிமைக் கொள்கைகள் மற்றும் ஒழுங்குமுறை விதிமுறைகளின்படி, வங்கி சேவைகள் மற்றும் சேவை மேம்பாட்டு நோக்கங்களுக்காக எனது தனிப்பட்ட தகவல்களை சேகரித்து பயன்படுத்துவதற்கு நான் சம்மதிக்கிறேன்.'
-}
+        }
     };
 
-    // --- Clean up anything left behind by a previous run of this same widget ---
     if (typeof window.__lnkshCCCleanup === 'function') {
         try { window.__lnkshCCCleanup(); } catch (e) { /* no-op */ }
         window.__lnkshCCCleanup = null;
     }
-    if (window.__lnkshCCColorObserver) {
-        try { window.__lnkshCCColorObserver.disconnect(); } catch (e) { /* no-op */ }
-        window.__lnkshCCColorObserver = null;
-    }
-
-    function ensureWebFonts() {
-        if (document.getElementById('lnksh-cc-fonts')) return;
-        const link = document.createElement('link');
-        link.id = 'lnksh-cc-fonts';
-        link.rel = 'stylesheet';
-        link.href = 'https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;600;700&family=Noto+Serif+Tamil:wght@400;600;700&display=swap';
-        document.head.appendChild(link);
-    }
-    ensureWebFonts();
 
     function detectLang() {
         const ngSelect = document.querySelector('select[ng-model="selectedLanguage.value"], select[ng-model*="selectedLanguage"]');
@@ -112,122 +133,21 @@
         return 'en';
     }
 
-    const TITLE_COLOR = '#000000';
-    const CONSENT_COLOR = '#f5f5f5';
-    const FONT_STACK = '"Times New Roman", Times, "Noto Serif Sinhala", "Noto Serif Tamil", serif';
-
-    // FIX: tracks which language we last fully bound to, so we only trigger a
-    // full re-bind (below) when the language has genuinely changed, not on
-    // every unrelated click/change event on the page.
-    let lastBoundLang = null;
-
-    // FIX: reentrancy guard so forceStyles can never be re-triggered by its
-    // own attribute writes while it's still running.
-    let forcingStyles = false;
-    function forceStyles(titleEl, consentEl, bottomEl) {
-        if (forcingStyles) return;
-        forcingStyles = true;
-        try {
-            if (titleEl) {
-                titleEl.style.setProperty('color', TITLE_COLOR, 'important');
-                titleEl.style.setProperty('font-family', FONT_STACK, 'important');
-                titleEl.style.setProperty('font-size', '20px', 'important');
-                titleEl.style.setProperty('font-weight', '600', 'important');
-                titleEl.style.setProperty('padding', '0 24px', 'important');
-                titleEl.style.setProperty('box-sizing', 'border-box', 'important');
-                const ts = titleEl.querySelector('[data-lnksh-key="title"]');
-                if (ts) {
-                    ts.style.setProperty('color', TITLE_COLOR, 'important');
-                    ts.style.setProperty('font-family', FONT_STACK, 'important');
-                    ts.style.setProperty('font-size', '20px', 'important');
-                    ts.style.setProperty('font-weight', '600', 'important');
-                }
-            }
-            if (consentEl) {
-                consentEl.style.setProperty('color', CONSENT_COLOR, 'important');
-                consentEl.style.setProperty('font-family', FONT_STACK, 'important');
-                consentEl.style.setProperty('padding', '0 24px', 'important');
-                consentEl.style.setProperty('box-sizing', 'border-box', 'important');
-                const cs = consentEl.querySelector('[data-lnksh-key="consent"]');
-                if (cs) {
-                    cs.style.setProperty('color', CONSENT_COLOR, 'important');
-                    cs.style.setProperty('font-family', FONT_STACK, 'important');
-                    cs.style.setProperty('font-size', '14px', 'important');
-                }
-                const label = consentEl.querySelector('.lnksh-cc-consent-label');
-                if (label) {
-                    label.style.setProperty('color', CONSENT_COLOR, 'important');
-                    label.style.setProperty('font-family', FONT_STACK, 'important');
-                    label.style.setProperty('font-size', '14px', 'important');
-                }
-            }
-            // FIX: .loyalty-bottom's margin-bottom was a plain CSS rule with
-            // no !important, so the host page's own styles could silently
-            // win and shrink/remove that gap — invisible in English (which
-            // is short and leaves natural slack in the fixed-height hero
-            // image) but very visible in Sinhala/Tamil (longer translated
-            // text eats that slack, so a missing margin becomes a cramped,
-            // buttons-touching-the-footer layout). Force it the same way
-            // we force title/consent styling.
-            if (bottomEl) {
-                bottomEl.style.setProperty('margin-bottom', '40px', 'important');
-                bottomEl.style.setProperty('text-align', 'center', 'important');
-                bottomEl.style.setProperty('font-family', FONT_STACK, 'important');
-            }
-        } finally {
-            forcingStyles = false;
-        }
-    }
-
-    function apply(titleEl, consentEl, bottomEl) {
+    function apply(titleEl, consentEl) {
         const lang = detectLang();
         const copy = COPY[lang] || COPY.en;
         const titleSpan = titleEl ? titleEl.querySelector('[data-lnksh-key="title"]') : null;
         const consentSpan = consentEl ? consentEl.querySelector('[data-lnksh-key="consent"]') : null;
         if (titleSpan) titleSpan.textContent = copy.title;
         if (consentSpan) consentSpan.textContent = copy.consent;
-        forceStyles(titleEl, consentEl, bottomEl);
-        lastBoundLang = lang;
-    }
 
-    // FIX: dropped the setInterval polling entirely — the MutationObserver
-    // below (now reentrancy-safe) already reacts instantly to real changes,
-    // so a second always-on polling loop was redundant on top of being risky.
-    function guardColors(titleEl, consentEl, bottomEl) {
-        if (window.MutationObserver) {
-            const observer = new MutationObserver(function () {
-                // FIX: disconnect before writing styles, reconnect after,
-                // so our own style writes can't re-trigger this callback.
-                observer.disconnect();
-                forceStyles(titleEl, consentEl, bottomEl);
-                [titleEl, consentEl, bottomEl].forEach(function (el) {
-                    if (el) observer.observe(el, { attributes: true, attributeFilter: ['style', 'class'], subtree: true });
-                });
-            });
-            [titleEl, consentEl, bottomEl].forEach(function (el) {
-                if (el) observer.observe(el, { attributes: true, attributeFilter: ['style', 'class'], subtree: true });
-            });
-            window.__lnkshCCColorObserver = observer;
-        }
-    }
-
-    function setButtonState(okBtn, checkbox) {
-        if (!okBtn || !checkbox) return;
-        if (checkbox.checked) {
-            okBtn.classList.remove('lnksh-cc-disabled');
-            okBtn.removeAttribute('disabled');
-        } else {
-            okBtn.classList.add('lnksh-cc-disabled');
-            okBtn.setAttribute('disabled', 'disabled');
-        }
+        if (titleEl) titleEl.setAttribute('data-lnksh-lang', lang);
+        if (consentEl) consentEl.setAttribute('data-lnksh-lang', lang);
     }
 
     function place() {
         const form = document.querySelector('#loyalty-form');
         const okBtn = document.querySelector('.btn-ok');
-        // FIX: locate the buttons-row wrapper so we can force its
-        // margin-bottom the same way we force title/consent styling.
-        const bottomEl = okBtn ? okBtn.closest('.loyalty-bottom') : document.querySelector('.loyalty-bottom');
 
         const allTitles = document.querySelectorAll('.lnksh-cc-title[data-lnksh-source="commercial-credit-inline"]');
         const allConsents = document.querySelectorAll('.lnksh-cc-consent-wrap[data-lnksh-source="commercial-credit-inline"]');
@@ -246,60 +166,28 @@
         if (form.parentNode) form.parentNode.insertBefore(title, form);
         form.insertAdjacentElement('afterend', consent);
 
-        setButtonState(okBtn, checkbox);
+        okBtn.classList.add('lnksh-cc-disabled');
+        okBtn.setAttribute('disabled', 'disabled');
 
         function onCheckboxChange() {
-            setButtonState(okBtn, checkbox);
+            if (checkbox.checked) {
+                okBtn.classList.remove('lnksh-cc-disabled');
+                okBtn.removeAttribute('disabled');
+            } else {
+                okBtn.classList.add('lnksh-cc-disabled');
+                okBtn.setAttribute('disabled', 'disabled');
+            }
         }
         checkbox.addEventListener('change', onCheckboxChange);
 
-        // FIX: replaced the always-on setInterval + MutationObserver combo
-        // (which fought itself) with a single reentrancy-safe observer that
-        // only reacts to changes it didn't itself cause.
-        let syncingButton = false;
-        let buttonObserver = null;
-        if (window.MutationObserver) {
-            buttonObserver = new MutationObserver(function () {
-                if (syncingButton) return;
-                syncingButton = true;
-                buttonObserver.disconnect();
-                setButtonState(okBtn, checkbox);
-                buttonObserver.observe(okBtn, { attributes: true, attributeFilter: ['class', 'disabled'] });
-                syncingButton = false;
-            });
-            buttonObserver.observe(okBtn, { attributes: true, attributeFilter: ['class', 'disabled'] });
-        }
-
-        // FIX: language switches cause the host page to re-render the whole
-        // widget block with BRAND NEW dom nodes (new title, consent, checkbox,
-        // and OK button). The old handlers kept calling apply(title, consent)
-        // on these now-stale/detached references — so the fresh, visible
-        // Sinhala/Tamil nodes never got our font styling, and the fresh OK
-        // button never got its disabled state set at all. Fix: on any real
-        // language change, tear down and fully re-run place() so everything
-        // re-binds to whatever is actually on screen right now.
         const ngSelect = document.querySelector('select[ng-model="selectedLanguage.value"], select[ng-model*="selectedLanguage"]');
-
-        function reinitIfLanguageChanged() {
-            const lang = detectLang();
-            if (lang === lastBoundLang) return;
-            if (typeof window.__lnkshCCCleanup === 'function') {
-                try { window.__lnkshCCCleanup(); } catch (e) { /* no-op */ }
-                window.__lnkshCCCleanup = null;
-            }
-            // Small delay lets the host page's own re-render (Angular digest,
-            // new title/consent/checkbox/button nodes) finish first, so we
-            // query the nodes that will actually stay in the DOM.
-            setTimeout(place, 60);
-        }
-
-        function onLangChange() { reinitIfLanguageChanged(); }
+        function onLangChange() { apply(title, consent); }
         if (ngSelect) ngSelect.addEventListener('change', onLangChange);
 
         function onWindowChange(e) {
-            if (e.target && e.target.tagName === 'SELECT') { reinitIfLanguageChanged(); }
+            if (e.target && e.target.tagName === 'SELECT') apply(title, consent);
         }
-        function onWindowClick() { setTimeout(reinitIfLanguageChanged, 0); }
+        function onWindowClick() { setTimeout(function () { apply(title, consent); }, 0); }
         window.addEventListener('change', onWindowChange, true);
         window.addEventListener('click', onWindowClick, true);
 
@@ -308,15 +196,9 @@
             window.removeEventListener('change', onWindowChange, true);
             window.removeEventListener('click', onWindowClick, true);
             checkbox.removeEventListener('change', onCheckboxChange);
-            if (buttonObserver) { try { buttonObserver.disconnect(); } catch (e) { /* no-op */ } }
-            if (window.__lnkshCCColorObserver) {
-                try { window.__lnkshCCColorObserver.disconnect(); } catch (e) { /* no-op */ }
-                window.__lnkshCCColorObserver = null;
-            }
         };
 
-        apply(title, consent, bottomEl);
-        guardColors(title, consent, bottomEl);
+        apply(title, consent);
     }
 
     if (document.readyState === 'complete') {

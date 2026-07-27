@@ -1,7 +1,7 @@
 {
   "name": "ComplaintWF",
-  "reportNamePrefix": "Alliancd Finalance Complaint",
-  "nameTemplate": "Alliancd Finalance Complaint: $type$ - $complaintType$",
+  "reportNamePrefix": "Alliance Finalance Complaint",
+  "nameTemplate": "Alliance Finalance Complaint: $type$ - $complaintType$",
   "reporterNamePrefix": "Complaint",
   "descriptionFormat": "text",
   "timeZone": "+330",
@@ -302,10 +302,55 @@
             "channel": "email",
             "template": "complaintResolutionAlertInternal",
             "target": "admin",
-            "contacts": [
-              "sanjanan@emojot.com",
-              "hansinir@emojot.com"
+            "contactFilters": [
+              "ticketResolutionAlert"
             ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "Branch",
+                  "operator": "eq",
+                  "value": "$Branch$"
+                }
+              ]
+            },
+            "appendEditUrl": true,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Vehicle / Equipment Leasing",
+                  "Fixed Deposit (FD)",
+                  "Hapannu Minor Savings (Children’s Savings)",
+                  "Solar Loan",
+                  "Gold Loan",
+                  "Regular - Savings",
+                  "Ran Ayojana"
+                ]
+              ]
+            }
+          },
+          {
+            "channel": "sms",
+            "template": "complaintResolutionAlertInternal_sms",
+            "target": "admin",
+            "contactFilters": [
+              "ticketResolutionAlert"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "Branch",
+                  "operator": "eq",
+                  "value": "$Branch$"
+                }
+              ]
+            },
+            "appendEditUrl": true,
             "condition": {
               "in": [
                 {
@@ -458,8 +503,381 @@
     },
     "Branch": {
       "name": "Branch",
-      "type": "string",
-      "readOnly": true
+      "type": "enum",
+      "values": [
+        {
+          "id": "Gampaha",
+          "name": "Gampaha"
+        },
+        {
+          "id": "Ja Ela",
+          "name": "Ja Ela"
+        },
+        {
+          "id": "Ja Ela (Second Officer)",
+          "name": "Ja Ela (Second Officer)"
+        },
+        {
+          "id": "Negombo",
+          "name": "Negombo"
+        },
+        {
+          "id": "Nittambuwa",
+          "name": "Nittambuwa"
+        },
+        {
+          "id": "Kirindiwela",
+          "name": "Kirindiwela"
+        },
+        {
+          "id": "Pugoda",
+          "name": "Pugoda"
+        },
+        {
+          "id": "Head Office",
+          "name": "Head Office"
+        },
+        {
+          "id": "Ganemulla",
+          "name": "Ganemulla"
+        },
+        {
+          "id": "Kadawatha",
+          "name": "Kadawatha"
+        },
+        {
+          "id": "Kelaniya",
+          "name": "Kelaniya"
+        },
+        {
+          "id": "Kiribathgoda",
+          "name": "Kiribathgoda"
+        },
+        {
+          "id": "Kaduruwela",
+          "name": "Kaduruwela"
+        },
+        {
+          "id": "Dambulla",
+          "name": "Dambulla"
+        },
+        {
+          "id": "Galewela",
+          "name": "Galewela"
+        },
+        {
+          "id": "Hingurakgoda",
+          "name": "Hingurakgoda"
+        },
+        {
+          "id": "Matale",
+          "name": "Matale"
+        },
+        {
+          "id": "Thambuttegama",
+          "name": "Thambuttegama"
+        },
+        {
+          "id": "Anuradhapura",
+          "name": "Anuradhapura"
+        },
+        {
+          "id": "Medawachchiya",
+          "name": "Medawachchiya"
+        },
+        {
+          "id": "Trincomalee",
+          "name": "Trincomalee"
+        },
+        {
+          "id": "Parakramapura",
+          "name": "Parakramapura"
+        },
+        {
+          "id": "Trincomalee 2",
+          "name": "Trincomalee 2"
+        },
+        {
+          "id": "Dehiattakandiya",
+          "name": "Dehiattakandiya"
+        },
+        {
+          "id": "Mahiyanganaya",
+          "name": "Mahiyanganaya"
+        },
+        {
+          "id": "Hatton",
+          "name": "Hatton"
+        },
+        {
+          "id": "Kandy",
+          "name": "Kandy"
+        },
+        {
+          "id": "Gampola",
+          "name": "Gampola"
+        },
+        {
+          "id": "Ragala",
+          "name": "Ragala"
+        },
+        {
+          "id": "Mawanella",
+          "name": "Mawanella"
+        },
+        {
+          "id": "Nawalapitiya",
+          "name": "Nawalapitiya"
+        },
+        {
+          "id": "Rikillagaskada",
+          "name": "Rikillagaskada"
+        },
+        {
+          "id": "Bogawanthalawa",
+          "name": "Bogawanthalawa"
+        },
+        {
+          "id": "Nuwara Eliya",
+          "name": "Nuwara Eliya"
+        },
+        {
+          "id": "Kegalle",
+          "name": "Kegalle"
+        },
+        {
+          "id": "Thalawakele",
+          "name": "Thalawakele"
+        },
+        {
+          "id": "Chavakachcheri GL",
+          "name": "Chavakachcheri GL"
+        },
+        {
+          "id": "Chunnakkam GL",
+          "name": "Chunnakkam GL"
+        },
+        {
+          "id": "Thirunelvely",
+          "name": "Thirunelvely"
+        },
+        {
+          "id": "Vavuniya",
+          "name": "Vavuniya"
+        },
+        {
+          "id": "Mannar",
+          "name": "Mannar"
+        },
+        {
+          "id": "Kilinochchi",
+          "name": "Kilinochchi"
+        },
+        {
+          "id": "Jaffna City Branch",
+          "name": "Jaffna City Branch"
+        },
+        {
+          "id": "Kurumankadu",
+          "name": "Kurumankadu"
+        },
+        {
+          "id": "Mulankavil",
+          "name": "Mulankavil"
+        },
+        {
+          "id": "Point Pedro/Nelliaddy",
+          "name": "Point Pedro/Nelliaddy"
+        },
+        {
+          "id": "Puthukkudiyiruppu",
+          "name": "Puthukkudiyiruppu"
+        },
+        {
+          "id": "Chankanai GL",
+          "name": "Chankanai GL"
+        },
+        {
+          "id": "Jaffna",
+          "name": "Jaffna"
+        },
+        {
+          "id": "Rathnapura",
+          "name": "Rathnapura"
+        },
+        {
+          "id": "Athurugiriya",
+          "name": "Athurugiriya"
+        },
+        {
+          "id": "Avissawella",
+          "name": "Avissawella"
+        },
+        {
+          "id": "Horana",
+          "name": "Horana"
+        },
+        {
+          "id": "Horana GL OIC",
+          "name": "Horana GL OIC"
+        },
+        {
+          "id": "Kalutara",
+          "name": "Kalutara"
+        },
+        {
+          "id": "Panadura",
+          "name": "Panadura"
+        },
+        {
+          "id": "Maharagama",
+          "name": "Maharagama"
+        },
+        {
+          "id": "Piliyandala",
+          "name": "Piliyandala"
+        },
+        {
+          "id": "Kaduwela",
+          "name": "Kaduwela"
+        },
+        {
+          "id": "Malabe",
+          "name": "Malabe"
+        },
+        {
+          "id": "Aluthgama",
+          "name": "Aluthgama"
+        },
+        {
+          "id": "Homagama",
+          "name": "Homagama"
+        },
+        {
+          "id": "Ampara",
+          "name": "Ampara"
+        },
+        {
+          "id": "Kalawanchikudy",
+          "name": "Kalawanchikudy"
+        },
+        {
+          "id": "Balangoda",
+          "name": "Balangoda"
+        },
+        {
+          "id": "Kalmunai",
+          "name": "Kalmunai"
+        },
+        {
+          "id": "Batticaloa",
+          "name": "Batticaloa"
+        },
+        {
+          "id": "Embilipitiya",
+          "name": "Embilipitiya"
+        },
+        {
+          "id": "Wellawaya",
+          "name": "Wellawaya"
+        },
+        {
+          "id": "Monaragala",
+          "name": "Monaragala"
+        },
+        {
+          "id": "Passara",
+          "name": "Passara"
+        },
+        {
+          "id": "Badulla",
+          "name": "Badulla"
+        },
+        {
+          "id": "Chenkaladi",
+          "name": "Chenkaladi"
+        },
+        {
+          "id": "Welimada",
+          "name": "Welimada"
+        },
+        {
+          "id": "Galle",
+          "name": "Galle"
+        },
+        {
+          "id": "Ambalangoda",
+          "name": "Ambalangoda"
+        },
+        {
+          "id": "Ambalanthota",
+          "name": "Ambalanthota"
+        },
+        {
+          "id": "Thissamaharama",
+          "name": "Thissamaharama"
+        },
+        {
+          "id": "Deniyaya",
+          "name": "Deniyaya"
+        },
+        {
+          "id": "Matara",
+          "name": "Matara"
+        },
+        {
+          "id": "Akuressa",
+          "name": "Akuressa"
+        },
+        {
+          "id": "Kuliyapitiya",
+          "name": "Kuliyapitiya"
+        },
+        {
+          "id": "Kurunegala",
+          "name": "Kurunegala"
+        },
+        {
+          "id": "Nikawaratiya",
+          "name": "Nikawaratiya"
+        },
+        {
+          "id": "Kalpitiya",
+          "name": "Kalpitiya"
+        },
+        {
+          "id": "Puttalam 1",
+          "name": "Puttalam 1"
+        },
+        {
+          "id": "Galgamuwa",
+          "name": "Galgamuwa"
+        },
+        {
+          "id": "Udappuwa",
+          "name": "Udappuwa"
+        },
+        {
+          "id": "Chilaw",
+          "name": "Chilaw"
+        },
+        {
+          "id": "Palavi",
+          "name": "Palavi"
+        },
+        {
+          "id": "Wennappuwa",
+          "name": "Wennappuwa"
+        },
+        {
+          "id": "Kohuwala",
+          "name": "Kohuwala"
+        },
+        {
+          "id": "Super Branch",
+          "name": "Super Branch"
+        }
+      ]
     },
     "Satisfaction": {
       "name": "Satisfaction",
@@ -1506,9 +1924,59 @@
               "channel": "email",
               "template": "overdueAlertEmail_1stLevel",
               "target": "admin",
-              "contacts": [
-                "sanjanan@emojot.com",
-                "hansinir@emojot.com"
+              "contactFilters": [
+                "ticketOverdueAlert_01"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "sms",
+              "template": "overdueAlertSMS_1stLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_01"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "assignee",
+                  "contactFilters": [
+                    "ticketOverdueAssignee_01"
+                  ],
+                  "adminUserQuery": {
+                    "condition": "and",
+                    "rules": [
+                      {
+                        "field": "Branch",
+                        "operator": "eq",
+                        "value": "$Branch$"
+                      }
+                    ]
+                  }
+                }
               ]
             }
           ]
@@ -1521,9 +1989,59 @@
               "channel": "email",
               "template": "overdueAlertEmail_2ndLevel",
               "target": "admin",
-              "contacts": [
-                "sanjanan@emojot.com",
-                "hansinir@emojot.com"
+              "contactFilters": [
+                "ticketOverdueAlert_02"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "sms",
+              "template": "overdueAlertSMS_2ndLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_02"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "assignee",
+                  "contactFilters": [
+                    "ticketOverdueAssignee_02"
+                  ],
+                  "adminUserQuery": {
+                    "condition": "and",
+                    "rules": [
+                      {
+                        "field": "Branch",
+                        "operator": "eq",
+                        "value": "$Branch$"
+                      }
+                    ]
+                  }
+                }
               ]
             }
           ]
@@ -1536,9 +2054,59 @@
               "channel": "email",
               "template": "overdueAlertEmail_3rdLevel",
               "target": "admin",
-              "contacts": [
-                "sanjanan@emojot.com",
-                "hansinir@emojot.com"
+              "contactFilters": [
+                "ticketOverdueAlert_03"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "sms",
+              "template": "overdueAlertSMS_3rdLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_03"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "assignee",
+                  "contactFilters": [
+                    "ticketOverdueAssignee_03"
+                  ],
+                  "adminUserQuery": {
+                    "condition": "and",
+                    "rules": [
+                      {
+                        "field": "Branch",
+                        "operator": "eq",
+                        "value": "$Branch$"
+                      }
+                    ]
+                  }
+                }
               ]
             }
           ]
@@ -1553,10 +2121,55 @@
         "channel": "email",
         "template": "complaintCreationAlert",
         "target": "admin",
-        "contacts": [
-          "sanjanan@emojot.com",
-          "hansinir@emojot.com"
+        "contactFilters": [
+          "ticketCreationAlert"
         ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "Branch",
+              "operator": "eq",
+              "value": "$Branch$"
+            }
+          ]
+        },
+        "appendEditUrl": true,
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Vehicle / Equipment Leasing",
+              "Fixed Deposit (FD)",
+              "Hapannu Minor Savings (Children’s Savings)",
+              "Solar Loan",
+              "Gold Loan",
+              "Regular - Savings",
+              "Ran Ayojana"
+            ]
+          ]
+        }
+      },
+      {
+        "channel": "sms",
+        "template": "complaintCreationAlert_sms",
+        "target": "admin",
+        "contactFilters": [
+          "ticketCreationAlert"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "Branch",
+              "operator": "eq",
+              "value": "$Branch$"
+            }
+          ]
+        },
+        "appendEditUrl": true,
         "condition": {
           "in": [
             {
@@ -1679,6 +2292,11 @@
       {
         "id": "complaintType",
         "name": "Complaint Type",
+        "type": "customField"
+      },
+      {
+        "id": "Branch",
+        "name": "Branch",
         "type": "customField"
       },
       {

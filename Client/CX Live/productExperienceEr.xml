@@ -10,7 +10,7 @@
       <joinOperator>and</joinOperator>
       <joinParam>
         <name>emoteNumericValue</name>
-        <operator>ld</operator>
+        <operator>eq</operator>
         <value>2</value>
       </joinParam>
     </params>
@@ -18,13 +18,13 @@
             <action>
                 <type>incident</type>
                 <data>
-                    <workflowID>6a17e3d1bfe31a8cf8de3148</workflowID>
+                    <workflowID>6a631a4dda0c56a255690dfd</workflowID>
                     <name>Product Experience</name>
                     <assignee>sanjanan@emojot.com</assignee>
                     <type>Product Experience Survey</type>
                     <priority>High</priority>
                     <status>Open</status>
-                    <description><![CDATA[
+                    <description><![CDATA[ 
 <b>First Impressions:</b>$$q3_emote$$<br><br>
 <b>Purchase Product Type:</b>$$q5_emote$$<br><br>
 <b>Purchase At:</b>$$q7_emote$$<br><br>
@@ -56,3 +56,5 @@
         </engagementActions>
     </cepRule>
 </cepRules>
+
+

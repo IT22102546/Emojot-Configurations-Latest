@@ -218,14 +218,7 @@
         "backgroundColor": "#f1c40f",
         "textColor": "#000000",
         "statusBackgroundColor": "#fcf3cf",
-        "statusTextColor": "#7d6608",
-        "fieldsValidation": [
-          {
-            "fieldID": "validateStatusChange",
-            "required": true,
-            "message": "Status change confirmation required before saving updates."
-          }
-        ]
+        "statusTextColor": "#7d6608"
       },
       {
         "id": "Transferred",
@@ -233,14 +226,7 @@
         "backgroundColor": "#f39c12",
         "textColor": "#ffffff",
         "statusBackgroundColor": "#fdebd0",
-        "statusTextColor": "#7e5109",
-        "fieldsValidation": [
-          {
-            "fieldID": "validateStatusChange",
-            "required": true,
-            "message": "Status change confirmation required before saving updates."
-          }
-        ]
+        "statusTextColor": "#7e5109"
       },
       {
         "id": "In Progress",
@@ -249,13 +235,6 @@
         "textColor": "#ffffff",
         "statusBackgroundColor": "#d6eaf8",
         "statusTextColor": "#154360",
-        "fieldsValidation": [
-          {
-            "fieldID": "validateStatusChange",
-            "required": true,
-            "message": "Status change confirmation required before saving updates."
-          }
-        ],
         "triggers": [
           {
             "channel": "email",
