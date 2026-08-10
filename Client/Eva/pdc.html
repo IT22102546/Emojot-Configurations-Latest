@@ -1,0 +1,304 @@
+<script>
+(function () {
+    "use strict";
+
+    /* Prevent this script from being installed more than once */
+    if (window.evaConsentPopupInstalled) {
+        return;
+    }
+
+    window.evaConsentPopupInstalled = true;
+
+    var CONSENT_TEXTS = [
+        "I consent to ICL Brands (Private) Limited collecting and processing my personal data, including my name, district, and mobile number, for the purpose of administering the EVA Scan & Win promotion. I understand that my personal data will be used solely for this purpose and retained only for as long as necessary or as required by applicable laws.",
+
+        "I consent to receiving marketing communications, offers, and other promotional information from ICL Brands (Private) Limited through SMS, WhatsApp, and/or other electronic channels."
+    ];
+
+    var modal = null;
+    var clickedSubmitButton = null;
+    var allowOriginalSubmit = false;
+
+    function updateConfirmButton() {
+        if (!modal) {
+            return;
+        }
+
+        var checkboxes = modal.querySelectorAll(
+            ".eva-consent-modal-checkbox"
+        );
+
+        var confirmButton = modal.querySelector(
+            ".eva-consent-confirm"
+        );
+
+        var allChecked = Array.prototype.every.call(
+            checkboxes,
+            function (checkbox) {
+                return checkbox.checked;
+            }
+        );
+
+        confirmButton.disabled = !allChecked;
+    }
+
+    function resetConsent() {
+        if (!modal) {
+            return;
+        }
+
+        var checkboxes = modal.querySelectorAll(
+            ".eva-consent-modal-checkbox"
+        );
+
+        Array.prototype.forEach.call(
+            checkboxes,
+            function (checkbox) {
+                checkbox.checked = false;
+            }
+        );
+
+        updateConfirmButton();
+    }
+
+    function openModal(submitButton) {
+        clickedSubmitButton = submitButton;
+
+        resetConsent();
+
+        modal.classList.add("eva-modal-visible");
+        modal.setAttribute("aria-hidden", "false");
+
+        document.body.classList.add(
+            "eva-consent-modal-open"
+        );
+    }
+
+    function closeModal() {
+        if (!modal) {
+            return;
+        }
+
+        modal.classList.remove("eva-modal-visible");
+        modal.setAttribute("aria-hidden", "true");
+
+        document.body.classList.remove(
+            "eva-consent-modal-open"
+        );
+    }
+
+    function continueOriginalSubmit() {
+        if (!clickedSubmitButton) {
+            return;
+        }
+
+        var submitButton = clickedSubmitButton;
+
+        closeModal();
+
+        /*
+         * Allow only the next click to continue to the
+         * platform's original submit handler.
+         */
+        allowOriginalSubmit = true;
+
+        /*
+         * Do not call form.submit(). The Emojot platform may
+         * need its own validation and upload handlers.
+         */
+        submitButton.click();
+
+        setTimeout(function () {
+            allowOriginalSubmit = false;
+            clickedSubmitButton = null;
+        }, 1000);
+    }
+
+    function createModal() {
+        if (document.getElementById("evaConsentModal")) {
+            modal = document.getElementById(
+                "evaConsentModal"
+            );
+
+            return;
+        }
+
+        modal = document.createElement("div");
+        modal.id = "evaConsentModal";
+        modal.className = "eva-consent-modal";
+        modal.setAttribute("role", "dialog");
+        modal.setAttribute("aria-modal", "true");
+        modal.setAttribute("aria-hidden", "true");
+
+        var card = document.createElement("div");
+        card.className = "eva-consent-modal-card";
+
+        var closeButton = document.createElement("button");
+        closeButton.type = "button";
+        closeButton.className =
+            "eva-consent-modal-close";
+        closeButton.setAttribute(
+            "aria-label",
+            "Close consent popup"
+        );
+        closeButton.innerHTML = "&times;";
+
+        var title = document.createElement("div");
+        title.className = "eva-consent-modal-title";
+        title.textContent = "Consent Required";
+
+        var subtitle = document.createElement("div");
+        subtitle.className =
+            "eva-consent-modal-subtitle";
+        subtitle.textContent =
+            "Please review and confirm before submitting your entry.";
+
+        var list = document.createElement("div");
+        list.className = "eva-consent-modal-list";
+
+        CONSENT_TEXTS.forEach(function (text, index) {
+            var item = document.createElement("label");
+            item.className =
+                "eva-consent-modal-item";
+
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.className =
+                "eva-consent-modal-checkbox";
+            checkbox.id =
+                "evaPopupConsentCheckbox" + index;
+
+            var textElement = document.createElement("span");
+            textElement.className =
+                "eva-consent-modal-text";
+            textElement.textContent = text;
+
+            checkbox.addEventListener(
+                "change",
+                updateConfirmButton
+            );
+
+            item.appendChild(checkbox);
+            item.appendChild(textElement);
+            list.appendChild(item);
+        });
+
+        var actions = document.createElement("div");
+        actions.className =
+            "eva-consent-modal-actions";
+
+        var cancelButton = document.createElement("button");
+        cancelButton.type = "button";
+        cancelButton.className =
+            "eva-consent-cancel";
+        cancelButton.textContent = "Cancel";
+
+        var confirmButton = document.createElement("button");
+        confirmButton.type = "button";
+        confirmButton.className =
+            "eva-consent-confirm";
+        confirmButton.textContent =
+            "CONFIRM & SUBMIT";
+        confirmButton.disabled = true;
+
+        closeButton.addEventListener(
+            "click",
+            closeModal
+        );
+
+        cancelButton.addEventListener(
+            "click",
+            closeModal
+        );
+
+        confirmButton.addEventListener(
+            "click",
+            continueOriginalSubmit
+        );
+
+        modal.addEventListener(
+            "click",
+            function (event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            }
+        );
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+                if (
+                    event.key === "Escape" &&
+                    modal.classList.contains(
+                        "eva-modal-visible"
+                    )
+                ) {
+                    closeModal();
+                }
+            }
+        );
+
+        actions.appendChild(cancelButton);
+        actions.appendChild(confirmButton);
+
+        card.appendChild(closeButton);
+        card.appendChild(title);
+        card.appendChild(subtitle);
+        card.appendChild(list);
+        card.appendChild(actions);
+
+        modal.appendChild(card);
+        document.body.appendChild(modal);
+    }
+
+    /*
+     * Use one document-level listener. This continues working
+     * even when the platform recreates the submit button.
+     */
+    document.addEventListener(
+        "click",
+        function (event) {
+            var submitButton = event.target.closest(
+                "#gs_0 .btn-submit"
+            );
+
+            if (!submitButton) {
+                return;
+            }
+
+            /*
+             * Confirm & Submit triggered this click, so allow
+             * the original Emojot submission to proceed.
+             */
+            if (allowOriginalSubmit) {
+                allowOriginalSubmit = false;
+                return;
+            }
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            if (event.stopImmediatePropagation) {
+                event.stopImmediatePropagation();
+            }
+
+            openModal(submitButton);
+        },
+        true
+    );
+
+    function initialise() {
+        createModal();
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener(
+            "DOMContentLoaded",
+            initialise
+        );
+    } else {
+        initialise();
+    }
+})();
+</script>

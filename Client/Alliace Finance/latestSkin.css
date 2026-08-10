@@ -1,0 +1,612 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&display=swap');
+
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 200 700;
+    font-display: swap;
+    src: url(https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Jo02SuCgQ.woff2) format('woff2');
+}
+
+/* ============================================================
+   ALLIANCE FINANCE (AFC) — clean skin, logo-based palette
+
+   - No background photo, no layered gradients: flat white
+     background so no faint banding/lines can appear anywhere,
+     including behind buttons like "Next".
+   - No divider line under the header/logo.
+   - html/body/.container are forced to the same flat white as
+     #master-section and the section is stretched to fill the
+     full viewport height, so the page reads as one continuous
+     surface instead of a styled top zone sitting over a
+     different-colored, hairline-patterned default background.
+   - Palette pulled directly from the afc logo: orange, green,
+     and blue, in that left-to-right order.
+   ============================================================ */
+html,
+body {
+    background: #e6e6e6 !important;
+    background-image: none !important;
+}
+
+#master-section {
+    background-color: #ffffff;
+    background: #ffffff;
+    background-image: none;
+    min-height: 100vh;
+    min-height: 100dvh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
+
+#master-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(to right, #f47920, #8dc63f, #29abe2);
+    z-index: 5;
+}
+
+#master-section::after {
+    content: none !important;
+    display: none !important;
+    background: none !important;
+}
+
+#headerCompanyInfo {
+    color: #2b2b2b !important;
+    background: #ffffff !important;
+    box-shadow: 0 6px 14px -10px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 70px;
+}
+
+.access-user {
+    font-size: 1.1em;
+    text-align: right;
+    float: right;
+    font-weight: 400;
+    margin-top: 0 !important;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    color: #2b2b2b;
+}
+
+.container[style] {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    background: #ffffff !important;
+    background-image: none !important;
+}
+
+.container,
+.content,
+#content,
+main {
+    background: #ffffff !important;
+    background-image: none !important;
+}
+
+.emote-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 17pt;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+}
+
+/* The survey/page name heading rendered above the section title
+   defaults to blue in the base template; force it black to match
+   the rest of the page's text. */
+#master-section h1,
+#master-section h2,
+#master-section h3,
+.survey-title,
+.survey-name,
+.emote-header-title {
+    color: #000000 !important;
+}
+
+/* The base template renders every spacer <br class="clearfix">
+   with a visible top border — that's the repeated grey lines
+   between the buttons and footer. Strip it out entirely. */
+br.clearfix,
+.clearfix,
+hr {
+    border: none !important;
+    border-top: none !important;
+    box-shadow: none !important;
+    background: none !important;
+    height: 0 !important;
+    line-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Belt-and-braces: kill any stray border/shadow on panel headings
+   and collapsed panel wrappers that aren't one of our own styled
+   buttons or answer cards, in case a hidden analytics panel is
+   leaving a border behind. */
+.panel-heading,
+.panel-group .panel:not(:has(.panel-collapse.in)) {
+    box-shadow: none !important;
+}
+
+.emo-text {
+    font-size: 11pt;
+    color: #2b2b2b;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+}
+
+.emo-text-only {
+    font-size: 13pt;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    color: #2b2b2b;
+}
+
+.middle-box {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #f3f1ea;
+}
+
+/* ---- Answer cards ---- */
+.emo-cont {
+    position: relative;
+    border: 1px solid rgba(244, 121, 32, 0.10);
+    margin: 3px 0;
+    text-align: center;
+    display: inline-block;
+    border-radius: 16px;
+    color: #2b2b2b;
+    background: #ffffff;
+    box-shadow: 0 2px 10px rgba(244, 121, 32, 0.07);
+    transition:
+        transform .25s cubic-bezier(.25, .8, .25, 1),
+        box-shadow .25s ease,
+        border-color .25s ease,
+        opacity .25s ease;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.emo-cont:hover {
+    transform: translateY(-4px) scale(1.03);
+    border-color: rgba(244, 121, 32, 0.35);
+    box-shadow:
+        0 10px 22px rgba(244, 121, 32, 0.14),
+        0 2px 10px rgba(141, 198, 63, 0.10),
+        0 -2px 10px rgba(41, 171, 226, 0.08);
+}
+
+.emo-cont:hover .emo-ico img {
+    transform: scale(1.08);
+}
+
+.emo-ico img {
+    width: 80%;
+    display: inline-block;
+    text-align: center;
+    max-width: 55px;
+    margin: 5px;
+    transition: transform .25s ease;
+}
+
+.panel-body:has(.clicked-emo-cont) .emo-cont:not(.clicked-emo-cont),
+.middle-box:has(.clicked-emo-cont) .emo-cont:not(.clicked-emo-cont),
+.row:has(.clicked-emo-cont) .emo-cont:not(.clicked-emo-cont) {
+    opacity: 0.55;
+}
+
+.clicked-emo-cont {
+    background: #fffaf0 !important;
+    color: #2b2b2b !important;
+    border: 2px solid #29abe2 !important;
+    transform: translateY(-2px);
+    box-shadow:
+        0 0 0 2px #8dc63f,
+        0 0 0 4px rgba(41, 171, 226, 0.18),
+        0 4px 14px rgba(0, 0, 0, 0.10) !important;
+    padding: 10px;
+    opacity: 1 !important;
+}
+
+.clicked-emo-cont .emo-text {
+    color: #f47920 !important;
+    font-weight: 600;
+}
+
+/* ---- Buttons ---- */
+.btn-next,
+.btn-submit,
+.btn-ok {
+    color: #ffffff !important;
+    background: linear-gradient(120deg, #f47920 0%, #8dc63f 55%, #29abe2 100%) !important;
+    background-size: 180% 100% !important;
+    background-position: 0% 0% !important;
+    border: none !important;
+    transition: background-position .35s ease, transform .25s ease, box-shadow .25s ease !important;
+}
+
+.btn-prev,
+.btn-clear,
+.btn-skip {
+    color: #f47920 !important;
+    background: transparent !important;
+    border: 2px solid #f47920 !important;
+}
+
+.loyalty-redeem-button {
+    color: #ffffff !important;
+    background: linear-gradient(to right, #8dc63f 0%, #29abe2 100%) !important;
+}
+
+.btn-next,
+.btn-submit,
+.btn-prev,
+.btn-clear,
+.btn-skip,
+.btn-ok,
+.loyalty-redeem-button {
+    margin: 10px 5px;
+    text-align: center;
+    min-width: 90px;
+    display: inline-block;
+    border-radius: 40px;
+    box-shadow: 0 2px 8px rgba(244, 121, 32, 0.15);
+    padding: 9px 25px;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    font-size: 12pt;
+    font-weight: 600;
+    text-transform: none;
+}
+
+.clear-submit-row {
+    text-align: center !important;
+}
+
+.panel-collapse.collapse:not(.in),
+.panel-collapse.collapsing {
+    display: none !important;
+}
+
+.panel-group .panel:not(:has(.panel-collapse.in)) .clear-submit-row,
+.panel-group .panel:not(:has(.panel-collapse.in)) .draft-response-row {
+    display: none !important;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    text-decoration: none;
+    box-shadow: 0 8px 18px rgba(244, 121, 32, 0.18);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn-next:hover,
+.btn-submit:hover,
+.btn-ok:hover {
+    color: #ffffff !important;
+    background-position: 100% 0% !important;
+}
+
+.btn-prev:hover,
+.btn-clear:hover,
+.btn-skip:hover {
+    color: #ffffff !important;
+    background: linear-gradient(to right, #8dc63f 0%, #29abe2 100%) !important;
+    border-color: transparent !important;
+}
+
+.btn-fb {
+    color: #ffffff;
+}
+
+.logo-cust {
+    margin: 3px 0 -3px 9px;
+    height: 50px;
+}
+
+/* ---- Section title with three-tone signature rule (afc: orange/green/blue) ---- */
+.sensor-title {
+    position: relative;
+    text-align: center;
+    margin-bottom: 22px;
+    margin-top: 20px;
+    background: transparent;
+    font-size: 26px;
+    font-family: 'Fraunces', Georgia, serif !important;
+    font-weight: 500;
+    line-height: 40px;
+    text-transform: none;
+    letter-spacing: 0.3px;
+}
+
+.sensor-title::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -6px;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(to right, #f47920, #8dc63f, #29abe2);
+}
+
+.pdGroupTitle {
+    color: #f47920 !important;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
+    font-size: 14pt;
+    margin-bottom: 30px;
+    font-weight: 400 !important;
+}
+
+.form-control {
+    border-radius: 6px;
+}
+
+.panel {
+    margin: 0 10px;
+}
+
+.panel-group .panel {
+    margin-bottom: 0;
+    border-radius: 10px;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.88);
+    border: 1px solid #f0eee6;
+}
+
+/* THE ACTUAL SOURCE OF THE LINES:
+   Several accordion panels (EMOTE TIME SERIES / EMOTE PULSE /
+   STATUS BUZZ / GEO MAP / TEXT FEEDBACK / INSTAGRAM / FACEBOOK)
+   wrap their real content in an inner ng-show div. When a
+   feature is switched off, Angular hides that inner div, but
+   the outer .panel shell above has no hide condition of its
+   own — so it collapses to zero content height while its 1px
+   border and background still render as a thin stacked line.
+   With several features off at once, that's exactly the 5
+   hairlines. Fix: if a .panel's only children are all hidden
+   (ng-hide) or it has no real child at all, collapse the shell
+   completely. This re-evaluates live as Angular toggles
+   classes, so a panel still shows normally the moment its
+   feature is actually turned on.
+*/
+#accordion .panel:not(:has(> :not(.ng-hide))) {
+    display: none !important;
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.panel-group .panel-heading {
+    box-shadow: 0 2px 8px rgba(244, 121, 32, 0.08);
+    border-radius: 10px;
+    color: #2b2b2b;
+    background: #ffffff;
+}
+
+.panel-title {
+    font-size: 11pt;
+    max-width: 90%;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.row {
+    background: transparent !important;
+}
+
+.my-emojots {
+    display: none;
+}
+
+.panel-body {
+    background: transparent !important;
+}
+
+.thank-you-note {
+    color: #2b2b2b !important;
+    font-size: 15px !important;
+}
+
+#headerCompanyInfo > .access-user {
+    text-align: center;
+    float: right;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    font-style: italic;
+    font-size: 15px;
+    background-size: 120px 80px;
+    background-repeat: no-repeat;
+    background-position: right center;
+    position: relative;
+}
+
+.access-user-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 25px;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    font-style: normal;
+}
+
+.company-logo img {
+    height: 80px;
+}
+
+.footer {
+    background: #2b2b2b !important;
+    color: #fff;
+    position: absolute;
+    right: 10px;
+    left: 0;
+    z-index: 1030;
+    bottom: 0;
+    height: 40px;
+    padding: 12px 13px;
+    font-size: 8pt;
+    margin: 0 -10px 0 0;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    border-top: 3px solid transparent;
+    border-image: linear-gradient(to right, #f47920, #8dc63f, #29abe2) 1;
+}
+
+.form-group label {
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    font-size: 13pt;
+    color: #f47920;
+    font-weight: 500;
+}
+
+.loyalty-message {
+    color: #f47920;
+    font-size: 14pt;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+}
+
+.loyalty-bottom {
+    text-align: center;
+}
+
+.email-emote-message {
+    color: #2b2b2b !important;
+}
+
+#progressfill {
+    background: linear-gradient(to right, #f47920 0%, #8dc63f 50%, #29abe2 100%);
+}
+
+.progress_bar .progress_number {
+    float: right;
+    color: #f47920;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+}
+
+#groupCommentBuzzModal .modal-header {
+    background: #fff;
+    color: #f47920;
+    border-bottom: 1px solid #f0eee6;
+}
+
+#groupCommentBuzzModal .modal-body {
+    background: #fff;
+    color: #333333;
+}
+
+#groupCommentBuzzModal .modal-footer {
+    background: #fff;
+}
+
+#groupCommentBuzzModal .panel-body.comment-panel {
+    background: #f6f6f6 !important;
+}
+
+#groupCommentBuzzModal .panel-footer.comment-footer {
+    color: #333333;
+}
+
+#barChart {
+    width: 100%;
+}
+
+.media-uploaded {
+    border: 2px solid #f47920;
+    background: rgba(244, 121, 32, 0.06);
+}
+
+/* ---- NPS scale ---- */
+.nps-bar::before,
+.nps-bar::after {
+    content: "";
+    position: absolute;
+    font-size: 14px;
+    color: #f47920;
+    font-weight: 500;
+    top: 100%;
+    transform: translateY(8px);
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+}
+
+.nps-bar::before {
+    content: "Less Likely";
+    left: 10px;
+    margin-left: 5px;
+}
+
+.nps-bar::after {
+    content: "More Likely";
+    right: 10px;
+    margin-right: 5px;
+}
+
+.evz-nps-position-0,
+.evz-nps-position-1,
+.evz-nps-position-2,
+.evz-nps-position-3,
+.evz-nps-position-4,
+.evz-nps-position-5,
+.evz-nps-position-6 {
+    background: #ff2942;
+    color: white;
+    border: 1px solid rgba(255, 0, 55, 0.61);
+}
+
+.evz-nps-position-7,
+.evz-nps-position-8 {
+    background: #ff7924;
+    color: white;
+    border: 1px solid rgba(195, 117, 34, 0.61);
+}
+
+.evz-nps-position-9,
+.evz-nps-position-10 {
+    background: #1ca757;
+    color: white;
+    border: 1px solid rgba(17, 144, 74, 0.61);
+}
+
+.clicked-nps-icon {
+    border: 3px solid #f47920;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 768px) {
+    .company-logo img {
+        height: 60px;
+    }
+
+    .emote-title,
+    .form-group label {
+        font-size: 12pt !important;
+    }
+
+    .emo-text {
+        font-size: 10pt !important;
+    }
+
+    .sensor-title {
+        font-size: 20px;
+        line-height: 32px;
+    }
+
+    .footer {
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        margin: 0 !important;
+        width: 100%;
+        padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
+        box-shadow:
+            0 -6px 18px rgba(244, 121, 32, 0.10),
+            0 50px 0 0 #ffffff;
+    }
+}

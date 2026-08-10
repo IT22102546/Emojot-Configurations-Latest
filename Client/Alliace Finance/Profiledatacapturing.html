@@ -1,26 +1,16 @@
-<style>
+<style id="lnksh-cc-style">
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;600&family=Noto+Serif+Tamil:wght@400;600&display=swap');
 
 .lnksh-cc-title{
     width:100%;
     text-align:left;
     font-size:20px;
-    font-weight:600;
-    font-family:"Times New Roman", Times, serif;
+    font-weight:500;
     margin:20px 0 16px;
-    color:#070000 !important;
-    opacity:1 !important;
-    text-shadow:
-        0 1px 2px rgba(0,0,0,0.55),
-        0 2px 8px rgba(0,0,0,0.5),
-        0 4px 16px rgba(0,0,0,0.4);
 }
 
 .lnksh-cc-consent-wrap{
-    font-family:"Times New Roman", Times, serif;
     margin:18px 6px 35px;
-    color:#ffffff !important;
-    opacity:1 !important;
 }
 
 .lnksh-cc-consent-label{
@@ -31,12 +21,6 @@
     line-height:1.35;
     text-align:left;
     cursor:pointer;
-    font-family:"Times New Roman", Times, serif;
-    color:#ffffff !important;
-    opacity:1 !important;
-    text-shadow:
-        0 1px 2px rgba(0,0,0,0.55),
-        0 2px 6px rgba(0,0,0,0.45);
 }
 
 .lnksh-cc-checkbox{
@@ -56,34 +40,6 @@
 .loyalty-bottom {
     text-align: center;
     margin-bottom: 40px;
-    font-family:"Times New Roman", Times, serif;
-}
-
-/* --- Sinhala / Tamil font fixes --- */
-.lnksh-cc-title[data-lnksh-lang="si"],
-.lnksh-cc-consent-wrap[data-lnksh-lang="si"],
-.lnksh-cc-consent-label[data-lnksh-lang="si"] {
-    font-family: "Noto Serif Sinhala", sans-serif !important;
-    font-weight: 600;
-    line-height: 1.5;
-}
-
-.lnksh-cc-title[data-lnksh-lang="ta"],
-.lnksh-cc-consent-wrap[data-lnksh-lang="ta"],
-.lnksh-cc-consent-label[data-lnksh-lang="ta"] {
-    font-family: "Noto Serif Tamil", sans-serif !important;
-    font-weight: 600;
-    line-height: 1.5;
-}
-
-.lnksh-cc-title[data-lnksh-lang="si"],
-.lnksh-cc-title[data-lnksh-lang="ta"] {
-    font-size: 18px;
-}
-
-.lnksh-cc-consent-label[data-lnksh-lang="si"],
-.lnksh-cc-consent-label[data-lnksh-lang="ta"] {
-    font-size: 15px;
 }
 </style>
 
@@ -95,7 +51,7 @@
     <label class="lnksh-cc-consent-label">
         <input class="lnksh-cc-checkbox" type="checkbox">
         <span data-lnksh-key="consent">
-    I consent to the collection and use of my personal information for banking and service improvement purposes, as per applicable privacy policies and regulation. 
+    I consent to the collection and use of my personal information for customer service improvement purposes, in accordance with applicable privacy policies and regulations.
     </label>
 </div>
 
@@ -104,17 +60,30 @@
     const COPY = {
         en: {
             title: 'We Value your Feedback. Kindly provide your details below to help us understand you better.',
-            consent: 'I consent to the collection and use of my personal information for banking and service improvement purposes, as per applicable privacy policies and regulation.'
+            consent: 'I consent to the collection and use of my personal information for customer service improvement purposes, in accordance with applicable privacy policies and regulations.',
+            fontFamily: '"Times New Roman", Times, serif',
+            titleSize: '14px',
+            labelSize: '14px'
         },
         si: {
-            title: 'ඔබගේ ප්‍රතිපෝෂණය අපට වැදගත් වේ. ඔබව වඩා හොඳින් අවබෝධ කර ගැනීමට පහත ඔබගේ තොරතුරු ලබා දීමට කාරුණික වන්න.',
-            consent: 'බැංකුකරණ සහ සේවා වැඩිදියුණු කිරීමේ අරමුණු සඳහා, අදාළ පුද්ගලිකත්ව ප්‍රතිපත්ති සහ නියාමන අවශ්‍යතා අනුව, මගේ පුද්ගලික තොරතුරු රැස් කිරීම හා භාවිතය සඳහා මම එකඟ වෙමි.'
+            title: 'ඔබගේ අදහස් අපට වැදගත් වේ. ඔබව වඩා හොඳින් අවබෝධ කර ගැනීමට පහත ඔබගේ තොරතුරු ලබා දීමට කාරුණික වන්න.',
+            consent: 'පවතින පෞද්ගලිකත්ව ප්‍රතිපත්ති සහ අදාළ නියාමනවලට අනුකූලව, පාරිභෝගික සේවාව වැඩිදියුණු කිරීම සඳහා මාගේ පුද්ගලික තොරතුරු රැස් කර භාවිතා කිරීමට මම එකඟ වෙමි.',
+            fontFamily: '"Noto Serif Sinhala", sans-serif',
+            titleSize: '14px',
+            labelSize: '14px'
         },
         ta: {
             title: 'உங்கள் கருத்து எங்களுக்கு மிகவும் முக்கியமானது. உங்களை மேலும் நன்கு புரிந்துகொள்ள, தயவுசெய்து கீழே உங்கள் விவரங்களை வழங்கவும்.',
-            consent: 'பொருந்தக்கூடிய தனியுரிமைக் கொள்கைகள் மற்றும் ஒழுங்குமுறை விதிமுறைகளின்படி, வங்கி சேவைகள் மற்றும் சேவை மேம்பாட்டு நோக்கங்களுக்காக எனது தனிப்பட்ட தகவல்களை சேகரித்து பயன்படுத்துவதற்கு நான் சம்மதிக்கிறேன்.'
+            consent: 'நடைமுறையில் உள்ள தனியுரிமைக் கொள்கைகள் மற்றும் பொருந்தக்கூடிய விதிமுறைகளுக்கு இணங்க, வாடிக்கையாளர் சேவையை மேம்படுத்தும் நோக்கில் எனது தனிப்பட்ட தகவல்களை சேகரித்து பயன்படுத்துவதற்கு நான் சம்மதிக்கிறேன்.',
+            fontFamily: '"Noto Serif Tamil", sans-serif',
+            titleSize: '14px',
+            labelSize: '14px'
         }
     };
+
+    // Lighter halo instead of a dark shadow, since the text is now black
+    // and needs contrast against the dark parts of the background photo.
+    const LABEL_SHADOW = '0 1px 2px rgba(255,255,255,0.85), 0 1px 4px rgba(255,255,255,0.6)';
 
     if (typeof window.__lnkshCCCleanup === 'function') {
         try { window.__lnkshCCCleanup(); } catch (e) { /* no-op */ }
@@ -122,6 +91,43 @@
     }
 
     function detectLang() {
+        // 1) Best source: read straight off the Angular scope. The language
+        // switcher is `ng-controller="languageLocalizationController"` on
+        // `.lngSelectDropdown`, and each button is
+        // `ng-class="{'clicked-emo-cont' : selectedLanguage.value === langObj.lng}"`.
+        // selectedLanguage.value is the ground truth the buttons themselves
+        // check against, so read it directly instead of inferring from styles.
+        try {
+            if (typeof angular !== 'undefined') {
+                const ctrlEl = document.querySelector('.lngSelectDropdown');
+                if (ctrlEl) {
+                    const scope = angular.element(ctrlEl).scope();
+                    const val = scope && scope.selectedLanguage && scope.selectedLanguage.value;
+                    if (val) {
+                        const v = String(val).toLowerCase();
+                        if (v.includes('sinhala')) return 'si';
+                        if (v.includes('tamil')) return 'ta';
+                        if (v.includes('english')) return 'en';
+                    }
+                }
+            }
+        } catch (e) { /* fall through to other strategies */ }
+
+        // 2) DOM fallback: the active button carries an extra class,
+        // 'clicked-emo-cont', added by the same ng-class binding. Match it
+        // against the localisation-cont buttons in document order and map
+        // position -> language using the known label order (English,
+        // Sinhala, Tamil) that this survey's localisationLabels use.
+        const buttons = Array.from(document.querySelectorAll('.lngSelectDropdown .localisation-cont'));
+        if (buttons.length >= 2) {
+            const activeIdx = buttons.findIndex(el => el.classList.contains('clicked-emo-cont'));
+            if (activeIdx !== -1) {
+                const order = ['en', 'si', 'ta'];
+                if (order[activeIdx]) return order[activeIdx];
+            }
+        }
+
+        // 3) Legacy Angular <select> language switcher, if present
         const ngSelect = document.querySelector('select[ng-model="selectedLanguage.value"], select[ng-model*="selectedLanguage"]');
         if (ngSelect) {
             const opt = ngSelect.selectedOptions && ngSelect.selectedOptions[0];
@@ -130,7 +136,66 @@
             if (v.includes('tamil') || v.includes('தமிழ்')) return 'ta';
             if (v.includes('english')) return 'en';
         }
+
+        // 4) <html lang="..."> attribute, if the host page sets it
+        const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
+        if (htmlLang.startsWith('si')) return 'si';
+        if (htmlLang.startsWith('ta')) return 'ta';
+        if (htmlLang.startsWith('en')) return 'en';
+
         return 'en';
+    }
+
+    function dedupeStyles() {
+        const styles = document.querySelectorAll('style#lnksh-cc-style');
+        for (let i = 0; i < styles.length - 1; i++) {
+            styles[i].remove();
+        }
+    }
+
+    function forceStyle(titleEl, consentEl, labelEl, consentSpan, lang) {
+        const c = COPY[lang] || COPY.en;
+
+        if (titleEl) {
+            titleEl.style.setProperty('color', '#000000', 'important');
+            titleEl.style.setProperty('opacity', '1', 'important');
+            titleEl.style.setProperty('font-family', c.fontFamily, 'important');
+            titleEl.style.setProperty('font-size', c.titleSize, 'important');
+            titleEl.style.setProperty('font-weight', '600', 'important');
+            titleEl.style.setProperty('text-shadow', LABEL_SHADOW, 'important');
+        }
+        if (consentEl) {
+            consentEl.style.setProperty('color', '#000000', 'important');
+            consentEl.style.setProperty('opacity', '1', 'important');
+        }
+        if (labelEl) {
+            labelEl.style.setProperty('color', '#000000', 'important');
+            labelEl.style.setProperty('opacity', '1', 'important');
+            labelEl.style.setProperty('font-family', c.fontFamily, 'important');
+            labelEl.style.setProperty('font-size', c.labelSize, 'important');
+            labelEl.style.setProperty('font-weight', '600', 'important');
+            labelEl.style.setProperty('text-shadow', LABEL_SHADOW, 'important');
+        }
+        if (consentSpan) {
+            consentSpan.style.setProperty('color', '#000000', 'important');
+            consentSpan.style.setProperty('font-family', c.fontFamily, 'important');
+            consentSpan.style.setProperty('font-size', c.labelSize, 'important');
+            consentSpan.style.setProperty('font-weight', '600', 'important');
+            consentSpan.style.setProperty('text-shadow', LABEL_SHADOW, 'important');
+        }
+    }
+
+    // Style the Name / Email / Telephone field labels inside the loyalty
+    // form so they match the title/consent font size. These labels belong
+    // to the host page (not our injected markup), so we just re-style
+    // whatever is there rather than touching their text.
+    function styleFieldLabels(lang) {
+        const c = COPY[lang] || COPY.en;
+        const fieldLabels = document.querySelectorAll('#loyalty-form .form-group > label');
+        fieldLabels.forEach(function (lbl) {
+            lbl.style.setProperty('font-size', c.labelSize, 'important');
+            lbl.style.setProperty('font-family', c.fontFamily, 'important');
+        });
     }
 
     function apply(titleEl, consentEl) {
@@ -138,25 +203,31 @@
         const copy = COPY[lang] || COPY.en;
         const titleSpan = titleEl ? titleEl.querySelector('[data-lnksh-key="title"]') : null;
         const consentSpan = consentEl ? consentEl.querySelector('[data-lnksh-key="consent"]') : null;
+        const labelEl = consentEl ? consentEl.querySelector('.lnksh-cc-consent-label') : null;
+
         if (titleSpan) titleSpan.textContent = copy.title;
         if (consentSpan) consentSpan.textContent = copy.consent;
 
-        if (titleEl) titleEl.setAttribute('data-lnksh-lang', lang);
-        if (consentEl) consentEl.setAttribute('data-lnksh-lang', lang);
+        forceStyle(titleEl, consentEl, labelEl, consentSpan, lang);
+        styleFieldLabels(lang);
     }
 
+    let title, consent;
+
     function place() {
+        dedupeStyles();
+
         const form = document.querySelector('#loyalty-form');
         const okBtn = document.querySelector('.btn-ok');
 
         const allTitles = document.querySelectorAll('.lnksh-cc-title[data-lnksh-source="commercial-credit-inline"]');
         const allConsents = document.querySelectorAll('.lnksh-cc-consent-wrap[data-lnksh-source="commercial-credit-inline"]');
-        const title = allTitles[allTitles.length - 1];
-        const consent = allConsents[allConsents.length - 1];
+        title = allTitles[allTitles.length - 1];
+        consent = allConsents[allConsents.length - 1];
         const checkbox = consent ? consent.querySelector('.lnksh-cc-checkbox') : null;
 
         if (!form || !okBtn || !title || !consent || !checkbox) {
-            setTimeout(place, 500);
+            setTimeout(place, 300);
             return;
         }
 
@@ -168,6 +239,8 @@
 
         okBtn.classList.add('lnksh-cc-disabled');
         okBtn.setAttribute('disabled', 'disabled');
+
+        apply(title, consent);
 
         function onCheckboxChange() {
             if (checkbox.checked) {
@@ -191,14 +264,32 @@
         window.addEventListener('change', onWindowChange, true);
         window.addEventListener('click', onWindowClick, true);
 
+        // Simple, safe safety-net: reapply text/styles every second.
+        // This alone (no MutationObserver) is what caused crashes before,
+        // so this is the only re-apply mechanism now.
+        const pollId = setInterval(function () {
+            if (!document.contains(title) || !document.contains(consent)) {
+                clearInterval(pollId);
+                place();
+                return;
+            }
+            const dupTitles = document.querySelectorAll('.lnksh-cc-title[data-lnksh-source="commercial-credit-inline"]');
+            const dupConsents = document.querySelectorAll('.lnksh-cc-consent-wrap[data-lnksh-source="commercial-credit-inline"]');
+            if (dupTitles.length > 1 || dupConsents.length > 1) {
+                clearInterval(pollId);
+                place();
+                return;
+            }
+            apply(title, consent);
+        }, 1000);
+
         window.__lnkshCCCleanup = function () {
             if (ngSelect) ngSelect.removeEventListener('change', onLangChange);
             window.removeEventListener('change', onWindowChange, true);
             window.removeEventListener('click', onWindowClick, true);
             checkbox.removeEventListener('change', onCheckboxChange);
+            clearInterval(pollId);
         };
-
-        apply(title, consent);
     }
 
     if (document.readyState === 'complete') {

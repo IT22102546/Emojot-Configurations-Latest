@@ -108,16 +108,16 @@
         }
     }
 
- function forceStyle(titleEl, consentEl, labelEl, consentSpan, lang) {
+function forceStyle(titleEl, consentEl, labelEl, consentSpan, lang) {
     const c = COPY[lang] || COPY.en;
 
     if (titleEl) {
-        titleEl.style.setProperty('color', '#000000', 'important');
+        titleEl.style.setProperty('color', '#ffffff', 'important');
         titleEl.style.setProperty('opacity', '1', 'important');
         titleEl.style.setProperty('font-family', c.fontFamily, 'important');
         titleEl.style.setProperty('font-size', c.titleSize, 'important');
         titleEl.style.setProperty('font-weight', '600', 'important');
-        titleEl.style.setProperty('text-shadow', 'none', 'important');
+        titleEl.style.setProperty('text-shadow', LABEL_SHADOW, 'important');
     }
     if (consentEl) {
         consentEl.style.setProperty('color', '#ffffff', 'important');

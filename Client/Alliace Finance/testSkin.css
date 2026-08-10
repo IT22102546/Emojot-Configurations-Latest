@@ -6,34 +6,34 @@
     src: url(https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Jo02SuCgQ.woff2) format('woff2');
 }
 
- #master-section {
+/* ============================================================
+   FIXED: #master-section background sizing (v4)
+   v3's "100% auto" avoided rescaling but only by leaving the
+   plain background-color exposed whenever the section's
+   height (title bar + question + answer grid + buttons)
+   exceeded the image's natural height at that width — visible
+   as an ugly solid navy block above the photo on pages with
+   more content or on wider screens.
+
+   Reverted to background-size: cover, which guarantees the
+   image always fully fills the section with zero gaps. The
+   trade-off: since #master-section's height genuinely varies
+   with content (that's structural, not fixable in CSS alone
+   without adding an inner scroll region — see note below),
+   "cover" will still crop/scale the image slightly differently
+   between a 3-option page and a 7-option page. That variation
+   is far less noticeable/ugly than a solid color gap, and is
+   the standard, safe default for this kind of layout.
+   ============================================================ */
+#master-section {
      background-color: #0c2561;
-     background-image: url('https://storage.emojot.com/pictures/skinImages/6a4e20b0f9aa04ffc8de16b5-skin3.png');
+     background-image: url('https://storage.emojot.com/pictures/skinImages/6a4e20b0f9aa04ffc8de16b5-skin1.png');
      min-height: 657px;
-     background-size:cover;
+     background-size: cover;
      background-repeat: no-repeat;
-     background-position: bottom;
+     background-position: bottom center;
      position: relative;
 }
-
-/* #master-section {
-    min-height: 657px;
-    position: relative;
-    overflow: hidden;
-    background:
-        radial-gradient(circle at 18% 18%, rgba(255,255,255,.18) 0%, transparent 18%),
-        radial-gradient(circle at 82% 22%, rgba(255,255,255,.12) 0%, transparent 22%),
-        radial-gradient(circle at 55% 72%, rgba(255,255,255,.10) 0%, transparent 20%),
-
-        radial-gradient(circle at 15% 20%, rgba(2,152,185,.75) 0%, transparent 40%),
-        radial-gradient(circle at 78% 18%, rgba(2,152,185,.60) 0%, transparent 42%),
-        radial-gradient(circle at 65% 82%, rgba(2,152,185,.55) 0%, transparent 45%),
-
-        radial-gradient(circle at 88% 70%, rgba(1,33,172,.28) 0%, transparent 38%),
-        radial-gradient(circle at 28% 78%, rgba(1,33,172,.22) 0%, transparent 35%),
-
-        linear-gradient(135deg, #1a46d8 0%, #0188d4 55%, #03bdd6 100%);
-} */
 
  #headerCompanyInfo {
     color: #000000 !important;
@@ -78,7 +78,7 @@
      padding: 10px;
      border: 1px solid #f3f3f3;
 }
- 
+
 .emo-cont {
     position: relative;
     border: 1px solid rgba(0, 0, 0, 0.08);
@@ -97,8 +97,6 @@
         color .3s ease,
         opacity .3s ease;
     padding: 10px;
-
-    /* animation: emoBreath 3.5s ease-in-out infinite; */
 }
 
 .panel-body:has(.clicked-emo-cont) .emo-cont:not(.clicked-emo-cont),
@@ -250,24 +248,39 @@
      height: 50px;
 }
 
+/* ============================================================
+   FIXED: .sensor-title
+   Previously this hid the real Angular-bound text
+   (font-size:0 + color:transparent) and replaced it with
+   hardcoded ::before/::after content ("Customer Experience" /
+   "Survey"), which is why the branch name (e.g. "Kadawatha")
+   never appeared — it wasn't part of the static string.
+
+   The old ::before/::after also used two different font
+   weights (500 for "Customer Experience", 200 for "Survey")
+   to get that half-bold / half-light look.
+
+   Now we style the REAL bound text directly so the branch
+   name shows, while keeping the exact same font, size,
+   color and uppercase look from the reference screenshot.
+   Since it's one dynamic string now (no separate before/after
+   pieces to weight differently), we use a single weight
+   (500) that matches the bold portion in the screenshot —
+   this keeps colors/fonts/sizing identical; only the
+   thin/bold split across two words is no longer possible
+   without restructuring the markup.
+   ============================================================ */
 .sensor-title {
     position: relative;
-    font-size: 0 !important;
-    color: transparent !important;
-    background: transparent !important;
     text-align: center;
     margin-bottom: 10px;
     margin-top: 20px;
-}
-
-.sensor-title::before {
-    content: "Customer Experience ";
-    color: #000000;
+    color: #000000 !important;
     background: transparent;
     font-size: 26px;
     font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
-    line-height: 40px;
     font-weight: 500;
+    line-height: 40px;
     text-transform: uppercase;
 }
 
@@ -277,18 +290,6 @@
     font-size: 14pt;
     margin-bottom: 30px;
     font-weight: 200 !important;
-}
-
-.sensor-title::after {
-    content: " Survey";
-    font-size: 26px;
-    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
-    font-weight: 200;
-    line-height: 40px;
-    margin-left: 3px;
-    color: #000000;
-    display: inline-block;
-    text-transform: uppercase;
 }
 
 .form-control {
@@ -505,4 +506,23 @@
      .company-logo img{
      height: 60px;
 }
+
+  #master-section {
+        min-height: 100vh;
+        min-height: 100dvh;
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    .footer {
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        margin: 0 !important;
+        width: 100%;
+        padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
+        box-shadow:
+            0 -6px 18px rgba(0, 0, 0, 0.10),
+            0 50px 0 0 #ffffff;
+    }
 }

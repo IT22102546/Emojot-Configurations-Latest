@@ -1,12 +1,12 @@
 {
   "name": "ComplaintWF",
-  "reportNamePrefix": "Alliance Finalance Complaint",
-  "nameTemplate": "Alliance Finalance Complaint: $type$ - $complaintType$",
-  "reporterNamePrefix": "Complaint",
+  "reportNamePrefix": "Alliance Finalance Concerns",
+  "nameTemplate": "Alliance Finalance Concern: $type$ - $complaintType$",
+  "reporterNamePrefix": "Customer",
   "descriptionFormat": "text",
   "timeZone": "+330",
   "type": {
-    "name": "Complaint Type",
+    "name": "Concern Type",
     "type": "enum",
     "readOnly": true,
     "values": [
@@ -28,6 +28,7 @@
           "Vehicle_Handover_Process",
           "Vehicle_Relationship_Officer_Support",
           "nps",
+          "Comment",
           "overdue"
         ]
       },
@@ -50,6 +51,7 @@
           "FD_Branch_Service",
           "FD_Customer_Retention",
           "nps",
+          "Comment",
           "overdue"
         ]
       },
@@ -71,6 +73,7 @@
           "Hapannu_Child_Future_Benefit",
           "Hapannu_Staff_Support",
           "nps",
+          "Comment",
           "overdue"
         ]
       },
@@ -93,6 +96,7 @@
           "Solar_Energy_Cost_Reduction",
           "Solar_Staff_Helpfulness",
           "nps",
+          "Comment",
           "overdue"
         ]
       },
@@ -114,6 +118,7 @@
           "Gold_Need_Fulfilment",
           "Repayment_Clarity",
           "nps",
+          "Comment",
           "overdue"
         ]
       },
@@ -135,6 +140,7 @@
           "Regular_Account_Access_Convenience",
           "Regular_Service_Satisfaction",
           "nps",
+          "Comment",
           "overdue"
         ]
       },
@@ -156,6 +162,7 @@
           "Ran_Article_Handover_Process",
           "Ran_Relationship_Officer_Support",
           "nps",
+          "Comment",
           "overdue"
         ]
       }
@@ -218,14 +225,7 @@
         "backgroundColor": "#f1c40f",
         "textColor": "#000000",
         "statusBackgroundColor": "#fcf3cf",
-        "statusTextColor": "#7d6608",
-        "fieldsValidation": [
-          {
-            "fieldID": "validateStatusChange",
-            "required": true,
-            "message": "Status change confirmation required before saving updates."
-          }
-        ]
+        "statusTextColor": "#7d6608"
       },
       {
         "id": "Transferred",
@@ -233,14 +233,7 @@
         "backgroundColor": "#f39c12",
         "textColor": "#ffffff",
         "statusBackgroundColor": "#fdebd0",
-        "statusTextColor": "#7e5109",
-        "fieldsValidation": [
-          {
-            "fieldID": "validateStatusChange",
-            "required": true,
-            "message": "Status change confirmation required before saving updates."
-          }
-        ]
+        "statusTextColor": "#7e5109"
       },
       {
         "id": "In Progress",
@@ -249,17 +242,10 @@
         "textColor": "#ffffff",
         "statusBackgroundColor": "#d6eaf8",
         "statusTextColor": "#154360",
-        "fieldsValidation": [
-          {
-            "fieldID": "validateStatusChange",
-            "required": true,
-            "message": "Status change confirmation required before saving updates."
-          }
-        ],
         "triggers": [
           {
             "channel": "email",
-            "template": "customerWIPalert",
+            "template": "customerWIPalerts",
             "target": "customer",
             "appendEditUrl": false,
             "condition": {
@@ -334,8 +320,43 @@
             }
           },
           {
+            "channel": "sms",
+            "template": "complaintResolutionAlertInternal_sms",
+            "target": "admin",
+            "contactFilters": [
+              "ticketResolutionAlert"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "Branch",
+                  "operator": "eq",
+                  "value": "$Branch$"
+                }
+              ]
+            },
+            "appendEditUrl": true,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Vehicle / Equipment Leasing",
+                  "Fixed Deposit (FD)",
+                  "Hapannu Minor Savings (Children’s Savings)",
+                  "Solar Loan",
+                  "Gold Loan",
+                  "Regular - Savings",
+                  "Ran Ayojana"
+                ]
+              ]
+            }
+          },
+          {
             "channel": "email",
-            "template": "customerResolutionAlert",
+            "template": "customerResolutionAlerts",
             "target": "customer",
             "appendEditUrl": false,
             "condition": {
@@ -366,7 +387,7 @@
   },
   "customFields": {
     "complaintType": {
-      "name": "Complaint Type",
+      "name": "Concern Type",
       "type": "enum",
       "readOnly": true,
       "values": [
@@ -469,6 +490,7 @@
     "Branch": {
       "name": "Branch",
       "type": "enum",
+      "readOnly": true,
       "values": [
         {
           "id": "Gampaha",
@@ -1865,11 +1887,12 @@
         }
       ]
     },
-    "additionalInformation": {
+    "Comment": {
       "name": "Additional Information",
       "type": "textArea",
       "readOnly": true
     },
+
     "attachment": {
       "name": "Attachment",
       "type": "file",
@@ -1888,6 +1911,25 @@
             {
               "channel": "email",
               "template": "overdueAlertEmail_1stLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_01"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "sms",
+              "template": "overdueAlertSMS_1stLevel",
               "target": "admin",
               "contactFilters": [
                 "ticketOverdueAlert_01"
@@ -1951,6 +1993,25 @@
               "appendEditUrl": true
             },
             {
+              "channel": "sms",
+              "template": "overdueAlertSMS_2ndLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_02"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
               "channel": "fieldChange",
               "changingFields": [
                 {
@@ -1980,6 +2041,25 @@
             {
               "channel": "email",
               "template": "overdueAlertEmail_3rdLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_03"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "sms",
+              "template": "overdueAlertSMS_3rdLevel",
               "target": "admin",
               "contactFilters": [
                 "ticketOverdueAlert_03"
@@ -2061,7 +2141,42 @@
         }
       },
       {
-        "template": "customerComplaintCreation",
+        "channel": "sms",
+        "template": "complaintCreationAlert_sms",
+        "target": "admin",
+        "contactFilters": [
+          "ticketCreationAlert"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "Branch",
+              "operator": "eq",
+              "value": "$Branch$"
+            }
+          ]
+        },
+        "appendEditUrl": true,
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Vehicle / Equipment Leasing",
+              "Fixed Deposit (FD)",
+              "Hapannu Minor Savings (Children’s Savings)",
+              "Solar Loan",
+              "Gold Loan",
+              "Regular - Savings",
+              "Ran Ayojana"
+            ]
+          ]
+        }
+      },
+      {
+        "template": "customerComplaintCreations",
         "channel": "email",
         "target": "customer",
         "appendEditUrl": false,

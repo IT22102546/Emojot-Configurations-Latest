@@ -20,7 +20,7 @@
 
         <data>
           <workflowID>6a5d9fbc7f2daf6389796beb</workflowID>
-          <name>Complaint - $$q4626_emote$$</name>
+          <name>Concern - $$q4626_emote$$</name>
           <assignee>sanjanan@emojot.com</assignee>
           <type>$$q4626_emote$$</type>
           <priority>Medium</priority>
@@ -30,7 +30,7 @@
 <b>Full Name:</b> $$loyalty_Name_value$$<br>
 <b>Email Address:</b> $$loyalty_Email_value$$<br>
 <b>Contact Number:</b> $$loyalty_Telephone_value$$<br>
-<b>Complaint Type:</b>$$q4626_emote$$<br>
+<b>Concern Type:</b>$$q4626_emote$$<br>
 <b>Satisfaction:</b> $$q9263_emote$$<br>
 <b>Branch:</b> $$emoSignature_Branch_value$$<br>
 <br><br>
@@ -120,16 +120,16 @@
 
             <field>
                 <key>Gold_Approval_Time</key>
-                <value>$$q5209_emote$$</value>
-            </field>
-
-            <field>
-                <key>Gold_Need_Fulfilment</key>
-                <value>$$q3004_emote$$</value>
+                <value>$$q5209_emote$$</value> 
             </field>
 
             <field>
                 <key>Repayment_Clarity</key>
+                <value>$$q3004_emote$$</value> 
+            </field>
+
+            <field>
+                <key>Gold_Staff_Helpfulness</key>
                 <value>$$q743_emote$$</value>
             </field>
 
@@ -297,6 +297,11 @@
             <field>
               <key>nps</key>
               <value>$$q8527_emote$$</value>
+            </field>
+
+            <field>
+              <key>Comment</key>
+              <value>$$gp2810_c1_comment_value$$</value>
             </field>
 
 

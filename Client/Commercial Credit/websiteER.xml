@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<cepRules>
+  <cepRule id="1" timeWindow="5">
+    <params>
+      <param>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>"q5071"</value>
+      </param>
+      <joinOperator>and</joinOperator>
+      <joinParam>
+        <name>emoteNumericValue</name>
+        <operator>eq</operator>
+        <value>-1</value>
+      </joinParam>
+    </params>
+    <engagementActions>
+      <action>
+        <type>incident</type>
+        <data>
+          <workflowID>6a15335aa246ef2bd1d7c064</workflowID>
+          <name>Service Related Complaints</name>
+          <assignee>testcmu@commercialcredit.lk</assignee>
+          <type>Service Related Complaints</type>
+          <priority>High</priority>
+          <status>Open</status>
+          <description><![CDATA[
+<b>Customer Name:</b>$$loyalty_Name_value$$<br><br>
+<b>Customer Email:</b> $$loyalty_Email_value$$<br><br>
+<b>Customer Telephone:</b>$$loyalty_Telephone_value$$<br><br>
+<b>Complaint Type:</b>$$q5071_emote$$<br><br>
+<b>Inquiry / Complaint:</b> $$gp9336_c1_comment_value$$<br><br>
+<b>Complaint Handling Satisfaction:</b> $$q6013_emote$$<br>
+<b>Attachment:</b>$$mediafile_p9336$$<br>
+          ]]></description>
+          <customFields>
+            <field>
+              <key>complaintDepartment</key>
+              <value>Service Related Complaints</value>
+            </field>
+            <field>
+              <key>ticketCategory</key>
+              <value>Service Related Complaints</value>
+            </field>
+            <field>
+              <key>subcategory</key>
+              <value>$$q3709_emote$$</value>
+            </field>
+            <field>
+              <key>nps</key>
+              <value>$$q2196_emote$$</value>
+            </field>
+            <field>
+              <key>customerName</key>
+              <value>$$loyalty_Name_value$$</value>
+            </field>
+            <field>
+              <key>customerEmail</key>
+              <value>$$loyalty_Email_value$$</value>
+            </field>
+            <field>
+              <key>customerTelephone</key>
+              <value>$$loyalty_Telephone_value$$</value>
+            </field>
+            <field>
+              <key>customerFeedbackInquiry</key>
+              <value>$$gp9336_c1_comment_value$$</value>
+            </field>
+            <field>
+              <key>customerFeedbackSatisfaction</key>
+              <value>$$q6013_emote$$</value>
+            </field>
+            <field>
+              <key>attachment</key>
+              <value>$$mediafile_p9336$$</value>
+            </field>
+          </customFields>
+        </data>
+        <validityPeriod>5</validityPeriod>
+      </action>
+    </engagementActions>
+  </cepRule>
+
+
+ <cepRule id="2" timeWindow="5">
+  <params>
+    <param>
+      <name>percepticDrillDown</name>
+      <operator>eq</operator>
+      <value>"q6013"</value>
+    </param>
+    <joinOperator>and</joinOperator>
+    <joinParam>
+      <derivedValue>emoteNumericValue</derivedValue>
+      <operator>gd</operator>
+      <value>-1</value>
+    </joinParam>
+    <joinOperator>and</joinOperator>
+    <param>
+      <name>percepticDrillDown</name>
+      <operator>eq</operator>
+      <value>"q5071"</value>
+    </param>
+    <joinOperator>and</joinOperator>
+    <joinParam>
+      <derivedValue>emoteNumericValue</derivedValue>
+      <operator>eq</operator>
+      <value>0</value>
+    </joinParam>
+  </params>
+  <engagementActions>
+    <action>
+      <type>incident</type>
+      <data>
+        <workflowID>6a15335aa246ef2bd1d7c064</workflowID>
+        <name>Product Related Complaints</name>
+        <assignee>testcmu@commercialcredit.lk</assignee>
+        <type>Product Related Complaints</type>
+        <priority>High</priority>
+        <status>Open</status>
+        <description><![CDATA[
+<b>Customer Name:</b>$$loyalty_Name_value$$<br><br>
+<b>Customer Email:</b> $$loyalty_Email_value$$<br><br>
+<b>Customer Telephone:</b>$$loyalty_Telephone_value$$<br><br>
+<b>Complaint Type:</b>$$q5071_emote$$<br><br>
+<b>Inquiry / Complaint:</b>$$gp2687_c1_comment_value$$<br><br>
+<b>Complaint Handling Satisfaction:</b> $$q6013_emote$$<br>
+<b>Attachment:</b>$$mediafile_p2687$$<br>
+        ]]></description>
+          <customFields>
+            <field>
+              <key>complaintDepartment</key>
+              <value>Product Related Complaints</value>
+            </field>
+            <field>
+              <key>ticketCategory</key>
+              <value>Product Related Complaints</value>
+            </field>
+            <field>
+              <key>subcategory</key>
+              <value>$$q8688_emote$$</value> 
+            </field>
+            <field>
+              <key>nps</key>
+              <value>$$q2196_emote$$</value>
+            </field>
+            <field>
+              <key>customerName</key>
+              <value>$$loyalty_Name_value$$</value>
+            </field>
+            <field>
+              <key>customerEmail</key>
+              <value>$$loyalty_Email_value$$</value>
+            </field>
+            <field>
+              <key>customerTelephone</key>
+              <value>$$loyalty_Telephone_value$$</value>
+            </field>
+            <field>
+              <key>customerFeedbackInquiry</key>
+              <value>$$gp2687_c1_comment_value$$</value>
+            </field>
+            <field>
+              <key>customerFeedbackSatisfaction</key>
+              <value>$$q6013_emote$$</value>
+            </field>
+            <field>
+              <key>attachment</key>
+              <value>$$mediafile_p2687$$</value>
+            </field>
+          </customFields>
+        </data>
+        <validityPeriod>5</validityPeriod>
+      </action>
+    </engagementActions>
+  </cepRule>
+
+  <cepRule id="3" timeWindow="5">
+    <params>
+      <param>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>"q5071"</value>
+      </param>
+      <joinOperator>and</joinOperator>
+      <joinParam>
+        <name>emoteNumericValue</name>
+        <operator>eq</operator>
+        <value>1</value>
+      </joinParam>
+    </params>
+    <engagementActions>
+      <action>
+        <type>incident</type>
+        <data>
+          <workflowID>6a15335aa246ef2bd1d7c064</workflowID>
+          <name>Website / Online Service Related Complaints</name>
+          <assignee>testcmu@commercialcredit.lk</assignee>
+          <type>Website / Online Service Related Complaints</type>
+          <priority>High</priority>
+          <status>Open</status>
+          <description><![CDATA[
+<b>Customer Name:</b>$$loyalty_Name_value$$<br><br>
+<b>Customer Email:</b> $$loyalty_Email_value$$<br><br>
+<b>Customer Telephone:</b>$$loyalty_Telephone_value$$<br><br>
+<b>Complaint Type:</b>$$q5071_emote$$<br><br>
+<b>Inquiry / Complaint:</b>$$gp9152_c1_comment_value$$<br><br>
+<b>Complaint Handling Satisfaction:</b> $$q6013_emote$$<br>
+<b>Attachment:</b>$$mediafile_p9152$$<br> 
+          ]]></description>
+          <customFields>
+            <field>
+              <key>complaintDepartment</key>
+              <value>Website / Online Service Related Complaints</value>
+            </field>
+            <field>
+              <key>ticketCategory</key>
+              <value>Website / Online Service Related Complaints</value>
+            </field>
+            <field>
+              <key>subcategory</key>
+              <value>$$q6274_emote$$</value>
+            </field>
+            <field>
+              <key>nps</key>
+              <value>$$q2196_emote$$</value>
+            </field>
+            <field>
+              <key>customerName</key>
+              <value>$$loyalty_Name_value$$</value>
+            </field>
+            <field>
+              <key>customerEmail</key>
+              <value>$$loyalty_Email_value$$</value>
+            </field>
+            <field>
+              <key>customerTelephone</key>
+              <value>$$loyalty_Telephone_value$$</value>
+            </field>
+            <field>
+              <key>customerFeedbackInquiry</key>
+              <value>$$gp9152_c1_comment_value$$</value>
+            </field>
+            <field>
+              <key>customerFeedbackSatisfaction</key>
+              <value>$$q6013_emote$$</value>
+            </field>
+            <field>
+              <key>attachment</key>
+              <value>$$mediafile_p9152$$</value>
+            </field>
+          </customFields>
+        </data>
+        <validityPeriod>5</validityPeriod>
+      </action>
+    </engagementActions>
+  </cepRule>
+
+  
+</cepRules>
