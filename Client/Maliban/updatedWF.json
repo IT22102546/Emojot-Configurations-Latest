@@ -47,12 +47,12 @@
       {
         "sourceState": "Pending Group Head of Security Approval",
         "targetStates": [
-          "Group Head of Security Approved",
+          "Completed",
           "Group Head of Security Rejected"
         ]
       },
       {
-        "sourceState": "Group Head of Security Approved",
+        "sourceState": "Completed",
         "targetStates": [
           "Gate Rejected",
           "Checked-In"
@@ -62,12 +62,6 @@
         "sourceState": "Checked-In",
         "targetStates": [
           "Checked-Out"
-        ]
-      },
-      {
-        "sourceState": "Completed",
-        "targetStates": [
-          "Gate Rejected"
         ]
       }
     ],
@@ -321,7 +315,7 @@
         ]
       },
       {
-        "id": "Group Head of Security Approved",
+        "id": "Completed",
         "name": "Group Head of Security Approved",
         "backgroundColor": "#27ae60",
         "textColor": "#ffffff",
@@ -337,7 +331,7 @@
             "contactField": "visitorEmail"
           },
           {
-            "template": "VM Visit Request Notification SMS: Request approved",
+            "template": "VM Visit Request Notification SMS: Approved Visitors",
             "channel": "sms",
             "target": "admin",
             "objectList": true,
@@ -426,57 +420,6 @@
             "required": true,
             "message": "Please enter the rejection reason."
           }
-        ]
-      },
-      {
-        "id": "Completed",
-        "name": "Completed",
-        "backgroundColor": "#27ae60",
-        "textColor": "#ffffff",
-        "statusBackgroundColor": "#d5f5e3",
-        "statusTextColor": "#145a32",
-        "triggers": [
-          {
-            "template": "VM Visit Request Notification: Approved Visitors",
-            "channel": "email",
-            "target": "admin",
-            "showFileUrl": true,
-            "objectList": true,
-            "customFieldId": "visitors",
-            "contactField": "visitorEmail"
-          },
-          {
-            "template": "VM Visit Request Notification SMS: Approved Visitors",
-            "channel": "sms",
-            "target": "admin",
-            "objectList": true,
-            "showInPage": true,
-            "shortUrlFields": [
-              "visitorQR"
-            ],
-            "customFieldId": "visitors",
-            "contactField": "visitorTelephone"
-          }
-        ],
-        "highPriorityFields": [
-          "visitorType",
-          "cluster",
-          "location",
-          "locationName",
-          "meetingDepartment",
-          "visitPurpose",
-          "visitPurposeOther",
-          "visitOrganization",
-          "visitors",
-          "visitDate",
-          "visitDateTo",
-          "visitTime",
-          "visitTimeTo",
-          "visitCoordinatorName",
-          "meetingRoom",
-          "accessControlAreas",
-          "mealPreference",
-          "plsDescribePreference"
         ]
       },
       {
@@ -1193,7 +1136,7 @@
       "readOnly": true,
       "values": [
         {
-          "id": "Head Office",
+          "id": "HO",
           "name": "Head Office",
           "triggers": [
             {
@@ -1208,7 +1151,7 @@
           ]
         },
         {
-          "id": "Maliban Biscuit Factory",
+          "id": "MBF",
           "name": "Maliban Biscuit Factory",
           "triggers": [
             {
@@ -1223,7 +1166,7 @@
           ]
         },
         {
-          "id": "Maliban Chocolate Factory",
+          "id": "MCF",
           "name": "Maliban Chocolate Factory",
           "triggers": [
             {
@@ -1926,7 +1869,7 @@
                 },
                 {
                   "id": "nic",
-                  "text": "பார்வையாளர் என்ஐசி/பாஸ்போர்ட்்"
+                  "text": "பார்வையாளர் என்ஐசி/பாஸ்போர்ட்"
                 },
                 {
                   "id": "nicUpload",
@@ -2039,15 +1982,15 @@
               "text": "நீங்கள் எந்த இடத்திற்குச் செல்வீர்கள்?",
               "responses": [
                 {
-                  "id": "Head Office",
+                  "id": "HO",
                   "text": "தலைமை அலுவலகம்"
                 },
                 {
-                  "id": "Maliban Biscuit Factory",
+                  "id": "MBF",
                   "text": "மலிபன் பிஸ்கட் தொழிற்சாலை"
                 },
                 {
-                  "id": "Maliban Chocolate Factory",
+                  "id": "MCF",
                   "text": "மலிபன் சாக்லேட் தொழிற்சாலை"
                 }
               ]
@@ -2111,15 +2054,15 @@
               "text": "நீங்கள் எந்த இடத்திற்குச் செல்வீர்கள்?",
               "responses": [
                 {
-                  "id": "Head Office",
+                  "id": "HO",
                   "text": "தலைமை அலுவலகம்"
                 },
                 {
-                  "id": "Maliban Biscuit Factory",
+                  "id": "MBF",
                   "text": "மலிபன் பிஸ்கட் தொழிற்சாலை"
                 },
                 {
-                  "id": "Maliban Chocolate Factory",
+                  "id": "MCF",
                   "text": "மலிபன் சாக்லேட் தொழிற்சாலை"
                 }
               ]
@@ -2429,15 +2372,15 @@
               "text": "ඔබ කුමන ස්ථානයට පිවිසෙන්නේද?",
               "responses": [
                 {
-                  "id": "Head Office",
+                  "id": "HO",
                   "text": "ප්‍රධාන කාර්යාලය"
                 },
                 {
-                  "id": "Maliban Biscuit Factory",
+                  "id": "MBF",
                   "text": "මැලිබන් බිස්කට් කර්මාන්ත ශාලාව"
                 },
                 {
-                  "id": "Maliban Chocolate Factory",
+                  "id": "MCF",
                   "text": "මැලිබන් චොකලට් කර්මාන්ත ශාලාව"
                 }
               ]
@@ -2505,15 +2448,15 @@
               "text": "ඔබ කුමන ස්ථානයට පිවිසෙන්නේද?",
               "responses": [
                 {
-                  "id": "Head Office",
+                  "id": "HO",
                   "text": "ප්‍රධාන කාර්යාලය"
                 },
                 {
-                  "id": "Maliban Biscuit Factory",
+                  "id": "MBF",
                   "text": "මැලිබන් බිස්කට් කර්මාන්ත ශාලාව"
                 },
                 {
-                  "id": "Maliban Chocolate Factory",
+                  "id": "MCF",
                   "text": "මැලිබන් චොකලට් කර්මාන්ත ශාලාව"
                 }
               ]
@@ -2851,15 +2794,15 @@
               "autoSelect": "locationName",
               "responses": [
                 {
-                  "id": "Head Office",
+                  "id": "HO",
                   "name": "Head Office"
                 },
                 {
-                  "id": "Maliban Biscuit Factory",
+                  "id": "MBF",
                   "name": "Maliban Biscuit Factory"
                 },
                 {
-                  "id": "Maliban Chocolate Factory",
+                  "id": "MCF",
                   "name": "Maliban Chocolate Factory"
                 }
               ],
@@ -2996,15 +2939,15 @@
               "autoSelect": "locationName",
               "responses": [
                 {
-                  "id": "Head Office",
+                  "id": "HO",
                   "name": "Head Office"
                 },
                 {
-                  "id": "Maliban Biscuit Factory",
+                  "id": "MBF",
                   "name": "Maliban Biscuit Factory"
                 },
                 {
-                  "id": "Maliban Chocolate Factory",
+                  "id": "MCF",
                   "name": "Maliban Chocolate Factory"
                 }
               ],
@@ -3818,7 +3761,6 @@
       "email": "bot@emojot.com",
       "resolvedStatus": [
         "Completed",
-        "Group Head of Security Approved",
         "Group Head of Security Rejected",
         "Head of Department Approved",
         "Head of Department Rejected"
@@ -4234,7 +4176,7 @@
           {
             "sourceState": "Pending Group Head of Security Approval",
             "targetStates": [
-              "Group Head of Security Approved",
+              "Completed",
               "Group Head of Security Rejected"
             ]
           }
@@ -4245,5 +4187,6 @@
   "informUserConsent": {
     "title": "We Value Your Privacy",
     "content": "<p>Before we proceed, please acknowledge that we’ll be collecting and processing the following personal information:</p>\n<ul class=\"info-list\">\n  <li><strong>Name</strong> (for identification &amp; security)</li>\n  <li><strong>Company/Organization</strong> (to verify affiliation)</li>\n  <li><strong>Contact Information</strong> (phone number and/or email)</li>\n  <li><strong>Driver’s License, NIC/Passport Number</strong> (official ID number)</li>\n  <li><strong>Purpose of Visit</strong> (reason for visiting)</li>\n  <li><strong>Visitor Sign‑in/Out Time</strong> (arrival &amp; departure timestamps)</li>\n  <li><strong>Facial Image</strong> (captured and stored securely for visitor identification, security verification, access control, and audit trail purposes. Images will be retained according to our data retention policy)</li>\n</ul>\n<p>To continue using this service, please confirm that you agree to our <a href=\"/privacy-policy\" target=\"_blank\">Privacy Policy</a> and the processing of your personal data in compliance with GDPR.</p>"
-  }
+  },
+  "sourceWorkflow": "6a7d5c45f7b38fc01f7ef59d"
 }
