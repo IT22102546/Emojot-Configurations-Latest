@@ -2331,10 +2331,10 @@
           "skipAssignment": true,
           "levels": [
             {
-              "nextLevelTime": 604800000
+              "nextLevelTime": 172800000
             },
             {
-              "nextLevelTime": 604800000,
+              "nextLevelTime": 172800000,
               "fieldsChange": [
                 {
                   "id": "overdue",
@@ -2343,7 +2343,7 @@
               ]
             },
             {
-              "nextLevelTime": 604800000,
+              "nextLevelTime": 172800000,
               "fieldsChange": [
                 {
                   "id": "overdue",
@@ -2352,7 +2352,7 @@
               ]
             },
             {
-              "nextLevelTime": 604800000,
+              "nextLevelTime": 172800000,
               "fieldsChange": [
                 {
                   "id": "overdue",

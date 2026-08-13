@@ -5,13 +5,13 @@
             <param>
                 <name>percepticDrillDown</name>
                 <operator>eq</operator>
-                <value>"q698"</value>
+                <value>"q9353"</value>
             </param>
             <joinOperator>and</joinOperator>
             <joinParam>
                 <derivedValue>emoteNumericValue</derivedValue>
-                <operator>gd</operator>
-                <value>0</value>
+                <operator>ldOrEq</operator>
+                <value>1</value>
             </joinParam>
         </params>
         <engagementActions>
@@ -25,16 +25,34 @@
                             <emoSignatureCondition>
                                 <Location>Wattala</Location>
                             </emoSignatureCondition>
-                            <smsTo>+94777321682,+94767503102,+94779618860,+94773638447</smsTo>
+                            <smsTo>+94767503102,+94779618860,+94773638447,+94703907815</smsTo>
                         </recipient>
                         <recipient>
                             <emoSignatureCondition>
                                 <Location>Thalawathugoda</Location>
                             </emoSignatureCondition>
-                            <smsTo>+94765883866,+94768563772,+94773638447,+94767740201,+94779029564,+94770471413</smsTo>
+                            <smsTo>+94765883866,+94768563772,+94773638447,+94767740201,+94779029564,+94760187182,+94770471413</smsTo>
+                        </recipient>
+                            <recipient>
+                            <emoSignatureCondition>
+                                <Location>CR Medi Wattala</Location>
+                            </emoSignatureCondition>
+                            <smsTo>+94770810583,+94764691475,+94770353298</smsTo>
+                        </recipient>
+                            <recipient>
+                            <emoSignatureCondition>
+                                <Location>ATG Thalawathugoda</Location>
+                            </emoSignatureCondition>
+                            <smsTo>+9474229827</smsTo>
+                        </recipient>
+                          <recipient>
+                            <emoSignatureCondition>
+                                <Location>WLW Wattala</Location>
+                            </emoSignatureCondition>
+                            <smsTo>+94728608851,+94706108571</smsTo>
                         </recipient>
                     </emoSignatureBasedSMSRecipientList>
-                    <smsbody>You got low rating for OPD $$emoSignature_Location_value$$. Patient - $$loyalty_Name_value$$/$$loyalty_Telephone_value$$</smsbody>
+                    <smsbody>You got low rating for OPD $$emoSignature_Location_value$$. Patient - $$loyalty_Name_value$$/ $$loyalty_Telephone_value$$</smsbody>
                 </data>
                 <validityPeriod>5</validityPeriod>
             </action>
@@ -45,13 +63,13 @@
             <param>
                 <name>percepticDrillDown</name>
                 <operator>eq</operator>
-                <value>"q698"</value>
+                <value>"q9353"</value>
             </param>
             <joinOperator>and</joinOperator>
             <joinParam>
                 <derivedValue>emoteNumericValue</derivedValue>
-                <operator>ld</operator>
-                <value>0</value>
+                <operator>gdOrEq</operator>
+                <value>2</value>
             </joinParam>
         </params>
         <engagementActions>
@@ -79,13 +97,13 @@
             <param>
                 <name>percepticDrillDown</name>
                 <operator>eq</operator>
-                <value>"q698"</value>
+                <value>"q9353"</value>
             </param>
             <joinOperator>and</joinOperator>
             <joinParam>
                 <derivedValue>emoteNumericValue</derivedValue>
-                <operator>ld</operator>
-                <value>0</value>
+                <operator>gd</operator>
+                <value>3</value>
             </joinParam>
         </params>
         <engagementActions>

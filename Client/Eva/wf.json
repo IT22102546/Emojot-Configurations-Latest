@@ -1,0 +1,81 @@
+{
+  "reportNamePrefix": "Eva Raffle Draw",
+  "reporterNamePrefix": "Participant",
+  "descriptionFormat": "text",
+  "type": {
+    "name": "Type",
+    "readOnly": true,
+    "type": "enum",
+    "values": [
+      {
+        "id": "Eva Raffle Draw",
+        "name": "Eva Raffle Draw",
+        "highPriorityFields": [
+          "fullName",
+          "mobileNumber",
+          "district",
+          "attachment"
+        ]
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "High",
+        "name": "High"
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Open",
+        "name": "Open"
+      }
+    ]
+  },
+  "customFields": {
+    "fullName": {
+      "name": "Full Name",
+      "type": "string",
+      "readOnly": true
+    },
+    "mobileNumber": {
+      "name": "Mobile Number",
+      "type": "string",
+      "readOnly": true
+    },
+    "district": {
+      "name": "District",
+      "type": "string",
+      "readOnly": true
+    },
+    "attachment": {
+      "name": "Attachment",
+      "type": "file",
+      "readOnly": true
+    }
+  },
+  "workflowCreation": {
+    "email": "bot@emojot.com",
+    "triggers": []
+  },
+  "name": "evaRaffleDrawWF",
+  "assignment": {
+    "automaticAssignment": {
+      "isEnabled": true,
+      "email": "sanjanan@emojot.com"
+    }
+  },
+  "tableEdit": "false",
+  "finalState": false,
+  "timeZone": -330,
+  "nameTemplate": "Eva Raffle Draw: $fullName$"
+}

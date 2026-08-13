@@ -10,16 +10,11 @@
 
 
 #master-section {
-    /* Background image (Alliance Finance skin), faded under a soft
-       white wash so the photo reads muted/washed-out rather than
-       full-strength — the minimal, understated look requested
-       (Sampath-style: quiet photo, no color accents). */
     background:
         linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
         url("https://storage.emojot.com/pictures/skinImages/6a4e20b0f9aa04ffc8de16b5-skin1.png");
     background-color: #ffffff;
     min-height: 657px;
-    /* min-height: 100vh; */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -42,8 +37,6 @@
     font-size: 15pt;
     font-weight: 500;
 }
-
-
 
 .form-group label {
     color: #000000 !important;
@@ -203,7 +196,6 @@
     text-align: center;
     max-width: 55px;
     margin: 5px;
-
 }
 
 @keyframes shake {
@@ -214,7 +206,6 @@
     80%  { transform: translate(2px, 0) rotate(5deg); }
     100% { transform: translate(0, 0) rotate(0); }
 }
-
 
 .loyalty-redeem-button {
     border: 2px solid #781d7d !important;
@@ -404,10 +395,8 @@
 }
 
 .media-uploaded {
-
     border: 2px solid #1d3557;
     background: #1d355741;
-
 }
 
 @keyframes colorShift {
@@ -418,7 +407,6 @@
         background-color: #1d3557;
     }
 }
-
 
 .progress_bar .progress_number {
     font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
@@ -520,7 +508,6 @@
     font-weight: 500 !important;
 }
 
-
 div.col-xs-7.ng-scope {
     font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
 }
@@ -557,6 +544,13 @@ div.col-xs-7.ng-scope {
 .btn-clear:hover {
     background: #888888 !important;
     color: #ffffff !important;
+}
+
+/* Comment box label only — normal weight to match other question titles.
+   Scoped to #textfeedbackaccordion so it doesn't affect other
+   .form-group label instances elsewhere (loyalty capture, media upload, etc.) */
+#textfeedbackaccordion .form-group label {
+    font-weight: 500 !important;
 }
 
 @media (max-width: 768px) {
@@ -618,9 +612,9 @@ div.col-xs-7.ng-scope {
     }
 
     .loyalty-message {
-    font-size: 12pt;
-    color: #150014;
-    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
-    font-weight: 500;
-}
+        font-size: 12pt;
+        color: #150014;
+        font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
+        font-weight: 500;
+    }
 }

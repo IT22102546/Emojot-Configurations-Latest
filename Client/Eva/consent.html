@@ -1,0 +1,1129 @@
+<style>
+/* =========================================================
+   EVA CONSENT SECTION — FINAL
+========================================================= */
+
+.lnksh-cc-title {
+    display: none !important;
+}
+
+/* Hide consent until it has been moved into the correct place */
+.lnksh-cc-consent-wrap {
+    visibility: hidden !important;
+    opacity: 0 !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+
+    width: 100% !important;
+
+    margin: 26px 0 20px !important;
+    padding: 0 !important;
+
+    box-sizing: border-box !important;
+
+    font-family: "Exo", Arial, sans-serif !important;
+    color: #444 !important;
+
+    clear: both !important;
+}
+
+.lnksh-cc-consent-wrap.lnksh-cc-ready {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.lnksh-cc-consent-label {
+    display: flex !important;
+    align-items: flex-start !important;
+
+    gap: 12px !important;
+
+    width: 100% !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.45 !important;
+
+    text-align: left !important;
+
+    cursor: pointer !important;
+}
+
+.lnksh-cc-checkbox {
+    flex: 0 0 18px !important;
+
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+
+    margin: 3px 0 0 !important;
+
+    cursor: pointer !important;
+}
+
+.lnksh-cc-consent-label span {
+    display: block !important;
+
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+
+    color: #3f3a46 !important;
+
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.45 !important;
+
+    text-align: left !important;
+
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+}
+
+/* Submit disabled until both consents are checked */
+.btn-submit.lnksh-cc-disabled {
+    opacity: 0.35 !important;
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+}
+
+/* =========================================================
+   READ-ONLY MOBILE NUMBER
+========================================================= */
+
+#gs_0 input[id="Mobile Number"][readonly],
+#gs_0 input[name="Mobile Number"][readonly],
+#gs_0 .intl-tel-input input[readonly] {
+    cursor: default !important;
+
+    color: #292333 !important;
+    -webkit-text-fill-color: #292333 !important;
+
+    opacity: 1 !important;
+
+    caret-color: transparent !important;
+
+    background: transparent !important;
+
+    border: 0 !important;
+    outline: 0 !important;
+
+    box-shadow: none !important;
+}
+
+#gs_0 input[id="Mobile Number"][readonly]:focus,
+#gs_0 input[name="Mobile Number"][readonly]:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+</style>
+
+
+<!-- =====================================================
+     CONSENT
+====================================================== -->
+
+<div
+    class="lnksh-cc-title"
+    data-lnksh-source="commercial-credit-inline"
+>
+    <span data-lnksh-key="title">
+        We value your feedback. Kindly provide your details below to help us understand you better.
+    </span>
+</div>
+
+
+<div
+    class="lnksh-cc-consent-wrap"
+    data-lnksh-source="commercial-credit-inline"
+>
+
+    <label class="lnksh-cc-consent-label">
+
+        <input
+            class="lnksh-cc-checkbox"
+            type="checkbox"
+        >
+
+        <span data-lnksh-key="consent1">
+            I consent to ICL Brands (Private) Limited collecting and processing my personal data, including my name, district, and mobile number, for the purpose of administering the EVA Scan &amp; Win promotion. I understand that my personal data will be used solely for this purpose and retained only for as long as necessary or as required by applicable laws.
+        </span>
+
+    </label>
+
+
+    <label class="lnksh-cc-consent-label">
+
+        <input
+            class="lnksh-cc-checkbox"
+            type="checkbox"
+        >
+
+        <span data-lnksh-key="consent2">
+            I consent to receiving marketing communications, offers, and other promotional information from ICL Brands (Private) Limited through SMS, WhatsApp, and/or other electronic channels.
+        </span>
+
+    </label>
+
+</div>
+
+
+<script>
+(function () {
+    "use strict";
+
+    /* =====================================================
+       CONSENT SECTION
+    ===================================================== */
+
+    function findSubmitButton() {
+
+        return (
+            document.querySelector(
+                "button#CampaignLastPageSubmit.btn-submit"
+            ) ||
+
+            document.querySelector(
+                "#gs_0 .btn-submit"
+            )
+        );
+    }
+
+
+    function placeConsent() {
+
+        var consent =
+            document.querySelector(
+                ".lnksh-cc-consent-wrap"
+            );
+
+        var submitBtn =
+            findSubmitButton();
+
+
+        if (!consent || !submitBtn) {
+            return false;
+        }
+
+
+        var buttonPanel =
+            submitBtn.closest(".button-panel");
+
+
+        var submitRow =
+            submitBtn.closest(
+                ".clear-submit-row, " +
+                ".clear-submit-row-perception"
+            );
+
+
+        if (!buttonPanel) {
+            return false;
+        }
+
+
+        if (
+            submitRow &&
+            submitRow.parentNode === buttonPanel
+        ) {
+
+            if (
+                consent.parentNode !== buttonPanel ||
+                consent.nextSibling !== submitRow
+            ) {
+
+                buttonPanel.insertBefore(
+                    consent,
+                    submitRow
+                );
+            }
+
+        } else {
+
+            if (
+                consent.parentNode !== buttonPanel
+            ) {
+
+                buttonPanel.insertBefore(
+                    consent,
+                    buttonPanel.firstChild
+                );
+            }
+        }
+
+
+        /*
+         * Only reveal after it has reached
+         * the correct position.
+         */
+        consent.classList.add(
+            "lnksh-cc-ready"
+        );
+
+
+        return true;
+    }
+
+
+    function setupCheckboxes() {
+
+        var submitBtn =
+            findSubmitButton();
+
+
+        var checkboxes =
+            document.querySelectorAll(
+                ".lnksh-cc-checkbox"
+            );
+
+
+        if (
+            !submitBtn ||
+            checkboxes.length !== 2
+        ) {
+            return;
+        }
+
+
+        function refreshSubmitState() {
+
+            var allChecked =
+                Array.prototype.every.call(
+                    checkboxes,
+                    function (checkbox) {
+                        return checkbox.checked;
+                    }
+                );
+
+
+            if (allChecked) {
+
+                submitBtn.classList.remove(
+                    "lnksh-cc-disabled"
+                );
+
+                submitBtn.removeAttribute(
+                    "disabled"
+                );
+
+            } else {
+
+                submitBtn.classList.add(
+                    "lnksh-cc-disabled"
+                );
+
+                submitBtn.setAttribute(
+                    "disabled",
+                    "disabled"
+                );
+            }
+        }
+
+
+        checkboxes.forEach(
+            function (checkbox) {
+
+                if (
+                    checkbox.dataset.lnkshBound ===
+                    "1"
+                ) {
+                    return;
+                }
+
+
+                checkbox.dataset.lnkshBound =
+                    "1";
+
+
+                checkbox.addEventListener(
+                    "change",
+                    refreshSubmitState
+                );
+            }
+        );
+
+
+        refreshSubmitState();
+    }
+
+
+    function refreshConsentLayout() {
+
+        if (placeConsent()) {
+            setupCheckboxes();
+        }
+    }
+
+
+    var consentRefreshTimer = null;
+
+
+    function scheduleConsentRefresh() {
+
+        clearTimeout(
+            consentRefreshTimer
+        );
+
+
+        consentRefreshTimer =
+            setTimeout(
+                refreshConsentLayout,
+                50
+            );
+    }
+
+
+    function initializeConsent() {
+
+        refreshConsentLayout();
+
+
+        var master =
+            document.querySelector(
+                "#master-section"
+            );
+
+
+        if (master) {
+
+            var observer =
+                new MutationObserver(
+                    scheduleConsentRefresh
+                );
+
+
+            observer.observe(
+                master,
+                {
+                    childList: true,
+                    subtree: true
+                }
+            );
+        }
+    }
+
+
+    if (
+        document.readyState === "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeConsent
+        );
+
+    } else {
+
+        initializeConsent();
+    }
+
+})();
+</script>
+
+
+<script>
+(function () {
+    "use strict";
+
+    /* =====================================================
+       MOBILE NUMBER
+    ===================================================== */
+
+
+    /* -----------------------------------------------------
+       Read Telephone from loyaltyFields
+    ----------------------------------------------------- */
+
+    function getTelephoneFromUrl() {
+
+        var encoded =
+            new URLSearchParams(
+                window.location.search
+            ).get("loyaltyFields");
+
+
+        if (!encoded) {
+            return null;
+        }
+
+
+        encoded = encoded
+            .replace(
+                /[^A-Za-z0-9+/_=-]/g,
+                ""
+            )
+            .replace(/-/g, "+")
+            .replace(/_/g, "/")
+            .replace(/=+$/, "");
+
+
+        encoded += "=".repeat(
+            (4 - (encoded.length % 4)) % 4
+        );
+
+
+        try {
+
+            var binary =
+                atob(encoded);
+
+
+            var bytes =
+                Uint8Array.from(
+                    binary,
+                    function (character) {
+                        return character.charCodeAt(0);
+                    }
+                );
+
+
+            var decoded =
+                new TextDecoder(
+                    "utf-8"
+                ).decode(bytes);
+
+
+            var data =
+                JSON.parse(decoded);
+
+
+            return (
+                data.Telephone ||
+                data.telephone ||
+                data.Mobile ||
+                data.mobile ||
+                null
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Could not decode loyaltyFields:",
+                error
+            );
+
+
+            return null;
+        }
+    }
+
+
+    /* -----------------------------------------------------
+       Find Mobile Number field
+    ----------------------------------------------------- */
+
+    function findMobileInput() {
+
+        return (
+
+            document.querySelector(
+                '.intl-tel-input input[name="Mobile Number"]'
+            )
+
+            ||
+
+            document.querySelector(
+                'input[ng-intl-tel-input][name="Mobile Number"]'
+            )
+
+            ||
+
+            document.querySelector(
+                'input[id="Mobile Number"][name="Mobile Number"]'
+            )
+
+            ||
+
+            document.querySelector(
+                'input[id="Mobile Number"]'
+            )
+
+        );
+    }
+
+
+    /* -----------------------------------------------------
+       Set native value
+    ----------------------------------------------------- */
+
+    function setNativeValue(
+        input,
+        value
+    ) {
+
+        if (!input) {
+            return;
+        }
+
+
+        var descriptor =
+            Object.getOwnPropertyDescriptor(
+                HTMLInputElement.prototype,
+                "value"
+            );
+
+
+        if (
+            descriptor &&
+            descriptor.set
+        ) {
+
+            descriptor.set.call(
+                input,
+                value
+            );
+
+        } else {
+
+            input.value =
+                value;
+        }
+
+
+        input.dispatchEvent(
+            new Event(
+                "input",
+                {
+                    bubbles: true
+                }
+            )
+        );
+
+
+        input.dispatchEvent(
+            new Event(
+                "change",
+                {
+                    bubbles: true
+                }
+            )
+        );
+    }
+
+
+    /* -----------------------------------------------------
+       Update Angular model
+    ----------------------------------------------------- */
+
+    function updateAngularModel(
+        input,
+        value
+    ) {
+
+        if (
+            !window.angular ||
+            !input
+        ) {
+            return;
+        }
+
+
+        try {
+
+            var element =
+                window.angular.element(
+                    input
+                );
+
+
+            var controller =
+                element.controller(
+                    "ngModel"
+                );
+
+
+            if (controller) {
+
+                controller.$setViewValue(
+                    value
+                );
+
+                controller.$render();
+            }
+
+
+            var scope =
+                element.scope();
+
+
+            if (
+                scope &&
+                scope.item
+            ) {
+
+                scope.$evalAsync(
+                    function () {
+
+                        scope.item.value =
+                            value;
+
+                    }
+                );
+            }
+
+
+        } catch (error) {
+
+            console.debug(
+                "Angular model update skipped:",
+                error
+            );
+        }
+    }
+
+
+    /* =====================================================
+       MAKE MOBILE NUMBER GENUINELY READ ONLY
+    ===================================================== */
+
+    function makeMobileReadOnly() {
+
+        var input =
+            findMobileInput();
+
+
+        if (!input) {
+            return;
+        }
+
+
+        /*
+         * Native readonly property.
+         */
+        input.readOnly = true;
+
+
+        /*
+         * HTML attribute.
+         */
+        input.setAttribute(
+            "readonly",
+            "readonly"
+        );
+
+
+        /*
+         * Accessibility state.
+         */
+        input.setAttribute(
+            "aria-readonly",
+            "true"
+        );
+
+
+        /*
+         * Avoid mobile keyboard.
+         */
+        input.setAttribute(
+            "inputmode",
+            "none"
+        );
+
+
+        /*
+         * Stop autocomplete trying to alter it.
+         */
+        input.setAttribute(
+            "autocomplete",
+            "off"
+        );
+
+
+        /*
+         * Prevent paste.
+         */
+        input.onpaste =
+            function (event) {
+
+                event.preventDefault();
+
+                return false;
+            };
+
+
+        /*
+         * Prevent drag/drop.
+         */
+        input.ondrop =
+            function (event) {
+
+                event.preventDefault();
+
+                return false;
+            };
+
+
+        /*
+         * Prevent typing even if another plugin
+         * temporarily removes readonly.
+         */
+        if (
+            input.dataset.evaReadonlyBound !==
+            "1"
+        ) {
+
+            input.dataset.evaReadonlyBound =
+                "1";
+
+
+            input.addEventListener(
+                "keydown",
+                function (event) {
+
+                    /*
+                     * Allow Tab navigation.
+                     */
+                    if (
+                        event.key === "Tab"
+                    ) {
+                        return;
+                    }
+
+
+                    /*
+                     * Allow browser copy shortcuts.
+                     */
+                    if (
+                        (event.ctrlKey ||
+                         event.metaKey) &&
+                        (
+                            event.key.toLowerCase() ===
+                            "c" ||
+
+                            event.key.toLowerCase() ===
+                            "a"
+                        )
+                    ) {
+                        return;
+                    }
+
+
+                    event.preventDefault();
+
+                },
+                true
+            );
+
+
+            input.addEventListener(
+                "beforeinput",
+                function (event) {
+
+                    event.preventDefault();
+
+                },
+                true
+            );
+        }
+    }
+
+
+    /* -----------------------------------------------------
+       Apply number
+    ----------------------------------------------------- */
+
+    function applyTelephone(
+        input,
+        telephone
+    ) {
+
+        if (
+            !input ||
+            !telephone
+        ) {
+            return;
+        }
+
+
+        /*
+         * Temporarily allow JS to update.
+         */
+        input.readOnly = false;
+
+
+        input.removeAttribute(
+            "readonly"
+        );
+
+
+        setNativeValue(
+            input,
+            telephone
+        );
+
+
+        updateAngularModel(
+            input,
+            telephone
+        );
+
+
+        /*
+         * Lock immediately afterwards.
+         */
+        makeMobileReadOnly();
+    }
+
+
+    /* =====================================================
+       START AUTOFILL
+    ===================================================== */
+
+    function startTelephoneAutofill() {
+
+        var telephone =
+            getTelephoneFromUrl();
+
+
+        if (!telephone) {
+
+            console.debug(
+                "Telephone not found in loyaltyFields."
+            );
+
+            return;
+        }
+
+
+        var startedAt =
+            Date.now();
+
+
+        /*
+         * Maximum time to wait for field.
+         */
+        var maximumWait =
+            30000;
+
+
+        /*
+         * intl-tel-input / Angular can recreate or
+         * overwrite the field during initialization.
+         */
+        var synchronizationTime =
+            10000;
+
+
+        var findTimer =
+            setInterval(
+                function () {
+
+                    var input =
+                        findMobileInput();
+
+
+                    if (!input) {
+
+                        if (
+                            Date.now() -
+                            startedAt >=
+                            maximumWait
+                        ) {
+
+                            clearInterval(
+                                findTimer
+                            );
+                        }
+
+
+                        return;
+                    }
+
+
+                    clearInterval(
+                        findTimer
+                    );
+
+
+                    var synchronizeUntil =
+                        Date.now() +
+                        synchronizationTime;
+
+
+                    /*
+                     * Initial population.
+                     */
+                    applyTelephone(
+                        input,
+                        telephone
+                    );
+
+
+                    /*
+                     * Keep checking while Emojot's
+                     * telephone plugin initializes.
+                     */
+                    var synchronizationTimer =
+                        setInterval(
+                            function () {
+
+                                var currentInput =
+                                    findMobileInput();
+
+
+                                if (
+                                    currentInput
+                                ) {
+
+                                    if (
+                                        currentInput.value !==
+                                        telephone
+                                    ) {
+
+                                        applyTelephone(
+                                            currentInput,
+                                            telephone
+                                        );
+
+                                    } else {
+
+                                        /*
+                                         * Value is right.
+                                         * Make sure it remains locked.
+                                         */
+                                        makeMobileReadOnly();
+                                    }
+                                }
+
+
+                                if (
+                                    Date.now() >=
+                                    synchronizeUntil
+                                ) {
+
+                                    clearInterval(
+                                        synchronizationTimer
+                                    );
+
+
+                                    var finalInput =
+                                        findMobileInput();
+
+
+                                    if (
+                                        finalInput
+                                    ) {
+
+                                        applyTelephone(
+                                            finalInput,
+                                            telephone
+                                        );
+
+
+                                        makeMobileReadOnly();
+
+
+                                        finalInput.dispatchEvent(
+                                            new Event(
+                                                "blur",
+                                                {
+                                                    bubbles: true
+                                                }
+                                            )
+                                        );
+                                    }
+                                }
+
+                            },
+                            250
+                        );
+
+                },
+                250
+            );
+    }
+
+
+    /* =====================================================
+       KEEP READONLY AFTER ANGULAR DOM UPDATES
+    ===================================================== */
+
+    function startReadonlyObserver() {
+
+        var root =
+            document.querySelector(
+                "#master-section"
+            ) ||
+            document.body;
+
+
+        var observer =
+            new MutationObserver(
+                function () {
+
+                    var input =
+                        findMobileInput();
+
+
+                    if (!input) {
+                        return;
+                    }
+
+
+                    /*
+                     * If Angular recreated the input,
+                     * restore readonly immediately.
+                     */
+                    if (
+                        !input.readOnly ||
+                        !input.hasAttribute(
+                            "readonly"
+                        )
+                    ) {
+
+                        makeMobileReadOnly();
+                    }
+                }
+            );
+
+
+        observer.observe(
+            root,
+            {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                attributeFilter: [
+                    "readonly"
+                ]
+            }
+        );
+    }
+
+
+    /* =====================================================
+       INITIALIZE
+    ===================================================== */
+
+    function initializeMobile() {
+
+        startTelephoneAutofill();
+
+        startReadonlyObserver();
+    }
+
+
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeMobile
+        );
+
+    } else {
+
+        initializeMobile();
+    }
+
+})();
+</script>

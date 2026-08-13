@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<cepRules>
+    <cepRule id="1" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q2540"</value>
+            </param>
+        </params>
+        <engagementActions>
+            <action>
+                <type>incident</type>
+                <data>
+                    <workflowID>6a7bf4e53da9285c1ffb7a02</workflowID>
+                    <name>Eva Raffle Draw</name>
+                    <assignee>sanjanan@emojot.com</assignee>
+                    <type>Eva Raffle Draw</type>
+                    <priority>High</priority>
+                    <status>Open</status>
+                    <description><![CDATA[
+<b>Full Name : </b>$$gp3273_c1_comment_value$$<br><br>
+<b>Mobile Number : </b>$$gp3273_c2_comment_value$$<br> 
+<b>District : </b>$$q2540_emote$$<br>
+                    ]]></description>
+                    <customFields>
+                        
+                        
+                        <field>
+                            <key>fullName</key>
+                            <value>$$gp3273_c1_comment_value$$</value>
+                        </field>
+                        <field>
+                            <key>mobileNumber</key>
+                            <value>$$gp3273_c2_comment_value$$</value>
+                        </field>
+                        <field>
+                            <key>district</key>
+                            <value>$$q2540_emote$$</value>
+                        </field>
+                        <field>
+                            <key>attachment</key>
+                            <value>$$mediafile_p3273$$</value>
+                        </field>
+                        
+                    </customFields>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+</cepRules>

@@ -1,0 +1,280 @@
+{
+  "menu": [
+    {
+      "id": "cxm",
+      "icon": "fa fa-users",
+      "header": "EVA Survey Analytics",
+      "subs": [
+        {
+          "header": "Survey",
+          "id": "cxm_links"
+        },
+        {
+          "header": "Survey Analytics",
+          "id": "cxm_eanalytics"
+        },
+        {
+          "header": "Survey Responses",
+          "id": "cxm_raw"
+        }
+      ]
+    },
+    {
+      "id": "attachments",
+      "icon": "fas fa-users",
+      "header": " Attachments",
+      "subs": [
+        {
+          "header": "View Attachments",
+          "id": "attachments_list"
+        }
+      ]
+    },
+    {
+      "id": "website_analysis",
+      "icon": "fa fa-trophy",
+      "header": "Raffle Draw",
+      "subs": [
+        {
+          "header": "EVA  Raffle Draw",
+          "id": "website_analytics"
+        }
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "title": "Surveys",
+      "type": "groupedCards",
+      "id": "cxm_links",
+      "groups": [
+        {
+          "title": "EVA  Survey - Link",
+          "cards": [
+            {
+              "title": "Survey Link",
+              "titleStyle": "color: #FFFFFF;background: #F06292;;",
+              "type": "direct",
+              "desc": "Click below to access the survey.",
+              "target": "https://eva.emojot.com",
+              "openInNewPage": true,
+              "id": "cxm_links_1",
+              "launchButtonText": "Launch Survey",
+              "eh": [
+                {
+                  "key": "Reported By",
+                  "value": "{username}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Survey Responses",
+      "desc": "See which contestant is leading in audience predictions.",
+      "type": "directReport",
+      "id": "cxm_eanalytics",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/cxmDashboard/cxmDashboard.jsp"
+        },
+        {
+          "key": "selectedReportName",
+          "value": "Eva Overall"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "Raw Responses",
+      "titleStyle": "color:white;background:#008fed;",
+      "desc": "Raw responses",
+      "type": "directReport",
+      "id": "cxm_raw",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "rawEmotes.jsp"
+        },
+        {
+          "key": "sensorID",
+          "value": "6a55f7d6a8bcc472e1835896"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        },
+        {
+          "key": "showOtherSensors",
+          "value": false
+        },
+        {
+          "key": "sensorComments",
+          "value": "p3273"
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+     {
+      "title": "Responses with Attachments",
+      "desc": "View all resposes with attachments",
+      "type": "directReport",
+      "id": "attachments_list",
+      "params": [
+        {
+          "key": "redirectPage",
+          "value": "reports/incidentManagement/incidentManagement.jsp"
+        },
+        {
+          "key": "trimOut",
+          "value": true
+        }
+      ],
+      "styles": [
+        {
+          "id": ".container",
+          "key": "width",
+          "value": "100%"
+        }
+      ]
+    },
+    {
+      "title": "EVA  Raffle Draw",
+      "desc": "Select winners at random from participant responses",
+      "id": "website_analytics",
+      "type": "cards",
+      "cards": [
+        {
+          "title": "EVA  Raffle Draw - Link",
+          "titleStyle": "color: #FFFFFF;background: #F06292;;",
+          "type": "url",
+          "desc": "Draw lucky winners from the pool of entries.",
+          "url": "https://emojot-raffle-draw.vercel.app/",
+          "id": "website_analytics_main",
+          "styles": [
+            {
+              "id": "iframe",
+              "key": "width",
+              "value": "100%"
+            },
+            {
+              "id": "iframe",
+              "key": "height",
+              "value": "1000px"
+            },
+            {
+              "id": "iframe",
+              "key": "border",
+              "value": "none"
+            },
+            {
+              "id": ".container",
+              "key": "width",
+              "value": "100%"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "profiles": [
+    {
+      "image": "https://storage.emojot.com/pictures/generalImages/6866500fe18487d3d2efe4d5-skin2.png",
+      "name": "andun@emojot.com",
+      "id": "andun@emojot.com",
+      "title": "company_admin",
+      "email": "andun@emojot.com"
+    },
+    {
+      "image": "https://storage.emojot.com/pictures/generalImages/6866500fe18487d3d2efe4d5-skin2.png",
+      "name": "onels@emojot.com",
+      "id": "onels@emojot.com",
+      "title": "company_admin",
+      "email": "onels@emojot.com"
+    },
+    {
+      "image": "https://storage.emojot.com/pictures/generalImages/6866500fe18487d3d2efe4d5-skin2.png",
+      "name": "viraj@emojot.com",
+      "id": "viraj@emojot.com",
+      "title": "company_admin",
+      "email": "viraj@emojot.com"
+    },
+    {
+      "image": "https://storage.emojot.com/pictures/generalImages/6866500fe18487d3d2efe4d5-skin2.png",
+      "name": "shaveenf@emojot.com",
+      "id": "shaveenf@emojot.com",
+      "title": "company_admin",
+      "email": "shaveenf@emojot.com"
+    },
+    {
+      "image": "https://storage.emojot.com/pictures/generalImages/6866500fe18487d3d2efe4d5-skin2.png",
+      "name": "lankeshh@emojot.com",
+      "id": "lankeshh@emojot.com",
+      "title": "company_admin",
+      "email": "lankeshh@emojot.com"
+    },
+    {
+      "image": "https://storage.emojot.com/logos/company_logo/6866500fe18487d3d2efe4d5.png",
+      "name": "dewminil@emojot.com",
+      "id": "dewminil@emojot.com",
+      "title": "company_admin",
+      "email": "dewminil@emojot.com"
+    },
+    {
+      "image": "https://storage.emojot.com/logos/company_logo/6866500fe18487d3d2efe4d5.png",
+      "name": "sampath@emojot.com",
+      "id": "sampath@emojot.com",
+      "title": "company_admin",
+      "email": "sampath@emojot.com"
+    },
+    {
+      "image": "https://storage.emojot.com/logos/company_logo/6866500fe18487d3d2efe4d5.png",
+      "name": "manura@emojot.com",
+      "id": "manura@emojot.com",
+      "title": "company_admin",
+      "email": "manura@emojot.com"
+    },
+    {
+      "image": "https://storage.emojot.com/logos/company_logo/6866500fe18487d3d2efe4d5.png",
+      "name": "salmanf@emojot.com",
+      "id": "salmanf@emojot.com",
+      "title": "company_admin",
+      "email": "salmanf@emojot.com"
+    },
+    {
+      "image": "https://storage.emojot.com/logos/company_logo/6866500fe18487d3d2efe4d5.png",
+      "name": "sanjanan@emojot.com",
+      "id": "sanjanan@emojot.com",
+      "title": "company_admin",
+      "email": "sanjanan@emojot.com"
+    },
+    {
+      "image": "https://storage.emojot.com/logos/company_logo/6866500fe18487d3d2efe4d5.png",
+      "name": "abhishekak@emojot.com",
+      "id": "abhishekak@emojot.com",
+      "title": "company_admin",
+      "email": "abhishekak@emojot.com"
+    }
+  ],
+  "assignmentAllowed": true,
+  "showAIAssistant": false
+}

@@ -107,7 +107,6 @@
     </engagementActions>
   </cepRule>
 
-   <!-- Rule 3: Product Related Complaints -->
   <cepRule id="3" timeWindow="5">
     <params>
       <param>
@@ -121,10 +120,8 @@
         <operator>eq</operator>
         <value>0</value>
       </joinParam>
-    </params>
     <joinOperator>and</joinOperator>
-    <params>
-      <param>
+     <param>
         <name>percepticDrillDown</name>
         <operator>eq</operator>
         <value>"q6013"</value>
@@ -136,6 +133,10 @@
         <value>-1</value>
       </joinParam>
     </params>
+    </params>
+   
+  
+     
     <engagementActions>
       <action>
         <type>incident</type>
