@@ -29,6 +29,7 @@
           }
         ],
         "highPriorityFields": [
+          "branch",
           "customerFeedbackSatisfaction",
           "customerName",
           "customerEmail",
@@ -37,7 +38,8 @@
           "overdue",
           "timeSpent",
           "complaintCategory",
-          "issueDescription"
+          "issueDescription",
+          "copyto"
         ]
       },
       {
@@ -76,7 +78,8 @@
           "customerTelephone",
           "internalDocumentation",
           "overdue",
-          "timeSpent"
+          "timeSpent",
+          "copyto"
         ]
       },
       {
@@ -101,6 +104,7 @@
           }
         ],
         "highPriorityFields": [
+          "branch",
           "complaintCategory",
           "sourceIssue",
           "issueDescription",
@@ -108,7 +112,8 @@
           "language",
           "customerDetailsLink",
           "internalDocumentation",
-          "overdue"
+          "overdue",
+          "copyto"
         ]
       }
     ]
@@ -310,6 +315,55 @@
     ]
   },
   "customFields": {
+    "copyto": {
+      "name": "Copy to",
+      "type": "enum",
+      "hidden": true,
+      "values": [
+        {
+          "id": "Operations",
+          "name": "Operations",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "complaintAssignmentAlert_Operations",
+              "target": "admin",
+              "contacts": [
+                "sanjanan@emojot.com"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Operations and Hr",
+          "name": "Operations and Hr",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "complaintAssignmentAlert_OperationsAndHR",
+              "target": "admin",
+              "contacts": [
+                "shaveenf@emojot.com"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Audit",
+          "name": "Audit",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "complaintAssignmentAlert_Audit",
+              "target": "admin",
+              "contacts": [
+                "onels@emojot.com"
+              ]
+            }
+          ]
+        }
+      ]
+    },
     "complaintDepartment": {
       "name": "Complaint Type",
       "type": "enum",
@@ -327,6 +381,572 @@
         {
           "id": "CallcenterSurvey",
           "name": "CallcenterSurvey"
+        }
+      ]
+    },
+    "branch": {
+      "name": "Branch",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Academy",
+          "name": "Academy"
+        },
+        {
+          "id": "Aluthgama",
+          "name": "Aluthgama"
+        },
+        {
+          "id": "City Office",
+          "name": "City Office"
+        },
+        {
+          "id": "Beruwala",
+          "name": "Beruwala"
+        },
+        {
+          "id": "Borella",
+          "name": "Borella"
+        },
+        {
+          "id": "Kollupitiya F",
+          "name": "Kollupitiya F"
+        },
+        {
+          "id": "Mt. Lavinia",
+          "name": "Mt. Lavinia"
+        },
+        {
+          "id": "Panadura",
+          "name": "Panadura"
+        },
+        {
+          "id": "Piliyandala",
+          "name": "Piliyandala"
+        },
+        {
+          "id": "Deraniyagala",
+          "name": "Deraniyagala"
+        },
+        {
+          "id": "Kalawana",
+          "name": "Kalawana"
+        },
+        {
+          "id": "Marawila",
+          "name": "Marawila"
+        },
+        {
+          "id": "Wennappuwa",
+          "name": "Wennappuwa"
+        },
+        {
+          "id": "Galnewa",
+          "name": "Galnewa"
+        },
+        {
+          "id": "Galenbindunuwewa",
+          "name": "Galenbindunuwewa"
+        },
+        {
+          "id": "Horowpathana",
+          "name": "Horowpathana"
+        },
+        {
+          "id": "Mahiyanganaya",
+          "name": "Mahiyanganaya"
+        },
+        {
+          "id": "Nochchiyagama",
+          "name": "Nochchiyagama"
+        },
+        {
+          "id": "Thambuththegama",
+          "name": "Thambuththegama"
+        },
+        {
+          "id": "Kirindiwela",
+          "name": "Kirindiwela"
+        },
+        {
+          "id": "Galle",
+          "name": "Galle"
+        },
+        {
+          "id": "Thanamalwila",
+          "name": "Thanamalwila"
+        },
+        {
+          "id": "Wellawaya",
+          "name": "Wellawaya"
+        },
+        {
+          "id": "Warakapola",
+          "name": "Warakapola"
+        },
+        {
+          "id": "Aralaganwila",
+          "name": "Aralaganwila"
+        },
+        {
+          "id": "Ampara",
+          "name": "Ampara"
+        },
+        {
+          "id": "Bibile",
+          "name": "Bibile"
+        },
+        {
+          "id": "Dehiattakandiya",
+          "name": "Dehiattakandiya"
+        },
+        {
+          "id": "Mahaoya",
+          "name": "Mahaoya"
+        },
+        {
+          "id": "Siyambalanduwa",
+          "name": "Siyambalanduwa"
+        },
+        {
+          "id": "Achchuveli",
+          "name": "Achchuveli"
+        },
+        {
+          "id": "Chunnakam",
+          "name": "Chunnakam"
+        },
+        {
+          "id": "Chankanai",
+          "name": "Chankanai"
+        },
+        {
+          "id": "Velani",
+          "name": "Velani"
+        },
+        {
+          "id": "Mannar",
+          "name": "Mannar"
+        },
+        {
+          "id": "Nellyadi",
+          "name": "Nellyadi"
+        },
+        {
+          "id": "Point Pedro",
+          "name": "Point Pedro"
+        },
+        {
+          "id": "Thirunelveli",
+          "name": "Thirunelveli"
+        },
+        {
+          "id": "Anuradhapura",
+          "name": "Anuradhapura"
+        },
+        {
+          "id": "Hingurakgoda",
+          "name": "Hingurakgoda"
+        },
+        {
+          "id": "Kanthale",
+          "name": "Kanthale"
+        },
+        {
+          "id": "Kalpitiya",
+          "name": "Kalpitiya"
+        },
+        {
+          "id": "Padaviya",
+          "name": "Padaviya"
+        },
+        {
+          "id": "Polonnaruwa",
+          "name": "Polonnaruwa"
+        },
+        {
+          "id": "Puttlam",
+          "name": "Puttlam"
+        },
+        {
+          "id": "Welikanda",
+          "name": "Welikanda"
+        },
+        {
+          "id": "Divulapitiya",
+          "name": "Divulapitiya"
+        },
+        {
+          "id": "Giriulla",
+          "name": "Giriulla"
+        },
+        {
+          "id": "Melsiripura",
+          "name": "Melsiripura"
+        },
+        {
+          "id": "Naththandiya",
+          "name": "Naththandiya"
+        },
+        {
+          "id": "Polpithigama",
+          "name": "Polpithigama"
+        },
+        {
+          "id": "Chavakachcheri",
+          "name": "Chavakachcheri"
+        },
+        {
+          "id": "Jaffna",
+          "name": "Jaffna"
+        },
+        {
+          "id": "Jaffna New",
+          "name": "Jaffna New"
+        },
+        {
+          "id": "Kilinochchi",
+          "name": "Kilinochchi"
+        },
+        {
+          "id": "Killinochchi New",
+          "name": "Killinochchi New"
+        },
+        {
+          "id": "Mullativu",
+          "name": "Mullativu"
+        },
+        {
+          "id": "Vavuniya",
+          "name": "Vavuniya"
+        },
+        {
+          "id": "Homagama",
+          "name": "Homagama"
+        },
+        {
+          "id": "Horana",
+          "name": "Horana"
+        },
+        {
+          "id": "Kotahena",
+          "name": "Kotahena"
+        },
+        {
+          "id": "Mathugama",
+          "name": "Mathugama"
+        },
+        {
+          "id": "Badulla",
+          "name": "Badulla"
+        },
+        {
+          "id": "Bandarawela",
+          "name": "Bandarawela"
+        },
+        {
+          "id": "Gampola",
+          "name": "Gampola"
+        },
+        {
+          "id": "Nuwaraeliya",
+          "name": "Nuwaraeliya"
+        },
+        {
+          "id": "Clifton Bungalow",
+          "name": "Clifton Bungalow"
+        },
+        {
+          "id": "Pussellawa",
+          "name": "Pussellawa"
+        },
+        {
+          "id": "Welimada",
+          "name": "Welimada"
+        },
+        {
+          "id": "Ambalantota",
+          "name": "Ambalantota"
+        },
+        {
+          "id": "Angunakolapelessa",
+          "name": "Angunakolapelessa"
+        },
+        {
+          "id": "Awissawella",
+          "name": "Awissawella"
+        },
+        {
+          "id": "Embilipitiya",
+          "name": "Embilipitiya"
+        },
+        {
+          "id": "Godakawela",
+          "name": "Godakawela"
+        },
+        {
+          "id": "Kaluthara",
+          "name": "Kaluthara"
+        },
+        {
+          "id": "Monaragala",
+          "name": "Monaragala"
+        },
+        {
+          "id": "Thissamaharama",
+          "name": "Thissamaharama"
+        },
+        {
+          "id": "Kegalle",
+          "name": "Kegalle"
+        },
+        {
+          "id": "Rikillagaskada",
+          "name": "Rikillagaskada"
+        },
+        {
+          "id": "Gampaha",
+          "name": "Gampaha"
+        },
+        {
+          "id": "Kaduwela",
+          "name": "Kaduwela"
+        },
+        {
+          "id": "Maharagama",
+          "name": "Maharagama"
+        },
+        {
+          "id": "Nugegoda",
+          "name": "Nugegoda"
+        },
+        {
+          "id": "Union Place",
+          "name": "Union Place"
+        },
+        {
+          "id": "Ambalangoda",
+          "name": "Ambalangoda"
+        },
+        {
+          "id": "Baddegama",
+          "name": "Baddegama"
+        },
+        {
+          "id": "Elpitiya",
+          "name": "Elpitiya"
+        },
+        {
+          "id": "Matara",
+          "name": "Matara"
+        },
+        {
+          "id": "Neluwa",
+          "name": "Neluwa"
+        },
+        {
+          "id": "Udugama",
+          "name": "Udugama"
+        },
+        {
+          "id": "Weligama",
+          "name": "Weligama"
+        },
+        {
+          "id": "Kalawanchikudi",
+          "name": "Kalawanchikudi"
+        },
+        {
+          "id": "Maskeliya",
+          "name": "Maskeliya"
+        },
+        {
+          "id": "Nawalapitiya",
+          "name": "Nawalapitiya"
+        },
+        {
+          "id": "Trincomalee",
+          "name": "Trincomalee"
+        },
+        {
+          "id": "Valachchanai",
+          "name": "Valachchanai"
+        },
+        {
+          "id": "Matale",
+          "name": "Matale"
+        },
+        {
+          "id": "Theldeniya",
+          "name": "Theldeniya"
+        },
+        {
+          "id": "Arayampathy",
+          "name": "Arayampathy"
+        },
+        {
+          "id": "Batticaloa",
+          "name": "Batticaloa"
+        },
+        {
+          "id": "Kokkadicholai",
+          "name": "Kokkadicholai"
+        },
+        {
+          "id": "Kalmune",
+          "name": "Kalmune"
+        },
+        {
+          "id": "KCC Branch",
+          "name": "KCC Branch"
+        },
+        {
+          "id": "Kandy",
+          "name": "Kandy"
+        },
+        {
+          "id": "Kandy Support Staff",
+          "name": "Kandy Support Staff"
+        },
+        {
+          "id": "Hatton",
+          "name": "Hatton"
+        },
+        {
+          "id": "Pilimathalawa",
+          "name": "Pilimathalawa"
+        },
+        {
+          "id": "Kuliyapitiya",
+          "name": "Kuliyapitiya"
+        },
+        {
+          "id": "Anamaduwa",
+          "name": "Anamaduwa"
+        },
+        {
+          "id": "Nikaweratiya",
+          "name": "Nikaweratiya"
+        },
+        {
+          "id": "Negombo",
+          "name": "Negombo"
+        },
+        {
+          "id": "Kochchikade",
+          "name": "Kochchikade"
+        },
+        {
+          "id": "Nittambuwa",
+          "name": "Nittambuwa"
+        },
+        {
+          "id": "Bakamuna",
+          "name": "Bakamuna"
+        },
+        {
+          "id": "Dambulla",
+          "name": "Dambulla"
+        },
+        {
+          "id": "Kekirawa",
+          "name": "Kekirawa"
+        },
+        {
+          "id": "Medawachchiya",
+          "name": "Medawachchiya"
+        },
+        {
+          "id": "Akuressa",
+          "name": "Akuressa"
+        },
+        {
+          "id": "Balangoda",
+          "name": "Balangoda"
+        },
+        {
+          "id": "Deniyaya",
+          "name": "Deniyaya"
+        },
+        {
+          "id": "Tangalle",
+          "name": "Tangalle"
+        },
+        {
+          "id": "Kollupitiya",
+          "name": "Kollupitiya"
+        },
+        {
+          "id": "Baththaramulla",
+          "name": "Baththaramulla"
+        },
+        {
+          "id": "Maligawatta",
+          "name": "Maligawatta"
+        },
+        {
+          "id": "Moratuwa",
+          "name": "Moratuwa"
+        },
+        {
+          "id": "Rathnapura",
+          "name": "Rathnapura"
+        },
+        {
+          "id": "Wattala",
+          "name": "Wattala"
+        },
+        {
+          "id": "Wellawatta",
+          "name": "Wellawatta"
+        },
+        {
+          "id": "Kurunegala",
+          "name": "Kurunegala"
+        },
+        {
+          "id": "Kurunegala Super",
+          "name": "Kurunegala Super"
+        },
+        {
+          "id": "Yard Kurunegala",
+          "name": "Yard Kurunegala"
+        },
+        {
+          "id": "Akkaraipaththu",
+          "name": "Akkaraipaththu"
+        },
+        {
+          "id": "Chenkaladi",
+          "name": "Chenkaladi"
+        },
+        {
+          "id": "Muthur",
+          "name": "Muthur"
+        },
+        {
+          "id": "Pothuvil",
+          "name": "Pothuvil"
+        },
+        {
+          "id": "Wariyapola",
+          "name": "Wariyapola"
+        },
+        {
+          "id": "Chilaw",
+          "name": "Chilaw"
+        },
+        {
+          "id": "Ja-Ela",
+          "name": "Ja-Ela"
+        },
+        {
+          "id": "Kiribathgoda",
+          "name": "Kiribathgoda"
+        },
+        {
+          "id": "Kiribathgoda CC",
+          "name": "Kiribathgoda CC"
         }
       ]
     },
@@ -388,99 +1008,397 @@
     "complaintCategory": {
       "name": "Complaint Category",
       "type": "enum",
-      "readOnly": true,
       "hidden": true,
       "values": [
         {
-          "id": "Operation Related",
-          "name": "Operation Related"
+          "id": "CR Issues",
+          "name": "CR Issues"
         },
         {
-          "id": "Audit Related",
-          "name": "Audit Related"
+          "id": "Payment Issues",
+          "name": "Payment Issues"
         },
         {
-          "id": "HR Related",
-          "name": "HR Related"
+          "id": "Delay in FD/ST Payments",
+          "name": "Delay in FD/ST Payments"
         },
         {
-          "id": "Service related",
-          "name": "Service related"
+          "id": "Payment Deposit/Handover Issues",
+          "name": "Payment Deposit/Handover Issues"
         },
         {
-          "id": "Product related",
-          "name": "Product related"
+          "id": "Insurance-Related Issues",
+          "name": "Insurance-Related Issues"
         },
         {
-          "id": "Feedback / Other",
-          "name": "Feedback / Other"
+          "id": "Loan Processing Issues",
+          "name": "Loan Processing Issues"
+        },
+        {
+          "id": "Interest Rate & Charges Issues",
+          "name": "Interest Rate & Charges Issues"
+        },
+        {
+          "id": "CRIB Issues",
+          "name": "CRIB Issues"
+        },
+        {
+          "id": "Chassis-Related Issues",
+          "name": "Chassis-Related Issues"
+        },
+        {
+          "id": "Vehicle Handover Issues",
+          "name": "Vehicle Handover Issues"
+        },
+        {
+          "id": "Recovery & Collection Issues",
+          "name": "Recovery & Collection Issues"
+        },
+        {
+          "id": "Fraud & Security Issues",
+          "name": "Fraud & Security Issues"
+        },
+        {
+          "id": "Digital Services Issues",
+          "name": "Digital Services Issues"
+        },
+        {
+          "id": "Documentation & Contract Issues",
+          "name": "Documentation & Contract Issues"
+        },
+        {
+          "id": "Customer Service Issues",
+          "name": "Customer Service Issues"
+        },
+        {
+          "id": "Letter/SMS/Communication Issues",
+          "name": "Letter/SMS/Communication Issues"
+        },
+        {
+          "id": "Data Privacy & Confidentiality Issues",
+          "name": "Data Privacy & Confidentiality Issues"
+        },
+        {
+          "id": "Employee Misconduct Issues",
+          "name": "Employee Misconduct Issues"
+        },
+        {
+          "id": "Settlement & Clearance Issues",
+          "name": "Settlement & Clearance Issues"
         }
       ]
     },
     "sourceIssue": {
       "name": "Source Issue",
       "type": "enum",
-      "readOnly": true,
       "values": [
         {
-          "id": "Long customer wait times",
-          "name": "Long customer wait times"
+          "id": "Credit Report Discrepancies",
+          "name": "Credit Report Discrepancies"
         },
         {
-          "id": "System downtime",
-          "name": "System downtime"
+          "id": "Incorrect Credit Information",
+          "name": "Incorrect Credit Information"
         },
         {
-          "id": "Poor first call resolution",
-          "name": "Poor first call resolution"
+          "id": "Late Reporting of Payments",
+          "name": "Late Reporting of Payments"
         },
         {
-          "id": "Call transfer issues",
-          "name": "Call transfer issues"
+          "id": "Disputed Accounts",
+          "name": "Disputed Accounts"
         },
         {
-          "id": "SLA breaches",
-          "name": "SLA breaches"
+          "id": "Other",
+          "name": "Other"
         },
         {
-          "id": "Script non-compliance",
-          "name": "Script non-compliance"
+          "id": "Missed Installments",
+          "name": "Missed Installments"
         },
         {
-          "id": "Missing verification steps",
-          "name": "Missing verification steps"
+          "id": "Incorrect Payment Allocation",
+          "name": "Incorrect Payment Allocation"
         },
         {
-          "id": "Incomplete documentation",
-          "name": "Incomplete documentation"
+          "id": "Overdue Payment Notices",
+          "name": "Overdue Payment Notices"
         },
         {
-          "id": "Data privacy violations",
-          "name": "Data privacy violations"
+          "id": "Payment Deduction Errors",
+          "name": "Payment Deduction Errors"
         },
         {
-          "id": "Incorrect call disposition",
-          "name": "Incorrect call disposition"
+          "id": "Fixed Deposit Maturity Delays",
+          "name": "Fixed Deposit Maturity Delays"
         },
         {
-          "id": "High absenteeism",
-          "name": "High absenteeism"
+          "id": "Interest Payment Delays",
+          "name": "Interest Payment Delays"
         },
         {
-          "id": "Staff turnover",
-          "name": "Staff turnover"
+          "id": "Premature Withdrawal Issues",
+          "name": "Premature Withdrawal Issues"
         },
         {
-          "id": "Lack of training",
-          "name": "Lack of training"
+          "id": "Incorrect FD/ST Rates",
+          "name": "Incorrect FD/ST Rates"
         },
         {
-          "id": "Employee burnout",
-          "name": "Employee burnout"
+          "id": "Delayed Deposit Confirmation",
+          "name": "Delayed Deposit Confirmation"
         },
         {
-          "id": "Shift scheduling issues",
-          "name": "Shift scheduling issues"
+          "id": "Missing Handover Receipts",
+          "name": "Missing Handover Receipts"
+        },
+        {
+          "id": "Disputed Deposit Amounts",
+          "name": "Disputed Deposit Amounts"
+        },
+        {
+          "id": "Duplicate Payment Reporting",
+          "name": "Duplicate Payment Reporting"
+        },
+        {
+          "id": "Delayed Insurance Disbursement",
+          "name": "Delayed Insurance Disbursement"
+        },
+        {
+          "id": "Incorrect Insurance Premiums",
+          "name": "Incorrect Insurance Premiums"
+        },
+        {
+          "id": "Insurance Policy Coverage Gaps",
+          "name": "Insurance Policy Coverage Gaps"
+        },
+        {
+          "id": "Unprocessed",
+          "name": "Unprocessed"
+        },
+        {
+          "id": "Delayed Loan Approvals",
+          "name": "Delayed Loan Approvals"
+        },
+        {
+          "id": "Missing or Incomplete Documentation",
+          "name": "Missing or Incomplete Documentation"
+        },
+        {
+          "id": "Incorrect Loan Terms",
+          "name": "Incorrect Loan Terms"
+        },
+        {
+          "id": "Declined Loan Without Proper Explanation",
+          "name": "Declined Loan Without Proper Explanation"
+        },
+        {
+          "id": "Miscalculated Interest",
+          "name": "Miscalculated Interest"
+        },
+        {
+          "id": "Hidden Fees or Charges",
+          "name": "Hidden Fees or Charges"
+        },
+        {
+          "id": "Unexpected Rate Changes",
+          "name": "Unexpected Rate Changes"
+        },
+        {
+          "id": "Incorrect EMI Calculations",
+          "name": "Incorrect EMI Calculations"
+        },
+        {
+          "id": "Incorrect Credit History Reporting",
+          "name": "Incorrect Credit History Reporting"
+        },
+        {
+          "id": "Unupdated Loan Status",
+          "name": "Unupdated Loan Status"
+        },
+        {
+          "id": "CRIB Information Errors",
+          "name": "CRIB Information Errors"
+        },
+        {
+          "id": "Unauthorized Loan Listings",
+          "name": "Unauthorized Loan Listings"
+        },
+        {
+          "id": "Incorrect Vehicle Details",
+          "name": "Incorrect Vehicle Details"
+        },
+        {
+          "id": "Delayed Chassis Registration",
+          "name": "Delayed Chassis Registration"
+        },
+        {
+          "id": "Duplicate Chassis Numbers",
+          "name": "Duplicate Chassis Numbers"
+        },
+        {
+          "id": "Chassis Damage Disputes",
+          "name": "Chassis Damage Disputes"
+        },
+        {
+          "id": "Delayed Delivery",
+          "name": "Delayed Delivery"
+        },
+        {
+          "id": "Missing Accessories",
+          "name": "Missing Accessories"
+        },
+        {
+          "id": "Incomplete Vehicle Inspection",
+          "name": "Incomplete Vehicle Inspection"
+        },
+        {
+          "id": "Handover Documentation Issues",
+          "name": "Handover Documentation Issues"
+        },
+        {
+          "id": "Aggressive Collection Practices",
+          "name": "Aggressive Collection Practices"
+        },
+        {
+          "id": "Harassment by Agents",
+          "name": "Harassment by Agents"
+        },
+        {
+          "id": "Incorrect Payment Demands",
+          "name": "Incorrect Payment Demands"
+        },
+        {
+          "id": "Ambiguous Recovery Notices",
+          "name": "Ambiguous Recovery Notices"
+        },
+        {
+          "id": "Identity Theft",
+          "name": "Identity Theft"
+        },
+        {
+          "id": "Unauthorized Transactions",
+          "name": "Unauthorized Transactions"
+        },
+        {
+          "id": "Phishing or Scams",
+          "name": "Phishing or Scams"
+        },
+        {
+          "id": "Data Breach Concerns",
+          "name": "Data Breach Concerns"
+        },
+        {
+          "id": "Mobile App Crashes",
+          "name": "Mobile App Crashes"
+        },
+        {
+          "id": "Website Downtime",
+          "name": "Website Downtime"
+        },
+        {
+          "id": "Login or OTP Failures",
+          "name": "Login or OTP Failures"
+        },
+        {
+          "id": "Online Transaction Errors",
+          "name": "Online Transaction Errors"
+        },
+        {
+          "id": "Incorrect Agreement Terms",
+          "name": "Incorrect Agreement Terms"
+        },
+        {
+          "id": "Missing Contract Copies",
+          "name": "Missing Contract Copies"
+        },
+        {
+          "id": "Delayed Document Processing",
+          "name": "Delayed Document Processing"
+        },
+        {
+          "id": "Disputed Signatures",
+          "name": "Disputed Signatures"
+        },
+        {
+          "id": "Unresponsive Staff",
+          "name": "Unresponsive Staff"
+        },
+        {
+          "id": "Lack of Empathy",
+          "name": "Lack of Empathy"
+        },
+        {
+          "id": "Rude or Unprofessional Behavior",
+          "name": "Rude or Unprofessional Behavior"
+        },
+        {
+          "id": "Delayed Complaint Resolution",
+          "name": "Delayed Complaint Resolution"
+        },
+        {
+          "id": "Long Wait Times",
+          "name": "Long Wait Times"
+        },
+        {
+          "id": "Limited Service Hours",
+          "name": "Limited Service Hours"
+        },
+        {
+          "id": "Inconvenient Branch Locations",
+          "name": "Inconvenient Branch Locations"
+        },
+        {
+          "id": "Lack of Facilities",
+          "name": "Lack of Facilities"
+        },
+        {
+          "id": "Unauthorized Data Sharing",
+          "name": "Unauthorized Data Sharing"
+        },
+        {
+          "id": "Data Breach Incidents",
+          "name": "Data Breach Incidents"
+        },
+        {
+          "id": "Poor Data Protection Measures",
+          "name": "Poor Data Protection Measures"
+        },
+        {
+          "id": "Incorrect Customer Data",
+          "name": "Incorrect Customer Data"
+        },
+        {
+          "id": "Fraud by Employees",
+          "name": "Fraud by Employees"
+        },
+        {
+          "id": "Unethical Practices",
+          "name": "Unethical Practices"
+        },
+        {
+          "id": "Favoritism",
+          "name": "Favoritism"
+        },
+        {
+          "id": "Policy Violations",
+          "name": "Policy Violations"
+        },
+        {
+          "id": "Delayed Loan Settlement",
+          "name": "Delayed Loan Settlement"
+        },
+        {
+          "id": "Incorrect Final Amounts",
+          "name": "Incorrect Final Amounts"
+        },
+        {
+          "id": "Disputed Settlement Terms",
+          "name": "Disputed Settlement Terms"
+        },
+        {
+          "id": "Delayed Clearance of Collateral",
+          "name": "Delayed Clearance of Collateral"
         }
       ]
     },
@@ -744,6 +1662,13 @@
   },
   "name": "ucmWF",
   "assignment": {
+    "triggers": [
+      {
+        "template": "complaintCreationAlert",
+        "channel": "email",
+        "target": "employee"
+      }
+    ],
     "automaticAssignment": {
       "isEnabled": true,
       "email": "testcmu@commercialcredit.lk",
@@ -861,17 +1786,17 @@
       "enabled": true,
       "fields": [
         "date",
-        "ticketCategory"
+        "branch"
       ]
     },
     "pattern": [
       {
-        "key": "ticketCategory",
+        "key": "branch",
         "format": "mapping"
       },
       {
         "key": "date",
-        "format": "YYYYMMDD"
+        "format": "DDMMYYYY"
       },
       {
         "key": "counter",
@@ -880,13 +1805,150 @@
     ],
     "counterReset": "daily",
     "fieldMappings": {
-      "ticketCategory": {
+      "branch": {
         "mappings": {
-          "customerFeedbackSurvey": "CFS",
-          "WebsiteSurvey": "WBS",
-          "CallcenterSurvey": "CCS"
+          "Academy": "AA",
+          "Aluthgama": "AL",
+          "City Office": "BO",
+          "Beruwala": "BR",
+          "Borella": "BZ",
+          "Kollupitiya F": "CF",
+          "Mt. Lavinia": "MV",
+          "Panadura": "PA",
+          "Piliyandala": "PL",
+          "Deraniyagala": "DG",
+          "Kalawana": "KA",
+          "Marawila": "MA",
+          "Wennappuwa": "WP",
+          "Galnewa": "GN",
+          "Galenbindunuwewa": "GW",
+          "Horowpathana": "HW",
+          "Mahiyanganaya": "MH",
+          "Nochchiyagama": "NC",
+          "Thambuththegama": "TB",
+          "Kirindiwela": "KR",
+          "Galle": "GL",
+          "Thanamalwila": "TM",
+          "Wellawaya": "WL",
+          "Warakapola": "WR",
+          "Aralaganwila": "AW",
+          "Ampara": "AR",
+          "Bibile": "BB",
+          "Dehiattakandiya": "DK",
+          "Mahaoya": "MY",
+          "Siyambalanduwa": "SY",
+          "Achchuveli": "AC",
+          "Chunnakam": "CN",
+          "Chankanai": "CT",
+          "Velani": "DF",
+          "Mannar": "MN",
+          "Nellyadi": "NY",
+          "Point Pedro": "PP",
+          "Thirunelveli": "TV",
+          "Anuradhapura": "AP",
+          "Hingurakgoda": "HG",
+          "Kanthale": "KT",
+          "Kalpitiya": "KY",
+          "Padaviya": "PD",
+          "Polonnaruwa": "PO",
+          "Puttlam": "PT",
+          "Welikanda": "WK",
+          "Divulapitiya": "DP",
+          "Giriulla": "GR",
+          "Melsiripura": "MP",
+          "Naththandiya": "NA",
+          "Polpithigama": "PG",
+          "Chavakachcheri": "CV",
+          "Jaffna": "JF",
+          "Jaffna New": "JN",
+          "Kilinochchi": "KN",
+          "Killinochchi New": "KH",
+          "Mullativu": "ML",
+          "Vavuniya": "VW",
+          "Homagama": "HM",
+          "Horana": "HR",
+          "Kotahena": "KO",
+          "Mathugama": "MU",
+          "Badulla": "BD",
+          "Bandarawela": "BW",
+          "Gampola": "GM",
+          "Nuwaraeliya": "NE",
+          "Clifton Bungalow": "NN",
+          "Pussellawa": "PW",
+          "Welimada": "WM",
+          "Ambalantota": "AM",
+          "Angunakolapelessa": "AS",
+          "Awissawella": "AV",
+          "Embilipitiya": "EM",
+          "Godakawela": "GD",
+          "Kaluthara": "KL",
+          "Monaragala": "MO",
+          "Thissamaharama": "TH",
+          "Kegalle": "KG",
+          "Rikillagaskada": "RG",
+          "Gampaha": "GP",
+          "Kaduwela": "KW",
+          "Maharagama": "MG",
+          "Nugegoda": "ND",
+          "Union Place": "UP",
+          "Ambalangoda": "AG",
+          "Baddegama": "BA",
+          "Elpitiya": "EL",
+          "Matara": "MR",
+          "Neluwa": "NL",
+          "Udugama": "UD",
+          "Weligama": "WG",
+          "Kalawanchikudi": "KV",
+          "Maskeliya": "MK",
+          "Nawalapitiya": "NP",
+          "Trincomalee": "TR",
+          "Valachchanai": "VL",
+          "Matale": "MT",
+          "Theldeniya": "TD",
+          "Arayampathy": "AY",
+          "Batticaloa": "BT",
+          "Kokkadicholai": "KJ",
+          "Kalmune": "KM",
+          "KCC Branch": "KC",
+          "Kandy": "KD",
+          "Kandy Support Staff": "KZ",
+          "Hatton": "HT",
+          "Pilimathalawa": "PM",
+          "Kuliyapitiya": "KP",
+          "Anamaduwa": "AN",
+          "Nikaweratiya": "NK",
+          "Negombo": "NG",
+          "Kochchikade": "KE",
+          "Nittambuwa": "NT",
+          "Bakamuna": "BK",
+          "Dambulla": "DM",
+          "Kekirawa": "KK",
+          "Medawachchiya": "MD",
+          "Akuressa": "AK",
+          "Balangoda": "BL",
+          "Deniyaya": "DY",
+          "Tangalle": "TG",
+          "Kollupitiya": "CO",
+          "Baththaramulla": "BM",
+          "Maligawatta": "MC",
+          "Moratuwa": "MW",
+          "Rathnapura": "RT",
+          "Wattala": "WT",
+          "Wellawatta": "WW",
+          "Kurunegala": "KU",
+          "Kurunegala Super": "KS",
+          "Yard Kurunegala": "YK",
+          "Akkaraipaththu": "AT",
+          "Chenkaladi": "BC",
+          "Muthur": "MI",
+          "Pothuvil": "PV",
+          "Wariyapola": "WY",
+          "Chilaw": "CW",
+          "Ja-Ela": "JE",
+          "Kiribathgoda": "KB",
+          "Kiribathgoda CC": "CX"
         },
-        "default": "UCM"
+        "default": "CC"
       }
     }
   },
@@ -897,5 +1959,6 @@
     "Escalated to relevant team.",
     "Resolution confirmed; case closed."
   ],
-  "timeZone": -330
+  "timeZone": -330,
+  "nameTemplate": "Alliance Finalance Complaint: $type$ - $complaintType$"
 }

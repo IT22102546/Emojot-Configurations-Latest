@@ -41,27 +41,6 @@
     text-align: center;
     margin-bottom: 40px;
 }
-
-.lnksh-cc-required-mark {
-    color: #e63946 !important;
-    margin-left: 3px;
-    font-weight: 700;
-}
-
-.lnksh-cc-required-alert {
-    display: none;
-    color: #ffffff;
-    background: #e63946;
-    border-radius: 6px;
-    padding: 10px 16px;
-    margin: 10px auto 0;
-    max-width: 420px;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.4;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-}
 </style>
 
 <div class="lnksh-cc-title" data-lnksh-source="commercial-credit-inline">
@@ -82,42 +61,25 @@
         en: {
             title: 'We Value your Feedback. Kindly provide your details below to help us understand you better.',
             consent: 'I consent to the collection and use of my personal information for customer service improvement purposes, in accordance with applicable privacy policies and regulations.',
-            submit: 'Finish',
-            requiredAlert: 'Please fill in your Name and Telephone Number, and accept the consent, before continuing.',
             fontFamily: '"Times New Roman", Times, serif',
-            titleSize: '14px',
+            titleSize: '20px',
             labelSize: '14px'
         },
         si: {
-            title: 'ඔබගේ අදහස් අපට වැදගත් වේ. ඔබව වඩා හොඳින් අවබෝධ කර ගැනීමට පහත ඔබගේ තොරතුරු ලබා දීමට කාරුණික වන්න.',
+            title: 'ඔබගේ ප්‍රතිපෝෂණය අපට වැදගත් වේ. ඔබව වඩා හොඳින් අවබෝධ කර ගැනීමට පහත ඔබගේ තොරතුරු ලබා දීමට කාරුණික වන්න.',
             consent: 'පවතින පෞද්ගලිකත්ව ප්‍රතිපත්ති සහ අදාළ නියාමනවලට අනුකූලව, පාරිභෝගික සේවාව වැඩිදියුණු කිරීම සඳහා මාගේ පුද්ගලික තොරතුරු රැස් කර භාවිතා කිරීමට මම එකඟ වෙමි.',
-            submit: 'ඉදිරිපත් කරන්න',
-            requiredAlert: 'කරුණාකර ඉදිරියට යාමට පෙර ඔබේ නම සහ දුරකථන අංකය සම්පූර්ණ කර, එකඟතාවය පිළිගන්න.',
             fontFamily: '"Noto Serif Sinhala", sans-serif',
-            titleSize: '14px',
+            titleSize: '20px',
             labelSize: '14px'
         },
         ta: {
             title: 'உங்கள் கருத்து எங்களுக்கு மிகவும் முக்கியமானது. உங்களை மேலும் நன்கு புரிந்துகொள்ள, தயவுசெய்து கீழே உங்கள் விவரங்களை வழங்கவும்.',
             consent: 'நடைமுறையில் உள்ள தனியுரிமைக் கொள்கைகள் மற்றும் பொருந்தக்கூடிய விதிமுறைகளுக்கு இணங்க, வாடிக்கையாளர் சேவையை மேம்படுத்தும் நோக்கில் எனது தனிப்பட்ட தகவல்களை சேகரித்து பயன்படுத்துவதற்கு நான் சம்மதிக்கிறேன்.',
-            submit: 'சமர்ப்பிக்கவும்',
-            requiredAlert: 'தொடர்வதற்கு முன் உங்கள் பெயர் மற்றும் தொலைபேசி எண்ணை நிரப்பி, ஒப்புதலை ஏற்கவும்.',
             fontFamily: '"Noto Serif Tamil", sans-serif',
-            titleSize: '14px',
+            titleSize: '20px',
             labelSize: '14px'
         }
     };
-
-    // Label text (any of these, case-insensitive) used to recognize the
-    // Name / Telephone fields regardless of which language is active or
-    // what id/name Angular happens to render — this is the primary
-    // detection strategy now, since guessing ids is fragile.
-    const REQUIRED_FIELD_LABELS = {
-        name: ['name', 'නම', 'பெயர்'],
-        telephone: ['telephone', 'phone', 'contact number', 'දුරකථන අංකය', 'දුරකථනය', 'தொலைபேசி எண்', 'தொலைபேசி']
-    };
-    // Fallback ids/names, tried if label-matching finds nothing.
-    const REQUIRED_FIELD_IDS = { name: 'Name', telephone: 'Telephone' };
 
     // Lighter halo instead of a dark shadow, since the text is now black
     // and needs contrast against the dark parts of the background photo.
@@ -129,6 +91,12 @@
     }
 
     function detectLang() {
+        // 1) Best source: read straight off the Angular scope. The language
+        // switcher is `ng-controller="languageLocalizationController"` on
+        // `.lngSelectDropdown`, and each button is
+        // `ng-class="{'clicked-emo-cont' : selectedLanguage.value === langObj.lng}"`.
+        // selectedLanguage.value is the ground truth the buttons themselves
+        // check against, so read it directly instead of inferring from styles.
         try {
             if (typeof angular !== 'undefined') {
                 const ctrlEl = document.querySelector('.lngSelectDropdown');
@@ -145,6 +113,11 @@
             }
         } catch (e) { /* fall through to other strategies */ }
 
+        // 2) DOM fallback: the active button carries an extra class,
+        // 'clicked-emo-cont', added by the same ng-class binding. Match it
+        // against the localisation-cont buttons in document order and map
+        // position -> language using the known label order (English,
+        // Sinhala, Tamil) that this survey's localisationLabels use.
         const buttons = Array.from(document.querySelectorAll('.lngSelectDropdown .localisation-cont'));
         if (buttons.length >= 2) {
             const activeIdx = buttons.findIndex(el => el.classList.contains('clicked-emo-cont'));
@@ -154,6 +127,7 @@
             }
         }
 
+        // 3) Legacy Angular <select> language switcher, if present
         const ngSelect = document.querySelector('select[ng-model="selectedLanguage.value"], select[ng-model*="selectedLanguage"]');
         if (ngSelect) {
             const opt = ngSelect.selectedOptions && ngSelect.selectedOptions[0];
@@ -163,6 +137,7 @@
             if (v.includes('english')) return 'en';
         }
 
+        // 4) <html lang="..."> attribute, if the host page sets it
         const htmlLang = (document.documentElement.getAttribute('lang') || '').toLowerCase();
         if (htmlLang.startsWith('si')) return 'si';
         if (htmlLang.startsWith('ta')) return 'ta';
@@ -210,142 +185,6 @@
         }
     }
 
-    function styleFieldLabels(lang) {
-        const c = COPY[lang] || COPY.en;
-        const fieldLabels = document.querySelectorAll('#loyalty-form .form-group > label');
-        fieldLabels.forEach(function (lbl) {
-            lbl.style.setProperty('font-size', c.labelSize, 'important');
-            lbl.style.setProperty('font-family', c.fontFamily, 'important');
-        });
-    }
-
-    // Finds the live input for a required field ('name' or 'telephone'),
-    // scoped to the loyalty form. Tries several strategies in order, since
-    // guessing a single id/name is fragile against the platform's own
-    // markup and against language switching:
-    //   1. Match by visible label text (any language in REQUIRED_FIELD_LABELS)
-    //   2. input[type="tel"] — telephone fields on this platform typically
-    //      render as a tel input (via the intl-tel-input plugin), so this is
-    //      a strong, language-independent signal specifically for phone.
-    //   3. Fallback: id or name attribute matching REQUIRED_FIELD_IDS.
-    function getRequiredFieldInput(key) {
-        const groups = document.querySelectorAll('#loyalty-form .form-group');
-        const labelMatches = REQUIRED_FIELD_LABELS[key] || [];
-        for (const group of groups) {
-            const label = group.querySelector('label');
-            if (!label) continue;
-            const text = label.textContent.trim().toLowerCase();
-            if (labelMatches.some(function (m) { return text.indexOf(m.toLowerCase()) !== -1; })) {
-                const input = group.querySelector('input');
-                if (input) return input;
-            }
-        }
-
-        if (key === 'telephone') {
-            const telInput = document.querySelector('#loyalty-form input[type="tel"]');
-            if (telInput) return telInput;
-        }
-
-        const fallbackId = REQUIRED_FIELD_IDS[key];
-        return document.querySelector('#loyalty-form #' + fallbackId) ||
-               document.querySelector('#loyalty-form [name="' + fallbackId + '"]');
-    }
-
-    function requiredFieldHasValue(key) {
-        const el = getRequiredFieldInput(key);
-        return !!(el && el.value && el.value.trim().length > 0);
-    }
-
-    // Adds a single, consistently red asterisk after a required field's
-    // label. This is written to be idempotent and self-healing: on every
-    // call it strips any literal "*" characters already in the label's own
-    // text (whether that's the platform's own native required-marker, baked
-    // directly into the localized label string, or a leftover from our own
-    // previous run) and appends exactly one freshly-styled span. This
-    // matters because typing into Name/Telephone triggers Angular's own
-    // digest cycle, which re-renders that field's label from its bound
-    // {{...}} expression — wiping out any span we'd previously appended and
-    // replacing it with the platform's own plain (black) asterisk. Re-
-    // running this after every keystroke (see onFormInput below) fixes it
-    // back to red essentially immediately rather than waiting on the poll.
-    function markRequiredLabels() {
-        ['name', 'telephone'].forEach(function (key) {
-            const input = getRequiredFieldInput(key);
-            if (!input) return;
-            input.setAttribute('required', 'required');
-            input.setAttribute('aria-required', 'true');
-            const group = input.closest('.form-group');
-            const label = group ? group.querySelector('label') : null;
-            if (!label) return;
-
-            Array.from(label.childNodes).forEach(function (node) {
-                if (node.nodeType === Node.TEXT_NODE && node.textContent.indexOf('*') !== -1) {
-                    node.textContent = node.textContent.replace(/\*/g, '');
-                }
-            });
-            const existingMark = label.querySelector('.lnksh-cc-required-mark');
-            if (existingMark) existingMark.remove();
-
-            const mark = document.createElement('span');
-            mark.className = 'lnksh-cc-required-mark';
-            mark.textContent = '*';
-            label.appendChild(mark);
-        });
-    }
-
-    // Force the submit button's text every cycle. The button is Angular-
-    // bound (class "ng-binding"), so the platform's own digest cycle can
-    // overwrite plain textContent between our polls — re-fetching it live
-    // each time (rather than relying on a captured reference) and relying
-    // on the existing 1s poll to keep reasserting it handles that the same
-    // way the title/consent text already does.
-    function applySubmitLabel(lang) {
-        const c = COPY[lang] || COPY.en;
-        const okBtn = document.querySelector('.btn-ok');
-        if (okBtn && okBtn.textContent !== c.submit) {
-            okBtn.textContent = c.submit;
-        }
-    }
-
-    // Creates (once) the required-fields alert element, inserted right
-    // after the submit button so it's visible near where the person is
-    // trying to click.
-    function ensureRequiredAlertEl(okBtn) {
-        let alertEl = document.querySelector('.lnksh-cc-required-alert');
-        if (!alertEl) {
-            alertEl = document.createElement('div');
-            alertEl.className = 'lnksh-cc-required-alert';
-            if (okBtn && okBtn.parentNode) {
-                okBtn.insertAdjacentElement('afterend', alertEl);
-            } else {
-                document.body.appendChild(alertEl);
-            }
-        }
-        return alertEl;
-    }
-
-    let requiredAlertHideTimer = null;
-
-    function showRequiredAlert(lang) {
-        const c = COPY[lang] || COPY.en;
-        const okBtn = document.querySelector('.btn-ok');
-        const alertEl = ensureRequiredAlertEl(okBtn);
-        alertEl.style.setProperty('font-family', c.fontFamily, 'important');
-        alertEl.textContent = c.requiredAlert;
-        alertEl.style.display = 'block';
-        if (requiredAlertHideTimer) clearTimeout(requiredAlertHideTimer);
-        requiredAlertHideTimer = setTimeout(function () { hideRequiredAlert(); }, 5000);
-    }
-
-    function hideRequiredAlert() {
-        const alertEl = document.querySelector('.lnksh-cc-required-alert');
-        if (alertEl) alertEl.style.display = 'none';
-        if (requiredAlertHideTimer) {
-            clearTimeout(requiredAlertHideTimer);
-            requiredAlertHideTimer = null;
-        }
-    }
-
     function apply(titleEl, consentEl) {
         const lang = detectLang();
         const copy = COPY[lang] || COPY.en;
@@ -357,16 +196,6 @@
         if (consentSpan) consentSpan.textContent = copy.consent;
 
         forceStyle(titleEl, consentEl, labelEl, consentSpan, lang);
-        styleFieldLabels(lang);
-        applySubmitLabel(lang);
-        markRequiredLabels();
-
-        // If the alert is already showing (person switched language while
-        // it was up), refresh its text to match the new language too.
-        const alertEl = document.querySelector('.lnksh-cc-required-alert');
-        if (alertEl && alertEl.style.display === 'block') {
-            showRequiredAlert(lang);
-        }
     }
 
     let title, consent;
@@ -394,86 +223,34 @@
         if (form.parentNode) form.parentNode.insertBefore(title, form);
         form.insertAdjacentElement('afterend', consent);
 
-        // Gate the submit button on: consent checked AND every required
-        // field (Name, Telephone) has a non-empty value.
-        function canSubmitNow() {
-            return !!(checkbox.checked &&
-                requiredFieldHasValue('name') &&
-                requiredFieldHasValue('telephone'));
-        }
-
-        function updateSubmitState() {
-            const liveOkBtn = document.querySelector('.btn-ok') || okBtn;
-            if (canSubmitNow()) {
-                liveOkBtn.classList.remove('lnksh-cc-disabled');
-                liveOkBtn.removeAttribute('disabled');
-                hideRequiredAlert();
-            } else {
-                liveOkBtn.classList.add('lnksh-cc-disabled');
-                liveOkBtn.setAttribute('disabled', 'disabled');
-            }
-        }
-
-        // Second, independent safety layer: intercept the click itself in
-        // the capture phase (runs before Angular's own bubble-phase
-        // ng-click handler) and hard-block it if the requirements aren't
-        // met. This still stops submission even in the edge case where
-        // Angular's digest cycle strips our disabled attribute back off
-        // between polls. Also surfaces the required-fields alert, in
-        // whichever language is currently active.
-        function onOkBtnClickCapture(e) {
-            if (!canSubmitNow()) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                e.stopPropagation();
-                showRequiredAlert(detectLang());
-            }
-        }
-        function onDocumentClickCapture(e) {
-            if (e.target && e.target.closest && e.target.closest('.btn-ok')) {
-                onOkBtnClickCapture(e);
-            }
-        }
-        document.addEventListener('click', onDocumentClickCapture, true);
-
-        // Start disabled.
         okBtn.classList.add('lnksh-cc-disabled');
         okBtn.setAttribute('disabled', 'disabled');
 
         apply(title, consent);
-        updateSubmitState();
 
-        checkbox.addEventListener('change', updateSubmitState);
-
-        // Delegated listeners on the form itself so this keeps working even
-        // if the Name/Telephone inputs are rendered or re-rendered after
-        // this point (e.g. the loyalty step mounting late).
-        function onFormInput() {
-            updateSubmitState();
-            // Deferred: our listener runs in the capture phase, i.e. before
-            // Angular's own ng-model listener (bubble phase) processes this
-            // same event and re-renders the label via its digest cycle. If
-            // we re-marked the label synchronously here, Angular's digest
-            // would immediately wipe it out again right after. Running on
-            // the next tick lets that digest finish first.
-            setTimeout(markRequiredLabels, 0);
+        function onCheckboxChange() {
+            if (checkbox.checked) {
+                okBtn.classList.remove('lnksh-cc-disabled');
+                okBtn.removeAttribute('disabled');
+            } else {
+                okBtn.classList.add('lnksh-cc-disabled');
+                okBtn.setAttribute('disabled', 'disabled');
+            }
         }
-        form.addEventListener('input', onFormInput, true);
-        form.addEventListener('change', onFormInput, true);
-        form.addEventListener('keyup', onFormInput, true);
+        checkbox.addEventListener('change', onCheckboxChange);
 
         const ngSelect = document.querySelector('select[ng-model="selectedLanguage.value"], select[ng-model*="selectedLanguage"]');
-        function onLangChange() { apply(title, consent); updateSubmitState(); }
+        function onLangChange() { apply(title, consent); }
         if (ngSelect) ngSelect.addEventListener('change', onLangChange);
 
         function onWindowChange(e) {
-            if (e.target && e.target.tagName === 'SELECT') { apply(title, consent); updateSubmitState(); }
+            if (e.target && e.target.tagName === 'SELECT') apply(title, consent);
         }
-        function onWindowClick() { setTimeout(function () { apply(title, consent); updateSubmitState(); }, 0); }
+        function onWindowClick() { setTimeout(function () { apply(title, consent); }, 0); }
         window.addEventListener('change', onWindowChange, true);
         window.addEventListener('click', onWindowClick, true);
 
-        // Simple, safe safety-net: reapply text/styles/gating every second.
+        // Simple, safe safety-net: reapply text/styles every second.
         // This alone (no MutationObserver) is what caused crashes before,
         // so this is the only re-apply mechanism now.
         const pollId = setInterval(function () {
@@ -490,19 +267,13 @@
                 return;
             }
             apply(title, consent);
-            updateSubmitState();
         }, 1000);
 
         window.__lnkshCCCleanup = function () {
             if (ngSelect) ngSelect.removeEventListener('change', onLangChange);
             window.removeEventListener('change', onWindowChange, true);
             window.removeEventListener('click', onWindowClick, true);
-            document.removeEventListener('click', onDocumentClickCapture, true);
-            checkbox.removeEventListener('change', updateSubmitState);
-            form.removeEventListener('input', onFormInput, true);
-            form.removeEventListener('change', onFormInput, true);
-            form.removeEventListener('keyup', onFormInput, true);
-            if (requiredAlertHideTimer) clearTimeout(requiredAlertHideTimer);
+            checkbox.removeEventListener('change', onCheckboxChange);
             clearInterval(pollId);
         };
     }

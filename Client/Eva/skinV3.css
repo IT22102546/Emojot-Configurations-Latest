@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600;700;800&display=swap");
 
 /* =========================================================
-   EVA PROMOTION FORM — COMPLETE FINAL SKIN
+   EVA PROMOTION FORM â€” COMPLETE FINAL SKIN
 ========================================================= */
 
 :root {
@@ -179,7 +179,7 @@ body,
 }
 
 #gt_0.pdGroupTitle::before {
-    content: "‹  ENTER YOUR DETAILS  ›" !important;
+    content: "â€¹  ENTER YOUR DETAILS  â€º" !important;
 }
 
 #gt_0.pdGroupTitle::after {
@@ -785,7 +785,7 @@ body,
 }
 
 .btn-submit::after {
-    content: "›" !important;
+    content: "â€º" !important;
 
     display: grid !important;
 
@@ -1569,7 +1569,7 @@ body,
 }
 
 /* =========================================================
-   THANK YOU — MOBILE
+   THANK YOU â€” MOBILE
 ========================================================= */
 
 @media (max-width: 700px) {
@@ -1994,7 +1994,7 @@ body,
 }
 
 /* =========================================================
-   DISTRICT DROPDOWN — FINAL CORRECTION
+   DISTRICT DROPDOWN â€” FINAL CORRECTION
    Fix:
    1. Restore "Select District" when empty
    2. Hide internal blue search box

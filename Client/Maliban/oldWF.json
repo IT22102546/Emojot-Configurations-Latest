@@ -1098,71 +1098,71 @@
       "values": [
         {
           "id": "Admin",
-          "name": "Administration"
+          "name": "පරිපාලනය"
         },
         {
           "id": "Factory",
-          "name": "Operations / Factory Management"
+          "name": "මෙහෙයුම් / කර්මාන්තශාලා කළමනාකරණය"
         },
         {
           "id": "Production",
-          "name": "Production (Biscuits)"
+          "name": "නිෂ්පාදනය (බිස්කට්)"
         },
         {
           "id": "Quality Assurance",
-          "name": "Quality Assurance & Food Safety"
+          "name": "තත්ත්ව සහතිකය සහ ආහාර සුරක්ෂිතතාව"
         },
         {
           "id": "Research and Development",
-          "name": "Research & Development (NPD)"
+          "name": "පර්යේෂණ හා සංවර්ධන (නව නිෂ්පාදන සංවර්ධනය)"
         },
         {
           "id": "Engineering",
-          "name": "Engineering & Maintenance"
+          "name": "ඉංජිනේරු සහ නඩත්තු"
         },
         {
           "id": "Maintenance",
-          "name": "Utilities & Maintenance"
+          "name": "උපයෝගිතා හා නඩත්තු"
         },
         {
           "id": "Supply Chain",
-          "name": "Supply Chain & Procurement"
+          "name": "සැපයුම් දාමය සහ ප්‍රසම්පාදනය"
         },
         {
           "id": "Marketing",
-          "name": "Marketing & Brand"
+          "name": "අලෙවිකරණය සහ සන්නාමය"
         },
         {
           "id": "Sales",
-          "name": "Sales & Commercial"
+          "name": "අලෙවි හා වාණිජ"
         },
         {
           "id": "Finance",
-          "name": "Finance"
+          "name": "මුදල්"
         },
         {
           "id": "Human Resource",
-          "name": "Human Resources & Admin"
+          "name": "මානව සම්පත් සහ පරිපාලන"
         },
         {
           "id": "Logistics",
-          "name": "Logistics & Distribution"
+          "name": "සැපයුම් සහ බෙදාහැරීම"
         },
         {
           "id": "Packaging",
-          "name": "Packaging"
+          "name": "ඇසුරුම්කරණය"
         },
         {
           "id": "Raw Material Stores",
-          "name": "Raw Materials Warehouse"
+          "name": "අමුද්‍රව්‍ය ගබඩාව"
         },
         {
           "id": "Finished Goods Stores",
-          "name": "Finished Goods Warehouse"
+          "name": "නිමි භාණ්ඩ ගබඩාව"
         },
         {
           "id": "Other",
-          "name": "Other"
+          "name": "වෙනත්"
         }
       ]
     },
@@ -1631,7 +1631,7 @@
           "ejVisitorDetailFields": {
             "status": "තත්ත්වය",
             "visitorName": "අමුත්තන්ගේ නම",
-            "visitorEmail": "අමුත්තන්ගේ ඊමේල් ලිපිනය",
+            "visitorEmail": "අමුත්තන්ගේ ඊතැපැල් ලිපිනය",
             "nic": "ජාතික හැඳුනුම්පත්/විදේශ ගමන් බලපත්u200Dරය අංකය",
             "nicUpload": "ජාතික හැඳුනුම්පත/විදේශ ගමන් බලපත්‍රය උඩුගත කිරීම",
             "visitorVehicle": "අමුත්තන්ගේ වාහන අංකය",
@@ -2236,7 +2236,7 @@
                 },
                 {
                   "id": "visitorEmail",
-                  "text": "අමුත්තන්ගේ ඊමේල්"
+                  "text": "අමුත්තන්ගේ ඊතැපැල් ලිපිනය"
                 },
                 {
                   "id": "visitorTelephone",
@@ -2244,7 +2244,7 @@
                 },
                 {
                   "id": "visitorAddress",
-                  "text": "අමුත්තන්ගේ ජංගම දුරකථනය"
+                  "text": "අමුත්තන්ගේ ලිපිනය"
                 },
                 {
                   "id": "visitorVehicle",
@@ -2267,15 +2267,15 @@
               "responses": [
                 {
                   "id": "Regular Visitor",
-                  "text": "ආගන්තුකයා"
+                  "text": "සාමාන්‍ය ආගන්තුකයා"
                 },
                 {
                   "id": "Factory Visitor",
-                  "text": "ආගන්තුකයා"
+                  "text": "කර්මාන්තශාලා ආගන්තුකයා"
                 },
                 {
                   "id": "Contractor",
-                  "text": "කොන්ත්රාත්කරු"
+                  "text": "කොන්ත්‍රාත්කරු"
                 },
                 {
                   "id": "Service Provider",
@@ -2417,75 +2417,75 @@
             },
             {
               "id": "q24",
-              "text": "Select the department you will be visiting",
+              "text": "ඔබ පැමිණෙන දෙපාර්තමේන්තුව තෝරන්න.",
               "responses": [
                 {
                   "id": "Admin",
-                  "name": "Administration"
+                  "name": "පරිපාලනය"
                 },
                 {
                   "id": "Factory",
-                  "name": "Operations / Factory Management"
+                  "name": "මෙහෙයුම් / කර්මාන්තශාලා කළමනාකරණය"
                 },
                 {
                   "id": "Production",
-                  "name": "Production (Biscuits)"
+                  "name": "නිෂ්පාදනය (බිස්කට්)"
                 },
                 {
                   "id": "Quality Assurance",
-                  "name": "Quality Assurance & Food Safety"
+                  "name": "තත්ත්ව සහතිකය සහ ආහාර සුරක්ෂිතතාව"
                 },
                 {
                   "id": "Research and Development",
-                  "name": "Research & Development (NPD)"
+                  "name": "පර්යේෂණ හා සංවර්ධන (නව නිෂ්පාදන සංවර්ධනය)"
                 },
                 {
                   "id": "Engineering",
-                  "name": "Engineering & Maintenance"
+                  "name": "ඉංජිනේරු සහ නඩත්තු"
                 },
                 {
                   "id": "Maintenance",
-                  "name": "Utilities & Maintenance"
+                  "name": "උපයෝගිතා හා නඩත්තු"
                 },
                 {
                   "id": "Supply Chain",
-                  "name": "Supply Chain & Procurement"
+                  "name": "සැපයුම් දාමය සහ ප්‍රසම්පාදනය"
                 },
                 {
                   "id": "Marketing",
-                  "name": "Marketing & Brand"
+                  "name": "අලෙවිකරණය සහ සන්නාමය"
                 },
                 {
                   "id": "Sales",
-                  "name": "Sales & Commercial"
+                  "name": "අලෙවි හා වාණිජ"
                 },
                 {
                   "id": "Finance",
-                  "name": "Finance"
+                  "name": "මුදල්"
                 },
                 {
                   "id": "Human Resource",
-                  "name": "Human Resources & Admin"
+                  "name": "මානව සම්පත් සහ පරිපාලන"
                 },
                 {
                   "id": "Logistics",
-                  "name": "Logistics & Distribution"
+                  "name": "සැපයුම් සහ බෙදාහැරීම"
                 },
                 {
                   "id": "Packaging",
-                  "name": "Packaging"
+                  "name": "ඇසුරුම්කරණය"
                 },
                 {
                   "id": "Raw Material Stores",
-                  "name": "Raw Materials Warehouse"
+                  "name": "අමුද්‍රව්‍ය ගබඩාව"
                 },
                 {
                   "id": "Finished Goods Stores",
-                  "name": "Finished Goods Warehouse"
+                  "name": "නිමි භාණ්ඩ ගබඩාව"
                 },
                 {
                   "id": "Other",
-                  "name": "Other"
+                  "name": "වෙනත්"
                 }
               ]
             },
@@ -2749,15 +2749,15 @@
               "responses": [
                 {
                   "id": "MBL",
-                  "name": "Head Office"
+                  "name": "ප්‍රධාන කාර්යාලය"
                 },
                 {
                   "id": "MBL",
-                  "name": "Maliban Biscuit Factory"
+                  "name": "මැලිබන් බිස්කට් කර්මාන්ත ශාලාව"
                 },
                 {
                   "id": "MBL",
-                  "name": "Maliban Chocolate Factory"
+                  "name": "මැලිබන් චොකලට් කර්මාන්ත ශාලාව"
                 }
               ],
               "required": true,
@@ -2894,15 +2894,15 @@
               "responses": [
                 {
                   "id": "MBL",
-                  "name": "Head Office"
+                  "name": "ප්‍රධාන කාර්යාලය"
                 },
                 {
                   "id": "MBL",
-                  "name": "Maliban Biscuit Factory"
+                  "name": "මැලිබන් බිස්කට් කර්මාන්ත ශාලාව"
                 },
                 {
                   "id": "MBL",
-                  "name": "Maliban Chocolate Factory"
+                  "name": "මැලිබන් චොකලට් කර්මාන්ත ශාලාව"
                 }
               ],
               "required": true,
@@ -2915,71 +2915,71 @@
               "responses": [
                 {
                   "id": "Admin",
-                  "name": "Administration"
+                  "name": "පරිපාලනය"
                 },
                 {
                   "id": "Factory",
-                  "name": "Operations / Factory Management"
+                  "name": "මෙහෙයුම් / කර්මාන්තශාලා කළමනාකරණය"
                 },
                 {
                   "id": "Engineering",
-                  "name": "Engineering & Maintenance"
+                  "name": "ඉංජිනේරු සහ නඩත්තු"
                 },
                 {
                   "id": "Finance",
-                  "name": "Finance"
+                  "name": "මුදල්"
                 },
                 {
                   "id": "Human Resource",
-                  "name": "Human Resources & Admin"
+                  "name": "මානව සම්පත් සහ පරිපාලන"
                 },
                 {
                   "id": "Marketing",
-                  "name": "Marketing & Brand"
+                  "name": "අලෙවිකරණය සහ සන්නාමය"
                 },
                 {
                   "id": "Sales",
-                  "name": "Sales & Commercial"
+                  "name": "අලෙවි හා වාණිජ"
                 },
                 {
                   "id": "Production",
-                  "name": "Production (Biscuits)"
+                  "name": "නිෂ්පාදනය (බිස්කට්)"
                 },
                 {
                   "id": "Quality Assurance",
-                  "name": "Quality Assurance & Food Safety"
+                  "name": "තත්ත්ව සහතිකය සහ ආහාර සුරක්ෂිතතාව"
                 },
                 {
                   "id": "Raw Material Stores",
-                  "name": "Raw Materials Warehouse"
+                  "name": "අමුද්‍රව්‍ය ගබඩාව"
                 },
                 {
                   "id": "Research and Development",
-                  "name": "Research & Development (NPD)"
+                  "name": "පර්යේෂණ හා සංවර්ධන (නව නිෂ්පාදන සංවර්ධනය)"
                 },
                 {
                   "id": "Supply Chain",
-                  "name": "Supply Chain & Procurement"
+                  "name": "සැපයුම් දාමය සහ ප්‍රසම්පාදනය"
                 },
                 {
                   "id": "Logistics",
-                  "name": "Logistics & Distribution"
+                  "name": "සැපයුම් සහ බෙදාහැරීම"
                 },
                 {
                   "id": "Packaging",
-                  "name": "Packaging"
+                  "name": "ඇසුරුම්කරණය"
                 },
                 {
                   "id": "Finished Goods Stores",
-                  "name": "Finished Goods Warehouse"
+                  "name": "නිමි භාණ්ඩ ගබඩාව"
                 },
                 {
                   "id": "Maintenance",
-                  "name": "Utilities & Maintenance"
+                  "name": "උපයෝගිතා හා නඩත්තු"
                 },
                 {
                   "id": "Other",
-                  "name": "Other"
+                  "name": "වෙනත්"
                 }
               ],
               "required": true,
