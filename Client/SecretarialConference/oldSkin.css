@@ -1,0 +1,1179 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* =========================================================
+MAIN SECTION
+========================================================= */
+
+#master-section {
+background: url("https://storage.emojot.com/pictures/skinImages/68d0c063891a828041230968-skin1.png");
+min-height: 657px;
+background-size: cover;
+background-repeat: no-repeat;
+background-position: bottom;
+position: relative;
+}
+
+/* =========================================================
+TOP PURPLE HEADER
+========================================================= */
+
+#headerCompanyInfo {
+color: #ffffff !important;
+background-color: #250633 !important;
+
+position: relative !important;
+
+min-height: 80px !important;
+height: 80px !important;
+
+overflow: hidden;
+
+}
+
+/* Keep elements inside header transparent */
+
+#headerCompanyInfo .container,
+#headerCompanyInfo .row {
+background: transparent !important;
+background-color: transparent !important;
+}
+
+/* =========================================================
+FEATHER LOGO
+========================================================= */
+
+#headerCompanyInfo .company-logo {
+position: relative !important;
+
+z-index: 5 !important;
+
+display: block !important;
+
+float: left !important;
+
+width: auto !important;
+max-width: none !important;
+
+height: 80px !important;
+
+margin: 0 !important;
+padding: 0 !important;
+
+}
+
+#headerCompanyInfo .company-logo img {
+height: 80px !important;
+
+width: auto !important;
+
+max-width: none !important;
+
+display: block !important;
+
+margin: 0 !important;
+
+}
+
+/* =========================================================
+CENTERED CONFERENCE TITLE
+========================================================= */
+
+#headerCompanyInfo::after {
+content: "Secretarial Conference - 2026";
+
+position: absolute !important;
+
+top: 50% !important;
+left: 50% !important;
+
+transform: translate(-50%, -50%) !important;
+
+color: #ffffff !important;
+
+font-family: "Montserrat", Arial, sans-serif !important;
+
+font-size: 27px !important;
+
+font-weight: 400 !important;
+
+line-height: 1.2 !important;
+
+letter-spacing: -0.2px !important;
+
+white-space: nowrap !important;
+
+text-align: center !important;
+
+margin: 0 !important;
+padding: 0 !important;
+
+z-index: 10 !important;
+
+pointer-events: none !important;
+
+}
+
+/* =========================================================
+HIDE GUEST / USER INFORMATION
+========================================================= */
+
+#headerCompanyInfo > .access-user,
+#headerCompanyInfo .access-user {
+display: none !important;
+}
+
+/* =========================================================
+RESPONSIVE HEADER
+========================================================= */
+
+@media screen and (max-width: 768px) {
+
+#headerCompanyInfo {
+    height: 75px !important;
+    min-height: 75px !important;
+}
+
+#headerCompanyInfo .company-logo {
+    height: 75px !important;
+}
+
+#headerCompanyInfo .company-logo img {
+    height: 75px !important;
+}
+
+#headerCompanyInfo::after {
+    font-size: 23px !important;
+}
+
+}
+
+@media screen and (max-width: 600px) {
+
+#headerCompanyInfo {
+    height: 70px !important;
+    min-height: 70px !important;
+}
+
+#headerCompanyInfo .company-logo {
+    height: 70px !important;
+}
+
+#headerCompanyInfo .company-logo img {
+    height: 70px !important;
+}
+
+#headerCompanyInfo::after {
+    font-size: 20px !important;
+}
+
+}
+
+@media screen and (max-width: 480px) {
+
+#headerCompanyInfo {
+    height: 65px !important;
+    min-height: 65px !important;
+}
+
+#headerCompanyInfo .company-logo {
+    height: 65px !important;
+}
+
+#headerCompanyInfo .company-logo img {
+    height: 65px !important;
+}
+
+#headerCompanyInfo::after {
+    font-size: 17px !important;
+}
+
+}
+
+@media screen and (max-width: 380px) {
+
+#headerCompanyInfo::after {
+    font-size: 15px !important;
+}
+
+}
+
+/* =========================================================
+EMAIL MESSAGE
+========================================================= */
+
+.email-emote-message {
+color: white !important;
+}
+
+/* =========================================================
+CONTAINER
+========================================================= */
+
+.container[style] {
+padding-left: 0px !important;
+padding-right: 0px !important;
+}
+
+/* =========================================================
+EMOTE TITLE
+========================================================= */
+
+.emote-title {
+color: #333;
+
+font-family: "Raleway", sans-serif;
+
+font-size: 12pt;
+
+font-weight: bold;
+
+margin-top: 10px;
+
+}
+
+/* =========================================================
+EMOTE TEXT
+========================================================= */
+
+.emo-text {
+font-size: 11pt;
+
+color: #333;
+
+/* Montserrat gives the percentage/range numbers a cleaner, clearer look */
+font-family: "Montserrat", Arial, sans-serif !important;
+
+font-weight: 500;
+
+}
+
+/* =========================================================
+FLEX
+========================================================= */
+
+.flex {
+display: flex !important;
+
+justify-content: center !important;
+
+}
+
+/* =========================================================
+MIDDLE BOX
+========================================================= */
+
+.middle-box {
+margin-top: 10px;
+
+padding: 10px;
+
+border: 1px solid #f3f3f3;
+
+}
+
+/* =========================================================
+EMOTE CONTAINER
+========================================================= */
+
+.emo-cont {
+border: 2px solid #3330;
+
+margin: 3px 0px;
+
+text-align: center;
+
+display: inline-block;
+
+box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+
+padding: 7px 0;
+
+border-radius: 4px;
+
+color: #666;
+
+background: rgb(255, 255, 255);
+
+}
+
+.clicked-emo-cont {
+border: 3px #07173c solid !important;
+}
+
+.emo-ico img {
+width: 80%;
+
+display: inline-block;
+
+text-align: center;
+
+max-width: 110px;
+
+margin: 5px;
+
+}
+
+/* =========================================================
+BUTTON BASIC COLORS
+========================================================= */
+
+.btn {
+color: #ed1c24;
+}
+
+.btn-next {
+color: #2a92ce;
+}
+
+.btn-submit {
+color: #2a92ce;
+}
+
+.btn-prev {
+color: #333;
+}
+
+.btn-clear {
+color: #333;
+}
+
+/* =========================================================
+COMMON BUTTON STYLE
+========================================================= */
+
+.btn-next,
+.btn-submit,
+.btn-prev,
+.btn-clear,
+.btn-skip,
+.btn-ok,
+.loyalty-redeem-button {
+
+border: 1px solid rgba(255, 255, 255, 0.5);
+
+margin: 10px 5px;
+
+text-align: center;
+
+min-width: 90px;
+
+display: inline-block;
+
+border-radius: 40px;
+
+box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+
+padding: 9px 25px;
+
+font-family: "Raleway", sans-serif;
+
+font-size: 12pt;
+
+background: rgba(249, 249, 249, 1);
+
+background: -moz-linear-gradient(
+    top,
+    rgba(249, 249, 249, 1) 0%,
+    rgba(227, 227, 227, 1) 100%
+);
+
+background: -webkit-gradient(
+    left top,
+    left bottom,
+    color-stop(0%, rgba(249, 249, 249, 1)),
+    color-stop(100%, rgba(227, 227, 227, 1))
+);
+
+background: -webkit-linear-gradient(
+    top,
+    rgba(249, 249, 249, 1) 0%,
+    rgba(227, 227, 227, 1) 100%
+);
+
+background: -o-linear-gradient(
+    top,
+    rgba(249, 249, 249, 1) 0%,
+    rgba(227, 227, 227, 1) 100%
+);
+
+background: -ms-linear-gradient(
+    top,
+    rgba(249, 249, 249, 1) 0%,
+    rgba(227, 227, 227, 1) 100%
+);
+
+background: linear-gradient(
+    to bottom,
+    rgba(249, 249, 249, 1) 0%,
+    rgba(227, 227, 227, 1) 100%
+);
+
+}
+
+.clear-submit-row {
+text-align: center !important;
+}
+
+.btn {
+color: #196d9e;
+
+text-decoration: none;
+
+}
+
+.btn-ok {
+color: #333;
+}
+
+.btn-skip {
+color: #333;
+}
+
+.btn-fb {
+color: white;
+}
+
+.loyalty-redeem-button {
+border-color: #2a92ce;
+}
+
+/* =========================================================
+LOGO CUSTOM
+========================================================= */
+
+.logo-cust {
+margin: 3px 0 -3px 9px;
+
+height: 50px;
+
+}
+
+/* =========================================================
+SURVEY TITLE
+Secretary of 2030 and Beyond
+========================================================= */
+
+.sensor-title {
+color: #07173c;
+
+text-align: center;
+
+font-family: "Montserrat", Arial, sans-serif !important;
+
+font-size: 22px;
+
+font-weight: 600 !important;
+
+line-height: 1.3;
+
+letter-spacing: -0.2px;
+
+padding: 18px 10px 8px 10px;
+
+margin-top: 10px;
+
+margin-bottom: 15px;
+
+background: transparent;
+
+}
+
+/* =========================================================
+FORM CONTROL
+========================================================= */
+
+.form-control {
+border-radius: 0px;
+}
+
+/* =========================================================
+PANELS
+========================================================= */
+
+.panel {
+margin: 0 10px;
+}
+
+.panel-group .panel {
+margin-bottom: 0;
+
+border-radius: 5px;
+
+box-shadow: none;
+
+background: rgba(250, 247, 247, 0.64);
+
+}
+
+.panel-group .panel-heading {
+box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+
+border-radius: 5px;
+
+color: black;
+
+background: rgba(249, 249, 249, 1);
+
+background: -moz-linear-gradient(
+    top,
+    rgba(249, 249, 249, 1) 0%,
+    rgba(227, 227, 227, 1) 100%
+);
+
+background: -webkit-gradient(
+    left top,
+    left bottom,
+    color-stop(0%, rgba(249, 249, 249, 1)),
+    color-stop(100%, rgba(227, 227, 227, 1))
+);
+
+background: -webkit-linear-gradient(
+    top,
+    rgba(249, 249, 249, 1) 0%,
+    rgba(227, 227, 227, 1) 100%
+);
+
+background: -o-linear-gradient(
+    top,
+    rgba(249, 249, 249, 1) 0%,
+    rgba(227, 227, 227, 1) 100%
+);
+
+background: -ms-linear-gradient(
+    top,
+    rgba(249, 249, 249, 1) 0%,
+    rgba(227, 227, 227, 1) 100%
+);
+
+background: linear-gradient(
+    to bottom,
+    rgba(249, 249, 249, 1) 0%,
+    rgba(227, 227, 227, 1) 100%
+);
+
+}
+
+.panel-title {
+font-size: 11pt;
+
+max-width: 90%;
+
+font-family: "Raleway", sans-serif;
+
+line-height: 1.6;
+
+}
+
+/* =========================================================
+ROW
+========================================================= */
+
+.row {
+background: transparent !important;
+}
+
+/* =========================================================
+MY EMOJOTS
+========================================================= */
+
+.my-emojots {
+display: none;
+}
+
+/* =========================================================
+PANEL BODY
+========================================================= */
+
+.panel-body {
+background: transparent !important;
+}
+
+/* =========================================================
+THANK YOU NOTE
+========================================================= */
+
+.thank-you-note {
+color: #07173c !important;
+}
+
+/* =========================================================
+FOOTER
+========================================================= */
+
+.footer {
+color: #fff;
+
+position: absolute;
+
+right: 10px;
+
+left: 0;
+
+z-index: 1030;
+
+bottom: 0;
+
+height: 40px;
+
+padding: 12px 13px;
+
+font-size: 8pt;
+
+margin: 0 -10px 0px 0;
+
+font-family: "Raleway", sans-serif;
+
+background-color: #55abdf !important;
+
+background-image:
+    linear-gradient(90deg, #1862af, #24b1e6) !important;
+
+}
+
+/* =========================================================
+FORM LABEL
+========================================================= */
+
+.form-group label {
+/* Keep survey/comment question labels visible on the white background */
+color: #000000 !important;
+
+font-family: "Raleway", sans-serif;
+
+font-size: 12pt;
+
+}
+
+/* =========================================================
+GROUP COMMENT MODAL
+========================================================= */
+
+#groupCommentBuzzModal .modal-header {
+background:
+linear-gradient(135deg, #1862af, #24b1e6) !important;
+
+color: white;
+
+}
+
+#groupCommentBuzzModal .modal-body {
+background: #fff;
+
+color: #333333;
+
+}
+
+#groupCommentBuzzModal .modal-footer {
+background: #fff;
+
+color: black;
+
+}
+
+#groupCommentBuzzModal .panel-body.comment-panel {
+background: #f6f6f6 !important;
+}
+
+#groupCommentBuzzModal .panel-footer.comment-footer {
+color: #333333;
+}
+
+/* =========================================================
+BAR CHART
+========================================================= */
+
+#barChart {
+width: 100%;
+}
+
+/* =========================================================
+PD GROUP TITLE
+========================================================= */
+
+.pdGroupTitle {
+color: #323570;
+
+margin-left: 0px;
+
+font-weight: 100;
+
+margin-top: -20px;
+
+}
+
+/* =========================================================
+BODY
+========================================================= */
+
+body {
+color: #000 !important;
+}
+
+/* =========================================================
+COMMENT BUZZ MODAL
+========================================================= */
+
+#commentBuzzModal .modal-body {
+background: #f7f5f7;
+
+color: white;
+
+}
+
+#commentBuzzModal .modal-footer {
+background: #ff8722;
+
+color: white;
+
+}
+
+#groupCommentBuzzModal .panel-body {
+background: #f3f3f3 !important;
+
+color: #333;
+
+}
+
+#groupCommentBuzzModal .panel-footer.comment-footer {
+color: #394242;
+}
+
+/* =========================================================
+COMMENT BUZZ PANEL
+========================================================= */
+
+#commentBuzzPanel i span {
+font-size: 18px !important;
+
+display: none;
+
+}
+
+#commentBuzzPanel {
+text-align: center;
+
+padding: 8px 10px;
+
+background:
+    linear-gradient(135deg, #1862af, #24b1e6);
+
+border-radius: 4px;
+
+margin-top: 110px;
+
+box-shadow:
+    0px 3px 8px rgba(0, 0, 0, 0.2);
+
+border: none;
+
+position: absolute;
+
+width: max-content;
+
+min-width: 250px;
+
+left: 50%;
+
+transform: translateX(-50%);
+
+z-index: 100;
+
+color: #ffffff;
+
+font-family: "Raleway", sans-serif;
+
+font-size: 15px;
+
+line-height: 1.3;
+
+font-weight: 500;
+
+transition: all 0.3s ease-in-out;
+
+}
+
+#commentBuzzPanel {
+transform:
+translateX(-50%) translateY(-2px);
+
+box-shadow:
+    0px 5px 12px rgba(0, 0, 0, 0.25);
+
+background:
+    linear-gradient(135deg, #24b1e6, #1862af);
+
+}
+
+#commentBuzzPanel i {
+content: " View Questions & Upvote";
+
+font-family: "Raleway", sans-serif;
+
+font-size: 15px;
+
+font-weight: 600;
+
+letter-spacing: 0.3px;
+
+}
+
+/* =========================================================
+CLEAR / SUBMIT ROW
+========================================================= */
+
+.clear-submit-row {
+text-align: center;
+}
+
+/* =========================================================
+MODAL LABEL
+========================================================= */
+
+#myModalLabel {
+content: " Panel Questions | Please Upvote";
+}
+
+/* =========================================================
+THANK YOU NOTE
+========================================================= */
+
+.thank-you-note {
+text-align: center;
+
+font-size: 17px;
+
+}
+
+/* =========================================================
+GENERAL BUTTON
+========================================================= */
+
+.button {
+border:
+1px solid rgba(255, 255, 255, 0.5);
+
+margin: 10px 5px;
+
+text-align: center;
+
+min-width: 90px;
+
+display: inline-block;
+
+border-radius: 40px;
+
+box-shadow:
+    0px 2px 6px rgba(0, 0, 0, 0.2);
+
+padding: 9px 25px;
+
+font-family: "Raleway", sans-serif;
+
+font-size: 12pt;
+
+background:
+    rgba(249, 249, 249, 1);
+
+background:
+    linear-gradient(
+        to bottom,
+        rgba(249, 249, 249, 1) 0%,
+        rgba(227, 227, 227, 1) 100%
+    );
+
+}
+
+/* =========================================================
+LINKS
+========================================================= */
+
+a {
+color: #FF0000;
+
+text-decoration: none;
+
+}
+
+/* =========================================================
+PROGRESS BAR
+========================================================= */
+
+.progress_bar {
+display: none;
+}
+
+/* =========================================================
+FINAL BUTTON SHAPE
+========================================================= */
+
+.btn-next,
+.btn-submit,
+.btn-prev,
+.btn-clear,
+.btn-skip,
+.btn-ok,
+.loyalty-redeem-button,
+.button {
+border-radius: 4px !important;
+
+border: 1px solid transparent;
+
+}
+
+/* =========================================================
+FORWARD BUTTONS
+========================================================= */
+
+.btn-next,
+.btn-submit,
+.btn-ok,
+.loyalty-redeem-button {
+background: #1862af !important;
+
+color: #ffffff !important;
+
+border-color: #1862af !important;
+
+}
+
+.btn-next,
+.btn-submit,
+.btn-ok,
+.loyalty-redeem-button {
+background-color: #ffffff !important;
+
+color: #1862af !important;
+
+border-color: #1862af !important;
+
+}
+
+/* =========================================================
+BACKWARD BUTTONS
+========================================================= */
+
+.btn-prev,
+.btn-clear,
+.btn-skip {
+background: #24b1e6 !important;
+
+color: #ffffff !important;
+
+border-color: #24b1e6 !important;
+
+}
+
+.btn-prev,
+.btn-clear,
+.btn-skip {
+background-color: #ffffff !important;
+
+color: #24b1e6 !important;
+
+border-color: #24b1e6 !important;
+
+}
+
+/* =========================================================
+PANEL QUESTIONS / UPVOTE MODAL - READABILITY FIX
+Added as final overrides so the question text does not
+inherit white/light colors from the surrounding skin.
+========================================================= */
+
+/* Main modal content */
+#groupCommentBuzzModal .modal-content,
+#commentBuzzModal .modal-content {
+background: #ffffff !important;
+color: #333333 !important;
+}
+
+/* Keep the blue modal header and white heading text */
+#groupCommentBuzzModal .modal-header,
+#commentBuzzModal .modal-header {
+background: linear-gradient(135deg, #1862af, #24b1e6) !important;
+color: #ffffff !important;
+}
+
+#groupCommentBuzzModal .modal-header *,
+#commentBuzzModal .modal-header *,
+#groupCommentBuzzModal #myModalLabel,
+#commentBuzzModal #myModalLabel,
+#groupCommentBuzzModal #myModalLabel,
+#commentBuzzModal #myModalLabel {
+color: #ffffff !important;
+}
+
+/* Modal body */
+#groupCommentBuzzModal .modal-body,
+#commentBuzzModal .modal-body {
+background: #ffffff !important;
+color: #333333 !important;
+}
+
+/* Individual question cards */
+#groupCommentBuzzModal .panel,
+#commentBuzzModal .panel {
+background: #f5f5f5 !important;
+color: #333333 !important;
+}
+
+/* Main question area */
+#groupCommentBuzzModal .panel-heading,
+#commentBuzzModal .panel-heading {
+background: #f5f5f5 !important;
+color: #333333 !important;
+}
+
+/* Force the actual question text to be dark */
+#groupCommentBuzzModal .panel-heading *,
+#commentBuzzModal .panel-heading *,
+#groupCommentBuzzModal .panel-title,
+#commentBuzzModal .panel-title,
+#groupCommentBuzzModal .panel-title *,
+#commentBuzzModal .panel-title * {
+color: #333333 !important;
+font-weight: 600 !important;
+opacity: 1 !important;
+}
+
+/* Any text that appears inside the question body */
+#groupCommentBuzzModal .panel-body,
+#commentBuzzModal .panel-body,
+#groupCommentBuzzModal .panel-body *,
+#commentBuzzModal .panel-body * {
+color: #333333 !important;
+opacity: 1 !important;
+}
+
+/* Bottom row - e.g. "from Sri Lanka" */
+#groupCommentBuzzModal .panel-footer,
+#commentBuzzModal .panel-footer {
+background: #e2e2e2 !important;
+color: #555555 !important;
+}
+
+#groupCommentBuzzModal .panel-footer span,
+#groupCommentBuzzModal .panel-footer div,
+#groupCommentBuzzModal .panel-footer p,
+#groupCommentBuzzModal .panel-footer small,
+#groupCommentBuzzModal .panel-footer label,
+#commentBuzzModal .panel-footer span,
+#commentBuzzModal .panel-footer div,
+#commentBuzzModal .panel-footer p,
+#commentBuzzModal .panel-footer small,
+#commentBuzzModal .panel-footer label {
+color: #555555 !important;
+opacity: 1 !important;
+}
+
+/* Keep the upvote/thumb icon blue */
+#groupCommentBuzzModal .panel-footer i,
+#groupCommentBuzzModal .panel-footer i,
+#groupCommentBuzzModal .panel-footer .fa,
+#groupCommentBuzzModal .panel-footer .glyphicon,
+#commentBuzzModal .panel-footer i,
+#commentBuzzModal .panel-footer i,
+#commentBuzzModal .panel-footer .fa,
+#commentBuzzModal .panel-footer .glyphicon {
+color: #00aeef !important;
+opacity: 1 !important;
+}
+
+/* Keep vote-count badges readable */
+#groupCommentBuzzModal .badge,
+#commentBuzzModal .badge {
+color: #ffffff !important;
+background: #777777 !important;
+opacity: 1 !important;
+}
+
+/* Close icon */
+#groupCommentBuzzModal .close,
+#commentBuzzModal .close {
+color: #086c9b !important;
+opacity: 1 !important;
+text-shadow: none !important;
+}
+
+/* =========================================================
+FINAL MOBILE SURVEY READABILITY OVERRIDES
+
+Rating labels use Montserrat for clearer numbers
+
+Comment labels and typed text are forced to black
+========================================================= */
+
+/* Satisfaction option text, including percentage ranges */
+.emo-text,
+.emo-cont .emo-text,
+.emo-cont label {
+font-family: "Montserrat", Arial, sans-serif !important;
+}
+
+/* Survey question/comment labels */
+.form-group label,
+.form-group .control-label,
+label[for] {
+color: #000000 !important;
+-webkit-text-fill-color: #000000 !important;
+opacity: 1 !important;
+}
+
+/* Comment/feedback text areas */
+textarea,
+textarea.form-control,
+.form-group textarea,
+.form-group textarea.form-control {
+color: #000000 !important;
+-webkit-text-fill-color: #000000 !important;
+background-color: #ffffff !important;
+opacity: 1 !important;
+}
+
+textarea,
+textarea.form-control,
+.form-group textarea {
+color: #000000 !important;
+-webkit-text-fill-color: #000000 !important;
+background-color: #ffffff !important;
+}
+
+textarea::placeholder,
+textarea.form-control::placeholder {
+color: #666666 !important;
+-webkit-text-fill-color: #666666 !important;
+opacity: 1 !important;
+}
+
+/* Older WebKit / mobile browser placeholder support */
+textarea::-webkit-input-placeholder {
+color: #666666 !important;
+-webkit-text-fill-color: #666666 !important;
+opacity: 1 !important;
+}
+
+/* Mobile-specific reinforcement */
+@media screen and (max-width: 768px) {
+.emo-text,
+.emo-cont .emo-text,
+.emo-cont label {
+font-family: "Montserrat", Arial, sans-serif !important;
+}
+
+.form-group label,
+.form-group .control-label,
+label[for] {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+}
+
+textarea,
+textarea.form-control,
+.form-group textarea,
+.form-group textarea.form-control {
+    color: #000000 !important;
+    -webkit-text-fill-color: #000000 !important;
+    background-color: #ffffff !important;
+}
+
+}
