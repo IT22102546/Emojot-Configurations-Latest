@@ -1,0 +1,821 @@
+ {
+  "name": "WF",
+  "reportNamePrefix": "AbansAuto Concerns",
+  "nameTemplate": "AbansAuto Concern: $type$ - $complaintType$",
+  "reporterNamePrefix": "Customer",
+  "descriptionFormat": "text",
+  "timeZone": "+330",
+  "type": {
+    "name": "Concern Type",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Vehicle Purchase and Delivery",
+        "name": "Vehicle Purchase and Delivery",
+        "highPriorityFields": [
+          "complaintType",
+          "FullName",
+          "Email",
+          "ContactNumber",
+          "Satisfaction",
+          "Vehicle_Purchse_Negative_Reason",
+          "nps",
+          "Comment",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Vehicle Service",
+        "name": "Vehicle Service",
+        "highPriorityFields": [
+          "complaintType",
+          "FullName",
+          "Email",
+          "ContactNumber",
+          "Satisfaction",
+          "Vehicle_Service_Negative_Reason",
+          "nps",
+          "Comment",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Spare Parts",
+        "name": "Spare Parts",
+        "highPriorityFields": [
+          "complaintType",
+          "FullName",
+          "Email",
+          "ContactNumber",
+          "Satisfaction",
+          "Spare_Part_Negative_Reason",
+          "nps",
+          "Comment",
+          "overdue"
+        ]
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Low",
+        "name": "Low"
+      },
+      {
+        "id": "Medium",
+        "name": "Medium"
+      },
+      {
+        "id": "High",
+        "name": "High"
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "transitions": [
+      {
+        "sourceState": "Open",
+        "targetStates": [
+          "Transferred",
+          "In Progress"
+        ]
+      },
+      {
+        "sourceState": "Transferred",
+        "targetStates": [
+          "In Progress"
+        ]
+      },
+      {
+        "sourceState": "In Progress",
+        "targetStates": [
+          "Transferred",
+          "Resolved"
+        ]
+      },
+      {
+        "sourceState": "Resolved",
+        "targetStates": [
+          "Open",
+          "Transferred"
+        ]
+      }
+    ],
+    "values": [
+      {
+        "id": "Open",
+        "name": "Open",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000",
+        "statusBackgroundColor": "#fcf3cf",
+        "statusTextColor": "#7d6608"
+      },
+      {
+        "id": "Transferred",
+        "name": "Transferred",
+        "backgroundColor": "#f39c12",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#fdebd0",
+        "statusTextColor": "#7e5109"
+      },
+      {
+        "id": "In Progress",
+        "name": "In Progress",
+        "backgroundColor": "#3498db",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d6eaf8",
+        "statusTextColor": "#154360",
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "customerWIPalerts",
+            "target": "customer",
+            "appendEditUrl": false,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Vehicle Purchase and Delivery",
+                  "Vehicle Service",
+                  "Spare Parts"
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Resolved",
+        "name": "Resolved",
+        "finalState": true,
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d5f5e3",
+        "statusTextColor": "#145a32",
+        "fieldsValidation": [
+          {
+            "fieldID": "inbuild_comment",
+            "required": true,
+            "name": "Please add a comment explaining how this complaint was resolved.",
+            "message": "Please add a comment explaining how this complaint was resolved."
+          }
+        ],
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "complaintResolutionAlertInternal",
+            "target": "admin",
+            "contactFilters": [
+              "ticketResolutionAlert"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "complaintType",
+                  "operator": "eq",
+                  "value": "$type$"
+                }
+              ]
+            },
+            "appendEditUrl": true,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Vehicle Purchase and Delivery",
+                  "Vehicle Service",
+                  "Spare Parts"
+                ]
+              ]
+            }
+          },
+          {
+            "channel": "sms",
+            "template": "complaintResolutionAlertInternal_sms",
+            "target": "admin",
+            "contactFilters": [
+              "ticketResolutionAlert"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "complaintType",
+                  "operator": "eq",
+                  "value": "$type$"
+                }
+              ]
+            },
+            "appendEditUrl": true,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Vehicle Purchase and Delivery",
+                  "Vehicle Service",
+                  "Spare Parts"
+                ]
+              ]
+            }
+          },
+          {
+            "channel": "email",
+            "template": "customerResolutionAlerts",
+            "target": "customer",
+            "appendEditUrl": false,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Vehicle Purchase and Delivery",
+                  "Vehicle Service",
+                  "Spare Parts"
+                ]
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "timeSpent": {
+    "name": "Time spent",
+    "type": "time_accumulation",
+    "hidden": true
+  },
+  "customFields": {
+    "complaintType": {
+      "name": "Concern Type",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Vehicle Purchase and Delivery",
+          "name": "Vehicle Purchase and Delivery"
+        },
+        {
+          "id": "Vehicle Service",
+          "name": "Vehicle Service"
+        },
+        {
+          "id": "Spare Parts",
+          "name": "Spare Parts"
+        }
+      ]
+    },
+    "FullName": {
+      "name": "Full Name",
+      "type": "string",
+      "readOnly": true
+    },
+    "Email": {
+      "name": "Email Address",
+      "type": "string",
+      "readOnly": true
+    },
+    "ContactNumber": {
+      "name": "Contact Number",
+      "type": "string",
+      "readOnly": true
+    },
+    "Satisfaction": {
+      "name": "Satisfaction",
+      "type": "string",
+      "readOnly": true
+    },
+    "Vehicle_Purchse_Negative_Reason": {
+      "name": "Vehicle Purchase and Delivery Negative Reason",
+      "type": "string",
+      "readOnly": true
+    },
+    "Vehicle_Service_Negative_Reason": {
+      "name": "Vehicle Service Negative Reason",
+      "type": "string",
+      "readOnly": true
+    },
+    "Spare_Part_Negative_Reason": {
+      "name": "Spare Part Negative Reason",
+      "type": "string",
+      "readOnly": true
+    },
+    "nps": {
+      "name": "NPS Score",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "0",
+          "name": "0"
+        },
+        {
+          "id": "1",
+          "name": "1"
+        },
+        {
+          "id": "2",
+          "name": "2"
+        },
+        {
+          "id": "3",
+          "name": "3"
+        },
+        {
+          "id": "4",
+          "name": "4"
+        },
+        {
+          "id": "5",
+          "name": "5"
+        },
+        {
+          "id": "6",
+          "name": "6"
+        },
+        {
+          "id": "7",
+          "name": "7"
+        },
+        {
+          "id": "8",
+          "name": "8"
+        },
+        {
+          "id": "9",
+          "name": "9"
+        },
+        {
+          "id": "10",
+          "name": "10"
+        }
+      ]
+    },
+    "Comment": {
+      "name": "Additional Information",
+      "type": "textArea",
+      "readOnly": true
+    },
+    "overdue": {
+      "name": "Overdue",
+      "readOnly": false,
+      "type": "enum",
+      "hidden": true,
+      "values": [
+        {
+          "id": "1st Level",
+          "name": "1st Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_1stLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_01"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "complaintType",
+                    "operator": "eq",
+                    "value": "$type$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "sms",
+              "template": "overdueAlertSMS_1stLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_01"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "complaintType",
+                    "operator": "eq",
+                    "value": "$type$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "assignee",
+                  "contactFilters": [
+                    "ticketOverdueAssignee_01"
+                  ],
+                  "adminUserQuery": {
+                    "condition": "and",
+                    "rules": [
+                      {
+                        "field": "complaintType",
+                        "operator": "eq",
+                        "value": "$type$"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2nd Level",
+          "name": "2nd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_2ndLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_02"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "complaintType",
+                    "operator": "eq",
+                    "value": "$type$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "sms",
+              "template": "overdueAlertSMS_2ndLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_02"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "complaintType",
+                    "operator": "eq",
+                    "value": "$type$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "assignee",
+                  "contactFilters": [
+                    "ticketOverdueAssignee_02"
+                  ],
+                  "adminUserQuery": {
+                    "condition": "and",
+                    "rules": [
+                      {
+                        "field": "complaintType",
+                        "operator": "eq",
+                        "value": "$type$"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3rd Level",
+          "name": "3rd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_3rdLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_03"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "complaintType",
+                    "operator": "eq",
+                    "value": "$type$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "sms",
+              "template": "overdueAlertSMS_3rdLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_03"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "complaintType",
+                    "operator": "eq",
+                    "value": "$type$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "assignee",
+                  "contactFilters": [
+                    "ticketOverdueAssignee_03"
+                  ],
+                  "adminUserQuery": {
+                    "condition": "and",
+                    "rules": [
+                      {
+                        "field": "complaintType",
+                        "operator": "eq",
+                        "value": "$type$"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "workflowCreation": {
+    "email": "bot@emojot.com",
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "complaintCreationAlert",
+        "target": "admin",
+        "contactFilters": [
+          "ticketCreationAlert"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "complaintType",
+              "operator": "eq",
+              "value": "$type$"
+            }
+          ]
+        },
+        "appendEditUrl": true,
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Vehicle Purchase and Delivery",
+              "Vehicle Service",
+              "Spare Parts"
+            ]
+          ]
+        }
+      },
+      {
+        "channel": "sms",
+        "template": "complaintCreationAlert_sms",
+        "target": "admin",
+        "contactFilters": [
+          "ticketCreationAlert"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "complaintType",
+              "operator": "eq",
+              "value": "$type$"
+            }
+          ]
+        },
+        "appendEditUrl": true,
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Vehicle Purchase and Delivery",
+              "Vehicle Service",
+              "Spare Parts"
+            ]
+          ]
+        }
+      },
+      {
+        "template": "customerComplaintCreations",
+        "channel": "email",
+        "target": "customer",
+        "appendEditUrl": false,
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Vehicle Purchase and Delivery",
+              "Vehicle Service",
+              "Spare Parts"
+            ]
+          ]
+        }
+      },
+      {
+        "channel": "fieldChange",
+        "changingFields": [
+          {
+            "id": "assignee",
+            "value": "sanjanan@emojot.com"
+          }
+        ]
+      }
+    ]
+  },
+  "assignment": {
+    "triggers": [
+      {
+        "template": "complaintCreationAlert",
+        "channel": "email",
+        "target": "employee"
+      }
+    ],
+    "automaticAssignment": {
+      "isEnabled": true,
+      "email": "sanjanan@emojot.com",
+      "resolvedStatus": [
+        "Resolved"
+      ],
+      "maxLevel": 4,
+      "triggerFlows": [
+        {
+          "condition": {
+            "and": [
+              {
+                "!=": [
+                  {
+                    "var": "status"
+                  },
+                  "Resolved"
+                ]
+              }
+            ]
+          },
+          "skipAssignment": true,
+          "levels": [
+            {
+              "nextLevelTime": 172800000
+            },
+            {
+              "nextLevelTime": 172800000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "1st Level"
+                }
+              ]
+            },
+            {
+              "nextLevelTime": 172800000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "2nd Level"
+                }
+              ]
+            },
+            {
+              "nextLevelTime": 172800000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "3rd Level"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "adminHierarchy": {
+    "list": "admin",
+    "headers": [
+      {
+        "id": "complaintType",
+        "name": "Complaint Type",
+        "type": "customField"
+      },
+      {
+        "id": "ticketCreationAlert",
+        "name": "Ticket Creation Alert",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAlert_01",
+        "name": "Ticket Overdue Alert 01",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAlert_02",
+        "name": "Ticket Overdue Alert 02",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAlert_03",
+        "name": "Ticket Overdue Alert 03",
+        "type": "contact"
+      },
+      {
+        "id": "ticketResolutionAlert",
+        "name": "Ticket Resolution Alert",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAssignee_01",
+        "name": "Ticket Overdue Assignee 01",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAssignee_02",
+        "name": "Ticket Overdue Assignee 02",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAssignee_03",
+        "name": "Ticket Overdue Assignee 03",
+        "type": "contact"
+      }
+    ],
+    "id": "REPLACE_ABANSAUTO_ADMIN_HIERARCHY_ID"
+  },
+  "finalState": true,
+  "incidentKeyFormat": {
+    "enabled": false,
+    "countDependentFields": {
+      "enabled": true,
+      "fields": [
+        "date",
+        "ticketCategory"
+      ]
+    },
+    "pattern": [
+      {
+        "key": "ticketCategory",
+        "format": "mapping"
+      },
+      {
+        "key": "date",
+        "format": "YYYYMMDD"
+      },
+      {
+        "key": "counter",
+        "format": 3
+      }
+    ],
+    "counterReset": "daily"
+  },
+  "predefinedComments": [
+    "Case acknowledged and assigned.",
+    "Customer contacted; details requested.",
+    "Initial verification completed.",
+    "Escalated to relevant team.",
+    "Resolution confirmed; case closed."
+  ],
+  "tableEdit": "true"
+}

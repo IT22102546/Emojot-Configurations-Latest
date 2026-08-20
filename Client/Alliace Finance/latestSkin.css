@@ -8,185 +8,186 @@
     src: url(https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Jo02SuCgQ.woff2) format('woff2');
 }
 
-/* ============================================================
-   ALLIANCE FINANCE (AFC) — clean skin, logo-based palette
-
-   - No background photo, no layered gradients: flat white
-     background so no faint banding/lines can appear anywhere,
-     including behind buttons like "Next".
-   - No divider line under the header/logo.
-   - html/body/.container are forced to the same flat white as
-     #master-section and the section is stretched to fill the
-     full viewport height, so the page reads as one continuous
-     surface instead of a styled top zone sitting over a
-     different-colored, hairline-patterned default background.
-   - Palette pulled directly from the afc logo: orange, green,
-     and blue, in that left-to-right order.
-   ============================================================ */
-html,
-body {
-    background: #e6e6e6 !important;
-    background-image: none !important;
-}
 
 #master-section {
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82)),
+        url("https://storage.emojot.com/pictures/skinImages/6a4e20b0f9aa04ffc8de16b5-skin1.png");
     background-color: #ffffff;
-    background: #ffffff;
-    background-image: none;
-    min-height: 100vh;
-    min-height: 100dvh;
+    min-height: 657px;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     position: relative;
 }
 
-#master-section::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(to right, #f47920, #8dc63f, #29abe2);
-    z-index: 5;
-}
-
-#master-section::after {
-    content: none !important;
-    display: none !important;
-    background: none !important;
-}
-
 #headerCompanyInfo {
-    color: #2b2b2b !important;
-    background: #ffffff !important;
-    box-shadow: 0 6px 14px -10px rgba(0, 0, 0, 0.15);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    color: #000000 !important;
     min-height: 70px;
-}
-
-.access-user {
-    font-size: 1.1em;
-    text-align: right;
-    float: right;
-    font-weight: 400;
-    margin-top: 0 !important;
-    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
-    color: #2b2b2b;
 }
 
 .container[style] {
     padding-left: 0px !important;
     padding-right: 0px !important;
-    background: #ffffff !important;
-    background-image: none !important;
-}
-
-.container,
-.content,
-#content,
-main {
-    background: #ffffff !important;
-    background-image: none !important;
 }
 
 .emote-title {
-    font-family: 'Fraunces', Georgia, serif;
-    font-size: 17pt;
+    color: #000000;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
+    font-size: 15pt;
     font-weight: 500;
-    letter-spacing: 0.2px;
 }
 
-/* The survey/page name heading rendered above the section title
-   defaults to blue in the base template; force it black to match
-   the rest of the page's text. */
-#master-section h1,
-#master-section h2,
-#master-section h3,
-.survey-title,
-.survey-name,
-.emote-header-title {
+.form-group label {
     color: #000000 !important;
-}
-
-/* The base template renders every spacer <br class="clearfix">
-   with a visible top border — that's the repeated grey lines
-   between the buttons and footer. Strip it out entirely. */
-br.clearfix,
-.clearfix,
-hr {
-    border: none !important;
-    border-top: none !important;
-    box-shadow: none !important;
-    background: none !important;
-    height: 0 !important;
-    line-height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-/* Belt-and-braces: kill any stray border/shadow on panel headings
-   and collapsed panel wrappers that aren't one of our own styled
-   buttons or answer cards, in case a hidden analytics panel is
-   leaving a border behind. */
-.panel-heading,
-.panel-group .panel:not(:has(.panel-collapse.in)) {
-    box-shadow: none !important;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
+    font-size: 15pt !important;
+    font-weight: 600 !important;
 }
 
 .emo-text {
-    font-size: 11pt;
-    color: #2b2b2b;
-    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    font-size: 13pt;
+    color: #000000;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
     font-weight: 500;
 }
 
 .emo-text-only {
+    font-size: 15pt;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
+}
+
+.loyalty-message {
     font-size: 13pt;
-    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
-    color: #2b2b2b;
+    color: #000000;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
+    font-weight: 500;
+}
+
+.emo-text-dropdown {
+    color: #000000 !important;
+}
+
+.lnksh-language-select-hidden {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+.lnksh-language-strip {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+    justify-content: center;
+    z-index: 20;
+    flex-wrap: wrap;
+    max-width: calc(100% - 280px);
+}
+
+.lnksh-language-btn {
+    width: 174px;
+    min-height: 100px;
+    padding: 10px 14px;
+    border: 1px solid #cfcfcf;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #111111;
+    font-family: "Be Vietnam Pro", sans-serif;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.lnksh-language-btn:hover {
+    border-color: #888888;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+}
+
+.lnksh-language-btn.is-active {
+    border: 4px solid #000000;
+    background: rgba(236, 233, 233, 0.92);
+    box-shadow: none;
+}
+
+.lnksh-language-badge {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.5px;
+}
+
+.lnksh-language-btn[data-lang-key="en"] .lnksh-language-badge {
+    background: linear-gradient(180deg, #ff8c72 0%, #ff3b30 100%);
+}
+
+.lnksh-language-btn[data-lang-key="si"] .lnksh-language-badge {
+    background: linear-gradient(180deg, #47b2ff 0%, #5f48df 100%);
+}
+
+.lnksh-language-btn[data-lang-key="ta"] .lnksh-language-badge {
+    background: linear-gradient(180deg, #f8c24a 0%, #e08a12 100%);
+}
+
+.lnksh-language-label {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.1;
+    text-align: center;
+    white-space: nowrap;
 }
 
 .middle-box {
     margin-top: 10px;
     padding: 10px;
-    border: 1px solid #f3f1ea;
+    border: 1px solid #f3f3f3;
 }
 
-/* ---- Answer cards ---- */
+.flex {
+    display: flex !important;
+    justify-content: center;
+}
+
 .emo-cont {
-    position: relative;
-    border: 1px solid rgba(244, 121, 32, 0.10);
-    margin: 3px 0;
+    border: 1px solid rgb(241, 219, 219);
+    margin: 3px 0px;
     text-align: center;
     display: inline-block;
-    border-radius: 16px;
-    color: #2b2b2b;
-    background: #ffffff;
-    box-shadow: 0 2px 10px rgba(244, 121, 32, 0.07);
-    transition:
-        transform .25s cubic-bezier(.25, .8, .25, 1),
-        box-shadow .25s ease,
-        border-color .25s ease,
-        opacity .25s ease;
-    padding: 10px;
-    cursor: pointer;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+    padding: 7px 7px;
+    border-radius: 0px;
+    color: #000000;
+    letter-spacing: 0.5px;
+    background: rgba(255, 255, 255, 0.72);
 }
 
 .emo-cont:hover {
-    transform: translateY(-4px) scale(1.03);
-    border-color: rgba(244, 121, 32, 0.35);
-    box-shadow:
-        0 10px 22px rgba(244, 121, 32, 0.14),
-        0 2px 10px rgba(141, 198, 63, 0.10),
-        0 -2px 10px rgba(41, 171, 226, 0.08);
+    border: 2px solid #888888;
+    background: rgba(255, 255, 255, 0.85);
 }
 
-.emo-cont:hover .emo-ico img {
-    transform: scale(1.08);
+.clicked-emo-cont {
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 3px #000000 solid !important;
 }
 
 .emo-ico img {
@@ -195,56 +196,26 @@ hr {
     text-align: center;
     max-width: 55px;
     margin: 5px;
-    transition: transform .25s ease;
 }
 
-.panel-body:has(.clicked-emo-cont) .emo-cont:not(.clicked-emo-cont),
-.middle-box:has(.clicked-emo-cont) .emo-cont:not(.clicked-emo-cont),
-.row:has(.clicked-emo-cont) .emo-cont:not(.clicked-emo-cont) {
-    opacity: 0.55;
-}
-
-.clicked-emo-cont {
-    background: #fffaf0 !important;
-    color: #2b2b2b !important;
-    border: 2px solid #29abe2 !important;
-    transform: translateY(-2px);
-    box-shadow:
-        0 0 0 2px #8dc63f,
-        0 0 0 4px rgba(41, 171, 226, 0.18),
-        0 4px 14px rgba(0, 0, 0, 0.10) !important;
-    padding: 10px;
-    opacity: 1 !important;
-}
-
-.clicked-emo-cont .emo-text {
-    color: #f47920 !important;
-    font-weight: 600;
-}
-
-/* ---- Buttons ---- */
-.btn-next,
-.btn-submit,
-.btn-ok {
-    color: #ffffff !important;
-    background: linear-gradient(120deg, #f47920 0%, #8dc63f 55%, #29abe2 100%) !important;
-    background-size: 180% 100% !important;
-    background-position: 0% 0% !important;
-    border: none !important;
-    transition: background-position .35s ease, transform .25s ease, box-shadow .25s ease !important;
-}
-
-.btn-prev,
-.btn-clear,
-.btn-skip {
-    color: #f47920 !important;
-    background: transparent !important;
-    border: 2px solid #f47920 !important;
+@keyframes shake {
+    0%   { transform: translate(0, 0) rotate(0); }
+    20%  { transform: translate(-2px, 0) rotate(-5deg); }
+    40%  { transform: translate(2px, 0) rotate(5deg); }
+    60%  { transform: translate(-2px, 0) rotate(-5deg); }
+    80%  { transform: translate(2px, 0) rotate(5deg); }
+    100% { transform: translate(0, 0) rotate(0); }
 }
 
 .loyalty-redeem-button {
+    border: 2px solid #781d7d !important;
+    color: #333 !important;
+    background: transparent !important;
+}
+
+.loyalty-redeem-button:hover {
+    background: #000000 !important;
     color: #ffffff !important;
-    background: linear-gradient(to right, #8dc63f 0%, #29abe2 100%) !important;
 }
 
 .btn-next,
@@ -254,57 +225,40 @@ hr {
 .btn-skip,
 .btn-ok,
 .loyalty-redeem-button {
+    border-radius: 0;
     margin: 10px 5px;
     text-align: center;
     min-width: 90px;
     display: inline-block;
-    border-radius: 40px;
-    box-shadow: 0 2px 8px rgba(244, 121, 32, 0.15);
     padding: 9px 25px;
-    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
     font-size: 12pt;
-    font-weight: 600;
-    text-transform: none;
+    background: transparent;
+    box-shadow: none;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    white-space: normal;
+    word-break: break-word;
+    line-height: 1.2;
+    transition: background .2s ease, color .2s ease;
 }
 
 .clear-submit-row {
     text-align: center !important;
 }
 
-.panel-collapse.collapse:not(.in),
-.panel-collapse.collapsing {
-    display: none !important;
-}
-
-.panel-group .panel:not(:has(.panel-collapse.in)) .clear-submit-row,
-.panel-group .panel:not(:has(.panel-collapse.in)) .draft-response-row {
-    display: none !important;
+.clear-submit-row,
+.draft-response-row {
+    padding-right: 0 !important;
 }
 
 .btn:hover {
-    transform: translateY(-3px);
     text-decoration: none;
-    box-shadow: 0 8px 18px rgba(244, 121, 32, 0.18);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.btn-next:hover,
-.btn-submit:hover,
-.btn-ok:hover {
-    color: #ffffff !important;
-    background-position: 100% 0% !important;
-}
-
-.btn-prev:hover,
-.btn-clear:hover,
-.btn-skip:hover {
-    color: #ffffff !important;
-    background: linear-gradient(to right, #8dc63f 0%, #29abe2 100%) !important;
-    border-color: transparent !important;
 }
 
 .btn-fb {
-    color: #ffffff;
+    color: white;
 }
 
 .logo-cust {
@@ -312,43 +266,18 @@ hr {
     height: 50px;
 }
 
-/* ---- Section title with three-tone signature rule (afc: orange/green/blue) ---- */
 .sensor-title {
-    position: relative;
-    text-align: center;
-    margin-bottom: 22px;
-    margin-top: 20px;
-    background: transparent;
-    font-size: 26px;
-    font-family: 'Fraunces', Georgia, serif !important;
-    font-weight: 500;
-    line-height: 40px;
-    text-transform: none;
-    letter-spacing: 0.3px;
-}
-
-.sensor-title::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -6px;
-    transform: translateX(-50%);
-    width: 64px;
-    height: 3px;
-    border-radius: 2px;
-    background: linear-gradient(to right, #f47920, #8dc63f, #29abe2);
-}
-
-.pdGroupTitle {
-    color: #f47920 !important;
+    color: #000000;
+    font-size: 20pt;
     font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
-    font-size: 14pt;
-    margin-bottom: 30px;
-    font-weight: 400 !important;
+    background: rgba(255, 255, 255, 0);
+    line-height: 40px;
+    font-weight: 500;
+    text-align: center;
 }
 
 .form-control {
-    border-radius: 6px;
+    border-radius: 3px;
 }
 
 .panel {
@@ -357,47 +286,28 @@ hr {
 
 .panel-group .panel {
     margin-bottom: 0;
-    border-radius: 10px;
+    border-radius: 3px;
     box-shadow: none;
-    background: rgba(255, 255, 255, 0.88);
-    border: 1px solid #f0eee6;
-}
-
-/* THE ACTUAL SOURCE OF THE LINES:
-   Several accordion panels (EMOTE TIME SERIES / EMOTE PULSE /
-   STATUS BUZZ / GEO MAP / TEXT FEEDBACK / INSTAGRAM / FACEBOOK)
-   wrap their real content in an inner ng-show div. When a
-   feature is switched off, Angular hides that inner div, but
-   the outer .panel shell above has no hide condition of its
-   own — so it collapses to zero content height while its 1px
-   border and background still render as a thin stacked line.
-   With several features off at once, that's exactly the 5
-   hairlines. Fix: if a .panel's only children are all hidden
-   (ng-hide) or it has no real child at all, collapse the shell
-   completely. This re-evaluates live as Angular toggles
-   classes, so a panel still shows normally the moment its
-   feature is actually turned on.
-*/
-#accordion .panel:not(:has(> :not(.ng-hide))) {
-    display: none !important;
-    border: none !important;
-    background: none !important;
-    box-shadow: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    background: rgba(250, 247, 247, 0.64);
 }
 
 .panel-group .panel-heading {
-    box-shadow: 0 2px 8px rgba(244, 121, 32, 0.08);
-    border-radius: 10px;
-    color: #2b2b2b;
-    background: #ffffff;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    color: #000000;
+    background: rgba(249, 249, 249, 1);
+    background: -moz-linear-gradient(top, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(249, 249, 249, 1)), color-stop(100%, rgba(227, 227, 227, 1)));
+    background: -webkit-linear-gradient(top, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+    background: -o-linear-gradient(top, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+    background: -ms-linear-gradient(top, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
+    background: linear-gradient(to bottom, rgba(249, 249, 249, 1) 0%, rgba(227, 227, 227, 1) 100%);
 }
 
 .panel-title {
     font-size: 11pt;
     max-width: 90%;
-    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
     line-height: 1.6;
 }
 
@@ -414,14 +324,14 @@ hr {
 }
 
 .thank-you-note {
-    color: #2b2b2b !important;
-    font-size: 15px !important;
+    color: white !important;
 }
 
-#headerCompanyInfo > .access-user {
+#headerCompanyInfo>.access-user {
     text-align: center;
     float: right;
-    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    text-shadow: 1px 1px 1px #000;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
     font-style: italic;
     font-size: 15px;
     background-size: 120px 80px;
@@ -431,19 +341,20 @@ hr {
 }
 
 .access-user-name {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    height: 25px;
-    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
-    font-style: normal;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
+}
+
+.company-logo {
+    z-index: 2 !important;
 }
 
 .company-logo img {
-    height: 80px;
+    height: 90px;
+    margin: 10px !important;
 }
 
 .footer {
-    background: #2b2b2b !important;
+    background: #000000 !important;
     color: #fff;
     position: absolute;
     right: 10px;
@@ -453,23 +364,18 @@ hr {
     height: 40px;
     padding: 12px 13px;
     font-size: 8pt;
-    margin: 0 -10px 0 0;
+    margin: 0 -10px 0px 0;
     font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
-    border-top: 3px solid transparent;
-    border-image: linear-gradient(to right, #f47920, #8dc63f, #29abe2) 1;
 }
-
 .form-group label {
-    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
-    font-size: 13pt;
-    color: #f47920;
-    font-weight: 500;
+    columns: #fff !important;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
+    font-size: 12pt;
 }
 
 .loyalty-message {
-    color: #f47920;
-    font-size: 14pt;
-    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    color: #000000;
+    font-size: 16pt;
     font-weight: 500;
 }
 
@@ -477,24 +383,41 @@ hr {
     text-align: center;
 }
 
+.loyalty-dialog div:nth-child(3) {}
+
 .email-emote-message {
-    color: #2b2b2b !important;
+    color: white !important;
 }
 
 #progressfill {
-    background: linear-gradient(to right, #f47920 0%, #8dc63f 50%, #29abe2 100%);
+    background-color: #000000;
+    animation: colorShift 3s infinite alternate ease-in-out;
+}
+
+.media-uploaded {
+    border: 2px solid #1d3557;
+    background: #1d355741;
+}
+
+@keyframes colorShift {
+    from {
+        background-color: #000000;
+    }
+    to {
+        background-color: #1d3557;
+    }
 }
 
 .progress_bar .progress_number {
-    float: right;
-    color: #f47920;
-    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
+    color: #000000;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 #groupCommentBuzzModal .modal-header {
     background: #fff;
-    color: #f47920;
-    border-bottom: 1px solid #f0eee6;
+    color: #e4e4e4;
 }
 
 #groupCommentBuzzModal .modal-body {
@@ -504,6 +427,7 @@ hr {
 
 #groupCommentBuzzModal .modal-footer {
     background: #fff;
+    color: white;
 }
 
 #groupCommentBuzzModal .panel-body.comment-panel {
@@ -514,39 +438,71 @@ hr {
     color: #333333;
 }
 
+.thank-you-note {
+    color: #000000 !important;
+    font-size: 15px !important;
+}
+
 #barChart {
     width: 100%;
 }
 
-.media-uploaded {
-    border: 2px solid #f47920;
-    background: rgba(244, 121, 32, 0.06);
-}
-
-/* ---- NPS scale ---- */
+/* ===== NPS anchor labels ("Less Likely" / "More Likely") =====
+   Default: English. Overridden below via :has() when a Sinhala or
+   Tamil language button is the active one (.clicked-emo-cont),
+   using the shared body ancestor since CSS can't reach across the
+   DOM tree any other way. Requires a browser with :has() support
+   (all current mobile browsers as of 2026); if you need to support
+   much older browsers, this needs a small JS fallback instead. */
 .nps-bar::before,
 .nps-bar::after {
     content: "";
     position: absolute;
-    font-size: 14px;
-    color: #f47920;
-    font-weight: 500;
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: bold;
     top: 100%;
     transform: translateY(8px);
-    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif;
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
 }
 
 .nps-bar::before {
     content: "Less Likely";
     left: 10px;
+    color: #000000;
     margin-left: 5px;
 }
 
 .nps-bar::after {
     content: "More Likely";
     right: 10px;
+    color: #000000;
     margin-right: 5px;
 }
+
+/* Tied to the language button's icon filename instead of sibling position —
+   position-based (:nth-child) counting was fragile (a hidden loading spinner
+   element before the buttons kept shifting the count). Each language button
+   loads a distinct icon: English = ...-ico6.png, Sinhala = ...-ico8.png,
+   Tamil = ...-ico7.png. This matches on that instead, so it no longer
+   matters how many siblings come before the buttons. */
+
+/* Sinhala active (icon ico8) */
+body:has(.lngSelectDropdown .localisation-cont.clicked-emo-cont img[src$="-ico8.png"]) .nps-bar::before {
+    content: "අඩු ඉඩක්";
+}
+body:has(.lngSelectDropdown .localisation-cont.clicked-emo-cont img[src$="-ico8.png"]) .nps-bar::after {
+    content: "වැඩි ඉඩක්";
+}
+
+/* Tamil active (icon ico7) */
+body:has(.lngSelectDropdown .localisation-cont.clicked-emo-cont img[src$="-ico7.png"]) .nps-bar::before {
+    content: "குறைவான வாய்ப்பு";
+}
+body:has(.lngSelectDropdown .localisation-cont.clicked-emo-cont img[src$="-ico7.png"]) .nps-bar::after {
+    content: "அதிக வாய்ப்பு";
+}
+/* ===== end NPS anchor labels ===== */
 
 .evz-nps-position-0,
 .evz-nps-position-1,
@@ -575,15 +531,97 @@ hr {
 }
 
 .clicked-nps-icon {
-    border: 3px solid #f47920;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    border: 3px solid #333;
+    box-shadow: 0px 2px 6px #716868;
 }
 
-@media (max-width: 768px) {
-    .company-logo img {
-        height: 60px;
-    }
+.ui-select-container .ui-select-match span {
+    font-weight: 500 !important;
+}
 
+div.col-xs-7.ng-scope {
+    font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
+}
+
+/* Primary buttons — minimal outlined black, uppercase, no fill */
+.btn-next,
+.btn-submit,
+.btn-ok {
+    border: 2px solid #000000 !important;
+    color: #000000 !important;
+    background: transparent !important;
+}
+
+.btn-next:hover,
+.btn-submit:hover,
+.btn-ok:hover {
+    background: #000000 !important;
+    color: #ffffff !important;
+}
+
+/* Secondary outlined buttons — muted gray */
+.btn-prev,
+.btn-back,
+.btn-skip,
+.btn-clear {
+    border: 2px solid #888888 !important;
+    color: #888888 !important;
+    background: transparent !important;
+}
+
+.btn-prev:hover,
+.btn-back:hover,
+.btn-skip:hover,
+.btn-clear:hover {
+    background: #888888 !important;
+    color: #ffffff !important;
+}
+
+/* Comment box label only — normal weight to match other question titles.
+   Scoped to #textfeedbackaccordion so it doesn't affect other
+   .form-group label instances elsewhere (loyalty capture, media upload, etc.) */
+#textfeedbackaccordion .form-group label {
+    font-weight: 500 !important;
+}
+
+/* ===== Select-then-lock behavior for emote/tile questions =====
+   Default state: every tile (.emo-cont) is fully clickable, same as
+   stock behavior — nothing is disabled up front.
+
+   Once the user selects one, the platform already adds
+   ".clicked-emo-cont" to that tile (this is the same class the
+   NPS/language rules above rely on). We use that as the trigger:
+   as soon as ANY tile in the group carries .clicked-emo-cont, every
+   OTHER tile in that group becomes disabled/greyed out. The selected
+   tile stays fully interactive (so the user can still change their
+   mind and click a different option, which just moves the
+   .clicked-emo-cont class and re-locks around the new choice).
+
+   Scoped at the body level via :has() — safe because this kiosk flow
+   shows one question per screen, so there's only ever one active
+   tile group in the DOM at a time. If a future screen ever shows two
+   separate tile groups simultaneously, this selector would need to
+   be scoped to a closer common ancestor (e.g. the specific
+   question's wrapping .panel-body) instead of body. */
+
+body:has(.emo-cont.clicked-emo-cont) .emo-cont:not(.clicked-emo-cont) {
+    pointer-events: none !important;
+    opacity: 0.4 !important;
+    cursor: not-allowed !important;
+    filter: grayscale(60%);
+}
+
+/* Keep the selected tile fully visible/interactive and clearly marked
+   (this reinforces the existing .clicked-emo-cont styling above) */
+.emo-cont.clicked-emo-cont {
+    pointer-events: auto !important;
+    opacity: 1 !important;
+    cursor: pointer !important;
+    filter: none !important;
+}
+/* ===== end select-then-lock ===== */
+
+@media (max-width: 768px) {
     .emote-title,
     .form-group label {
         font-size: 12pt !important;
@@ -593,20 +631,58 @@ hr {
         font-size: 10pt !important;
     }
 
-    .sensor-title {
-        font-size: 20px;
-        line-height: 32px;
+    .panel-title {
+        font-size: 8pt !important;
     }
 
-    .footer {
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
-        margin: 0 !important;
-        width: 100%;
-        padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
-        box-shadow:
-            0 -6px 18px rgba(244, 121, 32, 0.10),
-            0 50px 0 0 #ffffff;
+    .loyalty-message {
+        font-size: 13pt !important;
+    }
+
+    .progress_bar .progress_number {
+        font-size: 10pt !important;
+    }
+
+    .nps-bar::before,
+    .nps-bar::after {
+        font-size: 12pt !important;
+    }
+
+    .btn-next,
+    .btn-submit,
+    .btn-prev,
+    .btn-clear,
+    .btn-skip,
+    .btn-ok,
+    .loyalty-redeem-button {
+        font-size: 10pt !important;
+        padding: 8px 20px !important;
+        min-width: 85px !important;
+    }
+
+    .access-user-name,
+    #headerCompanyInfo>.access-user {
+        font-size: 12pt !important;
+    }
+
+    .company-logo img,
+    .logo-cust {
+        height: 70px !important;
+    }
+
+    .emo-ico img {
+        max-width: 50px !important;
+        width: 75% !important;
+    }
+
+    .form-control {
+        font-size: 11pt !important;
+    }
+
+    .loyalty-message {
+        font-size: 12pt;
+        color: #150014;
+        font-family: 'Plus Jakarta Sans', Helvetica, Arial, sans-serif !important;
+        font-weight: 500;
     }
 }

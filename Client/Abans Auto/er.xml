@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cepRules>
+  <cepRule id="1" timeWindow="5">
+    <params>
+      <param>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>q5850</value>
+      </param>
+      <joinOperator>and</joinOperator>
+      <joinParam>
+        <name>emoteNumericValue</name>
+        <operator>ld</operator>
+        <value>0</value>
+      </joinParam>
+    </params>
+    <engagementActions>
+      <action>
+        <type>incident</type>
+
+        <data>
+          <!-- VERIFY: this is the current Abans Auto workflow ID -->
+          <workflowID>6a855a3edb3622d307a23335</workflowID>
+          <name>Concern - $$q1776_emote$$</name>
+          <assignee>sanjanan@emojot.com</assignee>
+          <type>$$q1776_emote$$</type>
+          <priority>Medium</priority>
+          <status>Open</status>
+
+          <description><![CDATA[
+<b>Full Name:</b> $$loyalty_Name_value$$<br>
+<b>Email Address:</b> $$loyalty_Email_value$$<br>
+<b>Contact Number:</b> $$loyalty_Telephone_value$$<br>
+<b>Concern Type:</b>$$q1776_emote$$<br>
+<b>Satisfaction:</b> $$q5850_emote$$<br>
+<br><br>
+          ]]></description>
+
+          <customFields>
+
+            <field>
+              <key>complaintType</key>
+              <value>$$q1776_emote$$</value>
+            </field>
+
+            <field>
+              <key>FullName</key>
+              <value>$$loyalty_Name_value$$</value>
+            </field>
+
+            <field>
+              <key>Email</key>
+              <value>$$loyalty_Email_value$$</value>
+            </field>
+
+            <field>
+              <key>ContactNumber</key>
+              <value>$$loyalty_Telephone_value$$</value>
+            </field>
+
+            <field>
+              <key>Satisfaction</key>
+              <value>$$q5850_emote$$</value>
+            </field>
+
+            <field>
+              <key>Vehicle_Purchse_Negative_Reason</key>
+              <value>$$q5203_emote$$</value>
+            </field>
+
+            <field>
+              <key>Vehicle_Service_Negative_Reason</key>
+              <value>$$q998_emote$$</value>
+            </field>
+
+            <field>
+              <key>Spare_Part_Negative_Reason</key>
+              <value>$$q6663_emote$$</value>
+            </field>
+
+            <field>
+              <key>nps</key>
+              <value>$$q2682_emote$$</value>
+            </field>
+
+            <field>
+              <key>Comment</key>
+              <value>$$gp9782_c1_comment_value$$</value>
+            </field>
+
+          </customFields>
+        </data>
+
+        <validityPeriod>5</validityPeriod>
+      </action>
+    </engagementActions>
+  </cepRule>
+
+</cepRules>
