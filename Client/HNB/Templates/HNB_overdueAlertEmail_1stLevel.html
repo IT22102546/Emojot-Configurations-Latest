@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HNB Concern Pending – First Reminder</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f4f5f7;
+            color: #263238;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .wrapper {
+            width: 100%;
+            padding: 28px 12px;
+        }
+        .card {
+            width: 100%;
+            max-width: 620px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 1px solid #e1e4e8;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .header {
+            padding: 22px 28px;
+            background: #8b1538;
+            color: #ffffff;
+        }
+        .header .brand {
+            margin: 0 0 5px;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 22px;
+            line-height: 1.35;
+        }
+        .content {
+            padding: 26px 28px;
+        }
+        .content p {
+            margin: 0 0 18px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        .details {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        .details td {
+            padding: 11px 12px;
+            border-bottom: 1px solid #eceff1;
+            font-size: 14px;
+            line-height: 1.45;
+            vertical-align: top;
+        }
+        .details .label {
+            width: 38%;
+            background: #faf7f8;
+            color: #5f2639;
+            font-weight: bold;
+        }
+        .details .value {
+            overflow-wrap: anywhere;
+        }
+        .action {
+            padding-top: 8px;
+            text-align: center;
+        }
+        .action a {
+            display: inline-block;
+            padding: 11px 22px;
+            border-radius: 5px;
+            background: #8b1538;
+            color: #ffffff;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .footer {
+            padding: 15px 28px;
+            background: #faf7f8;
+            color: #6b6f73;
+            font-size: 12px;
+            text-align: center;
+        }
+        @media only screen and (max-width: 620px) {
+            .wrapper {
+                padding: 0;
+            }
+            .card {
+                border-radius: 0;
+            }
+            .header,
+            .content,
+            .footer {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+            .details .label,
+            .details .value {
+                display: block;
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <table class="wrapper" role="presentation" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <table class="card" role="presentation" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="header">
+                            <p class="brand">HATTON NATIONAL BANK</p>
+                            <h1>HNB Concern Pending – First Reminder</h1>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="content">
+                            <p>Dear Customer/Team,</p>
+                            <p>This concern is still pending. Please review it and provide an update.</p>
+                            <table class="details" role="presentation" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td class="label">Ticket ID</td>
+                            <td class="value">$incident_number$</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Concern Type</td>
+                            <td class="value">$incident_type$</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Status</td>
+                            <td class="value">$incident_status$</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Overdue Level</td>
+                            <td class="value">$incident_customFields_overdue$</td>
+                        </tr>
+                            </table>
+                    <p class="action">
+                        <a href="https://emojot.com/emojotDashboard/samlsso?redirectPage=reports/incidentManagement/incidentEdit.jsp&amp;workflowID=$workflow_id$&amp;incidentID=$incident_id$&amp;trimOut=true&amp;unmask=true">
+                            View Concern
+                        </a>
+                    </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="footer">
+                            This is an automated notification from the HNB concern-management system.
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cepRules>
+  <cepRule id="1" timeWindow="5">
+    <params>
+      <param>
+        <name>percepticDrillDown</name>
+        <operator>eq</operator>
+        <value>q3</value>
+      </param>
+      <joinOperator>and</joinOperator>
+      <joinParam>
+        <name>emoteNumericValue</name>
+        <operator>gd</operator>
+        <value>-1</value>
+      </joinParam>
+    </params>
+    <engagementActions>
+      <action>
+        <type>incident</type>
+
+        <data>
+          <workflowID>6a86ff2253e99f90dcc57ece</workflowID>
+          <name>HNB Branch Concerns</name>
+          <assignee>defaultassignee@emojot.com</assignee>
+          <type>Branch Concern</type>
+          <priority>Medium</priority>
+          <status>Open</status>
+
+          <description><![CDATA[
+<b>Full Name:</b> $$loyalty_Name_value$$<br>
+<b>Email Address:</b> $$loyalty_Email_value$$<br>
+<b>Contact Number:</b> $$loyalty_Telephone_value$$<br>
+<b>Concern Type:</b>HNB Branch Concern<br>
+<b>Satisfaction:</b> $$q3_emote$$<br>
+<br><br>
+          ]]></description>
+
+          <customFields>
+
+            <field>
+              <key>complaintType</key>
+              <value>HNB Branch Concern</value>
+            </field>
+
+            <field>
+              <key>FullName</key>
+              <value>$$loyalty_Name_value$$</value>
+            </field>
+
+            <field>
+              <key>Email</key>
+              <value>$$loyalty_Email_value$$</value>
+            </field>
+
+            <field>
+              <key>ContactNumber</key>
+              <value>$$loyalty_Telephone_value$$</value>
+            </field>
+
+            <field>
+              <key>Satisfaction</key>
+              <value>$$q3_emote$$</value>
+            </field>
+
+             <field>
+              <key>Staff_Proffesionalism</key>
+              <value>$$q2601_emote$$</value>
+            </field>
+
+             <field>
+              <key>HNB_Task_Completion_Ease</key>
+              <value>$$q6374_emote$$</value>
+            </field>
+
+             <field>
+              <key>HNB_Waiting_Time</key>
+              <value>$$q9_emote$$</value>
+            </field>
+
+            <field>
+              <key>NPS</key>
+              <value>$$q7047_emote$$</value>
+            </field>
+
+
+            <field>
+              <key>Comment</key>
+              <value>$$gp10_c1_comment_value$$</value>
+            </field>
+
+          </customFields>
+        </data>
+
+        <validityPeriod>5</validityPeriod>
+      </action>
+    </engagementActions>
+  </cepRule>
+
+</cepRules>

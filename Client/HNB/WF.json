@@ -1,0 +1,1925 @@
+{
+  "descriptionFormat": "text",
+  "reportNamePrefix": "HNB Concerns",
+  "name": "HNB Concern Management",
+  "nameTemplate": "HNB Concern: $type$",
+  "descriptionTemplate": "$comment$",
+  "type": {
+    "name": "Channel",
+    "readOnly": true,
+    "type": "enum",
+    "values": [
+      {
+        "id": "ATM Concern",
+        "name": "ATM Concern",
+        "highPriorityFields": [
+          "complaintType",
+          "FullName",
+          "Email",
+          "ContactNumber",
+          "Satisfaction",
+          "ATM_Issue",
+          "Comment",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Branch Concern",
+        "name": "Branch Concern",
+        "highPriorityFields": [
+          "complaintType",
+          "FullName",
+          "Email",
+          "ContactNumber",
+          "Satisfaction",
+          "Staff_Proffesionalism",
+          "HNB_Task_Completion_Ease",
+          "HNB_Waiting_Time",
+          "NPS",
+          "Comment",
+          "overdue"
+        ]
+      },
+      {
+        "id": "Contact Center Complaint",
+        "name": "Contact Center Complaint",
+        "highPriorityFields": [
+          "contactName",
+          "contactEmail",
+          "relatedContacts",
+          "uniqueId",
+          "userId",
+          "tags",
+          "ecaConversationLink",
+          "clientId",
+          "overdue",
+          "slaDueDays",
+          "slaExceeded",
+          "First Contact Resolution",
+          "RCA",
+          "RCAMethod",
+          "rcaReport"
+        ]
+      },
+      {
+        "id": "Call Center Agent Survey",
+        "name": "Call Center Agent Survey",
+        "highPriorityFields": [
+          "comment",
+          "relatedContacts",
+          "location",
+          "issue_category",
+          "overdue",
+          "RCA",
+          "RCAMethod",
+          "rcaReport"
+        ]
+      },
+      {
+        "id": "Customer Complaint Survey",
+        "name": "Customer Complaint Survey",
+        "highPriorityFields": [
+          "slaDueDays",
+          "slaExceeded",
+          "comment",
+          "relatedContacts",
+          "location",
+          "issue_category",
+          "overdue",
+          "First Contact Resolution",
+          "RCA",
+          "RCAMethod",
+          "rcaReport"
+        ]
+      },
+      {
+        "id": "googleMap",
+        "name": "Google",
+        "highPriorityFields": [
+          "rating",
+          "author",
+          "reviewId",
+          "reviewLocation"
+        ]
+      },
+      {
+        "id": "facebook",
+        "name": "Facebook",
+        "highPriorityFields": [
+          "comment",
+          "country",
+          "engagement",
+          "profileUsername",
+          "link",
+          "imageUrl",
+          "date",
+          "sentiment",
+          "positiveSentimentCount",
+          "negativeSentimentCount",
+          "mixedSentimentCount",
+          "keyword",
+          "label",
+          "profileName",
+          "profileUrl",
+          "socialReachCount"
+        ]
+      },
+      {
+        "id": "booking",
+        "name": "Booking.com",
+        "highPriorityFields": [
+          "rating",
+          "author",
+          "reviewId",
+          "reviewLocation"
+        ]
+      },
+      {
+        "id": "tripAdvisor",
+        "name": "TripAdvisor",
+        "highPriorityFields": [
+          "rating",
+          "author",
+          "reviewId",
+          "reviewLocation"
+        ]
+      },
+      {
+        "id": "instagram",
+        "name": "Instagram",
+        "highPriorityFields": [
+          "comment",
+          "country",
+          "engagement",
+          "profileUsername",
+          "link",
+          "imageUrl",
+          "date",
+          "sentiment",
+          "positiveSentimentCount",
+          "negativeSentimentCount",
+          "mixedSentimentCount",
+          "keyword",
+          "label",
+          "profileName",
+          "profileUrl",
+          "socialReachCount"
+        ]
+      },
+      {
+        "id": "twitter",
+        "name": "Twitter",
+        "highPriorityFields": [
+          "comment",
+          "country",
+          "engagement",
+          "profileUsername",
+          "link",
+          "imageUrl",
+          "date",
+          "sentiment",
+          "positiveSentimentCount",
+          "negativeSentimentCount",
+          "mixedSentimentCount",
+          "keyword",
+          "label",
+          "profileName",
+          "profileUrl",
+          "socialReachCount"
+        ]
+      },
+      {
+        "id": "youtube",
+        "name": "Youtube",
+        "highPriorityFields": [
+          "comment",
+          "country",
+          "engagement",
+          "profileUsername",
+          "link",
+          "imageUrl",
+          "date",
+          "sentiment",
+          "positiveSentimentCount",
+          "negativeSentimentCount",
+          "mixedSentimentCount",
+          "keyword",
+          "label",
+          "profileName",
+          "profileUrl",
+          "socialReachCount"
+        ]
+      },
+      {
+        "id": "web",
+        "name": "Web",
+        "highPriorityFields": [
+          "comment",
+          "country",
+          "engagement",
+          "profileUsername",
+          "link",
+          "imageUrl",
+          "date",
+          "sentiment",
+          "positiveSentimentCount",
+          "negativeSentimentCount",
+          "mixedSentimentCount",
+          "keyword",
+          "label",
+          "profileName",
+          "profileUrl",
+          "socialReachCount"
+        ]
+      },
+      {
+        "id": "other",
+        "name": "Other",
+        "highPriorityFields": [
+          "comment",
+          "country",
+          "engagement",
+          "profileUsername",
+          "link",
+          "imageUrl",
+          "date",
+          "sentiment",
+          "positiveSentimentCount",
+          "negativeSentimentCount",
+          "mixedSentimentCount",
+          "keyword",
+          "label",
+          "profileName",
+          "profileUrl",
+          "socialReachCount"
+        ]
+      },
+      {
+        "id": "linkedin",
+        "name": "LinkedIn",
+        "highPriorityFields": [
+          "comment",
+          "country",
+          "engagement",
+          "profileUsername",
+          "link",
+          "imageUrl",
+          "date",
+          "sentiment",
+          "positiveSentimentCount",
+          "negativeSentimentCount",
+          "mixedSentimentCount",
+          "keyword",
+          "label",
+          "profileName",
+          "profileUrl",
+          "socialReachCount"
+        ]
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Open",
+        "name": "Open",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000",
+        "statusBackgroundColor": "#fcf3cf",
+        "statusTextColor": "#7d6608"
+      },
+      {
+        "id": "In Progress",
+        "name": "In Progress",
+        "backgroundColor": "#3498db",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d6eaf8",
+        "statusTextColor": "#154360"
+      },
+      {
+        "id": "Resolved",
+        "name": "Resolved",
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d5f5e3",
+        "statusTextColor": "#145a32",
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "HNB_complaintResolutionAlert",
+            "target": "admin",
+            "contacts": [
+              "anaza@emojot.com",
+              "aqeelg@emojot.com",
+              "csm@emojot.com",
+              "gimhaniw@emojot.com",
+              "sampath@emojot.com",
+              "sanjanan@emojot.com",
+              "shaveenf@emojot.com",
+              "viraj@emojot.com",
+              "zahrahr@emojot.com"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "complaintType",
+                  "operator": "eq",
+                  "value": "$complaintType$"
+                }
+              ]
+            },
+            "condition": {
+              "and": [
+                {
+                  "!=": [
+                    {
+                      "var": "comment"
+                    },
+                    "-"
+                  ]
+                },
+                {
+                  "!=": [
+                    {
+                      "var": "comment"
+                    },
+                    null
+                  ]
+                },
+                {
+                  "!=": [
+                    {
+                      "var": "comment"
+                    },
+                    ""
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "channel": "email",
+            "template": "HNB_complaintResolutionAlert",
+            "target": "admin",
+            "contacts": [
+              "anaza@emojot.com",
+              "aqeelg@emojot.com",
+              "csm@emojot.com",
+              "gimhaniw@emojot.com",
+              "sampath@emojot.com",
+              "sanjanan@emojot.com",
+              "shaveenf@emojot.com",
+              "viraj@emojot.com",
+              "zahrahr@emojot.com"
+            ],
+            "condition": {
+              "and": [
+                {
+                  "==": [
+                    {
+                      "var": "complaintType"
+                    },
+                    "Customer Complaint Survey"
+                  ]
+                },
+                {
+                  "!=": [
+                    {
+                      "var": "comment"
+                    },
+                    "-"
+                  ]
+                },
+                {
+                  "!=": [
+                    {
+                      "var": "comment"
+                    },
+                    null
+                  ]
+                },
+                {
+                  "!=": [
+                    {
+                      "var": "comment"
+                    },
+                    ""
+                  ]
+                }
+              ]
+            },
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "complaintType",
+                  "operator": "eq",
+                  "value": "$complaintType$"
+                }
+              ]
+            }
+          },
+          {
+            "channel": "email",
+            "template": "HNB_complaintResolutionAlert_orm",
+            "target": "admin",
+            "contacts": [
+              "anaza@emojot.com",
+              "aqeelg@emojot.com",
+              "csm@emojot.com",
+              "gimhaniw@emojot.com",
+              "sampath@emojot.com",
+              "sanjanan@emojot.com",
+              "viraj@emojot.com",
+              "zahrahr@emojot.com"
+            ],
+            "condition": {
+              "and": [
+                {
+                  "!=": [
+                    {
+                      "var": "type"
+                    },
+                    "Customer Satisfaction Survey"
+                  ]
+                },
+                {
+                  "!=": [
+                    {
+                      "var": "comment"
+                    },
+                    "-"
+                  ]
+                },
+                {
+                  "!=": [
+                    {
+                      "var": "comment"
+                    },
+                    null
+                  ]
+                },
+                {
+                  "!=": [
+                    {
+                      "var": "comment"
+                    },
+                    ""
+                  ]
+                }
+              ]
+            },
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "complaintType",
+                  "operator": "eq",
+                  "value": "$complaintType$"
+                }
+              ]
+            }
+          },
+          {
+            "channel": "email",
+            "template": "HNB_ResolutionAcknowledgement",
+            "target": "customer"
+          }
+        ]
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Low",
+        "name": "Low"
+      },
+      {
+        "id": "Medium",
+        "name": "Medium"
+      },
+      {
+        "id": "High",
+        "name": "High"
+      }
+    ]
+  },
+  "customFields": {
+    "slaDueDays": {
+      "name": "SLA Days Remaining",
+      "type": "string",
+      "readOnly": true
+    },
+    "slaExceeded": {
+      "name": "Days past SLA",
+      "type": "string",
+      "readOnly": true
+    },
+    "First Contact Resolution": {
+      "name": "First Contact Resolution",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Yes",
+          "name": "Yes"
+        },
+        {
+          "id": "No",
+          "name": "No"
+        }
+      ]
+    },
+    "RCA": {
+      "name": "RCA Needed *",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Yes",
+          "name": "Yes",
+          "fieldsValidation": [
+            {
+              "fieldID": "RCAMethod",
+              "required": true,
+              "message": "RCA Method is required when RCA is marked as Yes."
+            },
+            {
+              "fieldID": "rcaReport",
+              "required": true,
+              "message": "RCA Report is required when RCA is marked as Yes."
+            }
+          ]
+        },
+        {
+          "id": "No",
+          "name": "No"
+        }
+      ]
+    },
+    "RCAMethod": {
+      "name": "RCA Method",
+      "type": "enum",
+      "values": [
+        {
+          "id": "5 Why Analysis",
+          "name": "5 Why Analysis"
+        },
+        {
+          "id": "Fishbone (Ishikawa)",
+          "name": "Fishbone (Ishikawa)"
+        },
+        {
+          "id": "Other",
+          "name": "Other"
+        }
+      ]
+    },
+    "rcaReport": {
+      "name": "RCA Report",
+      "type": "file"
+    },
+    "complaintType": {
+      "name": "Channel",
+      "readOnly": true,
+      "hidden": true,
+      "type": "enum",
+      "values": [
+        {
+          "id": "HNB ATM Concern",
+          "name": "HNB ATM Concern"
+        },
+        {
+          "id": "HNB Branch Concern",
+          "name": "HNB Branch Concern"
+        },
+        {
+          "id": "Contact Center Complaint",
+          "name": "Contact Center Complaint"
+        },
+        {
+          "id": "Customer Satisfaction Survey",
+          "name": "Customer Satisfaction Survey"
+        },
+        {
+          "id": "Call Center Agent Survey",
+          "name": "Call Center Agent Survey"
+        },
+        {
+          "id": "Customer Complaint Survey",
+          "name": "Customer Complaint Survey"
+        },
+        {
+          "id": "googleMap",
+          "name": "Google"
+        },
+        {
+          "id": "facebook",
+          "name": "Facebook"
+        },
+        {
+          "id": "booking",
+          "name": "Booking.com"
+        },
+        {
+          "id": "tripAdvisor",
+          "name": "TripAdvisor"
+        },
+        {
+          "id": "instagram",
+          "name": "Instagram"
+        },
+        {
+          "id": "twitter",
+          "name": "Twitter"
+        },
+        {
+          "id": "linkedin",
+          "name": "LinkedIn"
+        },
+        {
+          "id": "youtube",
+          "name": "Youtube"
+        },
+        {
+          "id": "web",
+          "name": "Web"
+        },
+        {
+          "id": "other",
+          "name": "Other"
+        }
+      ]
+    },
+    "rating": {
+      "name": "Rating",
+      "readOnly": true,
+      "type": "string"
+    },
+    "issue_category": {
+      "name": "Issue Category",
+      "readOnly": true,
+      "type": "string"
+    },
+    "comment": {
+      "name": "Comment",
+      "readOnly": true,
+      "type": "textArea"
+    },
+    "location": {
+      "name": "Location",
+      "readOnly": true,
+      "type": "enum",
+      "values": [
+        {
+          "id": "HSBC Bank Hyderabad",
+          "name": "HSBC Bank Hyderabad"
+        },
+        {
+          "id": "HSBC Bank Kolkata",
+          "name": "HSBC Bank Kolkata"
+        },
+        {
+          "id": "HSBC Bank Bengaluru",
+          "name": "HSBC Bank Bengaluru"
+        },
+        {
+          "id": "HSBC Bank Maharashtra",
+          "name": "HSBC Bank Maharashtra"
+        },
+        {
+          "id": "HSBC Bank Colombo 01",
+          "name": "HSBC Bank Colombo 01"
+        },
+        {
+          "id": "HSBC Bank Nugegoda",
+          "name": "HSBC Bank Nugegoda"
+        },
+        {
+          "id": "HSBC Bukit Bintang",
+          "name": "HSBC Bukit Bintang"
+        },
+        {
+          "id": "HSBC Petaling Jaya",
+          "name": "HSBC Petaling Jaya"
+        },
+        {
+          "id": "Website",
+          "name": "Website"
+        },
+        {
+          "id": "Mobile",
+          "name": "Mobile"
+        }
+      ]
+    },
+    "author": {
+      "name": "Reviewer Name",
+      "type": "string",
+      "hidden": true,
+      "readOnly": true
+    },
+    "reviewId": {
+      "name": "Review Id",
+      "type": "string",
+      "hidden": true,
+      "readOnly": true
+    },
+    "reviewLocation": {
+      "name": "Review Location",
+      "type": "string",
+      "hidden": true,
+      "readOnly": true
+    },
+    "country": {
+      "name": "Country",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "date": {
+      "name": "Date",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "keyword": {
+      "name": "Keyword",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "sentiment": {
+      "name": "Sentiment",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "positiveSentimentCount": {
+      "name": "Sentiment",
+      "type": "number",
+      "readOnly": true,
+      "hidden": true
+    },
+    "negativeSentimentCount": {
+      "name": "Sentiment",
+      "type": "number",
+      "readOnly": true,
+      "hidden": true
+    },
+    "mixedSentimentCount": {
+      "name": "Sentiment",
+      "type": "number",
+      "readOnly": true,
+      "hidden": true
+    },
+    "contactName": {
+      "name": "Contact Name",
+      "type": "string",
+      "required": true,
+      "hidden": true
+    },
+    "contactEmail": {
+      "name": "Contact Email",
+      "type": "string",
+      "hidden": true
+    },
+    "relatedContacts": {
+      "name": "Related Contacts",
+      "type": "userList",
+      "visualize": "table",
+      "buttonLabel": "Add/View",
+      "headers": [
+        {
+          "key": "Name",
+          "name": "Name"
+        },
+        {
+          "key": "Email",
+          "name": "Email"
+        },
+        {
+          "key": "Telephone",
+          "name": "Telephone"
+        }
+      ],
+      "loyaltyField": "Email",
+      "triggers": [
+        {
+          "template": "HNB_complaintCreationAlert",
+          "channel": "email",
+          "target": "admin",
+          "contactFilters": [
+            "ticketCreationAlert"
+          ],
+          "adminUserQuery": {
+            "condition": "and",
+            "rules": [
+              {
+                "field": "complaintType",
+                "operator": "eq",
+                "value": "$complaintType$"
+              }
+            ]
+          },
+          "contacts": [
+            "sanjanan@emojot.com"
+          ]
+        }
+      ]
+    },
+    "uniqueId": {
+      "name": "Phone Number",
+      "type": "string",
+      "hidden": true
+    },
+    "userId": {
+      "name": "User Id",
+      "type": "string",
+      "hidden": true
+    },
+    "tags": {
+      "name": "Tags",
+      "hidden": true,
+      "values": [
+        {
+          "id": "New Customer",
+          "name": "New Customer"
+        },
+        {
+          "id": "Loan Inquiry",
+          "name": "Loan Inquiry"
+        },
+        {
+          "id": "Credit Card",
+          "name": "Credit Card"
+        },
+        {
+          "id": "Savings Account",
+          "name": "Savings Account"
+        },
+        {
+          "id": "Fixed Deposit",
+          "name": "Fixed Deposit"
+        },
+        {
+          "id": "Online Banking",
+          "name": "Online Banking"
+        },
+        {
+          "id": "Mobile Banking",
+          "name": "Mobile Banking"
+        },
+        {
+          "id": "Complaint",
+          "name": "Complaint"
+        },
+        {
+          "id": "Feedback",
+          "name": "Feedback"
+        }
+      ],
+      "type": "multiselect"
+    },
+    "ecaConversationLink": {
+      "name": "Go to Conversation",
+      "type": "link",
+      "hidden": true
+    },
+    "clientId": {
+      "name": "Client ID",
+      "type": "string",
+      "hidden": true,
+      "readOnly": true
+    },
+    "engagement": {
+      "name": "Engagement",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "imageUrl": {
+      "name": "Image URL",
+      "type": "link",
+      "readOnly": true,
+      "hidden": true
+    },
+    "label": {
+      "name": "Label",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "link": {
+      "name": "Link to Post",
+      "type": "link",
+      "readOnly": true,
+      "hidden": true
+    },
+    "profileName": {
+      "name": "Profile Name",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "profileUrl": {
+      "name": "Profile URL",
+      "type": "link",
+      "readOnly": true,
+      "hidden": true
+    },
+    "profileUsername": {
+      "name": "Profile Username",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "socialReachCount": {
+      "name": "Social Reach Count",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "source": {
+      "name": "source",
+      "type": "enum",
+      "values": [
+        {
+          "id": "sensor",
+          "name": "sensor"
+        }
+      ]
+    },
+    "overdue": {
+      "name": "Overdue",
+      "type": "enum",
+      "values": [
+        {
+          "id": "1st Level",
+          "name": "1st Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "HNB_overdueAlertEmail_1stLevel",
+              "target": "admin",
+              "contacts": [
+                "leads@emojot.com",
+                "sanjanan@emojot.com",
+                "shaveenf@emojot.com"
+              ]
+            },
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "slaDueDays",
+                  "value": "14 days"
+                },
+                {
+                  "id": "slaExceeded",
+                  "value": "N/A"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2nd Level",
+          "name": "2nd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "HNB_overdueAlertEmail_2ndLevel",
+              "target": "admin",
+              "contacts": [
+                "leads@emojot.com",
+                "sanjanan@emojot.com",
+                "shaveenf@emojot.com"
+              ]
+            },
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "slaDueDays",
+                  "value": "7 days"
+                },
+                {
+                  "id": "slaExceeded",
+                  "value": "N/A"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "3rd Level",
+          "name": "3rd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "HNB_overdueAlertEmail_3rdLevel",
+              "target": "admin",
+              "contacts": [
+                "leads@emojot.com",
+                "sanjanan@emojot.com",
+                "shaveenf@emojot.com"
+              ]
+            },
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "slaDueDays",
+                  "value": "Exceeded"
+                },
+                {
+                  "id": "slaExceeded",
+                  "value": "1 day"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "FullName": {
+      "name": "Full Name",
+      "type": "string",
+      "readOnly": true
+    },
+    "Email": {
+      "name": "Email Address",
+      "type": "string",
+      "readOnly": true
+    },
+    "ContactNumber": {
+      "name": "Contact Number",
+      "type": "string",
+      "readOnly": true
+    },
+    "Satisfaction": {
+      "name": "Satisfaction",
+      "type": "string",
+      "readOnly": true
+    },
+    "ATM_Issue": {
+      "name": "ATM Issue",
+      "type": "string",
+      "readOnly": true
+    },
+    "Staff_Proffesionalism": {
+      "name": "Staff Professionalism",
+      "type": "string",
+      "readOnly": true
+    },
+    "HNB_Task_Completion_Ease": {
+      "name": "Ease of Completing the Task",
+      "type": "string",
+      "readOnly": true
+    },
+    "HNB_Waiting_Time": {
+      "name": "Waiting Time",
+      "type": "string",
+      "readOnly": true
+    },
+    "NPS": {
+      "name": "NPS Score",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "0",
+          "name": "0"
+        },
+        {
+          "id": "1",
+          "name": "1"
+        },
+        {
+          "id": "2",
+          "name": "2"
+        },
+        {
+          "id": "3",
+          "name": "3"
+        },
+        {
+          "id": "4",
+          "name": "4"
+        },
+        {
+          "id": "5",
+          "name": "5"
+        },
+        {
+          "id": "6",
+          "name": "6"
+        },
+        {
+          "id": "7",
+          "name": "7"
+        },
+        {
+          "id": "8",
+          "name": "8"
+        },
+        {
+          "id": "9",
+          "name": "9"
+        },
+        {
+          "id": "10",
+          "name": "10"
+        }
+      ]
+    },
+    "Comment": {
+      "name": "Additional Information",
+      "type": "textArea",
+      "readOnly": true
+    }
+  },
+  "timeSpent": {
+    "name": "Time spent",
+    "type": "time_accumulation"
+  },
+  "assignment": {
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "HNB_complaintAssignment",
+        "target": "admin",
+        "contacts": [
+          "sanjanan@emojot.com"
+        ]
+      }
+    ],
+    "automaticAssignment": {
+      "isEnabled": false,
+      "email": "bot@emojot.com",
+      "resolvedStatus": [
+        "Resolved"
+      ],
+      "maxLevel": 4,
+      "triggerFlows": [
+        {
+          "condition": {
+            "and": [
+              {
+                "!=": [
+                  {
+                    "var": "status"
+                  },
+                  "Resolved"
+                ]
+              }
+            ]
+          },
+          "skipAssignment": true,
+          "levels": [
+            {
+              "nextLevelTime": 300000
+            },
+            {
+              "nextLevelTime": 300000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "1st Level"
+                }
+              ]
+            },
+            {
+              "nextLevelTime": 60000000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "2nd Level"
+                }
+              ]
+            },
+            {
+              "nextLevelTime": 60000000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "3rd Level"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "workflowCreation": {
+    "email": "bot@emojot.com",
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "HNB_complaintCreationAlert",
+        "target": "admin",
+        "contacts": [
+          "sanjanan@emojot.com"
+        ],
+        "appendEditUrl": true,
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "ATM Concern",
+              "Branch Concern"
+            ]
+          ]
+        }
+      },
+      {
+        "channel": "email",
+        "template": "HNB_complaintCreationAlert_csa",
+        "target": "admin",
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "Contact Center Complaint"
+          ]
+        },
+        "contacts": [
+          "anaza@emojot.com",
+          "aqeelg@emojot.com",
+          "csm@emojot.com",
+          "gimhaniw@emojot.com",
+          "sampath@emojot.com",
+          "sanjanan@emojot.com",
+          "shaveenf@emojot.com",
+          "viraj@emojot.com",
+          "zahrahr@emojot.com"
+        ]
+      },
+      {
+        "channel": "email",
+        "template": "HNB_complaintCreationAlert",
+        "target": "admin",
+        "contactFilters": [
+          "ticketCreationAlert"
+        ],
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "Customer Satisfaction Survey"
+          ]
+        },
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "complaintType",
+              "operator": "eq",
+              "value": "$complaintType$"
+            }
+          ]
+        },
+        "contacts": [
+          "sanjanan@emojot.com"
+        ]
+      },
+      {
+        "channel": "email",
+        "template": "HNB_complaintCreationAlert",
+        "target": "admin",
+        "contactFilters": [
+          "ticketCreationAlert"
+        ],
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "Customer Complaint Survey"
+          ]
+        },
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "complaintType",
+              "operator": "eq",
+              "value": "$complaintType$"
+            }
+          ]
+        },
+        "contacts": [
+          "sanjanan@emojot.com"
+        ]
+      },
+      {
+        "channel": "email",
+        "template": "HNB_complaintCreationAlert",
+        "target": "admin",
+        "contactFilters": [
+          "ticketCreationAlert"
+        ],
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "Call Center Agent Survey"
+          ]
+        },
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "complaintType",
+              "operator": "eq",
+              "value": "$complaintType$"
+            }
+          ]
+        },
+        "contacts": [
+          "sanjanan@emojot.com"
+        ]
+      },
+      {
+        "channel": "email",
+        "template": "HNB_complaintCreationAlert_orm",
+        "target": "admin",
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "Google"
+          ]
+        },
+        "contacts": [
+          "anaza@emojot.com",
+          "aqeelg@emojot.com",
+          "csm@emojot.com",
+          "gimhaniw@emojot.com",
+          "sampath@emojot.com",
+          "sanjanan@emojot.com",
+          "viraj@emojot.com",
+          "zahrahr@emojot.com"
+        ]
+      },
+      {
+        "channel": "email",
+        "template": "HNB_complaintCreationAlert_slt",
+        "target": "admin",
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "facebook"
+          ]
+        },
+        "contacts": [
+          "anaza@emojot.com",
+          "aqeelg@emojot.com",
+          "csm@emojot.com",
+          "gimhaniw@emojot.com",
+          "sampath@emojot.com",
+          "sanjanan@emojot.com",
+          "viraj@emojot.com",
+          "zahrahr@emojot.com"
+        ]
+      },
+      {
+        "channel": "email",
+        "template": "HNB_complaintCreationAlert_orm",
+        "target": "admin",
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "booking"
+          ]
+        },
+        "contacts": [
+          "anaza@emojot.com",
+          "aqeelg@emojot.com",
+          "csm@emojot.com",
+          "gimhaniw@emojot.com",
+          "sampath@emojot.com",
+          "sanjanan@emojot.com",
+          "viraj@emojot.com",
+          "zahrahr@emojot.com"
+        ]
+      },
+      {
+        "channel": "email",
+        "template": "HNB_complaintCreationAlert_orm",
+        "target": "admin",
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "tripAdvisor"
+          ]
+        },
+        "contacts": [
+          "anaza@emojot.com",
+          "aqeelg@emojot.com",
+          "csm@emojot.com",
+          "gimhaniw@emojot.com",
+          "sampath@emojot.com",
+          "sanjanan@emojot.com",
+          "viraj@emojot.com",
+          "zahrahr@emojot.com"
+        ]
+      },
+      {
+        "channel": "email",
+        "template": "HNB_complaintCreationAlert_slt",
+        "target": "admin",
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "instagram"
+          ]
+        },
+        "contacts": [
+          "anaza@emojot.com",
+          "aqeelg@emojot.com",
+          "csm@emojot.com",
+          "gimhaniw@emojot.com",
+          "sampath@emojot.com",
+          "sanjanan@emojot.com",
+          "viraj@emojot.com",
+          "zahrahr@emojot.com"
+        ]
+      },
+      {
+        "channel": "email",
+        "template": "HNB_complaintCreationAlert_orm",
+        "target": "admin",
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "linkedin"
+          ]
+        },
+        "contacts": [
+          "anaza@emojot.com",
+          "aqeelg@emojot.com",
+          "csm@emojot.com",
+          "gimhaniw@emojot.com",
+          "sampath@emojot.com",
+          "sanjanan@emojot.com",
+          "viraj@emojot.com",
+          "zahrahr@emojot.com"
+        ]
+      },
+      {
+        "channel": "email",
+        "template": "HNB_complaintCreationAlert_slt",
+        "target": "admin",
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "twitter"
+          ]
+        },
+        "contacts": [
+          "anaza@emojot.com",
+          "aqeelg@emojot.com",
+          "csm@emojot.com",
+          "gimhaniw@emojot.com",
+          "sampath@emojot.com",
+          "sanjanan@emojot.com",
+          "viraj@emojot.com",
+          "zahrahr@emojot.com"
+        ]
+      },
+      {
+        "channel": "email",
+        "template": "HNB_complaintCreationAlert_slt",
+        "target": "admin",
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "youtube"
+          ]
+        },
+        "contacts": [
+          "anaza@emojot.com",
+          "aqeelg@emojot.com",
+          "csm@emojot.com",
+          "gimhaniw@emojot.com",
+          "sampath@emojot.com",
+          "sanjanan@emojot.com",
+          "viraj@emojot.com",
+          "zahrahr@emojot.com"
+        ]
+      },
+      {
+        "channel": "email",
+        "template": "HNB_complaintCreationAlert_slt",
+        "target": "admin",
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "web"
+          ]
+        },
+        "contacts": [
+          "anaza@emojot.com",
+          "aqeelg@emojot.com",
+          "csm@emojot.com",
+          "gimhaniw@emojot.com",
+          "sampath@emojot.com",
+          "sanjanan@emojot.com",
+          "viraj@emojot.com",
+          "zahrahr@emojot.com"
+        ]
+      },
+      {
+        "channel": "email",
+        "template": "HNB_complaintCreationAlert_slt",
+        "target": "admin",
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "other"
+          ]
+        },
+        "contacts": [
+          "anaza@emojot.com",
+          "aqeelg@emojot.com",
+          "csm@emojot.com",
+          "gimhaniw@emojot.com",
+          "sampath@emojot.com",
+          "sanjanan@emojot.com",
+          "viraj@emojot.com",
+          "zahrahr@emojot.com"
+        ]
+      },
+      {
+        "channel": "fieldChange",
+        "changingFields": [
+          {
+            "id": "assignee",
+            "value": "defaultassignee@emojot.com"
+          }
+        ]
+      },
+      {
+        "template": "HNB_customerComplaintCreation",
+        "channel": "email",
+        "target": "customer",
+        "appendEditUrl": false
+      }
+    ]
+  },
+  "adminHierarchy": {
+    "list": "admin",
+    "headers": [
+      {
+        "id": "complaintType",
+        "name": "Complaint Type",
+        "type": "customField"
+      },
+      {
+        "id": "location",
+        "name": "Location",
+        "type": "customField"
+      },
+      {
+        "id": "ticketCreationAlert",
+        "name": "Ticket Creation Alert",
+        "type": "contact"
+      },
+      {
+        "id": "ticketResolutionAlert",
+        "name": "Ticket Resolution Alert",
+        "type": "contact"
+      },
+      {
+        "id": "ticketAssignee",
+        "name": "Ticket Assignee",
+        "type": "contact"
+      }
+    ],
+    "id": "AHI_1735816394_123456"
+  },
+  "reporterNamePrefix": "Customer",
+  "exportConfig": {
+    "enabled": true,
+    "template": {
+      "templateName": "Pan Asia Unified Complaint Report",
+      "pageSetup": {
+        "format": "a4",
+        "orientation": "portrait",
+        "margins": {
+          "top": 10,
+          "right": 10,
+          "bottom": 10,
+          "left": 10
+        }
+      },
+      "colors": {
+        "primary": "#7a0019",
+        "accent": "#b08d2f",
+        "warning": "#b45309",
+        "headerBg": "#f7eef0",
+        "headerText": "#7a0019",
+        "headerSubtitle": "#5b6473",
+        "titleBg": "#f7f1df",
+        "titleText": "#7a0019",
+        "labelBg": "#fdfaf2",
+        "cardBg": "#ffffff",
+        "white": "#ffffff",
+        "border": "#d9cfc3",
+        "borderLight": "#ece4da",
+        "textDark": "#1f2937",
+        "textPrimary": "#243244",
+        "textSecondary": "#667085",
+        "textLight": "#98a2b3"
+      },
+      "sections": [
+        {
+          "type": "header",
+          "enabled": true,
+          "height": 20,
+          "backgroundColor": "{{colors.headerBg}}",
+          "content": {
+            "title": {
+              "text": "PAN ASIA UNIFIED COMPLAINT REPORT",
+              "fontSize": 14,
+              "color": "{{colors.headerText}}"
+            },
+            "subtitle": {
+              "template": "Complaint #{{incidentKey}} • Generated on {{generatedDate}} at {{generatedTime}}",
+              "fontSize": 8,
+              "color": "{{colors.headerSubtitle}}"
+            }
+          },
+          "spacing": {
+            "after": 5
+          }
+        },
+        {
+          "type": "statusCards",
+          "spacing": {
+            "after": 5
+          },
+          "cards": [
+            {
+              "label": "STATUS",
+              "value": "{{status}}",
+              "backgroundColor": "{{colors.cardBg}}",
+              "border": {
+                "color": "{{colors.border}}"
+              }
+            },
+            {
+              "label": "PRIORITY",
+              "value": "{{priority}}",
+              "backgroundColor": "{{colors.cardBg}}",
+              "border": {
+                "color": "{{colors.border}}"
+              }
+            },
+            {
+              "label": "CHANNEL",
+              "value": "{{type}}",
+              "backgroundColor": "{{colors.cardBg}}",
+              "border": {
+                "color": "{{colors.border}}"
+              }
+            },
+            {
+              "label": "ASSIGNED TO",
+              "value": "{{assigneeUserName}}",
+              "backgroundColor": "{{colors.cardBg}}",
+              "border": {
+                "color": "{{colors.border}}"
+              }
+            }
+          ]
+        },
+        {
+          "type": "contentSection",
+          "layout": "twoColumn",
+          "spacing": {
+            "after": 5
+          },
+          "columns": [
+            {
+              "sections": [
+                {
+                  "type": "fieldSection",
+                  "title": "Complaint Information",
+                  "titleStyle": {
+                    "fontSize": 10,
+                    "color": "{{colors.titleText}}",
+                    "backgroundColor": "{{colors.titleBg}}"
+                  },
+                  "fields": [
+                    {
+                      "label": "Complaint ID",
+                      "value": "{{incidentKey}}"
+                    },
+                    {
+                      "label": "Workflow",
+                      "value": "{{name}}"
+                    },
+                    {
+                      "label": "complaintDepartment",
+                      "value": "{{type}}"
+                    },
+                    {
+                      "label": "Department",
+                      "value": "{{complaintDepartment}}"
+                    },
+                    {
+                      "label": "Ticket Category",
+                      "value": "{{ticketCategory}}"
+                    },
+                    {
+                      "label": "Complaint Type",
+                      "value": "{{complaintType}}"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "sections": [
+                {
+                  "type": "fieldSection",
+                  "title": "Customer Information",
+                  "titleStyle": {
+                    "fontSize": 10,
+                    "color": "{{colors.titleText}}",
+                    "backgroundColor": "{{colors.titleBg}}"
+                  },
+                  "fields": [
+                    {
+                      "label": "Customer Details",
+                      "value": "{{customerDetailsLink}}"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "textSection",
+          "title": "Issue Description",
+          "field": {
+            "value": "{{issueDescription}}",
+            "backgroundColor": "{{colors.white}}",
+            "border": {
+              "color": "{{colors.border}}"
+            },
+            "style": {
+              "fontSize": 8.5,
+              "lineHeight": 4.5
+            }
+          }
+        },
+        {
+          "type": "textSection",
+          "title": "Customer Comment",
+          "field": {
+            "value": "{{comment}}",
+            "backgroundColor": "{{colors.white}}",
+            "border": {
+              "color": "{{colors.border}}"
+            },
+            "style": {
+              "fontSize": 8.5,
+              "lineHeight": 4.5
+            }
+          }
+        },
+        {
+          "type": "fieldSection",
+          "title": "Attachments",
+          "titleStyle": {
+            "fontSize": 10,
+            "color": "{{colors.titleText}}",
+            "backgroundColor": "{{colors.titleBg}}"
+          },
+          "fields": [
+            {
+              "label": "Customer Attachment",
+              "value": "{{file}}"
+            },
+            {
+              "label": "Internal Documentation",
+              "value": "{{internalDocumentation}}"
+            },
+            {
+              "label": "RCA Report",
+              "value": "{{rcaReport}}"
+            }
+          ]
+        },
+        {
+          "type": "footer",
+          "enabled": true,
+          "content": {
+            "left": "Powered by Emojot",
+            "center": "Page {{pageNumber}}",
+            "right": "Confidential – Internal Use Only",
+            "fontSize": 7.5,
+            "color": "{{colors.textSecondary}}"
+          }
+        }
+      ]
+    }
+  },
+  "subTask": {
+    "isEnabled": true,
+    "workflowId": "69ff06c119a63f20f1619d4b",
+    "titles": {
+      "name": "Complaint Subtasks",
+      "createButtonTitle": "Create Complaint Subtask",
+      "currentSubtaskListButtonTitle": "Complaint Subtask"
+    },
+    "defaultValues": [
+      {
+        "field": "status",
+        "value": "Open"
+      },
+      {
+        "field": "priority",
+        "value": "Medium"
+      }
+    ],
+    "mapping": [
+      {
+        "field": "type",
+        "targetField": "parentSourceChannel"
+      },
+      {
+        "field": "complaintType",
+        "targetField": "type"
+      },
+      {
+        "field": "complaintType",
+        "targetField": "parentComplaintType"
+      },
+      {
+        "field": "issue_category",
+        "targetField": "parentIssueCategory"
+      },
+      {
+        "field": "location",
+        "targetField": "parentLocation"
+      },
+      {
+        "field": "tags",
+        "targetField": "parentTags"
+      },
+      {
+        "field": "contactName",
+        "targetField": "parentContactName"
+      },
+      {
+        "field": "contactEmail",
+        "targetField": "parentContactEmail"
+      },
+      {
+        "field": "priority",
+        "targetField": "parentPriority"
+      },
+      {
+        "field": "comment",
+        "targetField": "parentComment"
+      }
+    ]
+  },
+  "createSubTaskOnIncidentCreate": true,
+  "xApiKey": "PaCQ2yBuPl6GQOIGhHNyiaT1SprPnefi1Vxfhfyr"
+}
