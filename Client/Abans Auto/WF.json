@@ -19,7 +19,6 @@
           "Email",
           "ContactNumber",
           "Satisfaction",
-          "Vehicle_Purchse_Negative_Reason",
           "nps",
           "Comment",
           "overdue"
@@ -34,7 +33,6 @@
           "Email",
           "ContactNumber",
           "Satisfaction",
-          "Vehicle_Service_Negative_Reason",
           "nps",
           "Comment",
           "overdue"
@@ -49,7 +47,6 @@
           "Email",
           "ContactNumber",
           "Satisfaction",
-          "Spare_Part_Negative_Reason",
           "nps",
           "Comment",
           "overdue"
@@ -173,19 +170,9 @@
             "channel": "email",
             "template": "complaintResolutionAlertInternal",
             "target": "admin",
-            "contactFilters": [
-              "ticketResolutionAlert"
+            "contacts": [
+              "sanjanan@emojot.com"
             ],
-            "adminUserQuery": {
-              "condition": "and",
-              "rules": [
-                {
-                  "field": "complaintType",
-                  "operator": "eq",
-                  "value": "$type$"
-                }
-              ]
-            },
             "appendEditUrl": true,
             "condition": {
               "in": [
@@ -204,19 +191,9 @@
             "channel": "sms",
             "template": "complaintResolutionAlertInternal_sms",
             "target": "admin",
-            "contactFilters": [
-              "ticketResolutionAlert"
+            "contacts": [
+              "sanjanan@emojot.com"
             ],
-            "adminUserQuery": {
-              "condition": "and",
-              "rules": [
-                {
-                  "field": "complaintType",
-                  "operator": "eq",
-                  "value": "$type$"
-                }
-              ]
-            },
             "appendEditUrl": true,
             "condition": {
               "in": [
@@ -298,21 +275,6 @@
       "type": "string",
       "readOnly": true
     },
-    "Vehicle_Purchse_Negative_Reason": {
-      "name": "Vehicle Purchase and Delivery Negative Reason",
-      "type": "string",
-      "readOnly": true
-    },
-    "Vehicle_Service_Negative_Reason": {
-      "name": "Vehicle Service Negative Reason",
-      "type": "string",
-      "readOnly": true
-    },
-    "Spare_Part_Negative_Reason": {
-      "name": "Spare Part Negative Reason",
-      "type": "string",
-      "readOnly": true
-    },
     "nps": {
       "name": "NPS Score",
       "type": "enum",
@@ -383,38 +345,18 @@
               "channel": "email",
               "template": "overdueAlertEmail_1stLevel",
               "target": "admin",
-              "contactFilters": [
-                "ticketOverdueAlert_01"
+              "contacts": [
+                "sanjanan@emojot.com"
               ],
-              "adminUserQuery": {
-                "condition": "and",
-                "rules": [
-                  {
-                    "field": "complaintType",
-                    "operator": "eq",
-                    "value": "$type$"
-                  }
-                ]
-              },
               "appendEditUrl": true
             },
             {
               "channel": "sms",
               "template": "overdueAlertSMS_1stLevel",
               "target": "admin",
-              "contactFilters": [
-                "ticketOverdueAlert_01"
+              "contacts": [
+                "sanjanan@emojot.com"
               ],
-              "adminUserQuery": {
-                "condition": "and",
-                "rules": [
-                  {
-                    "field": "complaintType",
-                    "operator": "eq",
-                    "value": "$type$"
-                  }
-                ]
-              },
               "appendEditUrl": true
             },
             {
@@ -422,19 +364,7 @@
               "changingFields": [
                 {
                   "id": "assignee",
-                  "contactFilters": [
-                    "ticketOverdueAssignee_01"
-                  ],
-                  "adminUserQuery": {
-                    "condition": "and",
-                    "rules": [
-                      {
-                        "field": "complaintType",
-                        "operator": "eq",
-                        "value": "$type$"
-                      }
-                    ]
-                  }
+                  "value": "sanjanan@emojot.com"
                 }
               ]
             }
@@ -448,38 +378,18 @@
               "channel": "email",
               "template": "overdueAlertEmail_2ndLevel",
               "target": "admin",
-              "contactFilters": [
-                "ticketOverdueAlert_02"
+              "contacts": [
+                "sanjanan@emojot.com"
               ],
-              "adminUserQuery": {
-                "condition": "and",
-                "rules": [
-                  {
-                    "field": "complaintType",
-                    "operator": "eq",
-                    "value": "$type$"
-                  }
-                ]
-              },
               "appendEditUrl": true
             },
             {
               "channel": "sms",
               "template": "overdueAlertSMS_2ndLevel",
               "target": "admin",
-              "contactFilters": [
-                "ticketOverdueAlert_02"
+              "contacts": [
+                "sanjanan@emojot.com"
               ],
-              "adminUserQuery": {
-                "condition": "and",
-                "rules": [
-                  {
-                    "field": "complaintType",
-                    "operator": "eq",
-                    "value": "$type$"
-                  }
-                ]
-              },
               "appendEditUrl": true
             },
             {
@@ -487,19 +397,7 @@
               "changingFields": [
                 {
                   "id": "assignee",
-                  "contactFilters": [
-                    "ticketOverdueAssignee_02"
-                  ],
-                  "adminUserQuery": {
-                    "condition": "and",
-                    "rules": [
-                      {
-                        "field": "complaintType",
-                        "operator": "eq",
-                        "value": "$type$"
-                      }
-                    ]
-                  }
+                  "value": "sanjanan@emojot.com"
                 }
               ]
             }
@@ -513,38 +411,18 @@
               "channel": "email",
               "template": "overdueAlertEmail_3rdLevel",
               "target": "admin",
-              "contactFilters": [
-                "ticketOverdueAlert_03"
+              "contacts": [
+                "sanjanan@emojot.com"
               ],
-              "adminUserQuery": {
-                "condition": "and",
-                "rules": [
-                  {
-                    "field": "complaintType",
-                    "operator": "eq",
-                    "value": "$type$"
-                  }
-                ]
-              },
               "appendEditUrl": true
             },
             {
               "channel": "sms",
               "template": "overdueAlertSMS_3rdLevel",
               "target": "admin",
-              "contactFilters": [
-                "ticketOverdueAlert_03"
+              "contacts": [
+                "sanjanan@emojot.com"
               ],
-              "adminUserQuery": {
-                "condition": "and",
-                "rules": [
-                  {
-                    "field": "complaintType",
-                    "operator": "eq",
-                    "value": "$type$"
-                  }
-                ]
-              },
               "appendEditUrl": true
             },
             {
@@ -552,19 +430,7 @@
               "changingFields": [
                 {
                   "id": "assignee",
-                  "contactFilters": [
-                    "ticketOverdueAssignee_03"
-                  ],
-                  "adminUserQuery": {
-                    "condition": "and",
-                    "rules": [
-                      {
-                        "field": "complaintType",
-                        "operator": "eq",
-                        "value": "$type$"
-                      }
-                    ]
-                  }
+                  "value": "sanjanan@emojot.com"
                 }
               ]
             }
@@ -580,19 +446,9 @@
         "channel": "email",
         "template": "complaintCreationAlert",
         "target": "admin",
-        "contactFilters": [
-          "ticketCreationAlert"
+        "contacts": [
+          "sanjanan@emojot.com"
         ],
-        "adminUserQuery": {
-          "condition": "and",
-          "rules": [
-            {
-              "field": "complaintType",
-              "operator": "eq",
-              "value": "$type$"
-            }
-          ]
-        },
         "appendEditUrl": true,
         "condition": {
           "in": [
@@ -611,19 +467,9 @@
         "channel": "sms",
         "template": "complaintCreationAlert_sms",
         "target": "admin",
-        "contactFilters": [
-          "ticketCreationAlert"
+        "contacts": [
+          "sanjanan@emojot.com"
         ],
-        "adminUserQuery": {
-          "condition": "and",
-          "rules": [
-            {
-              "field": "complaintType",
-              "operator": "eq",
-              "value": "$type$"
-            }
-          ]
-        },
         "appendEditUrl": true,
         "condition": {
           "in": [

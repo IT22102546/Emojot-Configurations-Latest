@@ -64,21 +64,6 @@
             </field>
 
             <field>
-              <key>Vehicle_Purchse_Negative_Reason</key>
-              <value>$$q5203_emote$$</value>
-            </field>
-
-            <field>
-              <key>Vehicle_Service_Negative_Reason</key>
-              <value>$$q998_emote$$</value>
-            </field>
-
-            <field>
-              <key>Spare_Part_Negative_Reason</key>
-              <value>$$q6663_emote$$</value>
-            </field>
-
-            <field>
               <key>nps</key>
               <value>$$q2682_emote$$</value>
             </field>
