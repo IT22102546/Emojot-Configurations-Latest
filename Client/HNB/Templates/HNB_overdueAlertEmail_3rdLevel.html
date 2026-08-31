@@ -8,100 +8,160 @@
         body {
             margin: 0;
             padding: 0;
-            background: #f4f5f7;
+            background: #f3f6f8;
             color: #263238;
             font-family: Arial, Helvetica, sans-serif;
+        }
+        table {
+            border-spacing: 0;
         }
         .wrapper {
             width: 100%;
             padding: 28px 12px;
+            background: #f3f6f8;
+            border-collapse: collapse;
+            box-sizing: border-box;
         }
         .card {
             width: 100%;
-            max-width: 620px;
+            max-width: 600px;
             margin: 0 auto;
             background: #ffffff;
-            border: 1px solid #e1e4e8;
-            border-radius: 8px;
-            overflow: hidden;
+            border-collapse: collapse;
+        }
+        .brandbar {
+            padding: 22px 30px;
+            background: #ffffff;
+            border-bottom: 1px solid #e9eef2;
+        }
+        .brandbar img,
+        .footer img {
+            display: block;
+            height: auto;
+            border: 0;
+        }
+        .brand-context {
+            color: #6f7b85;
+            font-size: 12px;
+            line-height: 18px;
+            text-align: right;
         }
         .header {
-            padding: 22px 28px;
-            background: #8b1538;
+            padding: 38px 36px 34px;
+            background: #0077a8;
             color: #ffffff;
         }
         .header .brand {
-            margin: 0 0 5px;
-            font-size: 13px;
+            margin: 0 0 12px;
+            color: #d9f5ff;
+            font-size: 12px;
             font-weight: bold;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.8px;
+            line-height: 18px;
         }
         .header h1 {
             margin: 0;
-            font-size: 22px;
-            line-height: 1.35;
+            color: #ffffff;
+            font-size: 30px;
+            line-height: 1.25;
         }
         .content {
-            padding: 26px 28px;
+            padding: 34px 32px 38px;
+            background: #ffffff;
         }
         .content p {
             margin: 0 0 18px;
+            color: #626d75;
             font-size: 15px;
             line-height: 1.6;
         }
+        .content p:first-child {
+            color: #073b5c;
+            font-weight: bold;
+        }
         .details {
             width: 100%;
-            margin: 20px 0;
+            margin: 24px 0;
+            border: 1px solid #e7eef2;
             border-collapse: collapse;
         }
         .details td {
-            padding: 11px 12px;
-            border-bottom: 1px solid #eceff1;
+            padding: 12px 14px;
+            border-bottom: 1px solid #e7eef2;
+            color: #52616a;
             font-size: 14px;
             line-height: 1.45;
             vertical-align: top;
         }
+        .details tr:last-child td {
+            border-bottom: 0;
+        }
         .details .label {
             width: 38%;
-            background: #faf7f8;
-            color: #5f2639;
+            background: #f5f9fb;
+            color: #073b5c;
             font-weight: bold;
         }
         .details .value {
             overflow-wrap: anywhere;
+            word-break: break-word;
         }
         .action {
-            padding-top: 8px;
+            padding-top: 4px;
             text-align: center;
         }
         .action a {
             display: inline-block;
-            padding: 11px 22px;
-            border-radius: 5px;
-            background: #8b1538;
-            color: #ffffff;
+            padding: 14px 26px;
+            border-radius: 3px;
+            background: #f8c12d;
+            color: #07334c;
+            font-size: 13px;
             font-weight: bold;
+            line-height: 16px;
             text-decoration: none;
+            text-transform: uppercase;
+        }
+        .premium {
+            padding: 28px 32px;
+            background: #073b5c;
+            color: #ffffff;
+            text-align: center;
+        }
+        .premium-title {
+            margin: 0 0 7px;
+            font-size: 22px;
+            font-weight: bold;
+            line-height: 29px;
+        }
+        .premium-copy {
+            margin: 0;
+            color: #d7eaf2;
+            font-size: 13px;
+            line-height: 21px;
         }
         .footer {
-            padding: 15px 28px;
-            background: #faf7f8;
-            color: #6b6f73;
-            font-size: 12px;
-            text-align: center;
+            padding: 22px 30px;
+            background: #f2f5f6;
+            border-top: 1px solid #e1e6e9;
+            color: #7c878d;
+            font-size: 10px;
+            line-height: 16px;
         }
         @media only screen and (max-width: 620px) {
             .wrapper {
                 padding: 0;
             }
-            .card {
-                border-radius: 0;
-            }
+            .brandbar,
             .header,
             .content,
+            .premium,
             .footer {
                 padding-left: 18px;
                 padding-right: 18px;
+            }
+            .header h1 {
+                font-size: 26px;
             }
             .details .label,
             .details .value {
@@ -112,10 +172,20 @@
     </style>
 </head>
 <body>
-    <table class="wrapper" role="presentation" cellpadding="0" cellspacing="0">
+    <table class="wrapper" role="presentation" width="100%" cellpadding="0" cellspacing="0">
         <tr>
             <td>
-                <table class="card" role="presentation" cellpadding="0" cellspacing="0">
+                <table class="card" role="presentation" width="600" align="center" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td class="brandbar">
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="left" valign="middle"><img src="https://storage.emojot.com/pictures/emailImages/67809cb3789f0a00f5b0161f-skin2.png" width="120" alt="HNB" style="max-width: 120px;" /></td>
+                                    <td class="brand-context" align="right" valign="middle">HNB Customer Care</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
                     <tr>
                         <td class="header">
                             <p class="brand">HATTON NATIONAL BANK</p>
@@ -139,10 +209,6 @@
                             <td class="label">Status</td>
                             <td class="value">$incident_status$</td>
                         </tr>
-                        <tr>
-                            <td class="label">Overdue Level</td>
-                            <td class="value">$incident_customFields_overdue$</td>
-                        </tr>
                             </table>
                     <p class="action">
                         <a href="https://emojot.com/emojotDashboard/samlsso?redirectPage=reports/incidentManagement/incidentEdit.jsp&amp;workflowID=$workflow_id$&amp;incidentID=$incident_id$&amp;trimOut=true&amp;unmask=true">
@@ -152,8 +218,19 @@
                         </td>
                     </tr>
                     <tr>
+                        <td class="premium">
+                            <p class="premium-title">Your Partner in Progress</p>
+                            <p class="premium-copy">We are committed to supporting you at every step.</p>
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="footer">
-                            This is an automated notification from the HNB concern-management system.
+                            <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="left" valign="middle"><img src="https://storage.emojot.com/pictures/emailImages/67809cb3789f0a00f5b0161f-skin2.png" width="92" alt="HNB" style="max-width: 92px;" /></td>
+                                    <td align="right" valign="middle">Hatton National Bank PLC<br />Automated concern-management notification</td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
                 </table>

@@ -1,4 +1,4 @@
- {
+{
   "name": "WF",
   "reportNamePrefix": "AbansAuto Concerns",
   "nameTemplate": "AbansAuto Concern: $type$ - $complaintType$",
@@ -19,6 +19,7 @@
           "Email",
           "ContactNumber",
           "Satisfaction",
+          "Vehicle_Purchse_Negative_Reason",
           "nps",
           "Comment",
           "overdue"
@@ -33,6 +34,7 @@
           "Email",
           "ContactNumber",
           "Satisfaction",
+          "Vehicle_Service_Negative_Reason",
           "nps",
           "Comment",
           "overdue"
@@ -47,6 +49,7 @@
           "Email",
           "ContactNumber",
           "Satisfaction",
+          "Spare_Part_Negative_Reason",
           "nps",
           "Comment",
           "overdue"
@@ -131,7 +134,7 @@
         "triggers": [
           {
             "channel": "email",
-            "template": "customerWIPalerts",
+            "template": "customerWIPalert",
             "target": "customer",
             "appendEditUrl": false,
             "condition": {
@@ -171,7 +174,8 @@
             "template": "complaintResolutionAlertInternal",
             "target": "admin",
             "contacts": [
-              "sanjanan@emojot.com"
+              "autocxmanagement@abansgroup.com",
+              "automarketing@abansgroup.com"
             ],
             "appendEditUrl": true,
             "condition": {
@@ -192,7 +196,7 @@
             "template": "complaintResolutionAlertInternal_sms",
             "target": "admin",
             "contacts": [
-              "sanjanan@emojot.com"
+              "abansauto@emojot.com"
             ],
             "appendEditUrl": true,
             "condition": {
@@ -210,7 +214,7 @@
           },
           {
             "channel": "email",
-            "template": "customerResolutionAlerts",
+            "template": "customerResolutionAlert",
             "target": "customer",
             "appendEditUrl": false,
             "condition": {
@@ -272,6 +276,21 @@
     },
     "Satisfaction": {
       "name": "Satisfaction",
+      "type": "string",
+      "readOnly": true
+    },
+    "Vehicle_Purchse_Negative_Reason": {
+      "name": "Vehicle Purchase Negative Reason",
+      "type": "string",
+      "readOnly": true
+    },
+    "Vehicle_Service_Negative_Reason": {
+      "name": "Vehicle Service Negative Reason",
+      "type": "string",
+      "readOnly": true
+    },
+    "Spare_Part_Negative_Reason": {
+      "name": "Spare Parts Negative Reason",
       "type": "string",
       "readOnly": true
     },
@@ -346,7 +365,8 @@
               "template": "overdueAlertEmail_1stLevel",
               "target": "admin",
               "contacts": [
-                "sanjanan@emojot.com"
+                "autocxmanagement@abansgroup.com",
+                "automarketing@abansgroup.com"
               ],
               "appendEditUrl": true
             },
@@ -355,7 +375,7 @@
               "template": "overdueAlertSMS_1stLevel",
               "target": "admin",
               "contacts": [
-                "sanjanan@emojot.com"
+                "abansauto@emojot.com"
               ],
               "appendEditUrl": true
             },
@@ -364,7 +384,7 @@
               "changingFields": [
                 {
                   "id": "assignee",
-                  "value": "sanjanan@emojot.com"
+                  "value": "abansauto@emojot.com"
                 }
               ]
             }
@@ -379,7 +399,8 @@
               "template": "overdueAlertEmail_2ndLevel",
               "target": "admin",
               "contacts": [
-                "sanjanan@emojot.com"
+                "autocxmanagement@abansgroup.com",
+                "automarketing@abansgroup.com"
               ],
               "appendEditUrl": true
             },
@@ -388,7 +409,7 @@
               "template": "overdueAlertSMS_2ndLevel",
               "target": "admin",
               "contacts": [
-                "sanjanan@emojot.com"
+                "abansauto@emojot.com"
               ],
               "appendEditUrl": true
             },
@@ -397,7 +418,7 @@
               "changingFields": [
                 {
                   "id": "assignee",
-                  "value": "sanjanan@emojot.com"
+                  "value": "abansauto@emojot.com"
                 }
               ]
             }
@@ -412,7 +433,8 @@
               "template": "overdueAlertEmail_3rdLevel",
               "target": "admin",
               "contacts": [
-                "sanjanan@emojot.com"
+                "autocxmanagement@abansgroup.com",
+                "automarketing@abansgroup.com"
               ],
               "appendEditUrl": true
             },
@@ -421,7 +443,7 @@
               "template": "overdueAlertSMS_3rdLevel",
               "target": "admin",
               "contacts": [
-                "sanjanan@emojot.com"
+                "abansauto@emojot.com"
               ],
               "appendEditUrl": true
             },
@@ -430,7 +452,7 @@
               "changingFields": [
                 {
                   "id": "assignee",
-                  "value": "sanjanan@emojot.com"
+                  "value": "abansauto@emojot.com"
                 }
               ]
             }
@@ -440,14 +462,15 @@
     }
   },
   "workflowCreation": {
-    "email": "bot@emojot.com",
+    "email": "abansauto@emojot.com",
     "triggers": [
       {
         "channel": "email",
         "template": "complaintCreationAlert",
         "target": "admin",
         "contacts": [
-          "sanjanan@emojot.com"
+          "autocxmanagement@abansgroup.com",
+          "automarketing@abansgroup.com"
         ],
         "appendEditUrl": true,
         "condition": {
@@ -468,7 +491,7 @@
         "template": "complaintCreationAlert_sms",
         "target": "admin",
         "contacts": [
-          "sanjanan@emojot.com"
+          "abansauto@emojot.com"
         ],
         "appendEditUrl": true,
         "condition": {
@@ -485,7 +508,7 @@
         }
       },
       {
-        "template": "customerComplaintCreations",
+        "template": "customerComplaintCreation",
         "channel": "email",
         "target": "customer",
         "appendEditUrl": false,
@@ -507,7 +530,7 @@
         "changingFields": [
           {
             "id": "assignee",
-            "value": "sanjanan@emojot.com"
+            "value": "abansauto@emojot.com"
           }
         ]
       }
@@ -523,7 +546,7 @@
     ],
     "automaticAssignment": {
       "isEnabled": true,
-      "email": "sanjanan@emojot.com",
+      "email": "abansauto@emojot.com",
       "resolvedStatus": [
         "Resolved"
       ],

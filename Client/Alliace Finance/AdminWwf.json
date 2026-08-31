@@ -2297,7 +2297,7 @@
         "changingFields": [
           {
             "id": "assignee",
-            "value": "sanjanan@emojot.com"
+            "value": "alliance@emojot.com"
           }
         ]
       }
@@ -2313,7 +2313,7 @@
     ],
     "automaticAssignment": {
       "isEnabled": true,
-      "email": "sanjanan@emojot.com",
+      "email": "alliance@emojot.com",
       "resolvedStatus": [
         "Resolved"
       ],

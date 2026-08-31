@@ -67,15 +67,15 @@
     "email": "bot@emojot.com",
     "triggers": []
   },
-  "name": "evaRaffleDrawWF",
+  "name": "wf",
   "assignment": {
     "automaticAssignment": {
       "isEnabled": true,
-      "email": "sanjanan@emojot.com"
+      "email": "eva@emojot.com"
     }
   },
   "tableEdit": "false",
   "finalState": false,
   "timeZone": -330,
-  "nameTemplate": "Eva Raffle Draw: $fullName$"
+  "nameTemplate": "$fullName$"
 }

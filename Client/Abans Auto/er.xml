@@ -5,13 +5,13 @@
       <param>
         <name>percepticDrillDown</name>
         <operator>eq</operator>
-        <value>q5850</value>
+        <value>"q5850"</value>
       </param>
       <joinOperator>and</joinOperator>
       <joinParam>
         <name>emoteNumericValue</name>
         <operator>ld</operator>
-        <value>0</value>
+        <value>1</value>
       </joinParam>
     </params>
     <engagementActions>
@@ -19,10 +19,9 @@
         <type>incident</type>
 
         <data>
-          <!-- VERIFY: this is the current Abans Auto workflow ID -->
-          <workflowID>6a855a3edb3622d307a23335</workflowID>
+          <workflowID>6a856bf0db3622d307a234ec</workflowID>
           <name>Concern - $$q1776_emote$$</name>
-          <assignee>sanjanan@emojot.com</assignee>
+          <assignee>abansauto@emojot.com</assignee>
           <type>$$q1776_emote$$</type>
           <priority>Medium</priority>
           <status>Open</status>
@@ -61,6 +60,21 @@
             <field>
               <key>Satisfaction</key>
               <value>$$q5850_emote$$</value>
+            </field>
+
+            <field>
+              <key>Vehicle_Purchse_Negative_Reason</key>
+              <value>$$q5203_emote$$</value>
+            </field>
+
+            <field>
+              <key>Vehicle_Service_Negative_Reason</key>
+              <value>$$q998_emote$$</value>
+            </field>
+
+            <field>
+              <key>Spare_Part_Negative_Reason</key>
+              <value>$$q6663_emote$$</value>
             </field>
 
             <field>
