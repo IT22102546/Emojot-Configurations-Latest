@@ -1,8 +1,8 @@
 {
   "descriptionFormat": "text",
-  "reportNamePrefix": "HNB Concerns",
-  "name": "HNB Concern Management",
-  "nameTemplate": "HNB Concern: $type$",
+  "reportNamePrefix": "HNB Complaints",
+  "name": "HNB WF",
+  "nameTemplate": "HNB Complaints: $type$",
   "descriptionTemplate": "$comment$",
   "type": {
     "name": "Channel",
@@ -311,15 +311,7 @@
             "template": "HNB_complaintResolutionAlert",
             "target": "admin",
             "contacts": [
-              "anaza@emojot.com",
-              "aqeelg@emojot.com",
-              "csm@emojot.com",
-              "gimhaniw@emojot.com",
-              "sampath@emojot.com",
-              "sanjanan@emojot.com",
-              "shaveenf@emojot.com",
-              "viraj@emojot.com",
-              "zahrahr@emojot.com"
+              "leads@emojot.com"
             ],
             "adminUserQuery": {
               "condition": "and",
@@ -365,15 +357,7 @@
             "template": "HNB_complaintResolutionAlert",
             "target": "admin",
             "contacts": [
-              "anaza@emojot.com",
-              "aqeelg@emojot.com",
-              "csm@emojot.com",
-              "gimhaniw@emojot.com",
-              "sampath@emojot.com",
-              "sanjanan@emojot.com",
-              "shaveenf@emojot.com",
-              "viraj@emojot.com",
-              "zahrahr@emojot.com"
+              "leads@emojot.com"
             ],
             "condition": {
               "and": [
@@ -427,14 +411,7 @@
             "template": "HNB_complaintResolutionAlert_orm",
             "target": "admin",
             "contacts": [
-              "anaza@emojot.com",
-              "aqeelg@emojot.com",
-              "csm@emojot.com",
-              "gimhaniw@emojot.com",
-              "sampath@emojot.com",
-              "sanjanan@emojot.com",
-              "viraj@emojot.com",
-              "zahrahr@emojot.com"
+              "leads@emojot.com"
             ],
             "condition": {
               "and": [
@@ -760,19 +737,19 @@
       "hidden": true
     },
     "positiveSentimentCount": {
-      "name": "Sentiment",
+      "name": "Positive Sentiment Count",
       "type": "number",
       "readOnly": true,
       "hidden": true
     },
     "negativeSentimentCount": {
-      "name": "Sentiment",
+      "name": "Negative Sentiment Count",
       "type": "number",
       "readOnly": true,
       "hidden": true
     },
     "mixedSentimentCount": {
-      "name": "Sentiment",
+      "name": "Mixed Sentiment Count",
       "type": "number",
       "readOnly": true,
       "hidden": true
@@ -827,7 +804,8 @@
             ]
           },
           "contacts": [
-            "sanjanan@emojot.com"
+            "sanjanan@emojot.com",
+            "leads@emojot.com"
           ]
         }
       ]
@@ -1155,7 +1133,8 @@
         "template": "HNB_complaintAssignment",
         "target": "admin",
         "contacts": [
-          "sanjanan@emojot.com"
+          "sanjanan@emojot.com",
+          "leads@emojot.com"
         ]
       }
     ],
@@ -1225,7 +1204,8 @@
         "template": "HNB_complaintCreationAlert",
         "target": "admin",
         "contacts": [
-          "sanjanan@emojot.com"
+          "sanjanan@emojot.com",
+          "leads@emojot.com"
         ],
         "appendEditUrl": true,
         "condition": {
@@ -1261,7 +1241,8 @@
           "sanjanan@emojot.com",
           "shaveenf@emojot.com",
           "viraj@emojot.com",
-          "zahrahr@emojot.com"
+          "zahrahr@emojot.com",
+          "leads@emojot.com"
         ]
       },
       {
@@ -1290,7 +1271,8 @@
           ]
         },
         "contacts": [
-          "sanjanan@emojot.com"
+          "sanjanan@emojot.com",
+          "leads@emojot.com"
         ]
       },
       {
@@ -1319,7 +1301,8 @@
           ]
         },
         "contacts": [
-          "sanjanan@emojot.com"
+          "sanjanan@emojot.com",
+          "leads@emojot.com"
         ]
       },
       {
@@ -1348,7 +1331,8 @@
           ]
         },
         "contacts": [
-          "sanjanan@emojot.com"
+          "sanjanan@emojot.com",
+          "leads@emojot.com"
         ]
       },
       {
@@ -1371,7 +1355,8 @@
           "sampath@emojot.com",
           "sanjanan@emojot.com",
           "viraj@emojot.com",
-          "zahrahr@emojot.com"
+          "zahrahr@emojot.com",
+          "leads@emojot.com"
         ]
       },
       {
@@ -1394,7 +1379,8 @@
           "sampath@emojot.com",
           "sanjanan@emojot.com",
           "viraj@emojot.com",
-          "zahrahr@emojot.com"
+          "zahrahr@emojot.com",
+          "leads@emojot.com"
         ]
       },
       {
@@ -1417,7 +1403,8 @@
           "sampath@emojot.com",
           "sanjanan@emojot.com",
           "viraj@emojot.com",
-          "zahrahr@emojot.com"
+          "zahrahr@emojot.com",
+          "leads@emojot.com"
         ]
       },
       {
@@ -1440,7 +1427,8 @@
           "sampath@emojot.com",
           "sanjanan@emojot.com",
           "viraj@emojot.com",
-          "zahrahr@emojot.com"
+          "zahrahr@emojot.com",
+          "leads@emojot.com"
         ]
       },
       {
@@ -1463,7 +1451,8 @@
           "sampath@emojot.com",
           "sanjanan@emojot.com",
           "viraj@emojot.com",
-          "zahrahr@emojot.com"
+          "zahrahr@emojot.com",
+          "leads@emojot.com"
         ]
       },
       {
@@ -1486,7 +1475,8 @@
           "sampath@emojot.com",
           "sanjanan@emojot.com",
           "viraj@emojot.com",
-          "zahrahr@emojot.com"
+          "zahrahr@emojot.com",
+          "leads@emojot.com"
         ]
       },
       {
@@ -1509,7 +1499,8 @@
           "sampath@emojot.com",
           "sanjanan@emojot.com",
           "viraj@emojot.com",
-          "zahrahr@emojot.com"
+          "zahrahr@emojot.com",
+          "leads@emojot.com"
         ]
       },
       {
@@ -1532,7 +1523,8 @@
           "sampath@emojot.com",
           "sanjanan@emojot.com",
           "viraj@emojot.com",
-          "zahrahr@emojot.com"
+          "zahrahr@emojot.com",
+          "leads@emojot.com"
         ]
       },
       {
@@ -1555,7 +1547,8 @@
           "sampath@emojot.com",
           "sanjanan@emojot.com",
           "viraj@emojot.com",
-          "zahrahr@emojot.com"
+          "zahrahr@emojot.com",
+          "leads@emojot.com"
         ]
       },
       {
@@ -1578,7 +1571,8 @@
           "sampath@emojot.com",
           "sanjanan@emojot.com",
           "viraj@emojot.com",
-          "zahrahr@emojot.com"
+          "zahrahr@emojot.com",
+          "leads@emojot.com"
         ]
       },
       {
@@ -1860,7 +1854,7 @@
     }
   },
   "subTask": {
-    "isEnabled": true,
+    "isEnabled": false,
     "workflowId": "69ff06c119a63f20f1619d4b",
     "titles": {
       "name": "Complaint Subtasks",
