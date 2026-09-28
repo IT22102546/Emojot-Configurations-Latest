@@ -1,0 +1,1858 @@
+exports = async function (changeEvent) {
+
+  console.log("============================================");
+  console.log("DIPRA MASTER DATA SYNC START");
+  console.log("============================================");
+
+
+  /*
+   * ============================================================
+   * CONFIGURATION
+   * ============================================================
+   */
+
+  const SERVICE_NAME = "Emojot-dev-New2";
+
+  const COMPANY_ID = "61fa9273717213000f07db66";
+
+  const INCIDENTS_DATABASE =
+    "emojot_61fa9273717213000f07db66";
+
+  const WORKFLOWS_DATABASE =
+    "emojot";
+
+  const INCIDENTS_COLLECTION =
+    "Incidents";
+
+  const WORKFLOWS_COLLECTION =
+    "IncidentWorkflows";
+
+
+  /*
+   * ============================================================
+   * WORKFLOW IDS
+   * ============================================================
+   */
+
+  const WF = {
+
+    CUSTOMERS:
+      "6aacda282b21faf58cc28cf8",
+
+    SUPPLIERS:
+      "6aacda852cb42d36db52f3b3", 
+
+    LOCATIONS:
+      "6aacda5e2cb42d36db52f3b2",
+
+    PRODUCT_CATALOG:
+      "6aacda743e435a7d8c47e4f6",
+
+    INSTALLED_MACHINES:
+      "6aacda44616c549e7ffb5a17",
+
+    AGREEMENT_WARRANTY:
+      "6aacda1618672f7288975408"
+
+  };
+
+
+  /*
+   * ============================================================
+   * DATABASE CONNECTION
+   * ============================================================
+   */
+
+  const mongo =
+    context.services.get(
+      SERVICE_NAME
+    );
+
+
+  if (
+    !mongo ||
+    typeof mongo.db !== "function"
+  ) {
+
+    throw new Error(
+      "MongoDB service unavailable: " +
+      SERVICE_NAME
+    );
+
+  }
+
+
+  const incidents =
+    mongo
+      .db(INCIDENTS_DATABASE)
+      .collection(INCIDENTS_COLLECTION);
+
+
+  const workflows =
+    mongo
+      .db(WORKFLOWS_DATABASE)
+      .collection(WORKFLOWS_COLLECTION);
+
+
+  console.log(
+    "MongoDB connected:",
+    SERVICE_NAME
+  );
+
+  console.log(
+    "Incidents DB:",
+    INCIDENTS_DATABASE
+  );
+
+  console.log(
+    "Workflow DB:",
+    WORKFLOWS_DATABASE
+  );
+
+
+  /*
+   * ============================================================
+   * HELPERS
+   * ============================================================
+   */
+
+  function oid(id) {
+
+    return new BSON.ObjectId(
+      id
+    );
+
+  }
+
+
+  function option(
+    id,
+    name
+  ) {
+
+    return {
+
+      id:
+        String(id),
+
+      name:
+        String(name)
+
+    };
+
+  }
+
+
+  /*
+   * Removes duplicate dropdown options
+   * using ID/code as the unique key.
+   */
+
+  function uniqueOptions(values) {
+
+    const map = {};
+
+
+    values.forEach(
+      function (value) {
+
+        if (
+          value &&
+          value.id !== undefined &&
+          value.id !== null
+        ) {
+
+          map[String(value.id)] =
+            value;
+
+        }
+
+      }
+    );
+
+
+    return Object.keys(map)
+      .map(
+        function (key) {
+
+          return map[key];
+
+        }
+      );
+
+  }
+
+
+  /*
+   * ============================================================
+   * GET ALL MASTER RECORDS
+   * ============================================================
+   */
+
+  async function getMasterRecords(
+    workflowId
+  ) {
+
+    return await incidents
+      .find({
+
+        workflow:
+          workflowId
+
+      })
+      .toArray();
+
+  }
+
+
+  /*
+   * ============================================================
+   * REPLACE COMPLETE DROPDOWN VALUES
+   * ============================================================
+   *
+   * This removes:
+   *
+   * - Dummy values
+   * - Old hardcoded options
+   * - Previous generated triggers
+   * - Previous changingFields
+   * - Duplicate IDs
+   *
+   * And replaces them with current master data.
+   * ============================================================
+   */
+
+  async function replaceSelectorValues(
+    targetWorkflowId,
+    selectorField,
+    values
+  ) {
+
+    const cleanValues =
+      uniqueOptions(
+        values
+      );
+
+
+    const path =
+      "customFields." +
+      selectorField +
+      ".values";
+
+
+    const setObject = {};
+
+    setObject[path] =
+      cleanValues;
+
+
+    const result =
+      await workflows.updateOne(
+
+        {
+
+          _id:
+            oid(
+              targetWorkflowId
+            ),
+
+          companyID:
+            COMPANY_ID
+
+        },
+
+        {
+
+          $set:
+            setObject
+
+        }
+
+      );
+
+
+    console.log(
+      "SELECTOR REBUILD:",
+      targetWorkflowId,
+      selectorField,
+      "| values:",
+      cleanValues.length,
+      "| matched:",
+      result.matchedCount,
+      "| modified:",
+      result.modifiedCount
+    );
+
+
+    if (
+      result.matchedCount === 0
+    ) {
+
+      console.log(
+        "WARNING - WF not found:",
+        targetWorkflowId
+      );
+
+    }
+
+  }
+
+
+  /*
+   * ============================================================
+   * CUSTOMER SELECTORS
+   *
+   * Customer
+   *   -> Location
+   *   -> Installed Machine
+   *   -> Agreement
+   * ============================================================
+   */
+
+  async function rebuildCustomerSelectors() {
+
+    const records =
+      await getMasterRecords(
+        WF.CUSTOMERS
+      );
+
+
+    const values = [];
+
+
+    records.forEach(
+      function (record) {
+
+        if (
+          record.incidentKey &&
+          record.customerName
+        ) {
+
+          values.push(
+
+            option(
+              record.incidentKey,
+              record.customerName
+            )
+
+          );
+
+        }
+
+      }
+    );
+
+
+    console.log(
+      "Customers found:",
+      values.length
+    );
+
+
+    await replaceSelectorValues(
+
+      WF.LOCATIONS,
+
+      "customerName",
+
+      values
+
+    );
+
+
+    await replaceSelectorValues(
+
+      WF.INSTALLED_MACHINES,
+
+      "customerName",
+
+      values
+
+    );
+
+
+    await replaceSelectorValues(
+
+      WF.AGREEMENT_WARRANTY,
+
+      "customerName",
+
+      values
+
+    );
+
+  }
+
+
+  /*
+   * ============================================================
+   * SUPPLIER SELECTORS
+   *
+   * Supplier
+   *   -> Product Catalog
+   *   -> Installed Machine
+   *   -> Agreement
+   * ============================================================
+   */
+
+  async function rebuildSupplierSelectors() {
+
+    const records =
+      await getMasterRecords(
+        WF.SUPPLIERS
+      );
+
+
+    const values = [];
+
+
+    records.forEach(
+      function (record) {
+
+        if (
+          record.supplierCode &&
+          record.supplierName
+        ) {
+
+          values.push(
+
+            option(
+              record.supplierCode,
+              record.supplierName
+            )
+
+          );
+
+        }
+
+      }
+    );
+
+
+    console.log(
+      "Suppliers found:",
+      values.length
+    );
+
+
+    await replaceSelectorValues(
+
+      WF.PRODUCT_CATALOG,
+
+      "supplierName",
+
+      values
+
+    );
+
+
+    await replaceSelectorValues(
+
+      WF.INSTALLED_MACHINES,
+
+      "supplierName",
+
+      values
+
+    );
+
+
+    await replaceSelectorValues(
+
+      WF.AGREEMENT_WARRANTY,
+
+      "supplierName",
+
+      values
+
+    );
+
+  }
+
+
+  /*
+   * ============================================================
+   * LOCATION SELECTORS
+   *
+   * Location
+   *   -> Installed Machine
+   *   -> Agreement
+   * ============================================================
+   */
+
+  async function rebuildLocationSelectors() {
+
+    const records =
+      await getMasterRecords(
+        WF.LOCATIONS
+      );
+
+
+    const values = [];
+
+
+    records.forEach(
+      function (record) {
+
+        if (
+          record.locationCode &&
+          record.locationName
+        ) {
+
+          values.push(
+
+            option(
+              record.locationCode,
+              record.locationName
+            )
+
+          );
+
+        }
+
+      }
+    );
+
+
+    console.log(
+      "Locations found:",
+      values.length
+    );
+
+
+    await replaceSelectorValues(
+
+      WF.INSTALLED_MACHINES,
+
+      "locationName",
+
+      values
+
+    );
+
+
+    await replaceSelectorValues(
+
+      WF.AGREEMENT_WARRANTY,
+
+      "locationName",
+
+      values
+
+    );
+
+  }
+
+
+  /*
+   * ============================================================
+   * PRODUCT SELECTORS
+   *
+   * Product Catalog
+   *   -> Installed Machine
+   *   -> Agreement
+   * ============================================================
+   */
+
+  async function rebuildProductSelectors() {
+
+    const records =
+      await getMasterRecords(
+        WF.PRODUCT_CATALOG
+      );
+
+
+    const values = [];
+
+
+    records.forEach(
+      function (record) {
+
+        if (
+          record.productCode &&
+          record.productName
+        ) {
+
+          values.push(
+
+            option(
+              record.productCode,
+              record.productName
+            )
+
+          );
+
+        }
+
+      }
+    );
+
+
+    console.log(
+      "Products found:",
+      values.length
+    );
+
+
+    await replaceSelectorValues(
+
+      WF.INSTALLED_MACHINES,
+
+      "productName",
+
+      values
+
+    );
+
+
+    await replaceSelectorValues(
+
+      WF.AGREEMENT_WARRANTY,
+
+      "productName",
+
+      values
+
+    );
+
+  }
+
+
+  /*
+   * ============================================================
+   * INSTALLED MACHINE SELECTOR
+   *
+   * Installed Machine
+   *   -> Agreement
+   * ============================================================
+   */
+
+  async function rebuildMachineSelectors() {
+
+    const records =
+      await getMasterRecords(
+        WF.INSTALLED_MACHINES
+      );
+
+
+    const values = [];
+
+
+    records.forEach(
+      function (record) {
+
+        if (
+          record.machineId &&
+          record.serialNumber
+        ) {
+
+          let displayName =
+            record.serialNumber;
+
+
+          if (
+            record.productName
+          ) {
+
+            displayName +=
+              " - " +
+              record.productName;
+
+          }
+
+
+          if (
+            record.locationName
+          ) {
+
+            displayName +=
+              " - " +
+              record.locationName;
+
+          }
+
+
+          values.push(
+
+            option(
+              record.machineId,
+              displayName
+            )
+
+          );
+
+        }
+
+      }
+    );
+
+
+    console.log(
+      "Machines found:",
+      values.length
+    );
+
+
+    await replaceSelectorValues(
+
+      WF.AGREEMENT_WARRANTY,
+
+      "serialNumber",
+
+      values
+
+    );
+
+  }
+
+
+  /*
+   * ============================================================
+   * REBUILD EVERYTHING
+   * ============================================================
+   */
+
+  async function rebuildAllSelectors() {
+
+    console.log(
+      "============================================"
+    );
+
+    console.log(
+      "REBUILDING ALL DIPRA SELECTORS"
+    );
+
+    console.log(
+      "============================================"
+    );
+
+
+    await rebuildCustomerSelectors();
+
+    await rebuildSupplierSelectors();
+
+    await rebuildLocationSelectors();
+
+    await rebuildProductSelectors();
+
+    await rebuildMachineSelectors();
+
+
+    console.log(
+      "============================================"
+    );
+
+    console.log(
+      "ALL DIPRA SELECTORS REBUILT"
+    );
+
+    console.log(
+      "============================================"
+    );
+
+  }
+
+
+  /*
+   * ============================================================
+   * MANUAL RUN
+   * ============================================================
+   *
+   * IMPORTANT:
+   *
+   * Clicking Run manually now rebuilds ALL dropdowns.
+   *
+   * You do NOT need to create/update a record just to
+   * populate dropdowns.
+   * ============================================================
+   */
+
+  if (
+    !changeEvent ||
+    !changeEvent.operationType
+  ) {
+
+    console.log(
+      "Manual execution detected."
+    );
+
+    console.log(
+      "Running full selector rebuild..."
+    );
+
+
+    await rebuildAllSelectors();
+
+
+    return {
+
+      success:
+        true,
+
+      manualRun:
+        true,
+
+      message:
+        "All DIPRA dropdown selectors rebuilt successfully."
+
+    };
+
+  }
+
+
+  /*
+   * ============================================================
+   * EVENT VALIDATION
+   * ============================================================
+   */
+
+  const operation =
+    changeEvent.operationType;
+
+
+  console.log(
+    "Operation Type:",
+    operation
+  );
+
+
+  if (
+    operation !== "insert" &&
+    operation !== "update" &&
+    operation !== "replace"
+  ) {
+
+    console.log(
+      "Ignored operation:",
+      operation
+    );
+
+    return;
+
+  }
+
+
+  if (
+    !changeEvent.ns ||
+    changeEvent.ns.coll !==
+      INCIDENTS_COLLECTION
+  ) {
+
+    console.log(
+      "Ignored collection:",
+      changeEvent.ns
+        ? changeEvent.ns.coll
+        : "Unknown"
+    );
+
+    return;
+
+  }
+
+
+  /*
+   * ============================================================
+   * FULL DOCUMENT
+   * ============================================================
+   */
+
+  const doc =
+    changeEvent.fullDocument;
+
+
+  if (!doc) {
+
+    console.log(
+      "No fullDocument received."
+    );
+
+    console.log(
+      "Make sure Full Document is enabled."
+    );
+
+    return;
+
+  }
+
+
+  const workflowId =
+    doc.workflow
+      ? String(doc.workflow)
+      : null;
+
+
+  console.log(
+    "Incident ID:",
+    doc._id
+      ? String(doc._id)
+      : "Unknown"
+  );
+
+
+  console.log(
+    "Workflow:",
+    workflowId
+  );
+
+
+  if (!workflowId) {
+
+    console.log(
+      "No workflow found."
+    );
+
+    return;
+
+  }
+
+
+  /*
+   * ============================================================
+   * EVENT HELPERS
+   * ============================================================
+   */
+
+  function get(field) {
+
+    if (
+      doc[field] !== undefined &&
+      doc[field] !== null
+    ) {
+
+      return doc[field];
+
+    }
+
+    return undefined;
+
+  }
+
+
+  function clean(obj) {
+
+    const result = {};
+
+
+    Object.keys(obj).forEach(
+      function (key) {
+
+        if (
+          obj[key] !== undefined &&
+          obj[key] !== null
+        ) {
+
+          result[key] =
+            obj[key];
+
+        }
+
+      }
+    );
+
+
+    return result;
+
+  }
+
+
+  /*
+   * ============================================================
+   * CHANGED FIELD DETECTION
+   * ============================================================
+   */
+
+  function getChangedFields() {
+
+    if (
+      operation === "insert" ||
+      operation === "replace"
+    ) {
+
+      return null;
+
+    }
+
+
+    if (
+      !changeEvent.updateDescription ||
+      !changeEvent.updateDescription.updatedFields
+    ) {
+
+      return null;
+
+    }
+
+
+    return Object.keys(
+      changeEvent.updateDescription.updatedFields
+    ).map(
+      function (field) {
+
+        return field.split(".")[0];
+
+      }
+    );
+
+  }
+
+
+  const changedFields =
+    getChangedFields();
+
+
+  function hasRelevantChange(
+    fields
+  ) {
+
+    if (!changedFields) {
+
+      return true;
+
+    }
+
+
+    return fields.some(
+      function (field) {
+
+        return (
+          changedFields.indexOf(
+            field
+          ) !== -1
+        );
+
+      }
+    );
+
+  }
+
+
+  /*
+   * ============================================================
+   * UPDATE EXISTING DOWNSTREAM INCIDENTS
+   * ============================================================
+   */
+
+  async function updateIncidents(
+    description,
+    targetWorkflowIds,
+    matchField,
+    matchValue,
+    fields
+  ) {
+
+    if (
+      matchValue === undefined ||
+      matchValue === null ||
+      matchValue === ""
+    ) {
+
+      console.log(
+        "INCIDENT SYNC SKIPPED:",
+        description,
+        "- missing",
+        matchField
+      );
+
+      return;
+
+    }
+
+
+    const updateFields =
+      clean(
+        fields
+      );
+
+
+    if (
+      Object.keys(
+        updateFields
+      ).length === 0
+    ) {
+
+      return;
+
+    }
+
+
+    const filter = {
+
+      workflow: {
+
+        $in:
+          targetWorkflowIds
+
+      }
+
+    };
+
+
+    filter[matchField] =
+      matchValue;
+
+
+    if (doc._id) {
+
+      filter._id = {
+
+        $ne:
+          doc._id
+
+      };
+
+    }
+
+
+    const result =
+      await incidents.updateMany(
+
+        filter,
+
+        {
+
+          $set:
+            updateFields
+
+        }
+
+      );
+
+
+    console.log(
+      "INCIDENT SYNC:",
+      description,
+      "| matched:",
+      result.matchedCount,
+      "| modified:",
+      result.modifiedCount
+    );
+
+  }
+
+
+  /*
+   * ============================================================
+   * CUSTOMER SYNC
+   * ============================================================
+   */
+
+  async function syncCustomer() {
+
+    if (
+      !hasRelevantChange([
+        "customerCode",
+        "customerName"
+      ])
+    ) {
+
+      console.log(
+        "Customer update has no relevant change."
+      );
+
+      return;
+
+    }
+
+
+    const customerCode =
+      get(
+        "customerCode"
+      );
+
+
+    const customerName =
+      get(
+        "customerName"
+      );
+
+
+    if (
+      !customerCode ||
+      !customerName
+    ) {
+
+      console.log(
+        "Customer missing customerCode/customerName."
+      );
+
+      return;
+
+    }
+
+
+    console.log(
+      "CUSTOMER:",
+      customerCode,
+      customerName
+    );
+
+
+    await updateIncidents(
+
+      "CUSTOMER -> LOCATION / MACHINE / AGREEMENT",
+
+      [
+        WF.LOCATIONS,
+        WF.INSTALLED_MACHINES,
+        WF.AGREEMENT_WARRANTY
+      ],
+
+      "customerCode",
+
+      customerCode,
+
+      {
+
+        customerName:
+          customerName
+
+      }
+
+    );
+
+
+    await rebuildCustomerSelectors();
+
+  }
+
+
+  /*
+   * ============================================================
+   * SUPPLIER SYNC
+   * ============================================================
+   */
+
+  async function syncSupplier() {
+
+    if (
+      !hasRelevantChange([
+        "supplierCode",
+        "supplierName"
+      ])
+    ) {
+
+      console.log(
+        "Supplier update has no relevant change."
+      );
+
+      return;
+
+    }
+
+
+    const supplierCode =
+      get(
+        "supplierCode"
+      );
+
+
+    const supplierName =
+      get(
+        "supplierName"
+      );
+
+
+    if (
+      !supplierCode ||
+      !supplierName
+    ) {
+
+      console.log(
+        "Supplier missing supplierCode/supplierName."
+      );
+
+      return;
+
+    }
+
+
+    console.log(
+      "SUPPLIER:",
+      supplierCode,
+      supplierName
+    );
+
+
+    await updateIncidents(
+
+      "SUPPLIER -> PRODUCT / MACHINE / AGREEMENT",
+
+      [
+        WF.PRODUCT_CATALOG,
+        WF.INSTALLED_MACHINES,
+        WF.AGREEMENT_WARRANTY
+      ],
+
+      "supplierCode",
+
+      supplierCode,
+
+      {
+
+        supplierName:
+          supplierName
+
+      }
+
+    );
+
+
+    await rebuildSupplierSelectors();
+
+  }
+
+
+  /*
+   * ============================================================
+   * LOCATION SYNC
+   * ============================================================
+   */
+
+  async function syncLocation() {
+
+    if (
+      !hasRelevantChange([
+        "locationCode",
+        "locationName",
+        "customerCode",
+        "customerName",
+        "route"
+      ])
+    ) {
+
+      console.log(
+        "Location update has no relevant change."
+      );
+
+      return;
+
+    }
+
+
+    const locationCode =
+      get(
+        "locationCode"
+      );
+
+
+    const locationName =
+      get(
+        "locationName"
+      );
+
+
+    if (
+      !locationCode ||
+      !locationName
+    ) {
+
+      console.log(
+        "Location missing locationCode/locationName."
+      );
+
+      return;
+
+    }
+
+
+    console.log(
+      "LOCATION:",
+      locationCode,
+      locationName
+    );
+
+
+    await updateIncidents(
+
+      "LOCATION -> INSTALLED MACHINE",
+
+      [
+        WF.INSTALLED_MACHINES
+      ],
+
+      "locationCode",
+
+      locationCode,
+
+      {
+
+        locationName:
+          locationName,
+
+        customerCode:
+          get(
+            "customerCode"
+          ),
+
+        customerName:
+          get(
+            "customerName"
+          ),
+
+        route:
+          get(
+            "route"
+          )
+
+      }
+
+    );
+
+
+    await updateIncidents(
+
+      "LOCATION -> AGREEMENT",
+
+      [
+        WF.AGREEMENT_WARRANTY
+      ],
+
+      "locationCode",
+
+      locationCode,
+
+      {
+
+        locationName:
+          locationName,
+
+        customerCode:
+          get(
+            "customerCode"
+          ),
+
+        customerName:
+          get(
+            "customerName"
+          )
+
+      }
+
+    );
+
+
+    await rebuildLocationSelectors();
+
+  }
+
+
+  /*
+   * ============================================================
+   * PRODUCT SYNC
+   * ============================================================
+   */
+
+  async function syncProduct() {
+
+    if (
+      !hasRelevantChange([
+        "productCode",
+        "productName",
+        "supplierCode",
+        "supplierName",
+        "brandCode",
+        "brandName",
+        "modelCode",
+        "modelName",
+        "capacity",
+        "capacityUnit",
+        "productType"
+      ])
+    ) {
+
+      console.log(
+        "Product update has no relevant change."
+      );
+
+      return;
+
+    }
+
+
+    const productCode =
+      get(
+        "productCode"
+      );
+
+
+    const productName =
+      get(
+        "productName"
+      );
+
+
+    if (
+      !productCode ||
+      !productName
+    ) {
+
+      console.log(
+        "Product missing productCode/productName."
+      );
+
+      return;
+
+    }
+
+
+    console.log(
+      "PRODUCT:",
+      productCode,
+      productName
+    );
+
+
+    await updateIncidents(
+
+      "PRODUCT -> INSTALLED MACHINE",
+
+      [
+        WF.INSTALLED_MACHINES
+      ],
+
+      "productCode",
+
+      productCode,
+
+      {
+
+        productName:
+          productName,
+
+        brand:
+          get(
+            "brandName"
+          ),
+
+        model:
+          get(
+            "modelName"
+          ),
+
+        capacity:
+          get(
+            "capacity"
+          ),
+
+        unit:
+          get(
+            "capacityUnit"
+          ),
+
+        supplierCode:
+          get(
+            "supplierCode"
+          ),
+
+        supplierName:
+          get(
+            "supplierName"
+          )
+
+      }
+
+    );
+
+
+    await updateIncidents(
+
+      "PRODUCT -> AGREEMENT",
+
+      [
+        WF.AGREEMENT_WARRANTY
+      ],
+
+      "productCode",
+
+      productCode,
+
+      {
+
+        productName:
+          productName,
+
+        supplierCode:
+          get(
+            "supplierCode"
+          ),
+
+        supplierName:
+          get(
+            "supplierName"
+          )
+
+      }
+
+    );
+
+
+    await rebuildProductSelectors();
+
+  }
+
+
+  /*
+   * ============================================================
+   * INSTALLED MACHINE SYNC
+   * ============================================================
+   */
+
+  async function syncMachine() {
+
+    if (
+      !hasRelevantChange([
+        "machineId",
+        "serialNumber",
+        "productName",
+        "productCode",
+        "supplierName",
+        "supplierCode",
+        "customerName",
+        "customerCode",
+        "locationName",
+        "locationCode"
+      ])
+    ) {
+
+      console.log(
+        "Machine update has no relevant change."
+      );
+
+      return;
+
+    }
+
+
+    const machineId =
+      get(
+        "machineId"
+      );
+
+
+    const serialNumber =
+      get(
+        "serialNumber"
+      );
+
+
+    if (
+      !machineId ||
+      !serialNumber
+    ) {
+
+      console.log(
+        "Machine missing machineId/serialNumber."
+      );
+
+      return;
+
+    }
+
+
+    console.log(
+      "MACHINE:",
+      machineId,
+      serialNumber
+    );
+
+
+    await updateIncidents(
+
+      "INSTALLED MACHINE -> AGREEMENT",
+
+      [
+        WF.AGREEMENT_WARRANTY
+      ],
+
+      "machineId",
+
+      machineId,
+
+      {
+
+        serialNumber:
+          serialNumber,
+
+        productName:
+          get(
+            "productName"
+          ),
+
+        productCode:
+          get(
+            "productCode"
+          ),
+
+        supplierName:
+          get(
+            "supplierName"
+          ),
+
+        supplierCode:
+          get(
+            "supplierCode"
+          ),
+
+        customerName:
+          get(
+            "customerName"
+          ),
+
+        customerCode:
+          get(
+            "customerCode"
+          ),
+
+        locationName:
+          get(
+            "locationName"
+          ),
+
+        locationCode:
+          get(
+            "locationCode"
+          )
+
+      }
+
+    );
+
+
+    await rebuildMachineSelectors();
+
+  }
+
+
+  /*
+   * ============================================================
+   * MAIN ROUTING
+   * ============================================================
+   */
+
+  try {
+
+    switch (
+      workflowId
+    ) {
+
+
+      case WF.CUSTOMERS:
+
+        await syncCustomer();
+
+        break;
+
+
+      case WF.SUPPLIERS:
+
+        await syncSupplier();
+
+        break;
+
+
+      case WF.LOCATIONS:
+
+        await syncLocation();
+
+        break;
+
+
+      case WF.PRODUCT_CATALOG:
+
+        await syncProduct();
+
+        break;
+
+
+      case WF.INSTALLED_MACHINES:
+
+        await syncMachine();
+
+        break;
+
+
+      case WF.AGREEMENT_WARRANTY:
+
+        console.log(
+          "Agreement / Warranty is final. No downstream workflow."
+        );
+
+        break;
+
+
+      default:
+
+        console.log(
+          "Ignored workflow:",
+          workflowId
+        );
+
+        break;
+
+    }
+
+
+    console.log(
+      "============================================"
+    );
+
+    console.log(
+      "DIPRA MASTER DATA SYNC COMPLETED"
+    );
+
+    console.log(
+      "============================================"
+    );
+
+
+    return {
+
+      success:
+        true,
+
+      workflow:
+        workflowId,
+
+      operation:
+        operation
+
+    };
+
+
+  } catch (error) {
+
+    console.log(
+      "============================================"
+    );
+
+    console.log(
+      "DIPRA MASTER DATA SYNC ERROR"
+    );
+
+    console.log(
+      "Message:",
+      error.message
+    );
+
+
+    if (
+      error.stack
+    ) {
+
+      console.log(
+        error.stack
+      );
+
+    }
+
+
+    console.log(
+      "============================================"
+    );
+
+
+    throw error;
+
+  }
+
+};

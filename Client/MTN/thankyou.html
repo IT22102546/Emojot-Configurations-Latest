@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', Arial, sans-serif;
+            color: #000;
+            background: transparent;
+        }
+
+        .thank-you-section {
+            min-height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 34px 20px;
+        }
+
+        .thank-you-card {
+            position: relative;
+            width: 100%;
+            max-width: 720px;
+            padding: 52px 42px 44px;
+            overflow: hidden;
+            text-align: center;
+            background: rgba(255,255,255,.94);
+            border: 2px solid #000;
+            border-radius: 22px;
+            box-shadow: 0 18px 44px rgba(0,0,0,.14);
+        }
+
+        .thank-you-card::before {
+            content: "";
+            position: absolute;
+            inset: 0 0 auto;
+            height: 8px;
+            background: #FFCB05;
+        }
+
+        .thank-you-card::after {
+            content: "";
+            position: absolute;
+            right: -105px;
+            bottom: -115px;
+            width: 210px;
+            height: 210px;
+            border-radius: 50%;
+            background: rgba(255,203,5,.22);
+        }
+
+        .feedback-icon {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 22px;
+            color: #000;
+            background: #FFCB05;
+            border: 2px solid #000;
+            border-radius: 50%;
+            box-shadow: 0 9px 20px rgba(0,0,0,.16);
+        }
+
+        .feedback-icon svg {
+            width: 38px;
+            height: 38px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 10px;
+            color: #000;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin-bottom: 16px;
+            color: #000;
+            font-size: 38px;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .message {
+            max-width: 580px;
+            margin: 0 auto 27px;
+            color: #3f3f3f;
+            font-size: 17px;
+            font-weight: 500;
+            line-height: 1.65;
+        }
+
+        .message strong {
+            color: #000;
+            font-weight: 800;
+        }
+
+        .feedback-status {
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 11px 20px;
+            color: #000;
+            background: #FFF4BD;
+            border: 1px solid #000;
+            border-radius: 40px;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .feedback-status svg {
+            width: 17px;
+            height: 17px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .bottom-note {
+            position: relative;
+            z-index: 1;
+            margin-top: 21px;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .bottom-note strong {
+            color: #000;
+            font-weight: 800;
+        }
+
+        @media (max-width: 600px) {
+            .thank-you-section {
+                min-height: 460px;
+                padding: 24px 14px;
+            }
+
+            .thank-you-card {
+                padding: 40px 20px 34px;
+                border-radius: 17px;
+            }
+
+            .feedback-icon {
+                width: 68px;
+                height: 68px;
+                margin-bottom: 19px;
+            }
+
+            .feedback-icon svg {
+                width: 32px;
+                height: 32px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .message {
+                font-size: 15px;
+                line-height: 1.6;
+            }
+
+            .feedback-status {
+                width: 100%;
+                padding: 10px 13px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="thank-you-section">
+        <div class="thank-you-card">
+            <div class="feedback-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20 6 9 17l-5-5"></path>
+                </svg>
+            </div>
+
+            <span class="eyebrow">Your Feedback Matters</span>
+            <h1>Thank You for Sharing!</h1>
+
+            <p class="message">
+                We are delighted to hear about your positive experience.
+                Your feedback encourages us to keep delivering the
+                <strong>service you value</strong>.
+            </p>
+
+            <div class="feedback-status">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20 6 9 17l-5-5"></path>
+                </svg>
+                Your feedback has been received
+            </div>
+
+            <p class="bottom-note">
+                <strong>Thank you for choosing CelMate.</strong>
+            </p>
+        </div>
+    </section>
+</body>
+</html>

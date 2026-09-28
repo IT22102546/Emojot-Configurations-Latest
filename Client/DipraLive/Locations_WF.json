@@ -1,0 +1,825 @@
+{
+  "name": "Dipra_Locations_WF",
+  "reportNamePrefix": "Location",
+  "reporterNamePrefix": "Submitted By",
+  "nameTemplate": "$locationCode$ - $locationName$",
+  "descriptionFormat": "text",
+  "timeZone": -330,
+  "type": {
+    "name": "Record Type",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Location",
+        "name": "Location",
+        "highPriorityFields": [
+          "locationCode",
+          "customerName",
+          "customerCode",
+          "locationName",
+          "locationCategory",
+          "addressNo",
+          "lane",
+          "street",
+          "city",
+          "route",
+          "subRoute",
+          "primaryTelephone",
+          "secondaryTelephone",
+          "fax",
+          "email",
+          "contactPersonName",
+          "contactPersonTelephone",
+          "useCustomerAddress"
+        ]
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Medium",
+        "name": "Medium"
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "transitions": [
+      {
+        "sourceState": "Draft",
+        "targetStates": [
+          "Active"
+        ]
+      },
+      {
+        "sourceState": "Active",
+        "targetStates": [
+          "Inactive"
+        ]
+      },
+      {
+        "sourceState": "Inactive",
+        "targetStates": [
+          "Active"
+        ]
+      }
+    ],
+    "values": [
+      {
+        "id": "Draft",
+        "name": "Draft",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000"
+      },
+      {
+        "id": "Active",
+        "name": "Active",
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff"
+      },
+      {
+        "id": "Inactive",
+        "name": "Inactive",
+        "backgroundColor": "#7f8c8d",
+        "textColor": "#ffffff"
+      }
+    ]
+  },
+  "customFields": {
+    "locationCode": {
+      "name": "Location Code",
+      "type": "string",
+      "readOnly": true
+    },
+    "customerCode": {
+      "name": "Customer Code",
+      "type": "string",
+      "readOnly": true
+    },
+    "customerName": {
+      "name": "Select Customer Name",
+      "type": "enum",
+      "values": [
+        {
+          "id": "C0022",
+          "name": "Sanjana006789",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "C0022"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Sanjana006789"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C0021",
+          "name": "Sanjana Nimesh 0000",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "C0021"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Sanjana Nimesh 0000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C0020",
+          "name": "Test 006",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "C0020"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Test 006"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C0019",
+          "name": "Test 123",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "C0019"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Test 123"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C0018",
+          "name": "Sanjana 5555555",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "C0018"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Sanjana 5555555"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "75775",
+          "name": "SaraG",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "75775"
+                },
+                {
+                  "id": "customerName",
+                  "value": "SaraG"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "876543",
+          "name": "Imalshaa",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "876543"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Imalshaa"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "87654",
+          "name": "koooshi",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "87654"
+                },
+                {
+                  "id": "customerName",
+                  "value": "koooshi"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "87653",
+          "name": "koooshiTwo",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "87653"
+                },
+                {
+                  "id": "customerName",
+                  "value": "koooshiTwo"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "123",
+          "name": "akilaikila",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "123"
+                },
+                {
+                  "id": "customerName",
+                  "value": "akilaikila"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "12300321",
+          "name": "nippahNew",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "12300321"
+                },
+                {
+                  "id": "customerName",
+                  "value": "nippahNew"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2001035",
+          "name": "Chethiya test",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "2001035"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Chethiya test"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "200103500242",
+          "name": "chethiyaNew",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "200103500242"
+                },
+                {
+                  "id": "customerName",
+                  "value": "chethiyaNew"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUST_00458",
+          "name": "Cheya",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUST_00458"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Cheya"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUST_00457",
+          "name": "Cheya",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUST_00457"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Cheya"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUST_00456",
+          "name": "Cheya",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUST_00456"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Cheya"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUS_00455",
+          "name": "Dewmini new",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUS_00455"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Dewmini new"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUS_00567",
+          "name": "Sanjana test",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUS_00567"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Sanjana test"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUS_0014",
+          "name": "Chethiya",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUS_0014"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Chethiya"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUS_0013",
+          "name": "Chethiya",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUS_0013"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Chethiya"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUS_0012",
+          "name": "Saranga Gamage",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUS_0012"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Saranga Gamage"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUS-001",
+          "name": "Sunrise Hotels PLC Test01",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUS-001"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Sunrise Hotels PLC Test01"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUS-TEST-001",
+          "name": "Test Customer IJKL",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUS-TEST-001"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Test Customer IJKL"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUS-TEST-356",
+          "name": "Chethiya",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUS-TEST-356"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Chethiya"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C0023",
+          "name": "New Emojot",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "C0023"
+                },
+                {
+                  "id": "customerName",
+                  "value": "New Emojot"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C0024",
+          "name": "New Emojot 02",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "C0024"
+                },
+                {
+                  "id": "customerName",
+                  "value": "New Emojot 02"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "locationName": {
+      "name": "Location Name",
+      "type": "string"
+    },
+    "locationCategory": {
+      "name": "Location Category",
+      "type": "string"
+    },
+    "addressNo": {
+      "name": "Address No.",
+      "type": "string"
+    },
+    "lane": {
+      "name": "Lane",
+      "type": "string"
+    },
+    "street": {
+      "name": "Street",
+      "type": "string"
+    },
+    "city": {
+      "name": "City",
+      "type": "string"
+    },
+    "route": {
+      "name": "Route",
+      "type": "string"
+    },
+    "subRoute": {
+      "name": "Sub Route",
+      "type": "string"
+    },
+    "primaryTelephone": {
+      "name": "Primary Telephone",
+      "type": "string"
+    },
+    "secondaryTelephone": {
+      "name": "Secondary Telephone",
+      "type": "string"
+    },
+    "fax": {
+      "name": "Fax",
+      "type": "string"
+    },
+    "email": {
+      "name": "Email",
+      "type": "string"
+    },
+    "contactPersonName": {
+      "name": "Contact Person Name",
+      "type": "string"
+    },
+    "contactPersonTelephone": {
+      "name": "Contact Person Telephone",
+      "type": "string"
+    },
+    "useCustomerAddress": {
+      "name": "Use Customer Address",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Yes",
+          "name": "Yes"
+        },
+        {
+          "id": "No",
+          "name": "No"
+        }
+      ]
+    }
+  },
+  "tableEdit": "true",
+  "consoleIncidentCreation": {
+    "buttonName": "Add Location",
+    "dialogTitle": "Add Location",
+    "dialogSubtitle": "Please fill this form to create a new location",
+    "fields": [
+      {
+        "key": "customerName",
+        "label": "Select Customer Name",
+        "target": "customerName",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "locationName",
+        "label": "Location Name",
+        "target": "locationName",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "locationCategory",
+        "label": "Location Category",
+        "target": "locationCategory",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "addressNo",
+        "label": "Address No.",
+        "target": "addressNo",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "lane",
+        "label": "Lane",
+        "target": "lane",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "street",
+        "label": "Street",
+        "target": "street",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "city",
+        "label": "City",
+        "target": "city",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "route",
+        "label": "Route",
+        "target": "route",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "subRoute",
+        "label": "Sub Route",
+        "target": "subRoute",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "primaryTelephone",
+        "label": "Primary Telephone",
+        "target": "primaryTelephone",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "secondaryTelephone",
+        "label": "Secondary Telephone",
+        "target": "secondaryTelephone",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "fax",
+        "label": "Fax",
+        "target": "fax",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "email",
+        "label": "Email",
+        "target": "email",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "contactPersonName",
+        "label": "Contact Person Name",
+        "target": "contactPersonName",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "contactPersonTelephone",
+        "label": "Contact Person Telephone",
+        "target": "contactPersonTelephone",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "useCustomerAddress",
+        "label": "Use Customer Address",
+        "target": "useCustomerAddress",
+        "fieldType": "enum",
+        "required": true
+      }
+    ]
+  },
+  "incidentKeyFormat": {
+    "enabled": true,
+    "countDependentFields": {
+      "enabled": true,
+      "fields": [
+        "customerCode"
+      ]
+    },
+    "pattern": [
+      {
+        "key": "customerCode"
+      },
+      {
+        "key": "type",
+        "format": "mapping"
+      },
+      {
+        "key": "counter",
+        "format": 4
+      }
+    ],
+    "counterReset": "never",
+    "fieldMappings": {
+      "type": {
+        "mappings": {},
+        "default": "_L"
+      }
+    }
+  }
+}

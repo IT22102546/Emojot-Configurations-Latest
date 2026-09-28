@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Manrope', Arial, sans-serif; color: #000; background: transparent; }
+        .thank-you-section { min-height: 520px; display: flex; align-items: center; justify-content: center; padding: 34px 20px; }
+        .thank-you-card { position: relative; width: 100%; max-width: 720px; padding: 52px 42px 44px; overflow: hidden; text-align: center; background: rgba(255,255,255,.94); border: 2px solid #000; border-radius: 22px; box-shadow: 0 18px 44px rgba(0,0,0,.14); }
+        .thank-you-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 8px; background: #FFCB05; }
+        .thank-you-card::after { content: ""; position: absolute; width: 210px; height: 210px; right: -105px; bottom: -115px; border-radius: 50%; background: rgba(255,203,5,.22); }
+        .feedback-icon { position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; width: 80px; height: 80px; margin: 0 auto 22px; color: #000; background: #FFCB05; border: 2px solid #000; border-radius: 50%; box-shadow: 0 9px 20px rgba(0,0,0,.16); }
+        .feedback-icon svg { width: 38px; height: 38px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+        .eyebrow { display: inline-block; margin-bottom: 10px; color: #000; font-size: 13px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; }
+        h1 { margin-bottom: 16px; color: #000; font-size: 38px; font-weight: 800; line-height: 1.2; letter-spacing: -1px; }
+        .message { max-width: 580px; margin: 0 auto 27px; color: #3f3f3f; font-size: 17px; font-weight: 500; line-height: 1.65; }
+        .message strong { color: #000; font-weight: 800; }
+        .review-button { position: relative; z-index: 2; display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: fit-content; margin: 0 auto 22px; padding: 14px 25px; color: #000; background: #FFCB05; border: 2px solid #000; border-radius: 40px; box-shadow: 0 7px 16px rgba(0,0,0,.16); font-size: 15px; font-weight: 800; text-decoration: none; transition: transform .18s ease, background .18s ease; }
+        .review-button:hover { color: #FFCB05; background: #000; transform: translateY(-2px); }
+        .review-button svg { width: 21px; height: 21px; flex: 0 0 21px; }
+        .feedback-status { position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 11px 20px; color: #000; background: #FFF4BD; border: 1px solid #000; border-radius: 40px; font-size: 14px; font-weight: 800; }
+        .feedback-status svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+        .bottom-note { position: relative; z-index: 1; margin-top: 21px; color: #666; font-size: 13px; line-height: 1.5; }
+        .bottom-note strong { color: #000; font-weight: 800; }
+        @media (max-width: 600px) {
+            .thank-you-section { min-height: 460px; padding: 24px 14px; }
+            .thank-you-card { padding: 40px 20px 34px; border-radius: 17px; }
+            .feedback-icon { width: 68px; height: 68px; margin-bottom: 19px; }
+            .feedback-icon svg { width: 32px; height: 32px; }
+            h1 { font-size: 28px; }
+            .message { font-size: 15px; line-height: 1.6; }
+            .review-button { width: 100%; padding: 12px 16px; font-size: 14px; }
+            .feedback-status { width: 100%; padding: 10px 13px; font-size: 13px; }
+        }
+    </style>
+</head>
+<body>
+    <section class="thank-you-section">
+        <div class="thank-you-card">
+            <div class="feedback-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg>
+            </div>
+            <span class="eyebrow">Your Feedback Matters</span>
+            <h1>Thank You for Sharing!</h1>
+            <p class="message">We are delighted to hear about your positive experience. Your feedback encourages us to keep delivering the <strong>service you value</strong>.</p>
+            <a id="google-review-button" class="review-button" href="#" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.9h5.4a4.6 4.6 0 0 1-2 3v2.5h3.3c1.9-1.8 2.9-4.4 2.9-7.4z"></path>
+                    <path fill="#34A853" d="M12 22c2.7 0 5-.9 6.7-2.4l-3.3-2.5c-.9.6-2.1 1-3.4 1a5.9 5.9 0 0 1-5.5-4.1H3.1v2.6A10 10 0 0 0 12 22z"></path>
+                    <path fill="#FBBC05" d="M6.5 14a6 6 0 0 1 0-3.9V7.4H3.1a10 10 0 0 0 0 9.2L6.5 14z"></path>
+                    <path fill="#EA4335" d="M12 5.9c1.5 0 2.8.5 3.9 1.5l2.9-2.9A9.8 9.8 0 0 0 3.1 7.4l3.4 2.7A5.9 5.9 0 0 1 12 5.9z"></path>
+                </svg>
+                Review us on Google
+            </a>
+            <div class="feedback-status">
+                <svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"></path></svg>
+                Your feedback has been received
+            </div>
+            <p class="bottom-note"><strong>Thank you for choosing MTNCelMate.</strong></p>
+        </div>
+    </section>
+    <span id="celmate-store-value-emojot" hidden>$$emoSignature_Store_value$$</span>
+    <span id="celmate-store-value-braces" hidden>{Store}</span>
+    <span id="celmate-store-value-single-dollar" hidden>$Store$</span>
+    <span id="celmate-store-value-double-dollar" hidden>$$Store$$</span>
+    <script>
+        (function () {
+            const placeIds = {
+                'EH Alberton City Mall L111': 'ChIJlSi_9AQQlR4R4R9BHC2b0NM',
+                'Alberton City Mall L111': 'ChIJlSi_9AQQlR4R4R9BHC2b0NM',
+                'Eastgate Shopping Centre L33': 'ChIJg6GW6wESlR4RPvBejvTbPfM',
+                'Eastgate Shopping Centre U76B': 'ChIJ-WsEJWETlR4RakhlrCWaXO0',
+                'Mall of the South F066': 'ChIJ8wbFbAsFlR4RZb6tLMobfkY',
+                'The Glen Shopping Centre M44': 'ChIJQVtG6fcPlR4RPiL8ON8FVK0'
+            };
+
+            const reviewButton = document.getElementById('google-review-button');
+
+            function normalise(value) {
+                return String(value || '')
+                    .replace(/\s+/g, ' ')
+                    .trim()
+                    .toLowerCase();
+            }
+
+            function isUnresolvedPlaceholder(value) {
+                return !value || /^(\{store\}|\$store\$|\$\$store\$\$|\$\$emosignature_store_value\$\$)$/i.test(value.trim());
+            }
+
+            function getAvailablePageUrls() {
+                const urls = [window.location.href, document.referrer];
+
+                try { urls.push(window.parent.location.href); } catch (error) {}
+                try { urls.push(window.top.location.href); } catch (error) {}
+
+                return urls.filter(Boolean);
+            }
+
+            function getStoreFromEmoSignature() {
+                const urls = getAvailablePageUrls();
+
+                for (const pageUrl of urls) {
+                    try {
+                        const encoded = new URL(pageUrl, window.location.href)
+                            .searchParams.get('emoSignature');
+
+                        if (!encoded) continue;
+
+                        const base64 = encoded
+                            .replace(/-/g, '+')
+                            .replace(/_/g, '/')
+                            .padEnd(Math.ceil(encoded.length / 4) * 4, '=');
+
+                        const decoded = decodeURIComponent(
+                            Array.prototype.map.call(atob(base64), function (character) {
+                                return '%' + ('00' + character.charCodeAt(0).toString(16)).slice(-2);
+                            }).join('')
+                        );
+
+                        const fields = decoded.split('__');
+
+                        for (const field of fields) {
+                            const separatorIndex = field.indexOf('~~');
+                            if (separatorIndex === -1) continue;
+
+                            const key = field.slice(0, separatorIndex).trim().toLowerCase();
+                            const value = field.slice(separatorIndex + 2).trim();
+
+                            if (key === 'store' && value) return value;
+                        }
+                    } catch (error) {}
+                }
+
+                return '';
+            }
+
+            const query = new URLSearchParams(window.location.search);
+            const candidates = [
+                getStoreFromEmoSignature(),
+                document.getElementById('celmate-store-value-emojot').textContent,
+                document.getElementById('celmate-store-value-braces').textContent,
+                document.getElementById('celmate-store-value-single-dollar').textContent,
+                document.getElementById('celmate-store-value-double-dollar').textContent,
+                query.get('Store'),
+                query.get('store'),
+                window.Store
+            ].filter(function (value) {
+                return !isUnresolvedPlaceholder(String(value || ''));
+            });
+
+            let placeId = '';
+
+            candidates.some(function (candidate) {
+                /* Also accepts a combined value such as "Store name - ChIJ...". */
+                const embeddedPlaceId = String(candidate).match(/ChIJ[A-Za-z0-9_-]+/);
+                if (embeddedPlaceId) {
+                    placeId = embeddedPlaceId[0];
+                    return true;
+                }
+
+                const candidateName = normalise(candidate);
+                const matchedStore = Object.keys(placeIds).find(function (storeName) {
+                    const expectedName = normalise(storeName);
+                    return candidateName === expectedName ||
+                        candidateName.includes(expectedName) ||
+                        expectedName.includes(candidateName);
+                });
+
+                if (matchedStore) {
+                    placeId = placeIds[matchedStore];
+                    return true;
+                }
+
+                return false;
+            });
+
+            if (placeId) {
+                const reviewUrl = 'https://search.google.com/local/writereview?placeid=' + encodeURIComponent(placeId);
+                reviewButton.href = reviewUrl;
+
+                /* Automatically continue to the correct store review form. */
+                setTimeout(function () {
+                    window.location.href = reviewUrl;
+                }, 2000);
+            } else {
+                reviewButton.removeAttribute('target');
+                reviewButton.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    alert('Google Review is unavailable because the store information was not received.');
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

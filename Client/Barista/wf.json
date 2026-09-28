@@ -1,0 +1,866 @@
+{
+  "reportNamePrefix": "Complaint",
+  "reporterNamePrefix": "Customer",
+  "descriptionFormat": "text",
+  "type": {
+    "name": "Channel",
+    "readOnly": true,
+    "type": "enum",
+    "values": [
+      {
+        "id": "customerSatisfactionSurvey",
+        "name": "Customer Satisfaction Survey"
+      },
+      {
+        "id": "googleMap",
+        "name": "Google"
+      },
+      {
+        "id": "facebook",
+        "name": "Facebook"
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Open",
+        "name": "Open"
+      },
+      {
+        "id": "In Progress",
+        "name": "In Progress",
+        "triggers": [
+          {
+            "channel": "fieldChange",
+            "condition": {
+              "and": [
+                {
+                  "==": [
+                    {
+                      "var": "status"
+                    },
+                    "In Progress"
+                  ]
+                }
+              ]
+            },
+            "changingFields": [
+              {
+                "id": "priority",
+                "value": "Medium"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Resolved",
+        "name": "Resolved",
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "complaintResolutionAlert",
+            "target": "admin",
+            "contactFilters": [
+              "ticketResolutionAlert"
+            ],
+            "adminUserQuery": {
+              "condition": {
+                "==": [
+                  {
+                    "var": "type"
+                  },
+                  "customerSatisfactionSurvey"
+                ]
+              },
+              "rules": [
+                {
+                  "field": "type",
+                  "operator": "eq",
+                  "value": "$type$"
+                }
+              ]
+            }
+          },
+          {
+            "channel": "email",
+            "template": "complaintResolutionAlert_orm",
+            "target": "admin",
+            "condition": {
+              "!=": [
+                {
+                  "var": "type"
+                },
+                "customerSatisfactionSurvey"
+              ]
+            },
+            "adminUserQuery": {
+              "condition": {
+                "!=": [
+                  {
+                    "var": "type"
+                  },
+                  "customerSatisfactionSurvey"
+                ]
+              },
+              "rules": [
+                {
+                  "field": "type",
+                  "operator": "eq",
+                  "value": "$type$"
+                }
+              ]
+            }
+          },
+          {
+            "template": "complaintResolution_customer",
+            "channel": "email",
+            "target": "customer",
+            "appendEditUrl": false,
+            "adminUserQuery": {
+              "condition": {
+                "==": [
+                  {
+                    "var": "type"
+                  },
+                  "complaintManagementSurvey"
+                ]
+              },
+              "rules": [
+                {
+                  "field": "type",
+                  "operator": "eq",
+                  "value": "$type$"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "transitions": [
+      {
+        "sourceState": "Open",
+        "targetStates": [
+          "In Progress"
+        ]
+      },
+      {
+        "sourceState": "In Progress",
+        "targetStates": [
+          "Resolved"
+        ]
+      },
+      {
+        "sourceState": "Resolved",
+        "targetStates": []
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Low",
+        "name": "Low"
+      },
+      {
+        "id": "Medium",
+        "name": "Medium"
+      },
+      {
+        "id": "High",
+        "name": "High"
+      }
+    ]
+  },
+  "timeSpent": {
+    "name": "Time spent",
+    "type": "time_accumulation",
+    "hidden": true
+  },
+  "customFields": {
+    "category": {
+      "name": "Complaint Category",
+      "type": "multiselect",
+      "readOnly": true,
+      "hidden": true,
+      "values": [
+        {
+          "id": "Staff",
+          "name": "Staff"
+        },
+        {
+          "id": "Facilities",
+          "name": "Facilities"
+        },
+        {
+          "id": "Food Taste/Quality",
+          "name": "Food Taste/Quality"
+        },
+        {
+          "id": "Beverage Taste/Quality",
+          "name": "Beverage Taste/Quality"
+        },
+        {
+          "id": "Value for Money",
+          "name": "Value for Money"
+        },
+        {
+          "id": "Service Speed",
+          "name": "Service Speed"
+        }
+      ]
+    },
+    "rating": {
+      "name": "NPS Rating",
+      "readOnly": true,
+      "type": "string",
+      "hidden": true
+    },
+    "location": {
+      "name": "Location",
+      "readOnly": true,
+      "type": "enum",
+      "hidden": true,
+      "values": [
+        {
+          "id": "Airport",
+          "name": "Airport"
+        },
+        {
+          "id": "Athurugiriya",
+          "name": "Athurugiriya"
+        },
+        {
+          "id": "Anuradhapura",
+          "name": "Anuradhapura"
+        },
+        {
+          "id": "Bambalapitiya",
+          "name": "Bambalapitiya"
+        },
+        {
+          "id": "Barista at DoubleXL",
+          "name": "Barista at DoubleXL"
+        },
+        {
+          "id": "BIA Kiosk",
+          "name": "BIA Kiosk"
+        },
+        {
+          "id": "Boralesgamuwa",
+          "name": "Boralesgamuwa"
+        },
+        {
+          "id": "Cafe Mocha by Barista",
+          "name": "Cafe Mocha by Barista"
+        },
+        {
+          "id": "Caramel Pumpkin",
+          "name": "Caramel Pumpkin"
+        },
+        {
+          "id": "Dehiwala",
+          "name": "Dehiwala"
+        },
+        {
+          "id": "Ella",
+          "name": "Ella"
+        },
+        {
+          "id": "Ethul Kotte",
+          "name": "Ethul Kotte"
+        },
+        {
+          "id": "Galle Fort",
+          "name": "Galle Fort"
+        },
+        {
+          "id": "Horton Place",
+          "name": "Horton Place"
+        },
+        {
+          "id": "Jaela",
+          "name": "Jaela"
+        },
+        {
+          "id": "Jaffna",
+          "name": "Jaffna"
+        },
+        {
+          "id": "Kandy Diner",
+          "name": "Kandy Diner"
+        },
+        {
+          "id": "Katubedda",
+          "name": "Katubedda"
+        },
+        {
+          "id": "Kohuwala",
+          "name": "Kohuwala"
+        },
+        {
+          "id": "Kottawa",
+          "name": "Kottawa"
+        },
+        {
+          "id": "Kiribathgoda",
+          "name": "Kiribathgoda"
+        },
+        {
+          "id": "Kurunegala 2",
+          "name": "Kurunegala 2"
+        },
+        {
+          "id": "Kurunegala Diner",
+          "name": "Kurunegala Diner"
+        },
+        {
+          "id": "Laksala",
+          "name": "Laksala"
+        },
+        {
+          "id": "Maharagama",
+          "name": "Maharagama"
+        },
+        {
+          "id": "Maharagama Diner",
+          "name": "Maharagama Diner"
+        },
+        {
+          "id": "Malabe",
+          "name": "Malabe"
+        },
+        {
+          "id": "Matara",
+          "name": "Matara"
+        },
+        {
+          "id": "Mirissa",
+          "name": "Mirissa"
+        },
+        {
+          "id": "Mount Lavinia",
+          "name": "Mount Lavinia"
+        },
+        {
+          "id": "Moratuwa",
+          "name": "Moratuwa"
+        },
+        {
+          "id": "Nawala",
+          "name": "Nawala"
+        },
+        {
+          "id": "Nawam Mawatha",
+          "name": "Nawam Mawatha"
+        },
+        {
+          "id": "Negombo Diner",
+          "name": "Negombo Diner"
+        },
+        {
+          "id": "Nugegoda Diner",
+          "name": "Nugegoda Diner"
+        },
+        {
+          "id": "Nugegoda Express",
+          "name": "Nugegoda Express"
+        },
+        {
+          "id": "Nuwara Eliya",
+          "name": "Nuwara Eliya"
+        },
+        {
+          "id": "Online",
+          "name": "Online"
+        },
+        {
+          "id": "Orion City",
+          "name": "Orion City"
+        },
+        {
+          "id": "Piliyandala",
+          "name": "Piliyandala"
+        },
+        {
+          "id": "Rajagiriya",
+          "name": "Rajagiriya"
+        },
+        {
+          "id": "Seeduwa",
+          "name": "Seeduwa"
+        },
+        {
+          "id": "Sigiriya",
+          "name": "Sigiriya"
+        },
+        {
+          "id": "Staple Street",
+          "name": "Staple Street"
+        },
+        {
+          "id": "Thalawathugoda",
+          "name": "Thalawathugoda"
+        },
+        {
+          "id": "Thimbirigasyaya",
+          "name": "Thimbirigasyaya"
+        },
+        {
+          "id": "Wattala Diner",
+          "name": "Wattala Diner"
+        },
+        {
+          "id": "Welipenna A",
+          "name": "Welipenna A"
+        },
+        {
+          "id": "Welipenna B",
+          "name": "Welipenna B"
+        },
+        {
+          "id": "World Trade Center",
+          "name": "World Trade Center"
+        },
+        {
+          "id": "Yakkala",
+          "name": "Yakkala"
+        },
+        {
+          "id": "Shanthipura",
+          "name": "Shanthipura"
+        },
+        {
+          "id": "Pepiliyana",
+          "name": "Pepiliyana"
+        },
+        {
+          "id": "Kadawatha",
+          "name": "Kadawatha"
+        },
+        {
+          "id": "Pasyala",
+          "name": "Pasyala"
+        },
+        {
+          "id": "Pallekale",
+          "name": "Pallekale"
+        },
+        {
+          "id": "Panadura",
+          "name": "Panadura"
+        },
+        {
+          "id": "Pannipitiya",
+          "name": "Pannipitiya"
+        },
+        {
+          "id": "Perahera Mawatha",
+          "name": "Perahera Mawatha"
+        },
+        {
+          "id": "Galle",
+          "name": "Galle"
+        },
+        {
+          "id": "Mirihana",
+          "name": "Mirihana"
+        },
+        {
+          "id": "Mattala",
+          "name": "Mattala"
+        },
+        {
+          "id": "Udawalawa",
+          "name": "Udawalawa"
+        },
+        {
+          "id": "Bandarawela",
+          "name": "Bandarawela"
+        },
+        {
+          "id": "Biyagama",
+          "name": "Biyagama"
+        },
+        {
+          "id": "Jaffna Diner",
+          "name": "Jaffna Diner"
+        },
+        {
+          "id": "WSO2",
+          "name": "WSO2"
+        },
+        {
+          "id": "Mulleriyawa",
+          "name": "Mulleriyawa"
+        },
+        {
+          "id": "Delkanda",
+          "name": "Delkanda"
+        },
+        {
+          "id": "Trillium",
+          "name": "Trillium"
+        },
+        {
+          "id": "NSBM",
+          "name": "NSBM"
+        },
+        {
+          "id": "Wellawatte",
+          "name": "Wellawatte"
+        },
+        {
+          "id": "Narahenpita",
+          "name": "Narahenpita"
+        },
+        {
+          "id": "Horana",
+          "name": "Horana"
+        },
+        {
+          "id": "Mobile Truck",
+          "name": "Mobile Truck"
+        },
+        {
+          "id": "Kollupitiya",
+          "name": "Kollupitiya"
+        },
+        {
+          "id": "Narahenpita CP",
+          "name": "Narahenpita CP"
+        },
+        {
+          "id": "Unawatuna",
+          "name": "Unawatuna"
+        },
+        {
+          "id": "Kandy City",
+          "name": "Kandy City"
+        },
+        {
+          "id": "Narahenpita IOC",
+          "name": "Narahenpita IOC"
+        },
+        {
+          "id": "Wattala Kelly Felder",
+          "name": "Wattala Kelly Felder"
+        },
+        {
+          "id": "Kochchikade",
+          "name": "Kochchikade"
+        },
+        {
+          "id": "Arcade",
+          "name": "Arcade"
+        },
+        {
+          "id": "Wennappuwa",
+          "name": "Wennappuwa"
+        },
+        {
+          "id": "Battaramulla",
+          "name": "Battaramulla"
+        },
+        {
+          "id": "Ahangama",
+          "name": "Ahangama"
+        },
+        {
+          "id": "Castle Street",
+          "name": "Castle Street"
+        },
+        {
+          "id": "Lady J",
+          "name": "Lady J"
+        },
+        {
+          "id": "Polonnaruwa",
+          "name": "Polonnaruwa"
+        },
+        {
+          "id": "Port City",
+          "name": "Port City"
+        },
+        {
+          "id": "Madiwela",
+          "name": "Madiwela"
+        },
+        {
+          "id": "Ministry of Brands",
+          "name": "Ministry of Brands"
+        },
+        {
+          "id": "Sujatha School",
+          "name": "Sujatha School"
+        },
+        {
+          "id": "Hiriketiya",
+          "name": "Hiriketiya"
+        },
+        {
+          "id": "Dambulla ",
+          "name": "Dambulla "
+        },
+        {
+          "id": "Duplication Road",
+          "name": "Duplication Road"
+        },
+        {
+          "id": "Kataragama",
+          "name": "Kataragama"
+        },
+        {
+          "id": "Arugambay",
+          "name": "Arugambay"
+        },
+        {
+          "id": "Baseline",
+          "name": "Baseline"
+        },
+        {
+          "id": "Habarana",
+          "name": "Habarana"
+        },
+        {
+          "id": "Trincomalee",
+          "name": "Trincomalee"
+        }
+      ]
+    },
+    "customerComment": {
+      "name": "Customer Comment",
+      "type": "textArea",
+      "readOnly": true,
+      "hidden": true,
+      "wfd_boundComment": {
+        "page": {
+          "pageID": "p5529",
+          "pageName": "Comment"
+        },
+        "comment": {
+          "commentID": "c1",
+          "commentName": "Help us improve! Tell us what you think about Barista."
+        }
+      }
+    },
+    "media": {
+      "name": "Customer's Attachment",
+      "type": "file",
+      "readOnly": true
+    },
+    "satisfactionValue": {
+      "name": "Satisfaction",
+      "type": "enum",
+      "hidden": true,
+      "values": [
+        {
+          "id": "Love It",
+          "name": "Love It",
+          "triggers": [
+            {
+              "channel": "sms",
+              "template": "3_in_1_customer",
+              "target": "customer",
+              "condition": {
+                "==": [
+                  {
+                    "var": "satisfactionValue"
+                  },
+                  "Love It"
+                ]
+              },
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "location",
+                    "operator": "eq",
+                    "value": "$location$"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "Great",
+          "name": "Great"
+        },
+        {
+          "id": "Bad",
+          "name": "Bad"
+        },
+        {
+          "id": "Poor",
+          "name": "Poor"
+        }
+      ]
+    },
+    "Google Review": {
+      "name": "Google Review",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "Facebook Link": {
+      "name": "Facebook Review",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    },
+    "Trip Advisor Link": {
+      "name": "Trip Advisor Review",
+      "type": "string",
+      "readOnly": true,
+      "hidden": true
+    }
+  },
+  "workflowCreation": {
+    "email": "bot@emojot.com",
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "complaintCreationAlert",
+        "target": "admin",
+        "contactFilters": [
+          "ticketCreationAlert"
+        ],
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "customerSatisfactionSurvey"
+          ]
+        },
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "location",
+              "operator": "eq",
+              "value": "$location$"
+            }
+          ]
+        }
+      },
+      {
+        "channel": "email",
+        "template": "complaintCreationAlert_orm",
+        "target": "admin",
+        "condition": {
+          "!=": [
+            {
+              "var": "type"
+            },
+            "customerSatisfactionSurvey"
+          ]
+        },
+        "contactFilters": [
+          "ticketCreationAlert"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "location",
+              "operator": "eq",
+              "value": "$location$"
+            }
+          ]
+        }
+      },
+      {
+        "channel": "sms",
+        "template": "3_in_1_internal",
+        "target": "admin",
+        "appendEditUrl": true,
+        "contactFilters": [
+          "ticketCreationAlert"
+        ],
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "customerSatisfactionSurvey"
+          ]
+        },
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "location",
+              "operator": "eq",
+              "value": "$location$"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "adminHierarchy": {
+    "list": "admin",
+    "headers": [
+      {
+        "id": "location",
+        "name": "Location",
+        "type": "customField"
+      },
+      {
+        "id": "ticketAssignee",
+        "name": "Ticket Assignee",
+        "type": "contact"
+      },
+      {
+        "id": "ticketCreationAlert",
+        "name": "Ticket Creation Alert",
+        "type": "contact"
+      },
+      {
+        "id": "ticketResolutionAlert",
+        "name": "Ticket Resolution Alert",
+        "type": "contact"
+      }
+    ],
+    "id": "AHI_1721463473000_1740973916"
+  },
+  "name": "Complaint Management + ORM",
+  "assignment": {
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "complaintAssignment",
+        "target": "employee",
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "customerSatisfactionSurvey"
+          ]
+        }
+      },
+      {
+        "channel": "email",
+        "template": "complaintAssignment_orm",
+        "target": "employee",
+        "condition": {
+          "!=": [
+            {
+              "var": "type"
+            },
+            "customerSatisfactionSurvey"
+          ]
+        }
+      }
+    ]
+  }
+}

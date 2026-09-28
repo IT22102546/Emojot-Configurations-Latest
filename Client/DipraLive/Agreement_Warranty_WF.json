@@ -1,0 +1,577 @@
+{
+  "name": "Dipra_Agreement_Warranty_WF",
+  "reportNamePrefix": "Agreement",
+  "reporterNamePrefix": "Submitted By",
+  "nameTemplate": "$agreementNumber$ - $customerName$",
+  "descriptionTemplate": "$agreementType$ for machine $machineId$",
+  "descriptionFormat": "text",
+  "timeZone": -330,
+  "type": {
+    "name": "Record Type",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Agreement / Warranty",
+        "name": "Agreement / Warranty",
+        "highPriorityFields": [
+          "agreementNumber",
+          "agreementDate",
+          "agreementType",
+          "customerName",
+          "customerCode",
+          "supplierName",
+          "supplierCode",
+          "locationName",
+          "locationCode",
+          "productName",
+          "productCode",
+          "serialNumber",
+          "machineId",
+          "effectiveFrom",
+          "effectiveTo",
+          "firstServiceDate",
+          "serviceInterval",
+          "serviceIntervalUnit",
+          "numberOfServices",
+          "currentCompletedServices",
+          "agreementValue",
+          "additionalValue",
+          "amountReceived",
+          "nextAgreementReminderDate",
+          "priorPermissionNeeded",
+          "customerApproved",
+          "terminationDate",
+          "terminationReason",
+          "remarks",
+          "completedServicesDate"
+        ]
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Low",
+        "name": "Low"
+      },
+      {
+        "id": "Medium",
+        "name": "Medium"
+      },
+      {
+        "id": "High",
+        "name": "High"
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "transitions": [
+      {
+        "sourceState": "Draft",
+        "targetStates": [
+          "Pending Approval"
+        ]
+      },
+      {
+        "sourceState": "Pending Approval",
+        "targetStates": [
+          "Active",
+          "Rejected"
+        ]
+      },
+      {
+        "sourceState": "Rejected",
+        "targetStates": [
+          "Draft"
+        ]
+      },
+      {
+        "sourceState": "Active",
+        "targetStates": [
+          "Completed",
+          "Expired",
+          "Terminated"
+        ]
+      }
+    ],
+    "values": [
+      {
+        "id": "Draft",
+        "name": "Draft",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000"
+      },
+      {
+        "id": "Pending Approval",
+        "name": "Pending Approval",
+        "backgroundColor": "#f39c12",
+        "textColor": "#ffffff"
+      },
+      {
+        "id": "Active",
+        "name": "Active",
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff"
+      },
+      {
+        "id": "Rejected",
+        "name": "Rejected",
+        "backgroundColor": "#c0392b",
+        "textColor": "#ffffff"
+      },
+      {
+        "id": "Completed",
+        "name": "Completed",
+        "finalState": true,
+        "backgroundColor": "#2980b9",
+        "textColor": "#ffffff"
+      },
+      {
+        "id": "Expired",
+        "name": "Expired",
+        "finalState": true,
+        "backgroundColor": "#7f8c8d",
+        "textColor": "#ffffff"
+      },
+      {
+        "id": "Terminated",
+        "name": "Terminated",
+        "finalState": true,
+        "backgroundColor": "#2c3e50",
+        "textColor": "#ffffff"
+      }
+    ]
+  },
+  "customFields": {
+    "agreementNumber": {
+      "name": "Agreement Number",
+      "type": "string"
+    },
+    "agreementDate": {
+      "name": "Agreement Date",
+      "type": "date"
+    },
+    "agreementType": {
+      "name": "Agreement Type",
+      "type": "string"
+    },
+    "customerCode": {
+      "name": "Customer Code",
+      "type": "string",
+      "readOnly": true
+    },
+    "customerName": {
+      "name": "Select Customer Name",
+      "type": "enum",
+      "values": [
+        {
+          "id": "C0001",
+          "name": "Saranga Gamage"
+        },
+        {
+          "id": "C0002",
+          "name": "Shaveen Fernandaz"
+        },
+        {
+          "id": "C0003",
+          "name": "Fernandaz"
+        },
+        {
+          "id": "C0004",
+          "name": "Manura"
+        },
+        {
+          "id": "C0005",
+          "name": "Emojot"
+        },
+        {
+          "id": "C0006",
+          "name": "Sanjana Nimesh"
+        },
+        {
+          "id": "C0007",
+          "name": "Nimesh Sanjana"
+        }
+      ]
+    },
+    "supplierCode": {
+      "name": "Supplier Code",
+      "type": "string",
+      "readOnly": true
+    },
+    "supplierName": {
+      "name": "Select Supplier Name",
+      "type": "enum",
+      "values": []
+    },
+    "locationCode": {
+      "name": "Location Code",
+      "type": "string",
+      "readOnly": true
+    },
+    "locationName": {
+      "name": "Select Location Name",
+      "type": "enum",
+      "values": [
+        {
+          "id": "1",
+          "name": "Emojot Colombo"
+        }
+      ]
+    },
+    "productCode": {
+      "name": "Product Code",
+      "type": "string",
+      "readOnly": true
+    },
+    "productName": {
+      "name": "Select Product Name",
+      "type": "enum",
+      "values": []
+    },
+    "machineId": {
+      "name": "Machine ID",
+      "type": "string",
+      "readOnly": true
+    },
+    "serialNumber": {
+      "name": "Select Installed Machine",
+      "type": "enum",
+      "values": []
+    },
+    "effectiveFrom": {
+      "name": "Effective From",
+      "type": "date"
+    },
+    "effectiveTo": {
+      "name": "Effective To",
+      "type": "date"
+    },
+    "firstServiceDate": {
+      "name": "First Service Date",
+      "type": "date"
+    },
+    "serviceInterval": {
+      "name": "Service Interval",
+      "type": "number"
+    },
+    "serviceIntervalUnit": {
+      "name": "Service Interval Unit",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Days",
+          "name": "Days"
+        },
+        {
+          "id": "Weeks",
+          "name": "Weeks"
+        },
+        {
+          "id": "Months",
+          "name": "Months"
+        },
+        {
+          "id": "Years",
+          "name": "Years"
+        }
+      ]
+    },
+    "numberOfServices": {
+      "name": "Number of Services",
+      "type": "number"
+    },
+    "currentCompletedServices": {
+      "name": "Current / Completed Services",
+      "type": "number"
+    },
+    "agreementValue": {
+      "name": "Agreement Value",
+      "type": "number"
+    },
+    "additionalValue": {
+      "name": "Additional Value",
+      "type": "number"
+    },
+    "amountReceived": {
+      "name": "Amount Received",
+      "type": "number"
+    },
+    "nextAgreementReminderDate": {
+      "name": "Next Agreement Reminder Date",
+      "type": "date"
+    },
+    "priorPermissionNeeded": {
+      "name": "Prior Permission Needed",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Yes",
+          "name": "Yes"
+        },
+        {
+          "id": "No",
+          "name": "No"
+        }
+      ]
+    },
+    "customerApproved": {
+      "name": "Customer Approved",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Pending",
+          "name": "Pending"
+        },
+        {
+          "id": "Yes",
+          "name": "Yes"
+        },
+        {
+          "id": "No",
+          "name": "No"
+        }
+      ]
+    },
+    "terminationDate": {
+      "name": "Termination Date",
+      "type": "date"
+    },
+    "terminationReason": {
+      "name": "Termination Reason",
+      "type": "textArea"
+    },
+    "remarks": {
+      "name": "Remarks",
+      "type": "textArea"
+    },
+    "completedServicesDate": {
+      "name": "Completed Services Date",
+      "type": "date"
+    }
+  },
+  "tableEdit": "true",
+  "finalState": true,
+  "consoleIncidentCreation": {
+    "buttonName": "Add Agreement / Warranty",
+    "dialogTitle": "Add Agreement / Warranty",
+    "dialogSubtitle": "Please fill this form to create a new agreement or warranty",
+    "fields": [
+      {
+        "key": "agreementNumber",
+        "label": "Agreement Number",
+        "target": "agreementNumber",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "agreementDate",
+        "label": "Agreement Date",
+        "target": "agreementDate",
+        "fieldType": "date",
+        "required": true
+      },
+      {
+        "key": "agreementType",
+        "label": "Agreement Type",
+        "target": "agreementType",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "customerCode",
+        "label": "Customer Code",
+        "target": "customerCode",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "customerName",
+        "label": "Select Customer Name",
+        "target": "customerName",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "supplierCode",
+        "label": "Supplier Code",
+        "target": "supplierCode",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "supplierName",
+        "label": "Select Supplier Name",
+        "target": "supplierName",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "locationCode",
+        "label": "Location Code",
+        "target": "locationCode",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "locationName",
+        "label": "Select Location Name",
+        "target": "locationName",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "productCode",
+        "label": "Product Code",
+        "target": "productCode",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "productName",
+        "label": "Select Product Name",
+        "target": "productName",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "machineId",
+        "label": "Machine ID",
+        "target": "machineId",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "serialNumber",
+        "label": "Select Installed Machine",
+        "target": "serialNumber",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "effectiveFrom",
+        "label": "Effective From",
+        "target": "effectiveFrom",
+        "fieldType": "date",
+        "required": true
+      },
+      {
+        "key": "effectiveTo",
+        "label": "Effective To",
+        "target": "effectiveTo",
+        "fieldType": "date",
+        "required": true
+      },
+      {
+        "key": "firstServiceDate",
+        "label": "First Service Date",
+        "target": "firstServiceDate",
+        "fieldType": "date",
+        "required": false
+      },
+      {
+        "key": "serviceInterval",
+        "label": "Service Interval",
+        "target": "serviceInterval",
+        "fieldType": "number",
+        "required": false
+      },
+      {
+        "key": "serviceIntervalUnit",
+        "label": "Service Interval Unit",
+        "target": "serviceIntervalUnit",
+        "fieldType": "enum",
+        "required": false
+      },
+      {
+        "key": "numberOfServices",
+        "label": "Number of Services",
+        "target": "numberOfServices",
+        "fieldType": "number",
+        "required": false
+      },
+      {
+        "key": "currentCompletedServices",
+        "label": "Current / Completed Services",
+        "target": "currentCompletedServices",
+        "fieldType": "number",
+        "required": false
+      },
+      {
+        "key": "agreementValue",
+        "label": "Agreement Value",
+        "target": "agreementValue",
+        "fieldType": "number",
+        "required": false
+      },
+      {
+        "key": "additionalValue",
+        "label": "Additional Value",
+        "target": "additionalValue",
+        "fieldType": "number",
+        "required": false
+      },
+      {
+        "key": "amountReceived",
+        "label": "Amount Received",
+        "target": "amountReceived",
+        "fieldType": "number",
+        "required": false
+      },
+      {
+        "key": "nextAgreementReminderDate",
+        "label": "Next Agreement Reminder Date",
+        "target": "nextAgreementReminderDate",
+        "fieldType": "date",
+        "required": false
+      },
+      {
+        "key": "priorPermissionNeeded",
+        "label": "Prior Permission Needed",
+        "target": "priorPermissionNeeded",
+        "fieldType": "enum",
+        "required": false
+      },
+      {
+        "key": "customerApproved",
+        "label": "Customer Approved",
+        "target": "customerApproved",
+        "fieldType": "enum",
+        "required": false
+      },
+      {
+        "key": "terminationDate",
+        "label": "Termination Date",
+        "target": "terminationDate",
+        "fieldType": "date",
+        "required": false
+      },
+      {
+        "key": "terminationReason",
+        "label": "Termination Reason",
+        "target": "terminationReason",
+        "fieldType": "textArea",
+        "required": false
+      },
+      {
+        "key": "remarks",
+        "label": "Remarks",
+        "target": "remarks",
+        "fieldType": "textArea",
+        "required": false
+      },
+      {
+        "key": "completedServicesDate",
+        "label": "Completed Services Date",
+        "target": "completedServicesDate",
+        "fieldType": "date",
+        "required": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,1943 @@
+/*
+ * ============================================================
+ * MTN CELMATE LIVE ORM -> RP CREATION TRIGGER
+ * ============================================================
+ *
+ * Company:
+ *   6a9a9b9521bb803a89324045
+ *
+ * RP Workflow:
+ *   6a9e78a721bb803a89329b75
+ *
+ * Source:
+ *   Database   : emojot_6a9a9b9521bb803a89324045
+ *   Collection : reviews
+ *
+ * Trigger:
+ *   INSERT ONLY
+ *   Full Document = ON
+ *
+ * Logic:
+ *   1. New ORM review inserted
+ *   2. Gemini analyzes sentiment
+ *   3. NEGATIVE -> create RP
+ *   4. Mapping comes from IntegrationConfigs
+ *   5. Created RP is linked back to review
+ * ============================================================
+ */
+
+
+// ============================================================
+// LIVE CONFIGURATION
+// ============================================================
+
+
+const SERVICE_NAME =
+  "LIVE_MONGODB_SERVICE_NAME";
+
+
+// ------------------------------------------------------------
+// LIVE COMPANY / WORKFLOW
+// ------------------------------------------------------------
+
+const COMPANY_ID =
+  "6a9a9b9521bb803a89324045";
+
+const ORM_WORKFLOW_ID =
+  "6a9e78a721bb803a89329b75";
+
+
+// ------------------------------------------------------------
+// LIVE DATABASE
+// ------------------------------------------------------------
+
+const ORM_DATABASE =
+  "emojot_6a9a9b9521bb803a89324045";
+
+const REVIEWS_COLLECTION =
+  "reviews";
+
+const INCIDENTS_COLLECTION =
+  "Incidents";
+
+
+// ------------------------------------------------------------
+// COMMON CONFIG DATABASE
+// ------------------------------------------------------------
+
+const CONFIG_DATABASE =
+  "emojot";
+
+const INTEGRATION_CONFIG_COLLECTION =
+  "IntegrationConfigs";
+
+
+// ============================================================
+// LIVE ASSIGNEE
+// ============================================================
+
+
+const DEFAULT_ASSIGNEE =
+  "dheveshan.pillay@mtn.com";
+
+
+// ============================================================
+// GEMINI
+// ============================================================
+
+
+const GEMINI_API_KEY =
+  "LIVE_GEMINI_API_KEY";
+
+const GEMINI_API_BASE_URL =
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+
+
+// ============================================================
+// LIVE EMOJOT TICKET API
+// ============================================================
+
+
+const TICKET_API_URL =
+  "LIVE_TICKET_API_URL";
+
+
+const TICKET_BEARER_TOKEN =
+  "LIVE_BEARER_TOKEN";
+
+
+// ============================================================
+// MAIN TRIGGER
+// ============================================================
+
+exports = async function(changeEvent) {
+
+  console.log(
+    "================================================"
+  );
+
+  console.log(
+    "MTN LIVE ORM -> RP TRIGGER START"
+  );
+
+  console.log(
+    "================================================"
+  );
+
+
+  try {
+
+    // ========================================================
+    // MANUAL RUN
+    // ========================================================
+
+    if (
+      !changeEvent ||
+      !changeEvent.operationType
+    ) {
+
+      console.log(
+        "Manual execution detected."
+      );
+
+      console.log(
+        "Trigger configuration loaded successfully."
+      );
+
+      console.log(
+        "Company:",
+        COMPANY_ID
+      );
+
+      console.log(
+        "Workflow:",
+        ORM_WORKFLOW_ID
+      );
+
+      console.log(
+        "Database:",
+        ORM_DATABASE
+      );
+
+      console.log(
+        "Default Assignee:",
+        DEFAULT_ASSIGNEE
+      );
+
+
+      return {
+
+        success: true,
+
+        manualRun: true,
+
+        companyID:
+          COMPANY_ID,
+
+        workflowID:
+          ORM_WORKFLOW_ID,
+
+        database:
+          ORM_DATABASE,
+
+        assignee:
+         dheveshan.pillay@mtn.com,
+
+        message:
+          "Live trigger loaded successfully. Insert a review to test RP creation."
+
+      };
+
+    }
+
+
+    // ========================================================
+    // INSERT ONLY
+    // ========================================================
+
+    const operation =
+      changeEvent.operationType;
+
+
+    console.log(
+      "Operation:",
+      operation
+    );
+
+
+    if (
+      operation !== "insert"
+    ) {
+
+      console.log(
+        "Ignoring operation:",
+        operation
+      );
+
+      console.log(
+        "This trigger processes INSERT only."
+      );
+
+
+      return {
+
+        success: true,
+
+        skipped: true,
+
+        reason:
+          "notInsert"
+
+      };
+
+    }
+
+
+    // ========================================================
+    // COLLECTION CHECK
+    // ========================================================
+
+    if (
+      changeEvent.ns &&
+      changeEvent.ns.coll &&
+      changeEvent.ns.coll !==
+        REVIEWS_COLLECTION
+    ) {
+
+      console.log(
+        "Ignoring collection:",
+        changeEvent.ns.coll
+      );
+
+
+      return {
+
+        success: true,
+
+        skipped: true,
+
+        reason:
+          "wrongCollection"
+
+      };
+
+    }
+
+
+    // ========================================================
+    // GET REVIEW
+    // ========================================================
+
+    const reviewDoc =
+      changeEvent.fullDocument;
+
+
+    if (!reviewDoc) {
+
+      throw new Error(
+        "No fullDocument received for inserted review."
+      );
+
+    }
+
+
+    console.log(
+      "Review ID:",
+      objectIdToString(
+        reviewDoc._id
+      )
+    );
+
+
+    console.log(
+      "Source:",
+      reviewDoc.source
+    );
+
+
+    console.log(
+      "Rating:",
+      reviewDoc.rating
+    );
+
+
+    // ========================================================
+    // DUPLICATE PROTECTION
+    // ========================================================
+
+    if (
+      reviewDoc.ticketCreated === true
+    ) {
+
+      console.log(
+        "Ticket already created for this review."
+      );
+
+
+      return {
+
+        success: true,
+
+        skipped: true,
+
+        reason:
+          "ticketAlreadyCreated"
+
+      };
+
+    }
+
+
+    if (
+      reviewDoc.incident &&
+      reviewDoc.incident.id
+    ) {
+
+      console.log(
+        "Review already linked to incident:",
+        reviewDoc.incident.id
+      );
+
+
+      return {
+
+        success: true,
+
+        skipped: true,
+
+        reason:
+          "incidentAlreadyLinked"
+
+      };
+
+    }
+
+
+    // ========================================================
+    // REVIEW TEXT
+    // ========================================================
+
+    const reviewText =
+      reviewDoc.reviewText;
+
+
+    if (
+      reviewText === undefined ||
+      reviewText === null ||
+      String(reviewText).trim() === ""
+    ) {
+
+      console.log(
+        "No reviewText found."
+      );
+
+
+      return {
+
+        success: true,
+
+        skipped: true,
+
+        reason:
+          "noReviewText"
+
+      };
+
+    }
+
+
+    console.log(
+      "Review Text:",
+      String(reviewText)
+        .substring(
+          0,
+          500
+        )
+    );
+
+
+    // ========================================================
+    // GEMINI SENTIMENT
+    // ========================================================
+
+    console.log(
+      "Running Gemini sentiment analysis..."
+    );
+
+
+    const sentiment =
+      await getSentiment(
+        reviewText
+      );
+
+
+    console.log(
+      "Gemini Sentiment:",
+      sentiment
+    );
+
+
+    // ========================================================
+    // STORE SENTIMENT
+    // ========================================================
+
+    await updateReviewSentiment(
+
+      reviewDoc._id,
+
+      sentiment
+
+    );
+
+
+    // ========================================================
+    // ONLY NEGATIVE -> RP
+    // ========================================================
+
+    if (
+      sentiment !== "NEGATIVE"
+    ) {
+
+      console.log(
+        "Review is not negative."
+      );
+
+      console.log(
+        "RP will NOT be created."
+      );
+
+
+      return {
+
+        success: true,
+
+        sentiment:
+          sentiment,
+
+        ticketCreated:
+          false
+
+      };
+
+    }
+
+
+    console.log(
+      "NEGATIVE review detected."
+    );
+
+
+    console.log(
+      "Creating RP..."
+    );
+
+
+    // ========================================================
+    // CREATE RP
+    // ========================================================
+
+    const result =
+      await createTicket(
+        reviewDoc
+      );
+
+
+    console.log(
+      "================================================"
+    );
+
+    console.log(
+      "MTN LIVE ORM -> RP TRIGGER SUCCESS"
+    );
+
+    console.log(
+      "RP ID:",
+      result.ticketId
+    );
+
+    console.log(
+      "================================================"
+    );
+
+
+    return {
+
+      success: true,
+
+      sentiment:
+        sentiment,
+
+      ticketCreated:
+        true,
+
+      ticketId:
+        result.ticketId
+
+    };
+
+
+  } catch (error) {
+
+    console.log(
+      "================================================"
+    );
+
+    console.error(
+      "MTN LIVE ORM -> RP TRIGGER FAILED"
+    );
+
+    console.error(
+      "Error:",
+      error.message
+    );
+
+
+    if (error.stack) {
+
+      console.error(
+        "Stack:",
+        error.stack
+      );
+
+    }
+
+
+    console.log(
+      "================================================"
+    );
+
+
+    throw error;
+
+  }
+
+};
+
+
+// ============================================================
+// GEMINI SENTIMENT
+// ============================================================
+
+async function getSentiment(
+  reviewText
+) {
+
+  if (
+    !GEMINI_API_KEY ||
+    GEMINI_API_KEY ===
+      "LIVE_GEMINI_API_KEY"
+  ) {
+
+    throw new Error(
+      "Live Gemini API key has not been configured."
+    );
+
+  }
+
+
+  const geminiUrl =
+    GEMINI_API_BASE_URL +
+    "?key=" +
+    GEMINI_API_KEY;
+
+
+  const prompt =
+    `
+Analyze the dominant sentiment of the following customer review.
+
+The customer review may be written in:
+- English
+- Sinhala
+- Tamil
+- Singlish
+- mixed language
+
+Respond with ONLY ONE of the following:
+
+POSITIVE
+NEGATIVE
+NEUTRAL
+
+If the sentiment is mixed or unclear,
+select the most prominent sentiment.
+
+Customer review:
+
+"""
+${reviewText}
+"""
+`;
+
+
+  const request = {
+
+    url:
+      geminiUrl,
+
+    headers: {
+
+      "Content-Type":
+        [
+          "application/json"
+        ]
+
+    },
+
+    body: {
+
+      contents: [
+
+        {
+
+          parts: [
+
+            {
+
+              text:
+                prompt
+
+            }
+
+          ]
+
+        }
+
+      ]
+
+    },
+
+    encodeBodyAsJSON:
+      true
+
+  };
+
+
+  console.log(
+    "Calling Gemini..."
+  );
+
+
+  const response =
+    await context.http.post(
+      request
+    );
+
+
+  console.log(
+    "Gemini HTTP Status:",
+    response.statusCode
+  );
+
+
+  const responseText =
+    response.body.text();
+
+
+  if (
+    response.statusCode < 200 ||
+    response.statusCode >= 300
+  ) {
+
+    console.error(
+      "Gemini Error Response:",
+      responseText
+    );
+
+
+    throw new Error(
+      "Gemini request failed with HTTP " +
+      response.statusCode
+    );
+
+  }
+
+
+  let parsed;
+
+
+  try {
+
+    parsed =
+      EJSON.parse(
+        responseText
+      );
+
+  } catch (error) {
+
+    throw new Error(
+      "Unable to parse Gemini response: " +
+      error.message
+    );
+
+  }
+
+
+  let resultText =
+    null;
+
+
+  if (
+    parsed &&
+    parsed.candidates &&
+    parsed.candidates.length > 0 &&
+    parsed.candidates[0].content &&
+    parsed.candidates[0].content.parts &&
+    parsed.candidates[0].content.parts.length > 0
+  ) {
+
+    resultText =
+      parsed
+        .candidates[0]
+        .content
+        .parts[0]
+        .text;
+
+  }
+
+
+  if (!resultText) {
+
+    console.error(
+      "Gemini response:",
+      responseText
+    );
+
+
+    throw new Error(
+      "Gemini returned no sentiment."
+    );
+
+  }
+
+
+  const cleaned =
+    String(resultText)
+      .trim()
+      .toUpperCase();
+
+
+  console.log(
+    "Gemini Raw Result:",
+    cleaned
+  );
+
+
+  if (
+    cleaned.indexOf(
+      "NEGATIVE"
+    ) !== -1
+  ) {
+
+    return "NEGATIVE";
+
+  }
+
+
+  if (
+    cleaned.indexOf(
+      "POSITIVE"
+    ) !== -1
+  ) {
+
+    return "POSITIVE";
+
+  }
+
+
+  return "NEUTRAL";
+
+}
+
+
+// ============================================================
+// CREATE RP
+// ============================================================
+
+async function createTicket(
+  reviewDoc
+) {
+
+  // ==========================================================
+  // VALIDATE LIVE CONFIG FIRST
+  // ==========================================================
+
+  validateLiveConfig();
+
+
+  // ==========================================================
+  // LOAD ORM CONFIG
+  // ==========================================================
+
+  const configDB =
+    context.services
+      .get(
+        SERVICE_NAME
+      )
+      .db(
+        CONFIG_DATABASE
+      );
+
+
+  console.log(
+    "Looking for ORM IntegrationConfig..."
+  );
+
+
+  console.log(
+    "Company:",
+    COMPANY_ID
+  );
+
+
+  console.log(
+    "Workflow:",
+    ORM_WORKFLOW_ID
+  );
+
+
+  const mappingDoc =
+    await configDB
+      .collection(
+        INTEGRATION_CONFIG_COLLECTION
+      )
+      .findOne({
+
+        companyID:
+          COMPANY_ID,
+
+        workflow:
+          ORM_WORKFLOW_ID,
+
+        type:
+          "onlineReviewManagement",
+
+        deleted: {
+          $ne: true
+        }
+
+      });
+
+
+  if (!mappingDoc) {
+
+    throw new Error(
+      "No live onlineReviewManagement IntegrationConfig found for company " +
+      COMPANY_ID +
+      " and workflow " +
+      ORM_WORKFLOW_ID
+    );
+
+  }
+
+
+  console.log(
+    "ORM IntegrationConfig found."
+  );
+
+
+  /*
+   * IMPORTANT:
+   * Existing ORM config uses exact spelling:
+   *
+   * workflowMappingFiels
+   */
+
+  const mappingFields =
+    mappingDoc.workflowMappingFiels;
+
+
+  if (!mappingFields) {
+
+    throw new Error(
+      "workflowMappingFiels not found in live IntegrationConfig."
+    );
+
+  }
+
+
+  // ==========================================================
+  // BUILD INCIDENT
+  // ==========================================================
+
+  const incidentData =
+    createNewIncidentObjectUsingMappingFields(
+
+      reviewDoc,
+
+      mappingFields,
+
+      DEFAULT_ASSIGNEE
+
+    );
+
+
+  const mandatoryFields =
+    incidentData.mandatoryFields;
+
+
+  const customFields =
+    incidentData.customFields;
+
+
+  const metadata =
+    incidentData.metadata;
+
+
+  // ==========================================================
+  // RP PAYLOAD
+  // ==========================================================
+
+  const payload = {
+
+    workflowId:
+      mappingDoc.workflow
+
+  };
+
+
+  if (
+    hasValue(
+      mandatoryFields.name
+    )
+  ) {
+
+    payload.name =
+      mandatoryFields.name;
+
+  }
+
+
+  if (
+    hasValue(
+      mandatoryFields.assignee
+    )
+  ) {
+
+    payload.assignee =
+      mandatoryFields.assignee;
+
+  }
+
+
+  if (
+    hasValue(
+      mandatoryFields.description
+    )
+  ) {
+
+    payload.description =
+      mandatoryFields.description;
+
+  }
+
+
+  if (
+    hasValue(
+      mandatoryFields.status
+    )
+  ) {
+
+    payload.status =
+      mandatoryFields.status;
+
+  }
+
+
+  if (
+    hasValue(
+      mandatoryFields.type
+    )
+  ) {
+
+    payload.type =
+      mandatoryFields.type;
+
+  }
+
+
+  if (
+    hasValue(
+      mandatoryFields.priority
+    )
+  ) {
+
+    payload.priority =
+      mandatoryFields.priority;
+
+  }
+
+
+  if (
+    metadata &&
+    Object.keys(metadata).length > 0
+  ) {
+
+    payload.metadata =
+      metadata;
+
+  }
+
+
+  if (
+    customFields &&
+    customFields.length > 0
+  ) {
+
+    payload.customFields =
+      customFields;
+
+  }
+
+
+  console.log(
+    "========================================"
+  );
+
+  console.log(
+    "RP PAYLOAD"
+  );
+
+  console.log(
+    EJSON.stringify(
+      payload,
+      null,
+      2
+    )
+  );
+
+  console.log(
+    "========================================"
+  );
+
+
+  // ==========================================================
+  // CREATE TICKET
+  // ==========================================================
+
+  const request = {
+
+    url:
+      TICKET_API_URL,
+
+    headers: {
+
+      "Content-Type":
+        [
+          "application/json"
+        ],
+
+      "companyid":
+        [
+          COMPANY_ID
+        ],
+
+      "Authorization":
+        [
+          "Bearer " +
+          TICKET_BEARER_TOKEN
+        ]
+
+    },
+
+    body:
+      payload,
+
+    encodeBodyAsJSON:
+      true
+
+  };
+
+
+  console.log(
+    "Calling LIVE RP creation API..."
+  );
+
+
+  const response =
+    await context.http.post(
+      request
+    );
+
+
+  const responseText =
+    response.body.text();
+
+
+  console.log(
+    "RP API Status:",
+    response.statusCode
+  );
+
+
+  console.log(
+    "RP API Response:",
+    responseText
+  );
+
+
+  if (
+    response.statusCode < 200 ||
+    response.statusCode >= 300
+  ) {
+
+    throw new Error(
+      "Live RP creation API failed with HTTP " +
+      response.statusCode +
+      ". Response: " +
+      responseText
+    );
+
+  }
+
+
+  let responseBody;
+
+
+  try {
+
+    responseBody =
+      JSON.parse(
+        responseText
+      );
+
+  } catch (error) {
+
+    throw new Error(
+      "Unable to parse live RP API response: " +
+      error.message
+    );
+
+  }
+
+
+  if (
+    !responseBody ||
+    !responseBody.details ||
+    !responseBody.details.id
+  ) {
+
+    throw new Error(
+      "Live RP API response did not contain details.id."
+    );
+
+  }
+
+
+  const ticketId =
+    responseBody.details.id;
+
+
+  console.log(
+    "LIVE RP CREATED SUCCESSFULLY"
+  );
+
+
+  console.log(
+    "RP ID:",
+    ticketId
+  );
+
+
+  // ==========================================================
+  // FETCH CREATED RP
+  // ==========================================================
+
+  const currentIncident =
+    await getIncidentDetailsDirect(
+      ticketId
+    );
+
+
+  // ==========================================================
+  // LINK REVIEW -> RP
+  // ==========================================================
+
+  await updateReviewWithTicket(
+
+    reviewDoc._id,
+
+    currentIncident
+
+  );
+
+
+  console.log(
+    "Live RP linked back to ORM review."
+  );
+
+
+  return {
+
+    ticketId:
+      ticketId,
+
+    incident:
+      currentIncident
+
+  };
+
+}
+
+
+// ============================================================
+// BUILD INCIDENT FROM MAPPING
+// ============================================================
+
+function createNewIncidentObjectUsingMappingFields(
+  data,
+  mappingFields,
+  currentUser
+) {
+
+  const customFields =
+    [];
+
+
+  const mandatoryFields = {
+
+    status:
+      "Open",
+
+    type:
+      "googleMap",
+
+    priority:
+      "Low",
+
+    assignee:
+      currentUser
+
+  };
+
+
+  const metadata =
+    {};
+
+
+  console.log(
+    "Processing ORM mapping..."
+  );
+
+
+  // ==========================================================
+  // MANDATORY FIELDS
+  // ==========================================================
+
+  if (
+    mappingFields &&
+    Array.isArray(
+      mappingFields.mandatoryFields
+    )
+  ) {
+
+    mappingFields
+      .mandatoryFields
+      .forEach(
+        function(field) {
+
+          if (
+            field.fieldId ===
+              "assignee" &&
+            field.dataField ===
+              "$currentUser$"
+          ) {
+
+            mandatoryFields[
+              field.fieldId
+            ] =
+              currentUser;
+
+            return;
+
+          }
+
+
+          if (
+            field.dataField &&
+            hasValue(
+              data[
+                field.dataField
+              ]
+            )
+          ) {
+
+            mandatoryFields[
+              field.fieldId
+            ] =
+              data[
+                field.dataField
+              ];
+
+            return;
+
+          }
+
+
+          if (
+            hasValue(
+              field.defaultValue
+            )
+          ) {
+
+            mandatoryFields[
+              field.fieldId
+            ] =
+              field.defaultValue;
+
+          }
+
+        }
+      );
+
+  }
+
+
+  // ==========================================================
+  // CUSTOM FIELDS
+  // ==========================================================
+
+  if (
+    mappingFields &&
+    Array.isArray(
+      mappingFields.customFields
+    )
+  ) {
+
+    mappingFields
+      .customFields
+      .forEach(
+        function(field) {
+
+          let value;
+
+
+          if (
+            field.dataField &&
+            hasValue(
+              data[
+                field.dataField
+              ]
+            )
+          ) {
+
+            value =
+              data[
+                field.dataField
+              ];
+
+          } else if (
+            hasValue(
+              field.defaultValue
+            )
+          ) {
+
+            value =
+              field.defaultValue;
+
+          }
+
+
+          if (
+            value instanceof
+              BSON.ObjectId
+          ) {
+
+            value =
+              value.toString();
+
+          }
+
+
+          if (
+            value &&
+            typeof value ===
+              "object" &&
+            value.$oid
+          ) {
+
+            value =
+              value.$oid;
+
+          }
+
+
+          if (
+            field.parseString &&
+            hasValue(value)
+          ) {
+
+            value =
+              String(value);
+
+          }
+
+
+          if (
+            hasValue(value)
+          ) {
+
+            customFields.push({
+
+              fieldId:
+                field.fieldId,
+
+              value:
+                value
+
+            });
+
+          }
+
+        }
+      );
+
+  }
+
+
+  // ==========================================================
+  // EMO SIGNATURE
+  // ==========================================================
+
+  if (
+    mappingFields &&
+    Array.isArray(
+      mappingFields.emoSignature
+    )
+  ) {
+
+    metadata.emoSignature =
+      {};
+
+
+    mappingFields
+      .emoSignature
+      .forEach(
+        function(field) {
+
+          let value;
+
+
+          if (
+            field.dataField &&
+            hasValue(
+              data[
+                field.dataField
+              ]
+            )
+          ) {
+
+            value =
+              data[
+                field.dataField
+              ];
+
+          } else if (
+            hasValue(
+              field.defaultValue
+            )
+          ) {
+
+            value =
+              field.defaultValue;
+
+          }
+
+
+          if (
+            hasValue(value)
+          ) {
+
+            metadata
+              .emoSignature[
+                field.mappingField ||
+                field.fieldId
+              ] =
+                value;
+
+          }
+
+        }
+      );
+
+  }
+
+
+  console.log(
+    "Mandatory Fields:",
+    EJSON.stringify(
+      mandatoryFields
+    )
+  );
+
+
+  console.log(
+    "Custom Fields:",
+    EJSON.stringify(
+      customFields
+    )
+  );
+
+
+  console.log(
+    "Metadata:",
+    EJSON.stringify(
+      metadata
+    )
+  );
+
+
+  return {
+
+    mandatoryFields:
+      mandatoryFields,
+
+    customFields:
+      customFields,
+
+    metadata:
+      metadata
+
+  };
+
+}
+
+
+// ============================================================
+// GET CREATED RP
+// ============================================================
+
+async function getIncidentDetailsDirect(
+  ticketId
+) {
+
+  const db =
+    context.services
+      .get(
+        SERVICE_NAME
+      )
+      .db(
+        ORM_DATABASE
+      );
+
+
+  let objectId;
+
+
+  try {
+
+    objectId =
+      new BSON.ObjectId(
+        ticketId
+      );
+
+  } catch (error) {
+
+    throw new Error(
+      "Invalid RP ObjectId returned: " +
+      ticketId
+    );
+
+  }
+
+
+  const incidentDoc =
+    await db
+      .collection(
+        INCIDENTS_COLLECTION
+      )
+      .findOne({
+
+        _id:
+          objectId
+
+      });
+
+
+  if (!incidentDoc) {
+
+    throw new Error(
+      "Created live RP not found in Incidents: " +
+      ticketId
+    );
+
+  }
+
+
+  console.log(
+    "Created live RP found."
+  );
+
+
+  console.log(
+    "Status:",
+    incidentDoc.status
+  );
+
+
+  console.log(
+    "Assignee:",
+    incidentDoc.assignee
+  );
+
+
+  return incidentDoc;
+
+}
+
+
+// ============================================================
+// SAVE SENTIMENT
+// ============================================================
+
+async function updateReviewSentiment(
+  reviewId,
+  sentiment
+) {
+
+  const db =
+    context.services
+      .get(
+        SERVICE_NAME
+      )
+      .db(
+        ORM_DATABASE
+      );
+
+
+  const id =
+    normalizeObjectId(
+      reviewId
+    );
+
+
+  const result =
+    await db
+      .collection(
+        REVIEWS_COLLECTION
+      )
+      .updateOne(
+
+        {
+          _id:
+            id
+        },
+
+        {
+          $set: {
+
+            ormSentiment:
+              sentiment,
+
+            ormSentimentUpdatedAt:
+              new Date()
+
+          }
+        }
+
+      );
+
+
+  console.log(
+    "Sentiment update:",
+    "matched=" +
+      result.matchedCount,
+    "modified=" +
+      result.modifiedCount
+  );
+
+}
+
+
+// ============================================================
+// LINK REVIEW TO RP
+// ============================================================
+
+async function updateReviewWithTicket(
+  reviewId,
+  incident
+) {
+
+  const db =
+    context.services
+      .get(
+        SERVICE_NAME
+      )
+      .db(
+        ORM_DATABASE
+      );
+
+
+  const id =
+    normalizeObjectId(
+      reviewId
+    );
+
+
+  const updateObj = {
+
+    ticketCreated:
+      true,
+
+    ticketCreatedAt:
+      new Date(),
+
+    incident: {
+
+      id:
+        objectIdToString(
+          incident._id
+        ),
+
+      status:
+        incident.status,
+
+      assignee:
+        incident.assignee,
+
+      workflow:
+        incident.workflow
+
+    }
+
+  };
+
+
+  const result =
+    await db
+      .collection(
+        REVIEWS_COLLECTION
+      )
+      .updateOne(
+
+        {
+
+          _id:
+            id,
+
+          ticketCreated: {
+            $ne: true
+          }
+
+        },
+
+        {
+          $set:
+            updateObj
+        }
+
+      );
+
+
+  console.log(
+    "Review -> RP link:",
+    "matched=" +
+      result.matchedCount,
+    "modified=" +
+      result.modifiedCount
+  );
+
+
+  if (
+    result.matchedCount === 0
+  ) {
+
+    throw new Error(
+      "Review could not be found or was already linked while linking RP."
+    );
+
+  }
+
+
+  return result;
+
+}
+
+
+// ============================================================
+// VALIDATE LIVE CONFIG
+// ============================================================
+
+function validateLiveConfig() {
+
+  if (
+    !SERVICE_NAME ||
+    SERVICE_NAME ===
+      "LIVE_MONGODB_SERVICE_NAME"
+  ) {
+
+    throw new Error(
+      "LIVE_MONGODB_SERVICE_NAME has not been configured."
+    );
+
+  }
+
+
+  if (
+    !DEFAULT_ASSIGNEE ||
+    DEFAULT_ASSIGNEE ===
+      "LIVE_DEFAULT_ASSIGNEE_EMAIL"
+  ) {
+
+    throw new Error(
+      "LIVE_DEFAULT_ASSIGNEE_EMAIL has not been configured."
+    );
+
+  }
+
+
+  if (
+    !TICKET_API_URL ||
+    TICKET_API_URL ===
+      "LIVE_TICKET_API_URL"
+  ) {
+
+    throw new Error(
+      "LIVE_TICKET_API_URL has not been configured."
+    );
+
+  }
+
+
+  if (
+    !TICKET_BEARER_TOKEN ||
+    TICKET_BEARER_TOKEN ===
+      "LIVE_BEARER_TOKEN"
+  ) {
+
+    throw new Error(
+      "LIVE_BEARER_TOKEN has not been configured."
+    );
+
+  }
+
+}
+
+
+// ============================================================
+// HELPERS
+// ============================================================
+
+function hasValue(
+  value
+) {
+
+  return (
+    value !== undefined &&
+    value !== null &&
+    value !== ""
+  );
+
+}
+
+
+function normalizeObjectId(
+  value
+) {
+
+  if (
+    value instanceof BSON.ObjectId
+  ) {
+
+    return value;
+
+  }
+
+
+  if (
+    value &&
+    typeof value ===
+      "object" &&
+    value.$oid
+  ) {
+
+    return new BSON.ObjectId(
+      value.$oid
+    );
+
+  }
+
+
+  return new BSON.ObjectId(
+    String(value)
+  );
+
+}
+
+
+function objectIdToString(
+  value
+) {
+
+  if (
+    value === undefined ||
+    value === null
+  ) {
+
+    return null;
+
+  }
+
+
+  if (
+    value instanceof BSON.ObjectId
+  ) {
+
+    return value.toString();
+
+  }
+
+
+  if (
+    typeof value ===
+      "object" &&
+    value.$oid
+  ) {
+
+    return value.$oid;
+
+  }
+
+
+  return String(value);
+
+}

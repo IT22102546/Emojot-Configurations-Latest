@@ -1,0 +1,237 @@
+{
+  "name": "Dipra Installed Machines",
+  "reportNamePrefix": "Machine",
+  "reporterNamePrefix": "Submitted By",
+  "nameTemplate": "$machineId$ - $serialNumber$",
+  "descriptionTemplate": "$productName$ at $locationName$",
+  "descriptionFormat": "text",
+  "timeZone": -330,
+  "type": {
+    "name": "Record Type",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Installed Machine",
+        "name": "Installed Machine",
+        "highPriorityFields": [
+          "machineId",
+          "serialNumber",
+          "productName",
+          "productCode",
+          "brand",
+          "model",
+          "capacity",
+          "unit",
+          "customerName",
+          "customerCode",
+          "locationName",
+          "locationCode",
+          "supplierName",
+          "supplierCode",
+          "installedLocatedDate",
+          "route",
+          "machineAttributes",
+          "warrantyStartDate",
+          "warrantyExpiryDate",
+          "warrantyReminderDate",
+          "currentAgreementNumber",
+          "previousSerialNumber",
+          "serialChangeReason",
+          "remarks"
+        ]
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Medium",
+        "name": "Medium"
+      }
+    ]
+  },
+  "status": {
+    "name": "Machine Status",
+    "type": "enum",
+    "transitions": [
+      {
+        "sourceState": "Pending Installation",
+        "targetStates": [
+          "Active"
+        ]
+      },
+      {
+        "sourceState": "Active",
+        "targetStates": [
+          "Under Service",
+          "Replaced",
+          "Decommissioned"
+        ]
+      },
+      {
+        "sourceState": "Under Service",
+        "targetStates": [
+          "Active",
+          "Replaced",
+          "Decommissioned"
+        ]
+      }
+    ],
+    "values": [
+      {
+        "id": "Pending Installation",
+        "name": "Pending Installation",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000"
+      },
+      {
+        "id": "Active",
+        "name": "Active",
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff"
+      },
+      {
+        "id": "Under Service",
+        "name": "Under Service",
+        "backgroundColor": "#3498db",
+        "textColor": "#ffffff"
+      },
+      {
+        "id": "Replaced",
+        "name": "Replaced",
+        "finalState": true,
+        "backgroundColor": "#8e44ad",
+        "textColor": "#ffffff"
+      },
+      {
+        "id": "Decommissioned",
+        "name": "Decommissioned",
+        "finalState": true,
+        "backgroundColor": "#7f8c8d",
+        "textColor": "#ffffff"
+      }
+    ]
+  },
+  "customFields": {
+    "machineId": {
+      "name": "Machine ID",
+      "type": "string"
+    },
+    "serialNumber": {
+      "name": "Serial Number",
+      "type": "string"
+    },
+    "productCode": {
+      "name": "Product Code",
+      "type": "string",
+      "readOnly": true
+    },
+    "productName": {
+      "name": "Select Product Name",
+      "type": "enum",
+      "values": [
+      ]
+    },
+    "brand": {
+      "name": "Brand",
+      "type": "string",
+      "readOnly": true
+    },
+    "model": {
+      "name": "Model",
+      "type": "string",
+      "readOnly": true
+    },
+    "capacity": {
+      "name": "Capacity",
+      "type": "number",
+      "readOnly": true
+    },
+    "unit": {
+      "name": "Unit",
+      "type": "string",
+      "readOnly": true
+    },
+    "customerCode": {
+      "name": "Customer Code",
+      "type": "string",
+      "readOnly": true
+    },
+    "customerName": {
+      "name": "Select Customer Name",
+      "type": "enum",
+      "values": [
+      ]
+    },
+    "locationCode": {
+      "name": "Location Code",
+      "type": "string",
+      "readOnly": true
+    },
+    "locationName": {
+      "name": "Select Location Name",
+      "type": "enum",
+      "values": [
+      ]
+    },
+    "supplierCode": {
+      "name": "Supplier Code",
+      "type": "string",
+      "readOnly": true
+    },
+    "supplierName": {
+      "name": "Select Supplier Name",
+      "type": "enum",
+      "values": [
+      ]
+    },
+    "installedLocatedDate": {
+      "name": "Installed / Located Date",
+      "type": "date"
+    },
+    "route": {
+      "name": "Route",
+      "type": "string",
+      "readOnly": true
+    },
+    "machineAttributes": {
+      "name": "Machine Attributes",
+      "type": "textArea"
+    },
+    "warrantyStartDate": {
+      "name": "Warranty Start Date",
+      "type": "date"
+    },
+    "warrantyExpiryDate": {
+      "name": "Warranty Expiry Date",
+      "type": "date"
+    },
+    "warrantyReminderDate": {
+      "name": "Warranty Reminder Date",
+      "type": "date"
+    },
+    "currentAgreementNumber": {
+      "name": "Current Agreement Number",
+      "type": "string",
+      "readOnly": true
+    },
+    "previousSerialNumber": {
+      "name": "Previous Serial Number",
+      "type": "string"
+    },
+    "serialChangeReason": {
+      "name": "Serial Change Reason",
+      "type": "textArea"
+    },
+    "remarks": {
+      "name": "Remarks",
+      "type": "textArea"
+    }
+  },
+  "tableEdit": "true",
+  "finalState": true
+}

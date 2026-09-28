@@ -1,8 +1,8 @@
 {
   "name": "WF",
-  "reportNamePrefix": "AbansAuto Concerns",
-  "nameTemplate": "AbansAuto Concern: $type$ - $complaintType$",
+  "reportNamePrefix": "MTN CelMate Concern",
   "reporterNamePrefix": "Customer",
+  "nameTemplate": "MTN CelMate Concern: $type$ - $complaintType$",
   "descriptionFormat": "text",
   "timeZone": "+330",
   "type": {
@@ -11,48 +11,60 @@
     "readOnly": true,
     "values": [
       {
-        "id": "Vehicle Purchase and Delivery",
-        "name": "Vehicle Purchase and Delivery",
+        "id": "Customer Experience Survey",
+        "name": "Customer Experience Survey",
         "highPriorityFields": [
           "complaintType",
           "FullName",
           "Email",
           "ContactNumber",
+          "Store",
           "Satisfaction",
-          "Vehicle_Purchse_Negative_Reason",
-          "nps",
+          "Main_reason",
+          "Negative_Experience",
+          "NPS",
           "Comment",
+          "CelMate_Contact_Request",
           "overdue"
         ]
       },
       {
-        "id": "Vehicle Service",
-        "name": "Vehicle Service",
+        "id": "Website Experience Survey",
+        "name": "Website Experience Survey",
         "highPriorityFields": [
           "complaintType",
           "FullName",
           "Email",
           "ContactNumber",
           "Satisfaction",
-          "Vehicle_Service_Negative_Reason",
-          "nps",
+          "Main_reason",
+          "Information_Finding_Ease",
+          "Task_Completion_Status",
           "Comment",
+          "CelMate_Contact_Request",
           "overdue"
         ]
       },
       {
-        "id": "Spare Parts",
-        "name": "Spare Parts",
+        "id": "googleMap",
+        "name": "Google",
         "highPriorityFields": [
-          "complaintType",
-          "FullName",
-          "Email",
-          "ContactNumber",
-          "Satisfaction",
-          "Spare_Part_Negative_Reason",
-          "nps",
-          "Comment",
-          "overdue"
+          "rating",
+          "author",
+          "reviewId",
+          "location",
+          "comments"
+        ]
+      },
+      {
+        "id": "facebook",
+        "name": "Facebook",
+        "highPriorityFields": [
+          "rating",
+          "author",
+          "reviewId",
+          "location",
+          "comments"
         ]
       }
     ]
@@ -134,7 +146,7 @@
         "triggers": [
           {
             "channel": "email",
-            "template": "customerWIPalerts",
+            "template": "MTN_customerWIPAlert",
             "target": "customer",
             "appendEditUrl": false,
             "condition": {
@@ -143,9 +155,8 @@
                   "var": "type"
                 },
                 [
-                  "Vehicle Purchase and Delivery",
-                  "Vehicle Service",
-                  "Spare Parts"
+                  "Customer Experience Survey",
+                  "Website Experience Survey"
                 ]
               ]
             }
@@ -164,19 +175,17 @@
           {
             "fieldID": "inbuild_comment",
             "required": true,
-            "name": "Please add a comment explaining how this complaint was resolved.",
-            "message": "Please add a comment explaining how this complaint was resolved."
+            "name": "Resolution Comment",
+            "message": "Please add a comment explaining how this concern was resolved."
           }
         ],
         "triggers": [
           {
             "channel": "email",
-            "template": "complaintResolutionAlert",
+            "template": "MTN_concernResolutionAlert",
             "target": "admin",
             "contacts": [
-              "autocxmanagement@abansgroup.com",
-              "automarketing@abansgroup.com",
-              "sanjanan@emojot.com"
+              "mtn@emojot.com"
             ],
             "appendEditUrl": true,
             "condition": {
@@ -185,38 +194,39 @@
                   "var": "type"
                 },
                 [
-                  "Vehicle Purchase and Delivery",
-                  "Vehicle Service",
-                  "Spare Parts"
-                ]
-              ]
-            }
-          },
-          {
-            "channel": "sms",
-            "template": "complaintResolutionAlertInternal_sms",
-            "target": "admin",
-            "contacts": [
-              "abansauto@emojot.com",
-              "sanjanan@emojot.com"
-            ],
-            "appendEditUrl": true,
-            "condition": {
-              "in": [
-                {
-                  "var": "type"
-                },
-                [
-                  "Vehicle Purchase and Delivery",
-                  "Vehicle Service",
-                  "Spare Parts"
+                  "Customer Experience Survey",
+                  "Website Experience Survey"
                 ]
               ]
             }
           },
           {
             "channel": "email",
-            "template": "customerResolutionAlerts",
+            "template": "MTN_ormConcernResolutionAlert",
+            "target": "admin",
+            "contacts": [
+              "dheveshan.pillay@mtn.com",
+              "info@mtncellmate.co.za",
+              "larry@celmate.co.za",
+              "sanjanan@emojot.com",
+              "dewminil@emojot.com"
+            ],
+            "appendEditUrl": false,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "googleMap",
+                  "facebook"
+                ]
+              ]
+            }
+          },
+          {
+            "channel": "email",
+            "template": "MTN_customerResolutionAlert",
             "target": "customer",
             "appendEditUrl": false,
             "condition": {
@@ -225,9 +235,8 @@
                   "var": "type"
                 },
                 [
-                  "Vehicle Purchase and Delivery",
-                  "Vehicle Service",
-                  "Spare Parts"
+                  "Customer Experience Survey",
+                  "Website Experience Survey"
                 ]
               ]
             }
@@ -248,16 +257,20 @@
       "readOnly": true,
       "values": [
         {
-          "id": "Vehicle Purchase and Delivery",
-          "name": "Vehicle Purchase and Delivery"
+          "id": "Customer Experience Survey",
+          "name": "Customer Experience Survey"
         },
         {
-          "id": "Vehicle Service",
-          "name": "Vehicle Service"
+          "id": "Website Experience Survey",
+          "name": "Website Experience Survey"
         },
         {
-          "id": "Spare Parts",
-          "name": "Spare Parts"
+          "id": "googleMap",
+          "name": "Google"
+        },
+        {
+          "id": "facebook",
+          "name": "Facebook"
         }
       ]
     },
@@ -276,27 +289,27 @@
       "type": "string",
       "readOnly": true
     },
+    "Store": {
+      "name": "Store",
+      "type": "string",
+      "readOnly": true
+    },
     "Satisfaction": {
       "name": "Satisfaction",
       "type": "string",
       "readOnly": true
     },
-    "Vehicle_Purchse_Negative_Reason": {
-      "name": "Vehicle Purchase Negative Reason",
+    "Main_reason": {
+      "name": "Main Reason",
       "type": "string",
       "readOnly": true
     },
-    "Vehicle_Service_Negative_Reason": {
-      "name": "Vehicle Service Negative Reason",
+    "Negative_Experience": {
+      "name": "Negative Experience",
       "type": "string",
       "readOnly": true
     },
-    "Spare_Part_Negative_Reason": {
-      "name": "Spare Parts Negative Reason",
-      "type": "string",
-      "readOnly": true
-    },
-    "nps": {
+    "NPS": {
       "name": "NPS Score",
       "type": "enum",
       "readOnly": true,
@@ -347,15 +360,58 @@
         }
       ]
     },
+    "Information_Finding_Ease": {
+      "name": "Information Finding Ease",
+      "type": "string",
+      "readOnly": true
+    },
+    "Task_Completion_Status": {
+      "name": "Task Completion Status",
+      "type": "string",
+      "readOnly": true
+    },
     "Comment": {
       "name": "Additional Information",
       "type": "textArea",
       "readOnly": true
     },
+    "CelMate_Contact_Request": {
+      "name": "CelMate Contact Request",
+      "type": "string",
+      "readOnly": true
+    },
+    "rating": {
+      "name": "Rating",
+      "readOnly": true,
+      "type": "string"
+    },
+    "comments": {
+      "name": "Review Comment",
+      "readOnly": true,
+      "type": "textArea"
+    },
+    "author": {
+      "name": "Reviewer Name",
+      "type": "string",
+      "hidden": true,
+      "readOnly": true
+    },
+    "reviewId": {
+      "name": "Review Id",
+      "type": "string",
+      "hidden": true,
+      "readOnly": true
+    },
+    "location": {
+      "name": "Location",
+      "type": "string",
+      "hidden": true,
+      "readOnly": true
+    },
     "overdue": {
       "name": "Overdue",
-      "readOnly": false,
       "type": "enum",
+      "readOnly": false,
       "hidden": true,
       "values": [
         {
@@ -364,21 +420,15 @@
           "triggers": [
             {
               "channel": "email",
-              "template": "overdueAlertEmail_1stLevel",
+              "template": "MTN_overdueAlertEmail_1stLevel",
               "target": "admin",
               "contacts": [
-                "autocxmanagement@abansgroup.com",
-                "automarketing@abansgroup.com",
-                "sanjanan@emojot.com"
-              ],
-              "appendEditUrl": true
-            },
-            {
-              "channel": "sms",
-              "template": "overdueAlertSMS_1stLevel",
-              "target": "admin",
-              "contacts": [
-                "abansauto@emojot.com"
+                "dheveshan.pillay@mtn.com",
+              "info@mtncellmate.co.za",
+              "larry@celmate.co.za",
+              "sanjanan@emojot.com",
+              "dewminil@emojot.com",
+              "sanjanan@emojot.com"
               ],
               "appendEditUrl": true
             },
@@ -387,7 +437,7 @@
               "changingFields": [
                 {
                   "id": "assignee",
-                  "value": "abansauto@emojot.com"
+                  "value": "mtn@emojot.com"
                 }
               ]
             }
@@ -399,21 +449,10 @@
           "triggers": [
             {
               "channel": "email",
-              "template": "overdueAlertEmail_2ndLevel",
+              "template": "MTN_overdueAlertEmail_2ndLevel",
               "target": "admin",
               "contacts": [
-                "autocxmanagement@abansgroup.com",
-                "automarketing@abansgroup.com",
                 "sanjanan@emojot.com"
-              ],
-              "appendEditUrl": true
-            },
-            {
-              "channel": "sms",
-              "template": "overdueAlertSMS_2ndLevel",
-              "target": "admin",
-              "contacts": [
-                "abansauto@emojot.com"
               ],
               "appendEditUrl": true
             },
@@ -422,7 +461,7 @@
               "changingFields": [
                 {
                   "id": "assignee",
-                  "value": "abansauto@emojot.com"
+                  "value": "mtn@emojot.com"
                 }
               ]
             }
@@ -434,21 +473,10 @@
           "triggers": [
             {
               "channel": "email",
-              "template": "overdueAlertEmail_3rdLevel",
+              "template": "MTN_overdueAlertEmail_3rdLevel",
               "target": "admin",
               "contacts": [
-                "autocxmanagement@abansgroup.com",
-                "automarketing@abansgroup.com",
                 "sanjanan@emojot.com"
-              ],
-              "appendEditUrl": true
-            },
-            {
-              "channel": "sms",
-              "template": "overdueAlertSMS_3rdLevel",
-              "target": "admin",
-              "contacts": [
-                "abansauto@emojot.com"
               ],
               "appendEditUrl": true
             },
@@ -457,7 +485,7 @@
               "changingFields": [
                 {
                   "id": "assignee",
-                  "value": "abansauto@emojot.com"
+                  "value": "mtn@emojot.com"
                 }
               ]
             }
@@ -466,56 +494,41 @@
       ]
     }
   },
+  "predefinedComments": [
+    "Customer contacted",
+    "Investigation in progress",
+    "Concern resolved"
+  ],
   "workflowCreation": {
-    "email": "abansauto@emojot.com",
+    "email": "dheveshan.pillay@mtn.com",
     "triggers": [
       {
         "channel": "email",
-        "template": "complaintCreationAlert",
+        "template": "MTN_concernCreationAlert",
         "target": "admin",
         "contacts": [
-          "autocxmanagement@abansgroup.com",
-          "automarketing@abansgroup.com",
-          "sanjanan@emojot.com"
+          "dheveshan.pillay@mtn.com",
+          "info@mtncellmate.co.za",
+          "larry@celmate.co.za",
+          "sanjanan@emojot.com",
+          "dewminil@emojot.com"
         ],
-        "appendEditUrl": true,
+        "appendEditUrl": false,
         "condition": {
           "in": [
             {
               "var": "type"
             },
             [
-              "Vehicle Purchase and Delivery",
-              "Vehicle Service",
-              "Spare Parts"
+              "Customer Experience Survey",
+              "Website Experience Survey"
             ]
           ]
         }
       },
       {
-        "channel": "sms",
-        "template": "complaintCreationAlert_sms",
-        "target": "admin",
-        "contacts": [
-          "abansauto@emojot.com"
-        ],
-        "appendEditUrl": true,
-        "condition": {
-          "in": [
-            {
-              "var": "type"
-            },
-            [
-              "Vehicle Purchase and Delivery",
-              "Vehicle Service",
-              "Spare Parts"
-            ]
-          ]
-        }
-      },
-      {
-        "template": "customerComplaintCreations",
         "channel": "email",
+        "template": "MTN_customerAcknowledgement",
         "target": "customer",
         "appendEditUrl": false,
         "condition": {
@@ -524,9 +537,32 @@
               "var": "type"
             },
             [
-              "Vehicle Purchase and Delivery",
-              "Vehicle Service",
-              "Spare Parts"
+              "Customer Experience Survey",
+              "Website Experience Survey"
+            ]
+          ]
+        }
+      },
+      {
+        "channel": "email",
+        "template": "MTN_ormConcernCreationAlert",
+        "target": "admin",
+        "contacts": [
+          "dheveshan.pillay@mtn.com",
+          "info@mtncellmate.co.za",
+          "larry@celmate.co.za",
+          "sanjanan@emojot.com",
+          "dewminil@emojot.com"
+        ],
+        "appendEditUrl": false,
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "googleMap",
+              "facebook"
             ]
           ]
         }
@@ -536,23 +572,16 @@
         "changingFields": [
           {
             "id": "assignee",
-            "value": "abansauto@emojot.com"
+            "value": "dheveshan.pillay@mtn.com"
           }
         ]
       }
     ]
   },
   "assignment": {
-    "triggers": [
-      {
-        "template": "complaintCreationAlert",
-        "channel": "email",
-        "target": "employee"
-      }
-    ],
     "automaticAssignment": {
       "isEnabled": true,
-      "email": "abansauto@emojot.com",
+      "email": "dheveshan.pillay@mtn.com",
       "resolvedStatus": [
         "Resolved"
       ],
@@ -608,89 +637,6 @@
       ]
     }
   },
-  "adminHierarchy": {
-    "list": "admin",
-    "headers": [
-      {
-        "id": "complaintType",
-        "name": "Complaint Type",
-        "type": "customField"
-      },
-      {
-        "id": "ticketCreationAlert",
-        "name": "Ticket Creation Alert",
-        "type": "contact"
-      },
-      {
-        "id": "ticketOverdueAlert_01",
-        "name": "Ticket Overdue Alert 01",
-        "type": "contact"
-      },
-      {
-        "id": "ticketOverdueAlert_02",
-        "name": "Ticket Overdue Alert 02",
-        "type": "contact"
-      },
-      {
-        "id": "ticketOverdueAlert_03",
-        "name": "Ticket Overdue Alert 03",
-        "type": "contact"
-      },
-      {
-        "id": "ticketResolutionAlert",
-        "name": "Ticket Resolution Alert",
-        "type": "contact"
-      },
-      {
-        "id": "ticketOverdueAssignee_01",
-        "name": "Ticket Overdue Assignee 01",
-        "type": "contact"
-      },
-      {
-        "id": "ticketOverdueAssignee_02",
-        "name": "Ticket Overdue Assignee 02",
-        "type": "contact"
-      },
-      {
-        "id": "ticketOverdueAssignee_03",
-        "name": "Ticket Overdue Assignee 03",
-        "type": "contact"
-      }
-    ],
-    "id": "REPLACE_ABANSAUTO_ADMIN_HIERARCHY_ID"
-  },
-  "finalState": true,
-  "incidentKeyFormat": {
-    "enabled": false,
-    "countDependentFields": {
-      "enabled": true,
-      "fields": [
-        "date",
-        "ticketCategory"
-      ]
-    },
-    "pattern": [
-      {
-        "key": "ticketCategory",
-        "format": "mapping"
-      },
-      {
-        "key": "date",
-        "format": "YYYYMMDD"
-      },
-      {
-        "key": "counter",
-        "format": 3
-      }
-    ],
-    "counterReset": "daily"
-  },
-  "predefinedComments": [
-    "Case acknowledged and assigned.",
-    "Customer contacted; details requested.",
-    "Initial verification completed.",
-    "Escalated to relevant team.",
-    "Resolution confirmed; case closed."
-  ],
-  "tableEdit": "true"
+  "tableEdit": "true",
+  "finalState": true
 }

@@ -5,13 +5,13 @@
       <param>
         <name>percepticDrillDown</name>
         <operator>eq</operator>
-        <value>"q5850"</value>
+        <value>q3292</value> 
       </param>
       <joinOperator>and</joinOperator>
       <joinParam>
         <name>emoteNumericValue</name>
-        <operator>ld</operator>
-        <value>1</value>
+        <operator>gdOrEq</operator>
+        <value>0</value>
       </joinParam>
     </params>
     <engagementActions>
@@ -19,27 +19,29 @@
         <type>incident</type>
 
         <data>
-          <workflowID>6a856bf0db3622d307a234ec</workflowID>
-          <name>Concern - $$q1776_emote$$</name>
-          <assignee>abansauto@emojot.com</assignee>
-          <type>$$q1776_emote$$</type>
+          <workflowID>6a9e78a721bb803a89329b75</workflowID>
+          <name>MTN CelMate Customer Experience Concern</name>
+          <assignee>mtn@emojot.com</assignee>
+          <type>Customer Experience Survey</type>
           <priority>Medium</priority>
           <status>Open</status>
 
           <description><![CDATA[
-<b>Full Name:</b>$$loyalty_Name_value$$<br>
+<b>Full Name:</b> $$loyalty_Name_value$$<br>
 <b>Email Address:</b> $$loyalty_Email_value$$<br>
 <b>Contact Number:</b> $$loyalty_Telephone_value$$<br>
-<b>Concern Type:</b>$$q1776_emote$$<br>
-<b>Satisfaction:</b> $$q5850_emote$$<br>
+<b>Concern Type:</b>Customer Experience Survey<br>
+<b>Satisfaction:</b> $$q3292_emote$$<br>
+<b>Store:</b>$$emoSignature_Store_value$$<br>
+<b>Staff Member:</b>$$q9770_emote$$<br>
 <br><br>
           ]]></description>
 
-          <customFields>
+          <customFields> 
 
             <field>
               <key>complaintType</key>
-              <value>$$q1776_emote$$</value>
+              <value>Customer Experience Survey</value>
             </field>
 
             <field>
@@ -58,33 +60,44 @@
             </field>
 
             <field>
+              <key>Store</key>
+              <value>$$emoSignature_Store_value$$</value>
+            </field>
+
+            <field>
               <key>Satisfaction</key>
-              <value>$$q5850_emote$$</value>
+              <value>$$q3292_emote$$</value>
             </field>
 
-            <field>
-              <key>Vehicle_Purchse_Negative_Reason</key>
-              <value>$$q5203_emote$$</value>
+             <field>
+              <key>Main_reason</key>
+              <value>$$q1312_emote$$</value> 
             </field>
 
-            <field>
-              <key>Vehicle_Service_Negative_Reason</key>
-              <value>$$q998_emote$$</value>
+             <field>
+              <key>Negative_Experience</key>
+              <value>$$q6549_emote$$</value>
             </field>
 
-            <field>
-              <key>Spare_Part_Negative_Reason</key>
-              <value>$$q6663_emote$$</value>
+             <field>
+              <key>NPS</key>
+              <value>$$q4097_emote$$</value>
             </field>
 
-            <field>
-              <key>nps</key>
-              <value>$$q2682_emote$$</value>
-            </field>
 
             <field>
               <key>Comment</key>
-              <value>$$gp9782_c1_comment_value$$</value>
+              <value>$$gp9940_c1_comment_value$$</value>
+            </field>
+
+             <field>
+              <key>Staff_Member</key>
+              <value>$$q9770_emote$$</value>
+            </field>
+
+             <field>
+              <key>CelMate_Contact_Request</key>
+              <value>$$q8234_emote$$</value>
             </field>
 
           </customFields>

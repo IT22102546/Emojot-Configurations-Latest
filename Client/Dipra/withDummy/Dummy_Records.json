@@ -1,0 +1,115 @@
+{
+  "customers": [
+    {
+      "code": "CUS-001",
+      "name": "Sunrise Hotels PLC"
+    },
+    {
+      "code": "CUS-002",
+      "name": "Greenfield Manufacturing Ltd"
+    }
+  ],
+  "suppliers": [
+    {
+      "code": "SUP-001",
+      "name": "Lanka Equipment Suppliers"
+    },
+    {
+      "code": "SUP-002",
+      "name": "Global Cooling Solutions"
+    }
+  ],
+  "locations": [
+    {
+      "code": "LOC-001",
+      "name": "Sunrise Hotel - Colombo",
+      "customerCode": "CUS-001",
+      "customerName": "Sunrise Hotels PLC",
+      "route": "Colombo Central"
+    },
+    {
+      "code": "LOC-002",
+      "name": "Sunrise Hotel - Kandy",
+      "customerCode": "CUS-001",
+      "customerName": "Sunrise Hotels PLC",
+      "route": "Kandy Central"
+    },
+    {
+      "code": "LOC-003",
+      "name": "Greenfield Factory - Biyagama",
+      "customerCode": "CUS-002",
+      "customerName": "Greenfield Manufacturing Ltd",
+      "route": "Biyagama Industrial Zone"
+    }
+  ],
+  "products": [
+    {
+      "code": "PRD-001",
+      "name": "PolarCool Ice Maker 500",
+      "supplierCode": "SUP-002",
+      "supplierName": "Global Cooling Solutions",
+      "brand": "PolarCool",
+      "model": "PCM-500",
+      "capacity": 500,
+      "unit": "kg/day"
+    },
+    {
+      "code": "PRD-002",
+      "name": "BrewMaster Coffee Machine X2",
+      "supplierCode": "SUP-001",
+      "supplierName": "Lanka Equipment Suppliers",
+      "brand": "BrewMaster",
+      "model": "X2",
+      "capacity": 2,
+      "unit": "Group"
+    },
+    {
+      "code": "PRD-003",
+      "name": "FreshFlow Juice Dispenser 20L",
+      "supplierCode": "SUP-001",
+      "supplierName": "Lanka Equipment Suppliers",
+      "brand": "FreshFlow",
+      "model": "JD-20",
+      "capacity": 20,
+      "unit": "L"
+    }
+  ],
+  "installedMachines": [
+    {
+      "id": "MCH-001",
+      "serial": "PC500-2026-001",
+      "productCode": "PRD-001",
+      "productName": "PolarCool Ice Maker 500",
+      "supplierCode": "SUP-002",
+      "supplierName": "Global Cooling Solutions",
+      "customerCode": "CUS-001",
+      "customerName": "Sunrise Hotels PLC",
+      "locationCode": "LOC-001",
+      "locationName": "Sunrise Hotel - Colombo"
+    },
+    {
+      "id": "MCH-002",
+      "serial": "BM-X2-2026-014",
+      "productCode": "PRD-002",
+      "productName": "BrewMaster Coffee Machine X2",
+      "supplierCode": "SUP-001",
+      "supplierName": "Lanka Equipment Suppliers",
+      "customerCode": "CUS-001",
+      "customerName": "Sunrise Hotels PLC",
+      "locationCode": "LOC-002",
+      "locationName": "Sunrise Hotel - Kandy"
+    },
+    {
+      "id": "MCH-003",
+      "serial": "FF20-2026-007",
+      "productCode": "PRD-003",
+      "productName": "FreshFlow Juice Dispenser 20L",
+      "supplierCode": "SUP-001",
+      "supplierName": "Lanka Equipment Suppliers",
+      "customerCode": "CUS-002",
+      "customerName": "Greenfield Manufacturing Ltd",
+      "locationCode": "LOC-003",
+      "locationName": "Greenfield Factory - Biyagama"
+    }
+  ]
+}

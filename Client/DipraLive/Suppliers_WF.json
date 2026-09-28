@@ -1,0 +1,268 @@
+{
+  "name": "Dipra_Suppliers_WF",
+  "reportNamePrefix": "Supplier",
+  "reporterNamePrefix": "Submitted By",
+  "nameTemplate": "$supplierCode$ - $supplierName$",
+  "descriptionFormat": "text",
+  "timeZone": -330,
+  "type": {
+    "name": "Record Type",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Supplier",
+        "name": "Supplier",
+        "highPriorityFields": [
+          "supplierCode",
+          "supplierName",
+          "addressNo",
+          "lane",
+          "street",
+          "city",
+          "country",
+          "primaryTelephone",
+          "secondaryTelephone",
+          "fax",
+          "email",
+          "contactPersonName",
+          "contactPersonTelephone",
+          "contactPersonEmail"
+        ]
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Medium",
+        "name": "Medium"
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "transitions": [
+      {
+        "sourceState": "Draft",
+        "targetStates": [
+          "Active"
+        ]
+      },
+      {
+        "sourceState": "Active",
+        "targetStates": [
+          "Inactive"
+        ]
+      },
+      {
+        "sourceState": "Inactive",
+        "targetStates": [
+          "Active"
+        ]
+      }
+    ],
+    "values": [
+      {
+        "id": "Draft",
+        "name": "Draft",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000"
+      },
+      {
+        "id": "Active",
+        "name": "Active",
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff"
+      },
+      {
+        "id": "Inactive",
+        "name": "Inactive",
+        "backgroundColor": "#7f8c8d",
+        "textColor": "#ffffff"
+      }
+    ]
+  },
+  "customFields": {
+    "supplierCode": {
+      "name": "Supplier Code",
+      "type": "string",
+      "readOnly": true
+    },
+    "supplierName": {
+      "name": "Supplier Name",
+      "type": "string"
+    },
+    "addressNo": {
+      "name": "Address No.",
+      "type": "string"
+    },
+    "lane": {
+      "name": "Lane",
+      "type": "string"
+    },
+    "street": {
+      "name": "Street",
+      "type": "string"
+    },
+    "city": {
+      "name": "City",
+      "type": "string"
+    },
+    "country": {
+      "name": "Country",
+      "type": "string"
+    },
+    "primaryTelephone": {
+      "name": "Primary Telephone",
+      "type": "string"
+    },
+    "secondaryTelephone": {
+      "name": "Secondary Telephone",
+      "type": "string"
+    },
+    "fax": {
+      "name": "Fax",
+      "type": "string"
+    },
+    "email": {
+      "name": "Email",
+      "type": "string"
+    },
+    "contactPersonName": {
+      "name": "Contact Person Name",
+      "type": "string"
+    },
+    "contactPersonTelephone": {
+      "name": "Contact Person Telephone",
+      "type": "string"
+    },
+    "contactPersonEmail": {
+      "name": "Contact Person Email",
+      "type": "string"
+    }
+  },
+  "tableEdit": "true",
+  "consoleIncidentCreation": {
+    "buttonName": "Add Supplier",
+    "dialogTitle": "Add Supplier",
+    "dialogSubtitle": "Please fill this form to create a new supplier",
+    "fields": [
+      {
+        "key": "supplierName",
+        "label": "Supplier Name",
+        "target": "supplierName",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "addressNo",
+        "label": "Address No.",
+        "target": "addressNo",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "lane",
+        "label": "Lane",
+        "target": "lane",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "street",
+        "label": "Street",
+        "target": "street",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "city",
+        "label": "City",
+        "target": "city",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "country",
+        "label": "Country",
+        "target": "country",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "primaryTelephone",
+        "label": "Primary Telephone",
+        "target": "primaryTelephone",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "secondaryTelephone",
+        "label": "Secondary Telephone",
+        "target": "secondaryTelephone",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "fax",
+        "label": "Fax",
+        "target": "fax",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "email",
+        "label": "Email",
+        "target": "email",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "contactPersonName",
+        "label": "Contact Person Name",
+        "target": "contactPersonName",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "contactPersonTelephone",
+        "label": "Contact Person Telephone",
+        "target": "contactPersonTelephone",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "contactPersonEmail",
+        "label": "Contact Person Email",
+        "target": "contactPersonEmail",
+        "fieldType": "string",
+        "required": false
+      }
+    ]
+  },
+  "incidentKeyFormat": {
+    "enabled": true,
+    "pattern": [
+      {
+        "key": "type",
+        "format": "mapping"
+      },
+      {
+        "key": "counter",
+        "format": 4
+      }
+    ],
+    "counterReset": "never",
+    "fieldMappings": {
+      "type": {
+        "mappings": {},
+        "default": "S"
+      }
+    }
+  }
+}

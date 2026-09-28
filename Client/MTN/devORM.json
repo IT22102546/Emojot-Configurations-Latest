@@ -1,0 +1,223 @@
+{
+  "updatedTime": 1782381919379,
+  "updatedBy": "shaveenf@emojot.com",
+  "companyID": "59747e53cd90e9231b90de48",
+  "workflow": "66c41ed2ea6fba103caa230a",
+  "aiModel": "gpt-4",
+  "workflowMappingFiels": {
+    "mandatoryFields": [
+      {
+        "fieldId": "priority",
+        "defaultValue": "Low",
+        "dataField": "priority"
+      },
+      {
+        "fieldId": "type",
+        "defaultValue": "googleMap",
+        "dataField": "source"
+      },
+      {
+        "fieldId": "description",
+        "dataField": "reviewText",
+        "defaultValue": "N/A"
+      },
+      {
+        "fieldId": "assignee",
+        "dataField": "$currentUser$"
+      }
+    ],
+    "customFields": [
+      {
+        "fieldId": "rating",
+        "dataField": "rating",
+        "parseString": true
+      },
+      {
+        "fieldId": "location",
+        "dataField": "locationId"
+      },
+      {
+        "fieldId": "reviewId",
+        "dataField": "_id"
+      }
+    ],
+    "emoSignature": [
+      {
+        "fieldId": "location",
+        "mappingField": "Location",
+        "dataField": "locationId"
+      }
+    ]
+  },
+  "ormAICategories": [
+    {
+      "id": "overallAnalysis",
+      "name": "Overall Analysis"
+    },
+    {
+      "id": "customerBehaviorAnalysis",
+      "name": "Customer Behavior Analysis"
+    },
+    {
+      "id": "customerPreferenceAnalysis",
+      "name": "Customer Preference Analysis"
+    },
+    {
+      "id": "latestCustomerTrendsAnalysis",
+      "name": "Latest Customer Trends Analysis"
+    }
+  ],
+  "ormPromptForSource": {
+    "overallAnalysis": {
+      "prompt": "Please analyze these online reviews included after triple backticks  on ##location## that received high rating. Give overall analysis as bullet points. Please also suggest recommendations for how to improve the review in this location for bussiness. Please return your analysis well formatted with HTML tags.Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n ```"
+    },
+    "customerBehaviorAnalysis": {
+      "prompt": "Please analyze these online reviews included after triple backticks  on ##location## that received high rating. Give analysis on customer behavior as bullet points. Please also suggest recommendations for how to improve the review in this location for bussiness. Please return your analysis well formatted with HTML tags.Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n ```"
+    },
+    "customerPreferenceAnalysis": {
+      "prompt": "Please analyze these online reviews included after triple backticks  on ##location## that received high rating. Give analysis on customer preference as bullet points. Please also suggest recommendations for how to improve the review in this location for bussiness. Please return your analysis well formatted with HTML tags.Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n ```"
+    },
+    "latestCustomerTrendsAnalysis": {
+      "prompt": "Please analyze these online reviews included after triple backticks  on ##location## that received high rating. Give analysis on customer trend as bullet points. Please also suggest recommendations for how to improve the review in this location for bussiness. Please return your analysis well formatted with HTML tags.Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n ```"
+    }
+  },
+  "ORMConfigs": {
+    "targetedKeywords": {
+      "Cleanliness": [
+        "clean",
+        "tidy",
+        "neat",
+        "hygiene",
+        "dirt",
+        "garbage",
+        "bug"
+      ],
+      "Facilities": [
+        "amenities",
+        "accommodation ",
+        "parking",
+        "Price",
+        "wifi",
+        "bar",
+        "restaurant",
+        "pool",
+        "gym",
+        "facilities"
+      ],
+      "Food and Dining": [
+        "delicious",
+        "tasty",
+        "chef",
+        "cook",
+        "menu",
+        "dining",
+        "buffet",
+        "lunch",
+        "dinner",
+        "breakfast",
+        "restaurant",
+        "food",
+        "drinks",
+        "bar",
+        "salad",
+        "dessert",
+        "soup",
+        "rice",
+        "curries",
+        "curry"
+      ],
+      "Location": [
+        "accessible",
+        "nature",
+        "location",
+        "view"
+      ],
+      "Booking Process": [
+        "online",
+        "website",
+        "mobile app",
+        "reservation",
+        "booking"
+      ],
+      "Overall Experience": [
+        "unforgettable",
+        "superb",
+        "wonderful",
+        "hospitality",
+        "experience",
+        "friendly"
+      ],
+      "Room Quality": [
+        "comfortable",
+        "ambience",
+        "amenities",
+        "quality",
+        "bathroom",
+        "bed",
+        "television",
+        "air condition",
+        "room"
+      ],
+      "Room Service": [
+        "Housekeeping",
+        "room service",
+        "in-room"
+      ],
+      "Service": [
+        "Staff",
+        "professional",
+        "Customer service",
+        "helpful",
+        "receiption",
+        "reception",
+        "front office",
+        "service"
+      ],
+      "Value for Money": [
+        "room rates",
+        "rates",
+        "Price",
+        "deal",
+        "offers",
+        "Value for Money"
+      ]
+    },
+    "keywordContexts": {
+      "Cleanliness": "Cleanliness refers to how well-maintained and hygienic the hotel or establishment is. This includes aspects such as tidiness, absence of dirt or garbage, and general cleanliness of the rooms, facilities, and common areas. It also encompasses the presence of any pests, such as bugs, which can negatively affect guest comfort.",
+      "Facilities": "Facilities refers to the amenities and services provided by the hotel, including parking, wifi, swimming pool, gym, bar, restaurant, and other important features that contribute to a guest's comfort and convenience. The availability and quality of these facilities play a crucial role in overall guest satisfaction.",
+      "Food and Dining": "Food and Dining refers to the quality and variety of food and beverages offered by the hotel, including meal options at the restaurant, buffet selections, and special dining experiences. The taste, preparation, and presentation of the food, along with drink options such as wine, coffee, or cocktails, are key to guest satisfaction.",
+      "Location": "Location refers to the convenience and accessibility of the hotel’s position, as well as the surrounding environment and attractions. A great location provides easy access to transport, tourist destinations, nature views, and local cultural experiences, all of which enhance the overall experience for guests.",
+      "Booking Process": "Booking Process involves the ease and efficiency with which guests can make reservations. This includes the user-friendliness of the online booking system, mobile app, or website, as well as the availability of necessary information and the speed at which booking can be completed.",
+      "Overall Experience": "Overall Experience encompasses the guest's overall impression of their stay, including interactions with staff, the quality of services received, and their emotional response to the visit. A positive overall experience is marked by exceptional hospitality, a comfortable environment, and memorable moments during their stay.",
+      "Room Quality": "Room Quality refers to the comfort, ambiance, and condition of the rooms provided to guests. This includes the cleanliness, size, furnishings, amenities (such as air conditioning, television, and bathroom), and the overall atmosphere of the room that contribute to the guest's comfort.",
+      "Room Service": "Room Service relates to the quality and efficiency of services provided directly to the guest's room, including housekeeping, in-room dining, and any other services that can be ordered from the comfort of the room. A prompt and attentive room service experience is essential for guest satisfaction.",
+      "Service": "Service refers to the overall customer service experience, including the professionalism, friendliness, and helpfulness of the hotel staff. This includes the reception, concierge, and front office team, and their ability to resolve issues, assist with requests, and ensure that guests have a pleasant stay.",
+      "Value for Money": "Value for Money refers to the perceived worth of the stay in relation to the price paid. This includes the balance between the cost of the room or services and the quality of the experience provided. Guests expect good value for the price, with competitive rates, special deals, and offers that reflect the quality of service."
+    },
+    "reviewFetchLimit": {
+      "nonAdmin": 200,
+      "admin": 200
+    },
+    "reviewDeletionEnabled": true,
+    "fbAdminSync": true,
+    "replySuggestionAIModel": "gpt-4",
+    "ormDataCategorizationPrompt": "Return the high-level categories and associated sentiment for those categories of the following text in the following Format. Pick the categories from the Category list given below. Include only the given categories. All category should have a sentiment, select sentiment from following values neutral,negative,positive\n Category list -  Customer service, Food and beverages, Room, Price, Booking process, Accessibility, Guest satisfaction, Staff \nFormat:<category>:<sentiment>\nText : $text$",
+    "reviewSummaryPrompt": "What are the categories and their sentiment discussed in the following review? \n\n",
+    "textEnhancementPrompt": "Look for any grammar or spell issues in the text bellow and fix them.\n\n",
+    "subCategorySentimentPrompt": "Extract the phrase from the review text that describes the sentiment about the keyword. If a pharse is not found return as N/A. Keyword : {{keyword}} ,  Review text : {{reviewText}}",
+    "absaPrompt": "You are an AI assistant for aspect-based sentiment analysis.\nGiven the following inputs:\n- Main keyword: {{keyword}}\n- Subkeyword: {{subCat}}\n- Context: {{context}}\n- Review text: {{reviewText}}\n\nYour task is to:\n1. Extract the **phrase** from the review that expresses sentiment about the given **subkeyword**, considering the given **context** of the **main keyword**.\n2. Classify the sentiment of the phrase as **Positive**, **Negative**, or **Neutral**.\n3. If no relevant phrase is found, return '\"phrase\": \"N/A\"' and '\"sentiment\": \"N/A\"'.\n\nReturn the result in the following JSON format:\n{\n\"phrase\": \"<extracted phrase or 'N/A'>\",\n\"sentiment\": \"<Positive | Negative | Neutral or N/A>\"\n}",
+    "overallSentimentPrompt": "You are an AI assistant for sentiment analysis.\nGiven the following input:\n- Review text: {{reviewText}}\n\nYour task is to:\n1. Classify the overall sentiment of the review as **Positive**, **Negative**, or **Neutral**.\n\nReturn the result in the following JSON format:\n{\n    \"sentiment\": \"<Positive | Negative | Neutral>\"\n}",
+    "replySuggestionDefaultLangIsEnglish": true,
+    "replySuggestionPromptv2": "Give the best reply to the review in a {{tone}} tone.{{languageInstruction}}Please start the reply by saying 'Dear Guest,' and end saying 'Thank You, Fox Resorts Colombo'. Include these in new lines.",
+    "replySuggestionPrompt": {
+      "english": "What is the best reply for the following review? Please give the reply in english",
+      "similar": "What is the best reply for the following review? Please give the reply in same language as the review"
+    }
+  },
+  "categorizationConfig": {
+    "AIModel": "manual"
+  },
+  "ticketAgentEnabled": true,
+  "replySync": 60,
+  "type": "onlineReviewManagement"
+}

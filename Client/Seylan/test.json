@@ -1,0 +1,1471 @@
+{
+  "reportNamePrefix": "Negative feedback tracking",
+  "name": "Seylan CSAT",
+  "descriptionFormat": "text",
+  "timeZone": -330,
+  "timeSpent": {
+    "type": "time_accumulation"
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Open",
+        "name": "Open"
+      },
+      {
+        "id": "Review",
+        "name": "Review"
+      },
+      {
+        "id": "Inquiry Sent to Branch",
+        "name": "Inquiry Sent to Branch",
+        "triggers": [
+          {
+            "template": "liveWF_negativeFeedback_BranchQuery",
+            "channel": "email",
+            "target": "admin",
+            "appendEditUrl": false,
+            "contactFilters": [
+              "branchContact",
+              "overlookContact"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "region",
+                  "operator": "eq",
+                  "value": "$region$"
+                },
+                {
+                  "field": "branch",
+                  "operator": "eq",
+                  "value": "$branch$"
+                },
+                {
+                  "field": "location",
+                  "operator": "eq",
+                  "value": "$location$"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Closed",
+        "name": "Closed",
+        "triggers": [
+          {
+            "template": "liveWF_issueClosed",
+            "channel": "email",
+            "target": "admin",
+            "appendEditUrl": false,
+            "contactFilters": [
+              "branchContact",
+              "overlookContact"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "region",
+                  "operator": "eq",
+                  "value": "$region$"
+                },
+                {
+                  "field": "branch",
+                  "operator": "eq",
+                  "value": "$branch$"
+                },
+                {
+                  "field": "location",
+                  "operator": "eq",
+                  "value": "$location$"
+                }
+              ]
+            }
+          },
+          {
+            "template": "liveWF_ticketResolvedCustomer",
+            "channel": "email",
+            "target": "customer",
+            "appendEditUrl": false
+          }
+        ]
+      }
+    ],
+    "transitions": [
+      {
+        "sourceState": "Open",
+        "targetStates": [
+          "Review"
+        ]
+      },
+      {
+        "sourceState": "Review",
+        "targetStates": [
+          "Closed",
+          "Inquiry Sent to Branch"
+        ]
+      },
+      {
+        "sourceState": "Inquiry Sent to Branch",
+        "targetStates": [
+          "Closed",
+          "Review"
+        ]
+      },
+      {
+        "sourceState": "Closed",
+        "targetStates": [
+          "Open"
+        ]
+      }
+    ]
+  },
+  "type": {
+    "name": "Location",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Counter",
+        "name": "Counter"
+      },
+      {
+        "id": "Digital Screen",
+        "name": "Digital Screen"
+      },
+      {
+        "id": "ATM",
+        "name": "ATM"
+      },
+      {
+        "id": "Tab",
+        "name": "Tab"
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "values": [
+      {
+        "id": "High",
+        "name": "High"
+      },
+      {
+        "id": "Medium",
+        "name": "Medium"
+      },
+      {
+        "id": "Low",
+        "name": "Low"
+      }
+    ]
+  },
+  "customFields": {
+    "uploadedDocuments": {
+      "name": "Uploaded documents",
+      "type": "file"
+    },
+    "region": {
+      "name": "Region",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Metro I",
+          "name": "Metro I"
+        },
+        {
+          "id": "Metro II",
+          "name": "Metro II"
+        },
+        {
+          "id": "North Central",
+          "name": "North Central"
+        },
+        {
+          "id": "North West I",
+          "name": "North West I"
+        },
+        {
+          "id": "South",
+          "name": "South"
+        },
+        {
+          "id": "West",
+          "name": "West"
+        },
+        {
+          "id": "North West 2",
+          "name": "North West 2"
+        },
+        {
+          "id": "North",
+          "name": "North"
+        },
+        {
+          "id": "Central",
+          "name": "Central"
+        },
+        {
+          "id": "SUBS 1",
+          "name": "SUBS 1"
+        },
+        {
+          "id": "SUBS 11",
+          "name": "SUBS 11"
+        },
+        {
+          "id": "US",
+          "name": "US"
+        },
+        {
+          "id": "East",
+          "name": "East"
+        },
+        {
+          "id": "Offsite ATMs",
+          "name": "Offsite ATMs"
+        }
+      ]
+    },
+    "branch": {
+      "name": "Branch",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Demo Testing",
+          "name": "Demo Testing"
+        },
+        {
+          "id": "Kollupitiya",
+          "name": "Kollupitiya"
+        },
+        {
+          "id": "Colombo Fort",
+          "name": "Colombo Fort"
+        },
+        {
+          "id": "Cinnamon Gardens",
+          "name": "Cinnamon Gardens"
+        },
+        {
+          "id": "Wellawatte",
+          "name": "Wellawatte"
+        },
+        {
+          "id": "Borella",
+          "name": "Borella"
+        },
+        {
+          "id": "Havelock Town",
+          "name": "Havelock Town"
+        },
+        {
+          "id": "Millennium",
+          "name": "Millennium"
+        },
+        {
+          "id": "Bambalapitiya",
+          "name": "Bambalapitiya"
+        },
+        {
+          "id": "Union Place",
+          "name": "Union Place"
+        },
+        {
+          "id": "E commerce",
+          "name": "E commerce"
+        },
+        {
+          "id": "Grandpas",
+          "name": "Grandpas"
+        },
+        {
+          "id": "Maradana",
+          "name": "Maradana"
+        },
+        {
+          "id": "Old Moor Street",
+          "name": "Old Moor Street"
+        },
+        {
+          "id": "Pettah",
+          "name": "Pettah"
+        },
+        {
+          "id": "Pettah II",
+          "name": "Pettah II"
+        },
+        {
+          "id": "Dam Street Branch",
+          "name": "Dam Street Branch"
+        },
+        {
+          "id": "Kotahena",
+          "name": "Kotahena"
+        },
+        {
+          "id": "Colombo Gold Center",
+          "name": "Colombo Gold Center"
+        },
+        {
+          "id": "Mutwal",
+          "name": "Mutwal"
+        },
+        {
+          "id": "Anuradhapura",
+          "name": "Anuradhapura"
+        },
+        {
+          "id": "Dehiattakandiya",
+          "name": "Dehiattakandiya"
+        },
+        {
+          "id": "Hingurakgoda",
+          "name": "Hingurakgoda"
+        },
+        {
+          "id": "Manampitiya",
+          "name": "Manampitiya"
+        },
+        {
+          "id": "Kekirawa",
+          "name": "Kekirawa"
+        },
+        {
+          "id": "Kaduruwela",
+          "name": "Kaduruwela"
+        },
+        {
+          "id": "Dambulla",
+          "name": "Dambulla"
+        },
+        {
+          "id": "Galenbindunuwewa",
+          "name": "Galenbindunuwewa"
+        },
+        {
+          "id": "Kantale",
+          "name": "Kantale"
+        },
+        {
+          "id": "Aralaganwila",
+          "name": "Aralaganwila"
+        },
+        {
+          "id": "Medawachchiya",
+          "name": "Medawachchiya"
+        },
+        {
+          "id": "Nochchiyagama",
+          "name": "Nochchiyagama"
+        },
+        {
+          "id": "Eppawala",
+          "name": "Eppawala"
+        },
+        {
+          "id": "Padaviya",
+          "name": "Padaviya"
+        },
+        {
+          "id": "Negombo",
+          "name": "Negombo"
+        },
+        {
+          "id": "Chilaw",
+          "name": "Chilaw"
+        },
+        {
+          "id": "Ja Ela",
+          "name": "Ja Ela"
+        },
+        {
+          "id": "Katunayake",
+          "name": "Katunayake"
+        },
+        {
+          "id": "Katuneriya",
+          "name": "Katuneriya"
+        },
+        {
+          "id": "Kochchikade",
+          "name": "Kochchikade"
+        },
+        {
+          "id": "Raddolugama",
+          "name": "Raddolugama"
+        },
+        {
+          "id": "Wattala",
+          "name": "Wattala"
+        },
+        {
+          "id": "Wenappuwa",
+          "name": "Wenappuwa"
+        },
+        {
+          "id": "Dankottuwa",
+          "name": "Dankottuwa"
+        },
+        {
+          "id": "Kandana",
+          "name": "Kandana"
+        },
+        {
+          "id": "Matara",
+          "name": "Matara"
+        },
+        {
+          "id": "Galle",
+          "name": "Galle"
+        },
+        {
+          "id": "Ambalangoda",
+          "name": "Ambalangoda"
+        },
+        {
+          "id": "Tissamaharama",
+          "name": "Tissamaharama"
+        },
+        {
+          "id": "Koggala",
+          "name": "Koggala"
+        },
+        {
+          "id": "Beliatta",
+          "name": "Beliatta"
+        },
+        {
+          "id": "Hambantota",
+          "name": "Hambantota"
+        },
+        {
+          "id": "Akuressa",
+          "name": "Akuressa"
+        },
+        {
+          "id": "Ambalantota",
+          "name": "Ambalantota"
+        },
+        {
+          "id": "Beruwela",
+          "name": "Beruwela"
+        },
+        {
+          "id": "Hikkaduwa",
+          "name": "Hikkaduwa"
+        },
+        {
+          "id": "Kamburupitiya",
+          "name": "Kamburupitiya"
+        },
+        {
+          "id": "Katharagama",
+          "name": "Katharagama"
+        },
+        {
+          "id": "Karapitiya",
+          "name": "Karapitiya"
+        },
+        {
+          "id": "Matara Bazaar",
+          "name": "Matara Bazaar"
+        },
+        {
+          "id": "Aluthgama",
+          "name": "Aluthgama"
+        },
+        {
+          "id": "Gampaha",
+          "name": "Gampaha"
+        },
+        {
+          "id": "Ganemulla",
+          "name": "Ganemulla"
+        },
+        {
+          "id": "Kadawatha",
+          "name": "Kadawatha"
+        },
+        {
+          "id": "Kelaniya",
+          "name": "Kelaniya"
+        },
+        {
+          "id": "Kiribathgoda",
+          "name": "Kiribathgoda"
+        },
+        {
+          "id": "Marandagahamula",
+          "name": "Marandagahamula"
+        },
+        {
+          "id": "Minuwangoda",
+          "name": "Minuwangoda"
+        },
+        {
+          "id": "Mirigama",
+          "name": "Mirigama"
+        },
+        {
+          "id": "Nittambuwa",
+          "name": "Nittambuwa"
+        },
+        {
+          "id": "Ranpokunugama",
+          "name": "Ranpokunugama"
+        },
+        {
+          "id": "Veyangoda",
+          "name": "Veyangoda"
+        },
+        {
+          "id": "Warakapola",
+          "name": "Warakapola"
+        },
+        {
+          "id": "Weliweriya",
+          "name": "Weliweriya"
+        },
+        {
+          "id": "Yakkala",
+          "name": "Yakkala"
+        },
+        {
+          "id": "Kirindiwela",
+          "name": "Kirindiwela"
+        },
+        {
+          "id": "Giriulla",
+          "name": "Giriulla"
+        },
+        {
+          "id": "Hettipola",
+          "name": "Hettipola"
+        },
+        {
+          "id": "Kalpitiya",
+          "name": "Kalpitiya"
+        },
+        {
+          "id": "Kuliyapitiya",
+          "name": "Kuliyapitiya"
+        },
+        {
+          "id": "Kurunegala",
+          "name": "Kurunegala"
+        },
+        {
+          "id": "Kurunegala 2",
+          "name": "Kurunegala 2"
+        },
+        {
+          "id": "Mawathagama",
+          "name": "Mawathagama"
+        },
+        {
+          "id": "Narammala",
+          "name": "Narammala"
+        },
+        {
+          "id": "Pannala",
+          "name": "Pannala"
+        },
+        {
+          "id": "Puttalam",
+          "name": "Puttalam"
+        },
+        {
+          "id": "Wariyapola",
+          "name": "Wariyapola"
+        },
+        {
+          "id": "Dummalasooriya",
+          "name": "Dummalasooriya"
+        },
+        {
+          "id": "Udappuwa",
+          "name": "Udappuwa"
+        },
+        {
+          "id": "Bowatta",
+          "name": "Bowatta"
+        },
+        {
+          "id": "Rideegama",
+          "name": "Rideegama"
+        },
+        {
+          "id": "Chunnakam",
+          "name": "Chunnakam"
+        },
+        {
+          "id": "Jaffna",
+          "name": "Jaffna"
+        },
+        {
+          "id": "Kilinochchi",
+          "name": "Kilinochchi"
+        },
+        {
+          "id": "Manipay",
+          "name": "Manipay"
+        },
+        {
+          "id": "Mannar",
+          "name": "Mannar"
+        },
+        {
+          "id": "Vavuniya",
+          "name": "Vavuniya"
+        },
+        {
+          "id": "Nelliyady",
+          "name": "Nelliyady"
+        },
+        {
+          "id": "Chawakachcheri",
+          "name": "Chawakachcheri"
+        },
+        {
+          "id": "Mullativu",
+          "name": "Mullativu"
+        },
+        {
+          "id": "Chankani",
+          "name": "Chankani"
+        },
+        {
+          "id": "Gampola",
+          "name": "Gampola"
+        },
+        {
+          "id": "Hatton",
+          "name": "Hatton"
+        },
+        {
+          "id": "Kandy",
+          "name": "Kandy"
+        },
+        {
+          "id": "Kegalle",
+          "name": "Kegalle"
+        },
+        {
+          "id": "Mahiyanganaya",
+          "name": "Mahiyanganaya"
+        },
+        {
+          "id": "Matale",
+          "name": "Matale"
+        },
+        {
+          "id": "Mawanella",
+          "name": "Mawanella"
+        },
+        {
+          "id": "Nawalapitiya",
+          "name": "Nawalapitiya"
+        },
+        {
+          "id": "Pallekele",
+          "name": "Pallekele"
+        },
+        {
+          "id": "Pilimathalawa",
+          "name": "Pilimathalawa"
+        },
+        {
+          "id": "Bogawantalawa",
+          "name": "Bogawantalawa"
+        },
+        {
+          "id": "Thalawakale",
+          "name": "Thalawakale"
+        },
+        {
+          "id": "Pussellawa",
+          "name": "Pussellawa"
+        },
+        {
+          "id": "Katugastota",
+          "name": "Katugastota"
+        },
+        {
+          "id": "Peradeniya",
+          "name": "Peradeniya"
+        },
+        {
+          "id": "Nuwaraeliya",
+          "name": "Nuwaraeliya"
+        },
+        {
+          "id": "Attidiya",
+          "name": "Attidiya"
+        },
+        {
+          "id": "Bandaragama",
+          "name": "Bandaragama"
+        },
+        {
+          "id": "Boralesgamuwa",
+          "name": "Boralesgamuwa"
+        },
+        {
+          "id": "Horana",
+          "name": "Horana"
+        },
+        {
+          "id": "Kalutara",
+          "name": "Kalutara"
+        },
+        {
+          "id": "Moratumulla",
+          "name": "Moratumulla"
+        },
+        {
+          "id": "Moratuwa",
+          "name": "Moratuwa"
+        },
+        {
+          "id": "Panadura",
+          "name": "Panadura"
+        },
+        {
+          "id": "Piliyandala",
+          "name": "Piliyandala"
+        },
+        {
+          "id": "Sarikkamulla",
+          "name": "Sarikkamulla"
+        },
+        {
+          "id": "Soysapura",
+          "name": "Soysapura"
+        },
+        {
+          "id": "Wadduwa",
+          "name": "Wadduwa"
+        },
+        {
+          "id": "Mountlavinia",
+          "name": "Mountlavinia"
+        },
+        {
+          "id": "Dehiwela",
+          "name": "Dehiwela"
+        },
+        {
+          "id": "Mathugama",
+          "name": "Mathugama"
+        },
+        {
+          "id": "Baduraliya",
+          "name": "Baduraliya"
+        },
+        {
+          "id": "Battaramulla",
+          "name": "Battaramulla"
+        },
+        {
+          "id": "Godagama",
+          "name": "Godagama"
+        },
+        {
+          "id": "Gothatuwa",
+          "name": "Gothatuwa"
+        },
+        {
+          "id": "Homagama",
+          "name": "Homagama"
+        },
+        {
+          "id": "Ingiriya",
+          "name": "Ingiriya"
+        },
+        {
+          "id": "Kalubowila",
+          "name": "Kalubowila"
+        },
+        {
+          "id": "Kirulapone",
+          "name": "Kirulapone"
+        },
+        {
+          "id": "Kottawa",
+          "name": "Kottawa"
+        },
+        {
+          "id": "Maharagama",
+          "name": "Maharagama"
+        },
+        {
+          "id": "Malabe",
+          "name": "Malabe"
+        },
+        {
+          "id": "Meegoda",
+          "name": "Meegoda"
+        },
+        {
+          "id": "Nawala",
+          "name": "Nawala"
+        },
+        {
+          "id": "Nugegoda",
+          "name": "Nugegoda"
+        },
+        {
+          "id": "Padukka",
+          "name": "Padukka"
+        },
+        {
+          "id": "Wijerama",
+          "name": "Wijerama"
+        },
+        {
+          "id": "Pitakotte",
+          "name": "Pitakotte"
+        },
+        {
+          "id": "Athurugiriya",
+          "name": "Athurugiriya"
+        },
+        {
+          "id": "Avissawella",
+          "name": "Avissawella"
+        },
+        {
+          "id": "Badulla",
+          "name": "Badulla"
+        },
+        {
+          "id": "Balangoda",
+          "name": "Balangoda"
+        },
+        {
+          "id": "Bandarawela",
+          "name": "Bandarawela"
+        },
+        {
+          "id": "Eheliyagoda",
+          "name": "Eheliyagoda"
+        },
+        {
+          "id": "Embilipitiya",
+          "name": "Embilipitiya"
+        },
+        {
+          "id": "Godakawela",
+          "name": "Godakawela"
+        },
+        {
+          "id": "Monaragala",
+          "name": "Monaragala"
+        },
+        {
+          "id": "Pelmadulla",
+          "name": "Pelmadulla"
+        },
+        {
+          "id": "Ratnapura",
+          "name": "Ratnapura"
+        },
+        {
+          "id": "Ruwanwella",
+          "name": "Ruwanwella"
+        },
+        {
+          "id": "Welimada",
+          "name": "Welimada"
+        },
+        {
+          "id": "Yatiyantota",
+          "name": "Yatiyantota"
+        },
+        {
+          "id": "Siyambalanduwa",
+          "name": "Siyambalanduwa"
+        },
+        {
+          "id": "Ampara",
+          "name": "Ampara"
+        },
+        {
+          "id": "Chenkalady",
+          "name": "Chenkalady"
+        },
+        {
+          "id": "Kalmunai",
+          "name": "Kalmunai"
+        },
+        {
+          "id": "Kattankudy",
+          "name": "Kattankudy"
+        },
+        {
+          "id": "Pothuvil",
+          "name": "Pothuvil"
+        },
+        {
+          "id": "Trincomalee",
+          "name": "Trincomalee"
+        },
+        {
+          "id": "Batticaloa",
+          "name": "Batticaloa"
+        },
+        {
+          "id": "Akkaraipattu",
+          "name": "Akkaraipattu"
+        },
+        {
+          "id": "Sammanthurai",
+          "name": "Sammanthurai"
+        },
+        {
+          "id": "Kalawanchikudy",
+          "name": "Kalawanchikudy"
+        },
+        {
+          "id": "Rajagiriya",
+          "name": "Rajagiriya"
+        },
+        {
+          "id": "Thalawathugoda",
+          "name": "Thalawathugoda"
+        }
+      ]
+    },
+    "location": {
+      "name": "Location",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Counter",
+          "name": "Counter"
+        },
+        {
+          "id": "Digital Screen",
+          "name": "Digital Screen"
+        },
+        {
+          "id": "ATM",
+          "name": "ATM"
+        },
+        {
+          "id": "Tab",
+          "name": "Tab"
+        },
+        {
+          "id": "190-SILVABCHHOTEL",
+          "name": "190-SILVABCHHOTEL"
+        },
+        {
+          "id": "107-MALBANTEX",
+          "name": "107-MALBANTEX"
+        },
+        {
+          "id": "25-WELKADAPLZRAJ",
+          "name": "25-WELKADAPLZRAJ"
+        },
+        {
+          "id": "136-BLOOMFDREID",
+          "name": "136-BLOOMFDREID"
+        },
+        {
+          "id": "103-SMARTSHIRT",
+          "name": "103-SMARTSHIRT"
+        },
+        {
+          "id": "138-MDKHOSPTALHOR",
+          "name": "138-MDKHOSPTALHOR"
+        },
+        {
+          "id": "137-FILLINKURUWITA",
+          "name": "137-FILLINKURUWITA"
+        },
+        {
+          "id": "160-ATMARUGAMBAY",
+          "name": "160-ATMARUGAMBAY"
+        },
+        {
+          "id": "191-HIKKADUWA",
+          "name": "191-HIKKADUWA"
+        },
+        {
+          "id": "217-RANDIYAMIRISSA",
+          "name": "217-RANDIYAMIRISSA"
+        },
+        {
+          "id": "184-YOSHIDASAPUGASKANDA",
+          "name": "184-YOSHIDASAPUGASKANDA"
+        },
+        {
+          "id": "216-MARINABAMRank",
+          "name": "216-MARINABAMRank"
+        },
+        {
+          "id": "201-PINNAWALA",
+          "name": "201-PINNAWALA"
+        },
+        {
+          "id": "202-PIZZAHUTNegombo",
+          "name": "202-PIZZAHUTNegombo"
+        },
+        {
+          "id": "205-ELLA",
+          "name": "205-ELLA"
+        },
+        {
+          "id": "207-SETHSIRIPAYABATT",
+          "name": "207-SETHSIRIPAYABATT"
+        },
+        {
+          "id": "209-NHRRAGAMA",
+          "name": "209-NHRRAGAMA"
+        },
+        {
+          "id": "215-DVINETCO",
+          "name": "215-DVINETCO"
+        },
+        {
+          "id": "59-MKTRNKOT",
+          "name": "59-MKTRNKOT"
+        },
+        {
+          "id": "179-ANGLRRESTAURANTMLV",
+          "name": "179-ANGLRRESTAURANTMLV"
+        },
+        {
+          "id": "213-NATHOSCMB",
+          "name": "213-NATHOSCMB"
+        },
+        {
+          "id": "170-EASTUNIVICITY",
+          "name": "170-EASTUNIVICITY"
+        },
+        {
+          "id": "125-NAUTILUSUNAWAT",
+          "name": "125-NAUTILUSUNAWAT"
+        },
+        {
+          "id": "159-IBSLBORELLA",
+          "name": "159-IBSLBORELLA"
+        },
+        {
+          "id": "206-HORIZONCAM",
+          "name": "206-HORIZONCAM"
+        },
+        {
+          "id": "32-SHANGRILAGL",
+          "name": "32-SHANGRILAGL"
+        },
+        {
+          "id": "177-ASRRUBBER",
+          "name": "177-ASRRUBBER"
+        },
+        {
+          "id": "35-SLTCMPPDK",
+          "name": "35-SLTCMPPDK"
+        },
+        {
+          "id": "62-SARNANKARADEH",
+          "name": "62-SARNANKARADEH"
+        },
+        {
+          "id": "108-NHRATHNAPURA",
+          "name": "108-NHRATHNAPURA"
+        },
+        {
+          "id": "HVL CITY CRM",
+          "name": "HVL CITY CRM"
+        },
+        {
+          "id": "KIRIBATHGODA MAKOLA",
+          "name": "KIRIBATHGODA MAKOLA"
+        },
+        {
+          "id": "MANNING MARKET",
+          "name": "MANNING MARKET"
+        },
+        {
+          "id": "MAJESTIC PRIDE CASINO",
+          "name": "MAJESTIC PRIDE CASINO"
+        },
+        {
+          "id": "DIVULAPITIYA TOWN",
+          "name": "DIVULAPITIYA TOWN"
+        },
+        {
+          "id": "HIRIKETIYA",
+          "name": "HIRIKETIYA"
+        },
+        {
+          "id": "WELIGAMA",
+          "name": "WELIGAMA"
+        },
+        {
+          "id": "KALPITIYA",
+          "name": "KALPITIYA"
+        },
+        {
+          "id": "DALADA MALIGAWA",
+          "name": "DALADA MALIGAWA"
+        },
+        {
+          "id": "SAINTHAMARUTHU",
+          "name": "SAINTHAMARUTHU"
+        },
+        {
+          "id": "KATUNAYAKE AIRPORT",
+          "name": "KATUNAYAKE AIRPORT"
+        },
+        {
+          "id": "SURAPATHI SUPER MARKET",
+          "name": "SURAPATHI SUPER MARKET"
+        },
+        {
+          "id": "HIKKADUWA",
+          "name": "HIKKADUWA"
+        },
+        {
+          "id": "DANKOTUWA INDUSTRIAL ZONE",
+          "name": "DANKOTUWA INDUSTRIAL ZONE"
+        }
+      ]
+    },
+    "response": {
+      "name": "Customer Response",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Very dissatisfied",
+          "name": "Very dissatisfied",
+          "wfd_mappedFromQuestion": true
+        },
+        {
+          "id": "Dissatisfied",
+          "name": "Dissatisfied",
+          "wfd_mappedFromQuestion": true
+        },
+        {
+          "id": "Neutral",
+          "name": "Neutral",
+          "wfd_mappedFromQuestion": true
+        },
+        {
+          "id": "Satisifed",
+          "name": "Satisifed",
+          "wfd_mappedFromQuestion": true
+        },
+        {
+          "id": "Very satisfied",
+          "name": "Very satisfied",
+          "wfd_mappedFromQuestion": true
+        }
+      ],
+      "wfd_mappedQuestion": "q8555"
+    },
+    "comment": {
+      "name": "Customer Comment",
+      "type": "textArea",
+      "readOnly": true
+    },
+    "overdue": {
+      "name": "Overdue",
+      "type": "enum",
+      "values": [
+        {
+          "id": "No",
+          "name": "No"
+        },
+        {
+          "id": "Yes",
+          "name": "Yes",
+          "triggers": [
+            {
+              "template": "liveWF_negativeFeedback_Escalation",
+              "channel": "email",
+              "target": "admin",
+              "appendEditUrl": false,
+              "contactFilters": [
+                "branchContact",
+                "overlookContact",
+                "escalationContact"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "region",
+                    "operator": "eq",
+                    "value": "$region$"
+                  },
+                  {
+                    "field": "branch",
+                    "operator": "eq",
+                    "value": "$branch$"
+                  },
+                  {
+                    "field": "location",
+                    "operator": "eq",
+                    "value": "$location$"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "profileDetailsConsentGiven": {
+      "name": "Profile Details Consent Given",
+      "type": "enum",
+      "values": [
+        {
+          "id": "No",
+          "name": "No"
+        },
+        {
+          "id": "Yes",
+          "name": "Yes"
+        }
+      ]
+    }
+  },
+  "workflowCreation": {
+    "triggers": [
+      {
+        "template": "liveWF_negativeFeedbackAlert",
+        "channel": "email",
+        "target": "admin",
+        "appendEditUrl": false,
+        "contactFilters": [
+          "branchContact",
+          "overlookContact"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "region",
+              "operator": "eq",
+              "value": "$region$"
+            },
+            {
+              "field": "branch",
+              "operator": "eq",
+              "value": "$branch$"
+            },
+            {
+              "field": "location",
+              "operator": "eq",
+              "value": "$location$"
+            }
+          ]
+        }
+      },
+      {
+        "template": "liveWF_negativeFeedbackCustomerEmail",
+        "channel": "email",
+        "target": "customer",
+        "appendEditUrl": false
+      },
+      {
+        "channel": "fieldChange",
+        "condition": {
+          "and": [
+            {
+              "!=": [
+                {
+                  "var": "type"
+                },
+                "Counter"
+              ]
+            },
+            {
+              "!=": [
+                {
+                  "var": "type"
+                },
+                "Digital Screen"
+              ]
+            }
+          ]
+        },
+        "changingFields": [
+          {
+            "id": "type",
+            "value": "ATM"
+          }
+        ]
+      },
+      {
+        "channel": "fieldChange",
+        "changingFields": [
+          {
+            "id": "assignee",
+            "contactFilters": [
+              "branchContact"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "region",
+                  "operator": "eq",
+                  "value": "$region$"
+                },
+                {
+                  "field": "branch",
+                  "operator": "eq",
+                  "value": "$branch$"
+                },
+                {
+                  "field": "location",
+                  "operator": "eq",
+                  "value": "$location$"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "template": "liveWF_negativeFeedbackAlertNoDetails",
+        "condition": {
+          "and": [
+            {
+              "==": [
+                {
+                  "var": "profileDetailsConsentGiven"
+                },
+                "No"
+              ]
+            }
+          ]
+        },
+        "channel": "email",
+        "target": "admin",
+        "appendEditUrl": false,
+        "contactFilters": [
+          "branchContact",
+          "overlookContact"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "region",
+              "operator": "eq",
+              "value": "$region$"
+            },
+            {
+              "field": "branch",
+              "operator": "eq",
+              "value": "$branch$"
+            },
+            {
+              "field": "location",
+              "operator": "eq",
+              "value": "$location$"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "assignment": {
+    "automaticAssignment": {
+      "isEnabled": true,
+      "email": "seylancx@emojot.com",
+      "resolvedStatus": [
+        "Closed"
+      ],
+      "maxLevel": 2,
+      "triggerFlows": [
+        {
+          "condition": {
+            "!=": [
+              {
+                "var": "status"
+              },
+              "Closed"
+            ]
+          },
+          "skipAssignment": true,
+          "levels": [
+            {
+              "nextLevelTime": 172800000
+            },
+            {
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "Yes"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "liveWF_assignment",
+        "target": "employee"
+      }
+    ]
+  },
+  "adminHierarchy": {
+    "list": "seylanCXMHierarchy",
+    "headers": [
+      {
+        "id": "region",
+        "name": "Region",
+        "type": "customField"
+      },
+      {
+        "id": "branch",
+        "name": "Branch",
+        "type": "customField"
+      },
+      {
+        "id": "location",
+        "name": "Location",
+        "type": "customField"
+      },
+      {
+        "id": "branchContact",
+        "name": "branchContact",
+        "type": "contact"
+      },
+      {
+        "id": "overlookContact",
+        "name": "OverlookContact",
+        "type": "contact"
+      },
+      {
+        "id": "escalationContact",
+        "name": "EscalationContact",
+        "type": "contact"
+      }
+    ],
+    "id": "AHI_1692331719779_7876331",
+    "lastGroupId": 1
+  },
+  "tableEdit": "true"
+}

@@ -1,0 +1,1554 @@
+{
+  "name": "Dipra_Installed_Machines_WF",
+  "reportNamePrefix": "Machine",
+  "reporterNamePrefix": "Submitted By",
+  "nameTemplate": "$machineId$ - $serialNumber$",
+  "descriptionTemplate": "$productName$ at $locationName$",
+  "descriptionFormat": "text",
+  "timeZone": -330,
+  "type": {
+    "name": "Record Type",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Installed Machine",
+        "name": "Installed Machine",
+        "highPriorityFields": [
+          "machineId",
+          "serialNumber",
+          "productCode",
+          "productName",
+          "brand",
+          "model",
+          "capacity",
+          "unit",
+          "customerCode",
+          "customerName",
+          "locationCode",
+          "locationName",
+          "supplierCode",
+          "supplierName",
+          "installedLocatedDate",
+          "route",
+          "machineAttributes",
+          "warrantyStartDate",
+          "warrantyExpiryDate",
+          "warrantyReminderDate",
+          "currentAgreementNumber",
+          "previousSerialNumber",
+          "serialChangeReason",
+          "remarks"
+        ]
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Medium",
+        "name": "Medium"
+      }
+    ]
+  },
+  "status": {
+    "name": "Machine Status",
+    "type": "enum",
+    "transitions": [
+      {
+        "sourceState": "Pending Installation",
+        "targetStates": [
+          "Active"
+        ]
+      },
+      {
+        "sourceState": "Active",
+        "targetStates": [
+          "Under Service",
+          "Replaced",
+          "Decommissioned"
+        ]
+      },
+      {
+        "sourceState": "Under Service",
+        "targetStates": [
+          "Active",
+          "Replaced",
+          "Decommissioned"
+        ]
+      }
+    ],
+    "values": [
+      {
+        "id": "Pending Installation",
+        "name": "Pending Installation",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000"
+      },
+      {
+        "id": "Active",
+        "name": "Active",
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff"
+      },
+      {
+        "id": "Under Service",
+        "name": "Under Service",
+        "backgroundColor": "#3498db",
+        "textColor": "#ffffff"
+      },
+      {
+        "id": "Replaced",
+        "name": "Replaced",
+        "finalState": true,
+        "backgroundColor": "#8e44ad",
+        "textColor": "#ffffff"
+      },
+      {
+        "id": "Decommissioned",
+        "name": "Decommissioned",
+        "finalState": true,
+        "backgroundColor": "#7f8c8d",
+        "textColor": "#ffffff"
+      }
+    ]
+  },
+  "customFields": {
+    "machineId": {
+      "name": "Machine ID",
+      "type": "string",
+      "readOnly": true
+    },
+    "serialNumber": {
+      "name": "Serial Number",
+      "type": "string"
+    },
+    "productCode": {
+      "name": "Product Code",
+      "type": "string",
+      "readOnly": true
+    },
+    "productName": {
+      "name": "Select Product Name",
+      "type": "enum",
+      "values": [
+        {
+          "id": "_P0003",
+          "name": "Test sanjana prod 03",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "productCode",
+                  "value": "_P0003"
+                },
+                {
+                  "id": "productName",
+                  "value": "Test sanjana prod 03"
+                },
+                {
+                  "id": "brand",
+                  "value": "ddsd"
+                },
+                {
+                  "id": "model",
+                  "value": "dsds"
+                },
+                {
+                  "id": "supplierCode",
+                  "value": "SUP_00456"
+                },
+                {
+                  "id": "supplierName",
+                  "value": "SUP_00456"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SUP_00456_P0002",
+          "name": "Test prod san2",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "productCode",
+                  "value": "SUP_00456_P0002"
+                },
+                {
+                  "id": "productName",
+                  "value": "Test prod san2"
+                },
+                {
+                  "id": "brand",
+                  "value": "sasa"
+                },
+                {
+                  "id": "model",
+                  "value": "dsd"
+                },
+                {
+                  "id": "supplierCode",
+                  "value": "SUP_00456"
+                },
+                {
+                  "id": "supplierName",
+                  "value": "SUP_00456"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "PROD_00455",
+          "name": "test product name",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "productCode",
+                  "value": "PROD_00455"
+                },
+                {
+                  "id": "productName",
+                  "value": "test product name"
+                },
+                {
+                  "id": "brand",
+                  "value": "ABC"
+                },
+                {
+                  "id": "model",
+                  "value": "ABC"
+                },
+                {
+                  "id": "supplierCode",
+                  "value": "SUP_00455"
+                },
+                {
+                  "id": "supplierName",
+                  "value": "SUP_00456"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "PRD-001",
+          "name": "PolarCool Ice Maker 500",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "productCode",
+                  "value": "PRD-001"
+                },
+                {
+                  "id": "productName",
+                  "value": "PolarCool Ice Maker 500"
+                },
+                {
+                  "id": "brand",
+                  "value": "PolarCool"
+                },
+                {
+                  "id": "model",
+                  "value": "PCM-500"
+                },
+                {
+                  "id": "capacity",
+                  "value": 500
+                },
+                {
+                  "id": "unit",
+                  "value": "kg/day"
+                },
+                {
+                  "id": "supplierCode",
+                  "value": "SUP-002"
+                },
+                {
+                  "id": "supplierName",
+                  "value": "Global Cooling Solutions"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "PRD-TEST-001",
+          "name": "Test Product ABC",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "productCode",
+                  "value": "PRD-TEST-001"
+                },
+                {
+                  "id": "productName",
+                  "value": "Test Product ABC"
+                },
+                {
+                  "id": "brand",
+                  "value": "Test Brand ABC"
+                },
+                {
+                  "id": "model",
+                  "value": "TM-002"
+                },
+                {
+                  "id": "capacity",
+                  "value": 200
+                },
+                {
+                  "id": "unit",
+                  "value": "KG"
+                },
+                {
+                  "id": "supplierCode",
+                  "value": "SUP-TEST-001"
+                },
+                {
+                  "id": "supplierName",
+                  "value": "Test Supplier B"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "_P0004",
+          "name": "rrr",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "productCode",
+                  "value": "_P0004"
+                },
+                {
+                  "id": "brand",
+                  "value": "hhhg"
+                },
+                {
+                  "id": "model",
+                  "value": "hgh"
+                },
+                {
+                  "id": "unit",
+                  "value": "l"
+                },
+                {
+                  "id": "supplierCode",
+                  "value": "S0003"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "brand": {
+      "name": "Brand",
+      "type": "string",
+      "readOnly": true
+    },
+    "model": {
+      "name": "Model",
+      "type": "string",
+      "readOnly": true
+    },
+    "capacity": {
+      "name": "Capacity",
+      "type": "number",
+      "readOnly": true
+    },
+    "unit": {
+      "name": "Unit",
+      "type": "string",
+      "readOnly": true
+    },
+    "customerCode": {
+      "name": "Customer Code",
+      "type": "string",
+      "readOnly": true
+    },
+    "customerName": {
+      "name": "Select Customer Name",
+      "type": "enum",
+      "values": [
+        {
+          "id": "C0022",
+          "name": "Sanjana006789",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "C0022"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Sanjana006789"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C0021",
+          "name": "Sanjana Nimesh 0000",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "C0021"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Sanjana Nimesh 0000"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C0020",
+          "name": "Test 006",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "C0020"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Test 006"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C0019",
+          "name": "Test 123",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "C0019"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Test 123"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C0018",
+          "name": "Sanjana 5555555",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "C0018"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Sanjana 5555555"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "75775",
+          "name": "SaraG",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "75775"
+                },
+                {
+                  "id": "customerName",
+                  "value": "SaraG"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "876543",
+          "name": "Imalshaa",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "876543"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Imalshaa"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "87654",
+          "name": "koooshi",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "87654"
+                },
+                {
+                  "id": "customerName",
+                  "value": "koooshi"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "87653",
+          "name": "koooshiTwo",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "87653"
+                },
+                {
+                  "id": "customerName",
+                  "value": "koooshiTwo"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "123",
+          "name": "akilaikila",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "123"
+                },
+                {
+                  "id": "customerName",
+                  "value": "akilaikila"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "12300321",
+          "name": "nippahNew",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "12300321"
+                },
+                {
+                  "id": "customerName",
+                  "value": "nippahNew"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "2001035",
+          "name": "Chethiya test",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "2001035"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Chethiya test"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "200103500242",
+          "name": "chethiyaNew",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "200103500242"
+                },
+                {
+                  "id": "customerName",
+                  "value": "chethiyaNew"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUST_00458",
+          "name": "Cheya",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUST_00458"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Cheya"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUST_00457",
+          "name": "Cheya",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUST_00457"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Cheya"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUST_00456",
+          "name": "Cheya",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUST_00456"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Cheya"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUS_00455",
+          "name": "Dewmini new",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUS_00455"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Dewmini new"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUS_00567",
+          "name": "Sanjana test",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUS_00567"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Sanjana test"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUS_0014",
+          "name": "Chethiya",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUS_0014"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Chethiya"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUS_0013",
+          "name": "Chethiya",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUS_0013"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Chethiya"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUS_0012",
+          "name": "Saranga Gamage",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUS_0012"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Saranga Gamage"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUS-001",
+          "name": "Sunrise Hotels PLC Test01",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUS-001"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Sunrise Hotels PLC Test01"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUS-TEST-001",
+          "name": "Test Customer IJKL",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUS-TEST-001"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Test Customer IJKL"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CUS-TEST-356",
+          "name": "Chethiya",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "CUS-TEST-356"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Chethiya"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C0023",
+          "name": "New Emojot",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "C0023"
+                },
+                {
+                  "id": "customerName",
+                  "value": "New Emojot"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C0024",
+          "name": "New Emojot 02",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "customerCode",
+                  "value": "C0024"
+                },
+                {
+                  "id": "customerName",
+                  "value": "New Emojot 02"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "locationCode": {
+      "name": "Location Code",
+      "type": "string",
+      "readOnly": true
+    },
+    "locationName": {
+      "name": "Select Location Name",
+      "type": "enum",
+      "values": [
+        {
+          "id": "C0022_L0008",
+          "name": "Test new 4343434",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "locationCode",
+                  "value": "C0022_L0008"
+                },
+                {
+                  "id": "locationName",
+                  "value": "Test new 4343434"
+                },
+                {
+                  "id": "route",
+                  "value": "fdf"
+                },
+                {
+                  "id": "customerCode",
+                  "value": "C0022"
+                },
+                {
+                  "id": "customerName",
+                  "value": "C0022"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "_L0007",
+          "name": "Test location Sanjana",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "locationCode",
+                  "value": "_L0007"
+                },
+                {
+                  "id": "locationName",
+                  "value": "Test location Sanjana"
+                },
+                {
+                  "id": "route",
+                  "value": "dsad"
+                },
+                {
+                  "id": "customerName",
+                  "value": "C0021"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "65432",
+          "name": "abc",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "locationCode",
+                  "value": "65432"
+                },
+                {
+                  "id": "locationName",
+                  "value": "abc"
+                },
+                {
+                  "id": "route",
+                  "value": "abc"
+                },
+                {
+                  "id": "customerCode",
+                  "value": "C0017"
+                },
+                {
+                  "id": "customerName",
+                  "value": "C0017"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "123",
+          "name": "qwerty",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "locationCode",
+                  "value": "123"
+                },
+                {
+                  "id": "locationName",
+                  "value": "qwerty"
+                },
+                {
+                  "id": "route",
+                  "value": "qwerty"
+                },
+                {
+                  "id": "customerCode",
+                  "value": "C0013"
+                },
+                {
+                  "id": "customerName",
+                  "value": "C0013"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "345678",
+          "name": "kandy test new",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "locationCode",
+                  "value": "345678"
+                },
+                {
+                  "id": "locationName",
+                  "value": "kandy test new"
+                },
+                {
+                  "id": "route",
+                  "value": "abc"
+                },
+                {
+                  "id": "customerCode",
+                  "value": "C0012"
+                },
+                {
+                  "id": "customerName",
+                  "value": "C0012"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "200103500242_loc_001",
+          "name": "galle",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "locationCode",
+                  "value": "200103500242_loc_001"
+                },
+                {
+                  "id": "locationName",
+                  "value": "galle"
+                },
+                {
+                  "id": "route",
+                  "value": "galle"
+                },
+                {
+                  "id": "customerCode",
+                  "value": "200103500242"
+                },
+                {
+                  "id": "customerName",
+                  "value": "CUS_0013"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "LOC_00565",
+          "name": "Alawwa",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "locationCode",
+                  "value": "LOC_00565"
+                },
+                {
+                  "id": "locationName",
+                  "value": "Alawwa"
+                },
+                {
+                  "id": "route",
+                  "value": "ABC"
+                },
+                {
+                  "id": "customerCode",
+                  "value": "123"
+                },
+                {
+                  "id": "customerName",
+                  "value": "akilaikila"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "LOC_00455",
+          "name": "Kandy",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "locationCode",
+                  "value": "LOC_00455"
+                },
+                {
+                  "id": "locationName",
+                  "value": "Kandy"
+                },
+                {
+                  "id": "route",
+                  "value": "ABC"
+                },
+                {
+                  "id": "customerCode",
+                  "value": "CUS_00455"
+                },
+                {
+                  "id": "customerName",
+                  "value": "CUS_00455"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "LOC-001",
+          "name": "Sunrise Hotel - Colombo",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "locationCode",
+                  "value": "LOC-001"
+                },
+                {
+                  "id": "locationName",
+                  "value": "Sunrise Hotel - Colombo"
+                },
+                {
+                  "id": "route",
+                  "value": "Colombo Central"
+                },
+                {
+                  "id": "customerCode",
+                  "value": "CUS-001"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Sunrise Hotels PLC Test05"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "LOC-TEST-001",
+          "name": "Test Location BCD",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "locationCode",
+                  "value": "LOC-TEST-001"
+                },
+                {
+                  "id": "locationName",
+                  "value": "Test Location BCD"
+                },
+                {
+                  "id": "route",
+                  "value": "Test Route A"
+                },
+                {
+                  "id": "customerCode",
+                  "value": "CUS-TEST-001"
+                },
+                {
+                  "id": "customerName",
+                  "value": "Test Customer IJKL"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C0021_L0009",
+          "name": "Sanjana6666666",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "locationCode",
+                  "value": "C0021_L0009"
+                },
+                {
+                  "id": "locationName",
+                  "value": "Sanjana6666666"
+                },
+                {
+                  "id": "route",
+                  "value": "dsds"
+                },
+                {
+                  "id": "customerCode",
+                  "value": "C0021"
+                },
+                {
+                  "id": "customerName",
+                  "value": "C0021"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "C0021_L0010",
+          "name": "test 456554",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "locationCode",
+                  "value": "C0021_L0010"
+                },
+                {
+                  "id": "locationName",
+                  "value": "test 456554"
+                },
+                {
+                  "id": "customerCode",
+                  "value": "C0021"
+                },
+                {
+                  "id": "customerName",
+                  "value": "C0021"
+                },
+                {
+                  "id": "route",
+                  "value": "dsds"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "supplierCode": {
+      "name": "Supplier Code",
+      "type": "string",
+      "readOnly": true
+    },
+    "supplierName": {
+      "name": "Select Supplier Name",
+      "type": "enum",
+      "values": [
+        {
+          "id": "S0003",
+          "name": "Sanjana Sup",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "supplierCode",
+                  "value": "S0003"
+                },
+                {
+                  "id": "supplierName",
+                  "value": "Sanjana Sup"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SUP_00452",
+          "name": "Koshyy",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "supplierCode",
+                  "value": "SUP_00452"
+                },
+                {
+                  "id": "supplierName",
+                  "value": "Koshyy"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SUP_00546",
+          "name": "Saraaa",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "supplierCode",
+                  "value": "SUP_00546"
+                },
+                {
+                  "id": "supplierName",
+                  "value": "Saraaa"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SUP_00456",
+          "name": "Sanjana Sup",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "supplierCode",
+                  "value": "SUP_00456"
+                },
+                {
+                  "id": "supplierName",
+                  "value": "Sanjana Sup"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SUP-002",
+          "name": "Global Cooling Solutions",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "supplierCode",
+                  "value": "SUP-002"
+                },
+                {
+                  "id": "supplierName",
+                  "value": "Global Cooling Solutions"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "SUP-TEST-001",
+          "name": "Test Supplier B",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "supplierCode",
+                  "value": "SUP-TEST-001"
+                },
+                {
+                  "id": "supplierName",
+                  "value": "Test Supplier B"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "installedLocatedDate": {
+      "name": "Installed / Located Date",
+      "type": "date"
+    },
+    "route": {
+      "name": "Route",
+      "type": "string",
+      "readOnly": true
+    },
+    "machineAttributes": {
+      "name": "Machine Attributes",
+      "type": "textArea"
+    },
+    "warrantyStartDate": {
+      "name": "Warranty Start Date",
+      "type": "date"
+    },
+    "warrantyExpiryDate": {
+      "name": "Warranty Expiry Date",
+      "type": "date"
+    },
+    "warrantyReminderDate": {
+      "name": "Warranty Reminder Date",
+      "type": "date"
+    },
+    "currentAgreementNumber": {
+      "name": "Current Agreement Number",
+      "type": "string",
+      "readOnly": true
+    },
+    "previousSerialNumber": {
+      "name": "Previous Serial Number",
+      "type": "string"
+    },
+    "serialChangeReason": {
+      "name": "Serial Change Reason",
+      "type": "textArea"
+    },
+    "remarks": {
+      "name": "Remarks",
+      "type": "textArea"
+    }
+  },
+  "tableEdit": "true",
+  "finalState": true,
+  "consoleIncidentCreation": {
+    "buttonName": "Add Installed Machine",
+    "dialogTitle": "Add Installed Machine",
+    "dialogSubtitle": "Please fill this form to create a new installed machine",
+    "fields": [
+      {
+        "key": "serialNumber",
+        "label": "Serial Number",
+        "target": "serialNumber",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "productName",
+        "label": "Select Product Name",
+        "target": "productName",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "customerName",
+        "label": "Select Customer Name",
+        "target": "customerName",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "locationName",
+        "label": "Select Location Name",
+        "target": "locationName",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "supplierName",
+        "label": "Select Supplier Name",
+        "target": "supplierName",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "installedLocatedDate",
+        "label": "Installed / Located Date",
+        "target": "installedLocatedDate",
+        "fieldType": "date",
+        "required": true
+      },
+      {
+        "key": "machineAttributes",
+        "label": "Machine Attributes",
+        "target": "machineAttributes",
+        "fieldType": "textArea",
+        "required": false
+      },
+      {
+        "key": "warrantyStartDate",
+        "label": "Warranty Start Date",
+        "target": "warrantyStartDate",
+        "fieldType": "date",
+        "required": true
+      },
+      {
+        "key": "warrantyExpiryDate",
+        "label": "Warranty Expiry Date",
+        "target": "warrantyExpiryDate",
+        "fieldType": "date",
+        "required": true
+      },
+      {
+        "key": "warrantyReminderDate",
+        "label": "Warranty Reminder Date",
+        "target": "warrantyReminderDate",
+        "fieldType": "date",
+        "required": false
+      },
+      {
+        "key": "previousSerialNumber",
+        "label": "Previous Serial Number",
+        "target": "previousSerialNumber",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "serialChangeReason",
+        "label": "Serial Change Reason",
+        "target": "serialChangeReason",
+        "fieldType": "textArea",
+        "required": false
+      },
+      {
+        "key": "remarks",
+        "label": "Remarks",
+        "target": "remarks",
+        "fieldType": "textArea",
+        "required": false
+      }
+    ]
+  },
+  "incidentKeyFormat": {
+    "enabled": true,
+    "pattern": [
+      {
+        "key": "type",
+        "format": "mapping"
+      },
+      {
+        "key": "counter",
+        "format": 4
+      }
+    ],
+    "counterReset": "never",
+    "fieldMappings": {
+      "type": {
+        "mappings": {},
+        "default": "M"
+      }
+    }
+  }
+}

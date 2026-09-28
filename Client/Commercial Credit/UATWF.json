@@ -175,6 +175,7 @@
           }
         ],
         "highPriorityFields": [
+          "customerDetailsLink",
           "branch",
           "complaintCategory",
           "sourceIssue",
@@ -237,8 +238,7 @@
       {
         "sourceState": "Open",
         "targetStates": [
-          "Transferred",
-          "In Progress"
+          "Transferred"
         ]
       },
       {
@@ -250,15 +250,13 @@
       {
         "sourceState": "In Progress",
         "targetStates": [
-          "Transferred",
-          "Resolved"
+          "Transferred for Verification"
         ]
       },
       {
-        "sourceState": "Resolved",
+        "sourceState": "Transferred for Verification",
         "targetStates": [
-          "Open",
-          "Transferred"
+          "Resolved"
         ]
       }
     ],
@@ -285,6 +283,21 @@
         "textColor": "#ffffff",
         "statusBackgroundColor": "#fdebd0",
         "statusTextColor": "#7e5109",
+        "fieldsValidation": [
+          {
+            "fieldID": "validateStatusChange",
+            "required": true,
+            "message": "Status change confirmation required before saving updates."
+          }
+        ]
+      },
+      {
+        "id": "Transferred for Verification",
+        "name": "Transferred for Verification",
+        "backgroundColor": "#8e44ad",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#f3e5f5",
+        "statusTextColor": "#6a1b9a",
         "fieldsValidation": [
           {
             "fieldID": "validateStatusChange",
@@ -352,10 +365,9 @@
             "template": "complaintResolutionAlertInternal",
             "target": "admin",
             "contacts": [
-              "binuraj@emojot.com",
-              "hirushi@emojot.com",
-              "imalshac@emojot.com",
-              "sanjanan@emojot.com"
+              "sanjanan@emojot.com",
+              "shaveenf@emojot.com",
+              "onels@emojot.com"
             ],
             "condition": {
               "in": [
@@ -411,10 +423,9 @@
               "template": "complaintAssignmentAlert_Operations",
               "target": "admin",
               "contacts": [
-                "binuraj@emojot.com",
-                "hirushi@emojot.com",
-                "imalshac@emojot.com",
-                "sanjanan@emojot.com"
+                "sanjanan@emojot.com",
+                "shaveenf@emojot.com",
+                "onels@emojot.com"
               ]
             }
           ]
@@ -428,11 +439,9 @@
               "template": "complaintAssignmentAlert_OperationsAndHR",
               "target": "admin",
               "contacts": [
-                "binuraj@emojot.com",
-                "hirushi@emojot.com",
-                "imalshac@emojot.com",
                 "sanjanan@emojot.com",
-                "shaveenf@emojot.com"
+                "shaveenf@emojot.com",
+                "onels@emojot.com"
               ]
             }
           ]
@@ -446,11 +455,9 @@
               "template": "complaintAssignmentAlert_Audit",
               "target": "admin",
               "contacts": [
-                "binuraj@emojot.com",
-                "hirushi@emojot.com",
-                "imalshac@emojot.com",
-                "onels@emojot.com",
-                "sanjanan@emojot.com"
+                "sanjanan@emojot.com",
+                "shaveenf@emojot.com",
+                "onels@emojot.com"
               ]
             }
           ]
@@ -1699,10 +1706,9 @@
               "template": "overdueAlertEmail_1stLevel",
               "target": "admin",
               "contacts": [
-                "binuraj@emojot.com",
-                "hirushi@emojot.com",
-                "imalshac@emojot.com",
-                "sanjanan@emojot.com"
+                "sanjanan@emojot.com",
+                "shaveenf@emojot.com",
+                "onels@emojot.com"
               ]
             }
           ]
@@ -1716,10 +1722,9 @@
               "template": "overdueAlertEmail_2ndLevel",
               "target": "admin",
               "contacts": [
-                "binuraj@emojot.com",
-                "hirushi@emojot.com",
-                "imalshac@emojot.com",
-                "sanjanan@emojot.com"
+                "sanjanan@emojot.com",
+                "shaveenf@emojot.com",
+                "onels@emojot.com"
               ]
             }
           ]
@@ -1733,10 +1738,9 @@
               "template": "overdueAlertEmail_3rdLevel",
               "target": "admin",
               "contacts": [
-                "binuraj@emojot.com",
-                "hirushi@emojot.com",
-                "imalshac@emojot.com",
-                "sanjanan@emojot.com"
+                "sanjanan@emojot.com",
+                "shaveenf@emojot.com",
+                "onels@emojot.com"
               ]
             }
           ]
@@ -1801,10 +1805,9 @@
         "template": "complaintCreationAlert",
         "target": "admin",
         "contacts": [
-          "binuraj@emojot.com",
-          "hirushi@emojot.com",
-          "imalshac@emojot.com",
-          "sanjanan@emojot.com"
+          "sanjanan@emojot.com",
+          "shaveenf@emojot.com",
+          "onels@emojot.com"
         ],
         "condition": {
           "in": [
@@ -1856,7 +1859,7 @@
   "assignment": {
     "triggers": [
       {
-        "template": "complaintCreationAlert",
+        "template": "complaintAssignmentAlert",
         "channel": "email",
         "target": "employee"
       }

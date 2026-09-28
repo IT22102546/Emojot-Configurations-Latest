@@ -1,0 +1,517 @@
+<style id="celmate-consent-style">
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
+
+#loyalty-form,
+#loyalty-form label,
+#loyalty-form input,
+.celmate-consent-wrap,
+.btn-ok {
+    font-family: 'Manrope', Arial, sans-serif !important;
+}
+
+.celmate-consent-wrap {
+    width: calc(100% - 24px);
+    max-width: 720px;
+    margin: 22px auto 30px;
+    padding: 16px 18px;
+    box-sizing: border-box;
+    color: #000;
+    background: rgba(255, 203, 5, 0.16);
+    border: 2px solid #000;
+    border-radius: 12px;
+}
+
+.celmate-consent-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin: 0;
+    color: #000 !important;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+    text-align: left;
+    cursor: pointer;
+}
+
+.celmate-consent-checkbox {
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    margin: 1px 0 0;
+    accent-color: #FFCB05;
+    opacity: 1 !important;
+    cursor: pointer;
+}
+
+.celmate-required-mark {
+    margin-left: 3px;
+    color: #d71920 !important;
+    -webkit-text-fill-color: #d71920 !important;
+    font-weight: 800 !important;
+}
+
+.btn-ok.celmate-disabled {
+    opacity: 0.42 !important;
+    pointer-events: none !important;
+    cursor: not-allowed !important;
+}
+
+/* Keep the native Skip action available for customers who do not consent. */
+.btn-skip,
+.celmate-skip-button {
+    display: none !important;
+    min-width: 96px !important;
+    margin: 10px 6px !important;
+    padding: 9px 22px !important;
+    color: #000 !important;
+    background: #fff !important;
+    border: 1px solid #000 !important;
+    border-radius: 40px !important;
+    font-family: 'Manrope', Arial, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    text-align: center !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
+
+.btn-skip:hover,
+.btn-skip:focus,
+.celmate-skip-button:hover,
+.celmate-skip-button:focus {
+    color: #FFCB05 !important;
+    background: #000 !important;
+    border-color: #000 !important;
+    text-decoration: none !important;
+}
+
+.celmate-required-alert {
+    display: none;
+    width: calc(100% - 24px);
+    max-width: 520px;
+    margin: 10px auto 0;
+    padding: 10px 14px;
+    box-sizing: border-box;
+    color: #fff;
+    background: #d71920;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: center;
+}
+
+/* Inline email format error, shown directly under the Email field. */
+.celmate-email-error {
+    display: none;
+    margin: 4px 0 0;
+    color: #d71920 !important;
+    -webkit-text-fill-color: #d71920 !important;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: left;
+}
+
+.celmate-email-invalid {
+    border-color: #d71920 !important;
+}
+
+@media (max-width: 768px) {
+    .celmate-consent-wrap {
+        width: calc(100% - 20px);
+        margin: 18px auto 24px;
+        padding: 14px;
+        border-radius: 10px;
+    }
+
+    .celmate-consent-label {
+        gap: 10px;
+        font-size: 13px;
+        line-height: 1.45;
+    }
+
+    .celmate-consent-checkbox {
+        flex-basis: 18px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .btn-skip,
+    .celmate-skip-button {
+        min-width: 90px !important;
+        padding: 9px 18px !important;
+        font-size: 13px !important;
+    }
+}
+</style>
+
+<div class="celmate-consent-wrap">
+    <label class="celmate-consent-label">
+        <input class="celmate-consent-checkbox" type="checkbox" aria-required="true">
+        <span>I agree that CelMate may use the details provided to contact me regarding this feedback.</span>
+    </label>
+</div>
+
+<script>
+(function () {
+    'use strict';
+
+    if (typeof window.__celmateConsentCleanup === 'function') {
+        window.__celmateConsentCleanup();
+    }
+
+    const NAME_TERMS = ['name', 'full name', 'නම', 'பெயர்'];
+    const MOBILE_TERMS = [
+        'mobile', 'mobile number', 'telephone', 'phone', 'contact number',
+        'ජංගම දුරකථන අංකය', 'දුරකථන අංකය',
+        'கையடக்க தொலைபேசி எண்', 'தொலைபேசி எண்'
+    ];
+    const EMAIL_TERMS = ['email', 'e-mail', 'විද්‍යුත් තැපෑල', 'மின்னஞ்சல்'];
+
+    let retryTimer = null;
+    let pollTimer = null;
+    let hideAlertTimer = null;
+
+    const SATISFACTION_CHOICES = [
+        'very dissatisfied',
+        'dissatisfied',
+        'neutral',
+        'satisfied',
+        'very satisfied'
+    ];
+
+    const POSITIVE_CHOICES = ['satisfied', 'very satisfied'];
+
+    /* Simple, permissive email format check: something@something.tld */
+    const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function normalise(value) {
+        return String(value || '').replace(/\*/g, '').trim().toLowerCase();
+    }
+
+    function isValidEmailFormat(value) {
+        return EMAIL_PATTERN.test(String(value || '').trim());
+    }
+
+    function rememberSatisfactionSelection(event) {
+        const card = event.target && event.target.closest
+            ? event.target.closest('.emo-cont')
+            : null;
+
+        if (!card) return;
+
+        const textElement = card.querySelector('.emo-text');
+        const choice = normalise(textElement ? textElement.textContent : card.textContent);
+
+        if (SATISFACTION_CHOICES.includes(choice)) {
+            try { sessionStorage.setItem('celmate-overall-satisfaction', choice); } catch (error) {}
+        }
+    }
+
+    /* Capture the choice even when the consent form is rendered later. */
+    document.addEventListener('click', rememberSatisfactionSelection, true);
+
+    function selectedSatisfactionChoice() {
+        const selectedCards = Array.from(
+            document.querySelectorAll('.emo-cont.clicked-emo-cont, .clicked-emo-cont')
+        );
+
+        const visibleChoices = selectedCards.map(function (card) {
+            const textElement = card.querySelector('.emo-text');
+            return normalise(textElement ? textElement.textContent : card.textContent);
+        }).filter(function (choice) {
+            return SATISFACTION_CHOICES.includes(choice);
+        });
+
+        if (visibleChoices.length) {
+            return visibleChoices[visibleChoices.length - 1];
+        }
+
+        try {
+            return normalise(sessionStorage.getItem('celmate-overall-satisfaction'));
+        } catch (error) {
+            return '';
+        }
+    }
+
+    function shouldShowSkip() {
+        return POSITIVE_CHOICES.includes(selectedSatisfactionChoice());
+    }
+
+    function findField(terms, fallbackSelector) {
+        const groups = document.querySelectorAll('#loyalty-form .form-group');
+
+        for (const group of groups) {
+            const label = group.querySelector('label');
+            const labelText = normalise(label && label.textContent);
+
+            if (terms.some(function (term) { return labelText.includes(normalise(term)); })) {
+                return {
+                    input: group.querySelector('input, textarea, select'),
+                    label: label,
+                    group: group
+                };
+            }
+        }
+
+        const input = document.querySelector(fallbackSelector);
+        return input ? {
+            input: input,
+            label: input.closest('.form-group') && input.closest('.form-group').querySelector('label'),
+            group: input.closest('.form-group')
+        } : null;
+    }
+
+    function removeAsterisks(label) {
+        if (!label) return;
+
+        label.querySelectorAll('.celmate-required-mark').forEach(function (mark) {
+            mark.remove();
+        });
+
+        Array.from(label.childNodes).forEach(function (node) {
+            if (node.nodeType === Node.TEXT_NODE) {
+                node.textContent = node.textContent.replace(/\*/g, '');
+            }
+        });
+    }
+
+    function setRequired(field, required) {
+        if (!field || !field.input) return;
+
+        removeAsterisks(field.label);
+
+        if (required) {
+            field.input.setAttribute('required', 'required');
+            field.input.setAttribute('aria-required', 'true');
+
+            if (field.label) {
+                const mark = document.createElement('span');
+                mark.className = 'celmate-required-mark';
+                mark.textContent = '*';
+                field.label.appendChild(mark);
+            }
+        } else {
+            field.input.removeAttribute('required');
+            field.input.setAttribute('aria-required', 'false');
+        }
+    }
+
+    function hasValue(field) {
+        return Boolean(field && field.input && String(field.input.value || '').trim());
+    }
+
+    /*
+     * Validates the Email field's format (only when it has a value, since
+     * Email itself stays optional). Shows/hides an inline red message right
+     * under the field and highlights the input border when invalid.
+     * Returns true when the field is empty or a valid email, false otherwise.
+     */
+    function validateEmailField(emailField) {
+        if (!emailField || !emailField.input || !emailField.group) return true;
+
+        const value = String(emailField.input.value || '').trim();
+        const invalid = value.length > 0 && !isValidEmailFormat(value);
+
+        let errorEl = emailField.group.querySelector('.celmate-email-error');
+        if (!errorEl) {
+            errorEl = document.createElement('div');
+            errorEl.className = 'celmate-email-error';
+            errorEl.textContent = 'Please enter a valid email address (e.g. name@example.com).';
+            emailField.group.appendChild(errorEl);
+        }
+
+        errorEl.style.display = invalid ? 'block' : 'none';
+        emailField.input.classList.toggle('celmate-email-invalid', invalid);
+        emailField.input.setAttribute('aria-invalid', invalid ? 'true' : 'false');
+
+        return !invalid;
+    }
+
+    function setup() {
+        const form = document.querySelector('#loyalty-form');
+        const okButton = document.querySelector('.btn-ok');
+        const nativeSkipButton = document.querySelector('.btn-skip');
+        const consent = document.querySelector('.celmate-consent-wrap');
+        const checkbox = consent && consent.querySelector('.celmate-consent-checkbox');
+
+        if (!form || !okButton || !consent || !checkbox) {
+            retryTimer = setTimeout(setup, 300);
+            return;
+        }
+
+        /* No custom title is added. Only the checkbox is placed below the form. */
+        form.insertAdjacentElement('afterend', consent);
+
+        let customSkipButton = document.querySelector('.celmate-skip-button');
+
+        if (!customSkipButton) {
+            customSkipButton = document.createElement('button');
+            customSkipButton.type = 'button';
+            customSkipButton.className = 'celmate-skip-button';
+            customSkipButton.textContent = 'Skip';
+
+            if (okButton.parentNode) {
+                okButton.parentNode.insertBefore(customSkipButton, okButton);
+            }
+        }
+
+        function updateSkipVisibility() {
+            const showSkip = shouldShowSkip();
+
+            if (nativeSkipButton) {
+                nativeSkipButton.style.setProperty(
+                    'display',
+                    showSkip ? 'inline-block' : 'none',
+                    'important'
+                );
+                nativeSkipButton.style.setProperty('pointer-events', showSkip ? 'auto' : 'none', 'important');
+
+                if (showSkip) nativeSkipButton.removeAttribute('disabled');
+
+                customSkipButton.style.setProperty('display', 'none', 'important');
+            } else {
+                customSkipButton.style.setProperty(
+                    'display',
+                    showSkip ? 'inline-block' : 'none',
+                    'important'
+                );
+                customSkipButton.style.setProperty('pointer-events', showSkip ? 'auto' : 'none', 'important');
+            }
+        }
+
+        let alert = document.querySelector('.celmate-required-alert');
+        if (!alert) {
+            alert = document.createElement('div');
+            alert.className = 'celmate-required-alert';
+            alert.textContent = 'Please enter your name and mobile number, and accept the consent before continuing.';
+            consent.insertAdjacentElement('afterend', alert);
+        }
+
+        function fields() {
+            return {
+                name: findField(NAME_TERMS, '#loyalty-form #Name, #loyalty-form [name="Name"]'),
+                mobile: findField(MOBILE_TERMS, '#loyalty-form input[type="tel"], #loyalty-form #Telephone, #loyalty-form [name="Telephone"], #loyalty-form #Mobile, #loyalty-form [name="Mobile"]'),
+                email: findField(EMAIL_TERMS, '#loyalty-form input[type="email"], #loyalty-form #Email, #loyalty-form [name="Email"]')
+            };
+        }
+
+        function applyRequirements() {
+            const current = fields();
+            setRequired(current.name, true);
+            setRequired(current.mobile, true);
+            setRequired(current.email, false);
+            return current;
+        }
+
+        let isSkipping = false;
+
+        function canSubmit() {
+            const current = applyRequirements();
+            const emailValid = validateEmailField(current.email);
+            return checkbox.checked && hasValue(current.name) && hasValue(current.mobile) && emailValid;
+        }
+
+        function updateButton() {
+            if (canSubmit()) {
+                okButton.classList.remove('celmate-disabled');
+                okButton.removeAttribute('disabled');
+                alert.style.display = 'none';
+            } else {
+                okButton.classList.add('celmate-disabled');
+                okButton.setAttribute('disabled', 'disabled');
+            }
+        }
+
+        function interceptSubmit(event) {
+            if (!event.target.closest || !event.target.closest('.btn-ok')) return;
+
+            if (!isSkipping && !canSubmit()) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+
+                const current = fields();
+                const emailInvalid = !validateEmailField(current.email);
+
+                alert.textContent = emailInvalid
+                    ? 'Please enter a valid email address, and make sure your name, mobile number and consent are provided.'
+                    : 'Please enter your name and mobile number, and accept the consent before continuing.';
+
+                alert.style.display = 'block';
+
+                clearTimeout(hideAlertTimer);
+                hideAlertTimer = setTimeout(function () {
+                    alert.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        function onCustomSkip() {
+            if (nativeSkipButton) {
+                nativeSkipButton.click();
+                return;
+            }
+
+            /*
+             * Some loyalty pages do not render a native Skip button. In that
+             * case, continue through the page without recording consent and
+             * without making Name, Mobile Number, or Email mandatory.
+             */
+            isSkipping = true;
+
+            const current = fields();
+            [current.name, current.mobile, current.email].forEach(function (field) {
+                if (!field || !field.input) return;
+                field.input.removeAttribute('required');
+                field.input.setAttribute('aria-required', 'false');
+            });
+
+            okButton.classList.remove('celmate-disabled');
+            okButton.removeAttribute('disabled');
+            okButton.click();
+        }
+
+        function onInput() {
+            updateButton();
+            setTimeout(applyRequirements, 0);
+        }
+
+        form.addEventListener('input', onInput, true);
+        form.addEventListener('change', onInput, true);
+        checkbox.addEventListener('change', updateButton);
+        customSkipButton.addEventListener('click', onCustomSkip);
+        document.addEventListener('click', interceptSubmit, true);
+
+        applyRequirements();
+        updateButton();
+        updateSkipVisibility();
+
+        pollTimer = setInterval(function () {
+            applyRequirements();
+            updateButton();
+            updateSkipVisibility();
+        }, 1000);
+
+        window.__celmateConsentCleanup = function () {
+            clearTimeout(retryTimer);
+            clearTimeout(hideAlertTimer);
+            clearInterval(pollTimer);
+            form.removeEventListener('input', onInput, true);
+            form.removeEventListener('change', onInput, true);
+            checkbox.removeEventListener('change', updateButton);
+            customSkipButton.removeEventListener('click', onCustomSkip);
+            document.removeEventListener('click', interceptSubmit, true);
+            document.removeEventListener('click', rememberSatisfactionSelection, true);
+        };
+    }
+
+    if (document.readyState === 'complete') {
+        setup();
+    } else {
+        window.addEventListener('load', setup, { once: true });
+    }
+})();
+</script>

@@ -62,6 +62,10 @@
                             <key>uuid_no</key>
                             <value>$$loyalty_UUID_value$$</value>
                         </field>
+                        <field>
+                            <key>customerDetailsLink</key>
+                            <value>https://uatccfccm.emojot.com/customer/$$loyalty_UUID_value$$</value>
+                        </field>
                     </customFields>
                 </data>
                 <validityPeriod>5</validityPeriod>

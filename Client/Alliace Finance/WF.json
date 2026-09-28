@@ -1,12 +1,12 @@
 {
-  "name": "complaintWorkflow",
-  "reportNamePrefix": "Alliancd Finalance Complaint",
-  "nameTemplate": "Alliancd Finalance Complaint: $type$ - $complaintType$",
-  "reporterNamePrefix": "Complaint",
+  "name": "ComplaintWF",
+  "reportNamePrefix": "Alliance Finance Concerns",
+  "nameTemplate": "Alliance Finance Concern: $type$ - $complaintType$",
+  "reporterNamePrefix": "Customer",
   "descriptionFormat": "text",
   "timeZone": "+330",
   "type": {
-    "name": "Complaint Type",
+    "name": "Concern Type",
     "type": "enum",
     "readOnly": true,
     "values": [
@@ -28,12 +28,13 @@
           "Vehicle_Handover_Process",
           "Vehicle_Relationship_Officer_Support",
           "nps",
+          "Comment",
           "overdue"
         ]
       },
       {
-        "id": "Fixed Deposit (FD)",
-        "name": "Fixed Deposit (FD)",
+        "id": "Fixed Deposit",
+        "name": "Fixed Deposit",
         "highPriorityFields": [
           "complaintType",
           "FullName",
@@ -50,6 +51,7 @@
           "FD_Branch_Service",
           "FD_Customer_Retention",
           "nps",
+          "Comment",
           "overdue"
         ]
       },
@@ -71,6 +73,7 @@
           "Hapannu_Child_Future_Benefit",
           "Hapannu_Staff_Support",
           "nps",
+          "Comment",
           "overdue"
         ]
       },
@@ -93,6 +96,7 @@
           "Solar_Energy_Cost_Reduction",
           "Solar_Staff_Helpfulness",
           "nps",
+          "Comment",
           "overdue"
         ]
       },
@@ -111,9 +115,10 @@
           "Gold_Decision_Influence",
           "Gold_Valuation_Fairness",
           "Gold_Approval_Time",
-          "Gold_Need_Fulfilment",
           "Repayment_Clarity",
+          "Gold_Staff_Helpfulness",
           "nps",
+          "Comment",
           "overdue"
         ]
       },
@@ -135,6 +140,7 @@
           "Regular_Account_Access_Convenience",
           "Regular_Service_Satisfaction",
           "nps",
+          "Comment",
           "overdue"
         ]
       },
@@ -156,6 +162,7 @@
           "Ran_Article_Handover_Process",
           "Ran_Relationship_Officer_Support",
           "nps",
+          "Comment",
           "overdue"
         ]
       }
@@ -218,14 +225,7 @@
         "backgroundColor": "#f1c40f",
         "textColor": "#000000",
         "statusBackgroundColor": "#fcf3cf",
-        "statusTextColor": "#7d6608",
-        "fieldsValidation": [
-          {
-            "fieldID": "validateStatusChange",
-            "required": true,
-            "message": "Status change confirmation required before saving updates."
-          }
-        ]
+        "statusTextColor": "#7d6608"
       },
       {
         "id": "Transferred",
@@ -233,14 +233,7 @@
         "backgroundColor": "#f39c12",
         "textColor": "#ffffff",
         "statusBackgroundColor": "#fdebd0",
-        "statusTextColor": "#7e5109",
-        "fieldsValidation": [
-          {
-            "fieldID": "validateStatusChange",
-            "required": true,
-            "message": "Status change confirmation required before saving updates."
-          }
-        ]
+        "statusTextColor": "#7e5109"
       },
       {
         "id": "In Progress",
@@ -249,17 +242,10 @@
         "textColor": "#ffffff",
         "statusBackgroundColor": "#d6eaf8",
         "statusTextColor": "#154360",
-        "fieldsValidation": [
-          {
-            "fieldID": "validateStatusChange",
-            "required": true,
-            "message": "Status change confirmation required before saving updates."
-          }
-        ],
         "triggers": [
           {
             "channel": "email",
-            "template": "customerWIPalert",
+            "template": "customerWIPalerts",
             "target": "customer",
             "appendEditUrl": false,
             "condition": {
@@ -269,7 +255,7 @@
                 },
                 [
                   "Vehicle / Equipment Leasing",
-                  "Fixed Deposit (FD)",
+                  "Fixed Deposit",
                   "Hapannu Minor Savings (Children’s Savings)",
                   "Solar Loan",
                   "Gold Loan",
@@ -302,9 +288,25 @@
             "channel": "email",
             "template": "complaintResolutionAlertInternal",
             "target": "admin",
-            "contacts": [
-              "sanjanan@emojot.com"
+            "contactFilters": [
+              "ticketResolutionAlert"
             ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "Branch",
+                  "operator": "eq",
+                  "value": "$Branch$"
+                },
+                {
+                  "field": "complaintType",
+                  "operator": "eq",
+                  "value": "$type$"
+                }
+              ]
+            },
+            "appendEditUrl": true,
             "condition": {
               "in": [
                 {
@@ -312,7 +314,47 @@
                 },
                 [
                   "Vehicle / Equipment Leasing",
-                  "Fixed Deposit (FD)",
+                  "Fixed Deposit",
+                  "Hapannu Minor Savings (Children’s Savings)",
+                  "Solar Loan",
+                  "Gold Loan",
+                  "Regular - Savings",
+                  "Ran Ayojana"
+                ]
+              ]
+            }
+          },
+          {
+            "channel": "sms",
+            "template": "complaintResolutionAlertInternal_sms",
+            "target": "admin",
+            "contactFilters": [
+              "ticketResolutionAlert"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "Branch",
+                  "operator": "eq",
+                  "value": "$Branch$"
+                },
+                {
+                  "field": "complaintType",
+                  "operator": "eq",
+                  "value": "$type$"
+                }
+              ]
+            },
+            "appendEditUrl": true,
+            "condition": {
+              "in": [
+                {
+                  "var": "type"
+                },
+                [
+                  "Vehicle / Equipment Leasing",
+                  "Fixed Deposit",
                   "Hapannu Minor Savings (Children’s Savings)",
                   "Solar Loan",
                   "Gold Loan",
@@ -324,7 +366,7 @@
           },
           {
             "channel": "email",
-            "template": "customerResolutionAlert",
+            "template": "customerResolutionAlerts",
             "target": "customer",
             "appendEditUrl": false,
             "condition": {
@@ -334,7 +376,7 @@
                 },
                 [
                   "Vehicle / Equipment Leasing",
-                  "Fixed Deposit (FD)",
+                  "Fixed Deposit",
                   "Hapannu Minor Savings (Children’s Savings)",
                   "Solar Loan",
                   "Gold Loan",
@@ -355,7 +397,7 @@
   },
   "customFields": {
     "complaintType": {
-      "name": "Complaint Type",
+      "name": "Concern Type",
       "type": "enum",
       "readOnly": true,
       "values": [
@@ -364,8 +406,8 @@
           "name": "Vehicle / Equipment Leasing"
         },
         {
-          "id": "Fixed Deposit (FD)",
-          "name": "Fixed Deposit (FD)"
+          "id": "Fixed Deposit",
+          "name": "Fixed Deposit"
         },
         {
           "id": "Hapannu Minor Savings (Children’s Savings)",
@@ -457,8 +499,386 @@
     },
     "Branch": {
       "name": "Branch",
-      "type": "string",
-      "readOnly": true
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Gampaha",
+          "name": "Gampaha"
+        },
+        {
+          "id": "Ja Ela",
+          "name": "Ja Ela"
+        },
+        {
+          "id": "Ja Ela (Second Officer)",
+          "name": "Ja Ela (Second Officer)"
+        },
+        {
+          "id": "Negombo",
+          "name": "Negombo"
+        },
+        {
+          "id": "Nittambuwa",
+          "name": "Nittambuwa"
+        },
+        {
+          "id": "Kirindiwela",
+          "name": "Kirindiwela"
+        },
+        {
+          "id": "Pugoda",
+          "name": "Pugoda"
+        },
+        {
+          "id": "Head Office",
+          "name": "Head Office"
+        },
+        {
+          "id": "Head Office - Deposit Department",
+          "name": "Head Office - Deposit Department"
+        },
+        {
+          "id": "Ganemulla",
+          "name": "Ganemulla"
+        },
+        {
+          "id": "Kadawatha",
+          "name": "Kadawatha"
+        },
+        {
+          "id": "Kelaniya",
+          "name": "Kelaniya"
+        },
+        {
+          "id": "Kiribathgoda",
+          "name": "Kiribathgoda"
+        },
+        {
+          "id": "Kaduruwela",
+          "name": "Kaduruwela"
+        },
+        {
+          "id": "Dambulla",
+          "name": "Dambulla"
+        },
+        {
+          "id": "Galewela",
+          "name": "Galewela"
+        },
+        {
+          "id": "Hingurakgoda",
+          "name": "Hingurakgoda"
+        },
+        {
+          "id": "Matale",
+          "name": "Matale"
+        },
+        {
+          "id": "Thambuttegama",
+          "name": "Thambuttegama"
+        },
+        {
+          "id": "Anuradhapura",
+          "name": "Anuradhapura"
+        },
+        {
+          "id": "Medawachchiya",
+          "name": "Medawachchiya"
+        },
+        {
+          "id": "Trincomalee",
+          "name": "Trincomalee"
+        },
+        {
+          "id": "Parakramapura",
+          "name": "Parakramapura"
+        },
+        {
+          "id": "Trincomalee 2",
+          "name": "Trincomalee 2"
+        },
+        {
+          "id": "Dehiattakandiya",
+          "name": "Dehiattakandiya"
+        },
+        {
+          "id": "Mahiyanganaya",
+          "name": "Mahiyanganaya"
+        },
+        {
+          "id": "Hatton",
+          "name": "Hatton"
+        },
+        {
+          "id": "Kandy",
+          "name": "Kandy"
+        },
+        {
+          "id": "Gampola",
+          "name": "Gampola"
+        },
+        {
+          "id": "Ragala",
+          "name": "Ragala"
+        },
+        {
+          "id": "Mawanella",
+          "name": "Mawanella"
+        },
+        {
+          "id": "Nawalapitiya",
+          "name": "Nawalapitiya"
+        },
+        {
+          "id": "Rikillagaskada",
+          "name": "Rikillagaskada"
+        },
+        {
+          "id": "Bogawanthalawa",
+          "name": "Bogawanthalawa"
+        },
+        {
+          "id": "Nuwara Eliya",
+          "name": "Nuwara Eliya"
+        },
+        {
+          "id": "Kegalle",
+          "name": "Kegalle"
+        },
+        {
+          "id": "Thalawakele",
+          "name": "Thalawakele"
+        },
+        {
+          "id": "Chavakachcheri GL",
+          "name": "Chavakachcheri GL"
+        },
+        {
+          "id": "Chunnakkam GL",
+          "name": "Chunnakkam GL"
+        },
+        {
+          "id": "Thirunelvely",
+          "name": "Thirunelvely"
+        },
+        {
+          "id": "Vavuniya",
+          "name": "Vavuniya"
+        },
+        {
+          "id": "Mannar",
+          "name": "Mannar"
+        },
+        {
+          "id": "Kilinochchi",
+          "name": "Kilinochchi"
+        },
+        {
+          "id": "Jaffna City Branch",
+          "name": "Jaffna City Branch"
+        },
+        {
+          "id": "Kurumankadu",
+          "name": "Kurumankadu"
+        },
+        {
+          "id": "Mulankavil",
+          "name": "Mulankavil"
+        },
+        {
+          "id": "Point Pedro/Nelliaddy",
+          "name": "Point Pedro/Nelliaddy"
+        },
+        {
+          "id": "Puthukkudiyiruppu",
+          "name": "Puthukkudiyiruppu"
+        },
+        {
+          "id": "Chankanai GL",
+          "name": "Chankanai GL"
+        },
+        {
+          "id": "Jaffna",
+          "name": "Jaffna"
+        },
+        {
+          "id": "Rathnapura",
+          "name": "Rathnapura"
+        },
+        {
+          "id": "Athurugiriya",
+          "name": "Athurugiriya"
+        },
+        {
+          "id": "Avissawella",
+          "name": "Avissawella"
+        },
+        {
+          "id": "Horana",
+          "name": "Horana"
+        },
+        {
+          "id": "Horana GL OIC",
+          "name": "Horana GL OIC"
+        },
+        {
+          "id": "Kalutara",
+          "name": "Kalutara"
+        },
+        {
+          "id": "Panadura",
+          "name": "Panadura"
+        },
+        {
+          "id": "Maharagama",
+          "name": "Maharagama"
+        },
+        {
+          "id": "Piliyandala",
+          "name": "Piliyandala"
+        },
+        {
+          "id": "Kaduwela",
+          "name": "Kaduwela"
+        },
+        {
+          "id": "Malabe",
+          "name": "Malabe"
+        },
+        {
+          "id": "Aluthgama",
+          "name": "Aluthgama"
+        },
+        {
+          "id": "Homagama",
+          "name": "Homagama"
+        },
+        {
+          "id": "Ampara",
+          "name": "Ampara"
+        },
+        {
+          "id": "Kalawanchikudy",
+          "name": "Kalawanchikudy"
+        },
+        {
+          "id": "Balangoda",
+          "name": "Balangoda"
+        },
+        {
+          "id": "Kalmunai",
+          "name": "Kalmunai"
+        },
+        {
+          "id": "Batticaloa",
+          "name": "Batticaloa"
+        },
+        {
+          "id": "Embilipitiya",
+          "name": "Embilipitiya"
+        },
+        {
+          "id": "Wellawaya",
+          "name": "Wellawaya"
+        },
+        {
+          "id": "Monaragala",
+          "name": "Monaragala"
+        },
+        {
+          "id": "Passara",
+          "name": "Passara"
+        },
+        {
+          "id": "Badulla",
+          "name": "Badulla"
+        },
+        {
+          "id": "Chenkaladi",
+          "name": "Chenkaladi"
+        },
+        {
+          "id": "Welimada",
+          "name": "Welimada"
+        },
+        {
+          "id": "Galle",
+          "name": "Galle"
+        },
+        {
+          "id": "Ambalangoda",
+          "name": "Ambalangoda"
+        },
+        {
+          "id": "Ambalanthota",
+          "name": "Ambalanthota"
+        },
+        {
+          "id": "Thissamaharama",
+          "name": "Thissamaharama"
+        },
+        {
+          "id": "Deniyaya",
+          "name": "Deniyaya"
+        },
+        {
+          "id": "Matara",
+          "name": "Matara"
+        },
+        {
+          "id": "Akuressa",
+          "name": "Akuressa"
+        },
+        {
+          "id": "Kuliyapitiya",
+          "name": "Kuliyapitiya"
+        },
+        {
+          "id": "Kurunegala",
+          "name": "Kurunegala"
+        },
+        {
+          "id": "Nikawaratiya",
+          "name": "Nikawaratiya"
+        },
+        {
+          "id": "Kalpitiya",
+          "name": "Kalpitiya"
+        },
+        {
+          "id": "Puttalam 1",
+          "name": "Puttalam 1"
+        },
+        {
+          "id": "Galgamuwa",
+          "name": "Galgamuwa"
+        },
+        {
+          "id": "Udappuwa",
+          "name": "Udappuwa"
+        },
+        {
+          "id": "Chilaw",
+          "name": "Chilaw"
+        },
+        {
+          "id": "Palavi",
+          "name": "Palavi"
+        },
+        {
+          "id": "Wennappuwa",
+          "name": "Wennappuwa"
+        },
+        {
+          "id": "Kohuwala",
+          "name": "Kohuwala"
+        },
+        {
+          "id": "Super Branch",
+          "name": "Super Branch"
+        }
+      ]
     },
     "Satisfaction": {
       "name": "Satisfaction",
@@ -600,16 +1020,16 @@
       "readOnly": true,
       "values": [
         {
-          "id": "Very smooth",
-          "name": "Very smooth"
+          "id": "Very easy",
+          "name": "Very easy"
         },
         {
-          "id": "Smooth",
-          "name": "Smooth"
+          "id": "Somewhat easy",
+          "name": "Somewhat easy"
         },
         {
-          "id": "Not smooth",
-          "name": "Not smooth"
+          "id": "Not easy",
+          "name": "Not easy"
         }
       ]
     },
@@ -684,8 +1104,8 @@
       "readOnly": true,
       "values": [
         {
-          "id": "Very Fair",
-          "name": "Very Fair"
+          "id": "Very fair",
+          "name": "Very fair"
         },
         {
           "id": "Somewhat fair",
@@ -698,35 +1118,35 @@
       ]
     },
     "Gold_Approval_Time": {
-      "name": "Approval Time",
+      "name": "Transaction Time",
       "type": "enum",
       "readOnly": true,
       "values": [
         {
-          "id": "Very fast",
-          "name": "Very fast"
+          "id": "Very Satisfied",
+          "name": "Very Satisfied"
         },
         {
-          "id": "Acceptable",
-          "name": "Acceptable"
+          "id": "Satisfied",
+          "name": "Satisfied"
         },
         {
-          "id": "Slow",
-          "name": "Slow"
+          "id": "Dissatisfied",
+          "name": "Dissatisfied"
         }
       ]
     },
-    "Gold_Need_Fulfilment": { 
+    "Gold_Need_Fulfilment": {
       "name": "Need Fulfilment",
       "type": "enum",
       "readOnly": true,
       "values": [
         {
-          "id": "Fully helped", 
+          "id": "Fully helped",
           "name": "Fully helped"
         },
         {
-          "id": "Partially helped", 
+          "id": "Partially helped",
           "name": "Partially helped"
         },
         {
@@ -741,16 +1161,43 @@
       "readOnly": true,
       "values": [
         {
-          "id": "Yes",
-          "name": "Yes"
+          "id": "Very Clear",
+          "name": "Very Clear"
         },
         {
-          "id": "Partially",
+          "id": "Somewhat",
           "name": "Partially"
         },
         {
-          "id": "No",
-          "name": "No"
+          "id": "Not Clear",
+          "name": "Not Clear"
+        }
+      ]
+    },
+    "Gold_Staff_Helpfulness": {
+      "name": "Staff Helpfulness",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "very Satisfied",
+          "name": "very Satisfied"
+        },
+        {
+          "id": "Satisfied",
+          "name": "Satisfied"
+        },
+        {
+          "id": "Neutral",
+          "name": "Neutral"
+        },
+        {
+          "id": "Dissatisfied",
+          "name": "Dissatisfied"
+        },
+        {
+          "id": "Very Dissatisfied",
+          "name": "Very Dissatisfied"
         }
       ]
     },
@@ -1390,16 +1837,16 @@
       "readOnly": true,
       "values": [
         {
-          "id": "Very smooth",
-          "name": "Very smooth"
+          "id": "Very easy",
+          "name": "Very easy"
         },
         {
-          "id": "Smooth",
-          "name": "Smooth"
+          "id": "Somewhat easy",
+          "name": "Somewhat easy"
         },
         {
-          "id": "Not smooth",
-          "name": "Not smooth"
+          "id": "Not easy",
+          "name": "Not easy"
         }
       ]
     },
@@ -1481,7 +1928,7 @@
         }
       ]
     },
-    "additionalInformation": {
+    "Comment": {
       "name": "Additional Information",
       "type": "textArea",
       "readOnly": true
@@ -1493,7 +1940,7 @@
     },
     "overdue": {
       "name": "Overdue",
-      "readOnly": true,
+      "readOnly": false,
       "type": "enum",
       "hidden": true,
       "values": [
@@ -1505,8 +1952,74 @@
               "channel": "email",
               "template": "overdueAlertEmail_1stLevel",
               "target": "admin",
-              "contacts": [
-                "sanjanan@emojot.com"
+              "contactFilters": [
+                "ticketOverdueAlert_01"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  },
+                  {
+                    "field": "complaintType",
+                    "operator": "eq",
+                    "value": "$type$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "sms",
+              "template": "overdueAlertSMS_1stLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_01"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  },
+                  {
+                    "field": "complaintType",
+                    "operator": "eq",
+                    "value": "$type$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "assignee",
+                  "contactFilters": [
+                    "ticketOverdueAssignee_01"
+                  ],
+                  "adminUserQuery": {
+                    "condition": "and",
+                    "rules": [
+                      {
+                        "field": "Branch",
+                        "operator": "eq",
+                        "value": "$Branch$"
+                      },
+                      {
+                        "field": "complaintType",
+                        "operator": "eq",
+                        "value": "$type$"
+                      }
+                    ]
+                  }
+                }
               ]
             }
           ]
@@ -1519,8 +2032,74 @@
               "channel": "email",
               "template": "overdueAlertEmail_2ndLevel",
               "target": "admin",
-              "contacts": [
-                "sanjanan@emojot.com"
+              "contactFilters": [
+                "ticketOverdueAlert_02"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  },
+                  {
+                    "field": "complaintType",
+                    "operator": "eq",
+                    "value": "$type$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "sms",
+              "template": "overdueAlertSMS_2ndLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_02"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  },
+                  {
+                    "field": "complaintType",
+                    "operator": "eq",
+                    "value": "$type$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "assignee",
+                  "contactFilters": [
+                    "ticketOverdueAssignee_02"
+                  ],
+                  "adminUserQuery": {
+                    "condition": "and",
+                    "rules": [
+                      {
+                        "field": "Branch",
+                        "operator": "eq",
+                        "value": "$Branch$"
+                      },
+                      {
+                        "field": "complaintType",
+                        "operator": "eq",
+                        "value": "$type$"
+                      }
+                    ]
+                  }
+                }
               ]
             }
           ]
@@ -1533,8 +2112,74 @@
               "channel": "email",
               "template": "overdueAlertEmail_3rdLevel",
               "target": "admin",
-              "contacts": [
-                "sanjanan@emojot.com"
+              "contactFilters": [
+                "ticketOverdueAlert_03"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  },
+                  {
+                    "field": "complaintType",
+                    "operator": "eq",
+                    "value": "$type$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "sms",
+              "template": "overdueAlertSMS_3rdLevel",
+              "target": "admin",
+              "contactFilters": [
+                "ticketOverdueAlert_03"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Branch",
+                    "operator": "eq",
+                    "value": "$Branch$"
+                  },
+                  {
+                    "field": "complaintType",
+                    "operator": "eq",
+                    "value": "$type$"
+                  }
+                ]
+              },
+              "appendEditUrl": true
+            },
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "assignee",
+                  "contactFilters": [
+                    "ticketOverdueAssignee_03"
+                  ],
+                  "adminUserQuery": {
+                    "condition": "and",
+                    "rules": [
+                      {
+                        "field": "Branch",
+                        "operator": "eq",
+                        "value": "$Branch$"
+                      },
+                      {
+                        "field": "complaintType",
+                        "operator": "eq",
+                        "value": "$type$"
+                      }
+                    ]
+                  }
+                }
               ]
             }
           ]
@@ -1547,11 +2192,27 @@
     "triggers": [
       {
         "channel": "email",
-        "template": "piiRequestCreationAlert",
+        "template": "complaintCreationAlert",
         "target": "admin",
-        "contacts": [
-          "sanjanan@emojot.com"
+        "contactFilters": [
+          "ticketCreationAlert"
         ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "Branch",
+              "operator": "eq",
+              "value": "$Branch$"
+            },
+            {
+              "field": "complaintType",
+              "operator": "eq",
+              "value": "$type$"
+            }
+          ]
+        },
+        "appendEditUrl": true,
         "condition": {
           "in": [
             {
@@ -1559,7 +2220,7 @@
             },
             [
               "Vehicle / Equipment Leasing",
-              "Fixed Deposit (FD)",
+              "Fixed Deposit",
               "Hapannu Minor Savings (Children’s Savings)",
               "Solar Loan",
               "Gold Loan",
@@ -1570,7 +2231,47 @@
         }
       },
       {
-        "template": "piiRequestCreationAlertCustomer",
+        "channel": "sms",
+        "template": "complaintCreationAlert_sms",
+        "target": "admin",
+        "contactFilters": [
+          "ticketCreationAlert"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "Branch",
+              "operator": "eq",
+              "value": "$Branch$"
+            },
+            {
+              "field": "complaintType",
+              "operator": "eq",
+              "value": "$type$"
+            }
+          ]
+        },
+        "appendEditUrl": true,
+        "condition": {
+          "in": [
+            {
+              "var": "type"
+            },
+            [
+              "Vehicle / Equipment Leasing",
+              "Fixed Deposit",
+              "Hapannu Minor Savings (Children’s Savings)",
+              "Solar Loan",
+              "Gold Loan",
+              "Regular - Savings",
+              "Ran Ayojana"
+            ]
+          ]
+        }
+      },
+      {
+        "template": "customerComplaintCreations",
         "channel": "email",
         "target": "customer",
         "appendEditUrl": false,
@@ -1581,7 +2282,7 @@
             },
             [
               "Vehicle / Equipment Leasing",
-              "Fixed Deposit (FD)",
+              "Fixed Deposit",
               "Hapannu Minor Savings (Children’s Savings)",
               "Solar Loan",
               "Gold Loan",
@@ -1596,16 +2297,40 @@
         "changingFields": [
           {
             "id": "assignee",
-            "value": "sanjanan@emojot.com"
+            "contactFilters": [
+              "defaultAssignee"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "Branch",
+                  "operator": "eq",
+                  "value": "$Branch$"
+                },
+                {
+                  "field": "complaintType",
+                  "operator": "eq",
+                  "value": "$type$"
+                }
+              ]
+            }
           }
         ]
       }
     ]
   },
   "assignment": {
+    "triggers": [
+      {
+        "template": "complaintCreationAlert",
+        "channel": "email",
+        "target": "employee"
+      }
+    ],
     "automaticAssignment": {
       "isEnabled": true,
-      "email": "sanjanan@emojot.com",
+      "email": "alliance@emojot.com",
       "resolvedStatus": [
         "Resolved"
       ],
@@ -1627,10 +2352,10 @@
           "skipAssignment": true,
           "levels": [
             {
-              "nextLevelTime": 3600000
+              "nextLevelTime": 172800000
             },
             {
-              "nextLevelTime": 3600000,
+              "nextLevelTime": 172800000,
               "fieldsChange": [
                 {
                   "id": "overdue",
@@ -1639,7 +2364,7 @@
               ]
             },
             {
-              "nextLevelTime": 3600000,
+              "nextLevelTime": 172800000,
               "fieldsChange": [
                 {
                   "id": "overdue",
@@ -1648,7 +2373,7 @@
               ]
             },
             {
-              "nextLevelTime": 3600000,
+              "nextLevelTime": 172800000,
               "fieldsChange": [
                 {
                   "id": "overdue",
@@ -1662,51 +2387,87 @@
     }
   },
   "adminHierarchy": {
-    "id": "REPLACE_PLATFORMSEC_ADMIN_HIERARCHY_ID",
     "list": "admin",
     "headers": [
       {
-        "id": "requesterType",
-        "name": "Requester Type",
+        "id": "complaintType",
+        "name": "Complaint Type",
         "type": "customField"
       },
       {
-        "id": "requestType",
-        "name": "Request Type",
+        "id": "Branch",
+        "name": "Branch",
         "type": "customField"
       },
       {
-        "id": "ticketAssignee",
-        "name": "Ticket Assignee",
+        "id": "defaultAssignee",
+        "name": "Default Assignee",
+        "type": "contact"
+      },
+      {
+        "id": "ticketCreationAlert",
+        "name": "Ticket Creation Alert",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAlert_01",
+        "name": "Ticket Overdue Alert 01",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAlert_02",
+        "name": "Ticket Overdue Alert 02",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAlert_03",
+        "name": "Ticket Overdue Alert 03",
+        "type": "contact"
+      },
+      {
+        "id": "ticketResolutionAlert",
+        "name": "Ticket Resolution Alert",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAssignee_01",
+        "name": "Ticket Overdue Assignee 01",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAssignee_02",
+        "name": "Ticket Overdue Assignee 02",
+        "type": "contact"
+      },
+      {
+        "id": "ticketOverdueAssignee_03",
+        "name": "Ticket Overdue Assignee 03",
         "type": "contact"
       }
-    ]
+    ],
+    "id": "REPLACE_ALLIANCE_FINANCE_ADMIN_HIERARCHY_ID"
   },
   "finalState": true,
   "incidentKeyFormat": {
-    "enabled": false,
+    "enabled": true,
     "countDependentFields": {
-      "enabled": true,
-      "fields": [
-        "date",
-        "ticketCategory"
-      ]
+      "enabled": false,
+      "fields": []
     },
     "pattern": [
       {
-        "key": "ticketCategory",
-        "format": "mapping"
-      },
-      {
-        "key": "date",
-        "format": "YYYYMMDD"
-      },
-      {
         "key": "counter",
-        "format": 3
+        "format": 1
       }
     ],
-    "counterReset": "daily"
+    "counterReset": "never"
   },
+  "predefinedComments": [
+    "Case acknowledged and assigned.",
+    "Customer contacted; details requested.",
+    "Initial verification completed.",
+    "Escalated to relevant team.",
+    "Resolution confirmed; case closed."
+  ],
   "tableEdit": "true"
 }

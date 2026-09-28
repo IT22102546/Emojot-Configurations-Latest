@@ -24,82 +24,13 @@
     "name": "Status",
     "type": "enum",
     "readOnly": false,
-    "transitions": [
-      {
-        "sourceState": "Triage",
-        "targetStates": [
-          "Pending HOD Approval"
-        ]
-      },
-      {
-        "sourceState": "Pending HOD Approval",
-        "targetStates": [
-          "HOD Approved",
-          "HOD Rejected"
-        ]
-      },
-      {
-        "sourceState": "HOD Approved",
-        "targetStates": [
-          "Pending Group Head of Security Approval"
-        ]
-      },
-      {
-        "sourceState": "Pending Group Head of Security Approval",
-        "targetStates": [
-          "Completed",
-          "Group Head of Security Rejected"
-        ]
-      },
-      {
-        "sourceState": "Completed",
-        "targetStates": [
-          "Gate Rejected",
-          "Checked-In"
-        ]
-      },
-      {
-        "sourceState": "Checked-In",
-        "targetStates": [
-          "Checked-Out"
-        ]
-      }
-    ],
     "values": [
-      {
-        "id": "Triage",
-        "name": "Triage",
-        "backgroundColor": "#95a5a6",
-        "textColor": "#ffffff",
-        "statusBackgroundColor": "#ecf0f1",
-        "statusTextColor": "#566573",
-        "editableFields": [
-          "visitors"
-        ],
-        "highPriorityFields": [
-          "visitorType",
-          "cluster",
-          "location",
-          "locationName",
-          "meetingDepartment",
-          "visitPurpose",
-          "visitPurposeOther",
-          "visitOrganization",
-          "visitors",
-          "visitDate",
-          "visitDateTo",
-          "visitTime",
-          "visitTimeTo",
-          "visitCoordinatorName",
-          "visitCoordinatorEmail"
-        ]
-      },
       {
         "id": "Pending HOD Approval",
         "name": "Pending HOD Approval",
-        "backgroundColor": "#3498db",
+        "color": "#3498db",
         "textColor": "#ffffff",
-        "statusBackgroundColor": "#d6eaf8",
+        "statuscolor": "#d6eaf8",
         "statusTextColor": "#154360",
         "editableFields": [
           "hodApprovalReason",
@@ -107,7 +38,6 @@
         ],
         "highPriorityFields": [
           "visitorType",
-          "cluster",
           "location",
           "locationName",
           "meetingDepartment",
@@ -126,9 +56,9 @@
       {
         "id": "HOD Rejected",
         "name": "HOD Rejected",
-        "backgroundColor": "#e74c3c",
+        "color": "#e74c3c",
         "textColor": "#ffffff",
-        "statusBackgroundColor": "#f9d6d2",
+        "statuscolor": "#f9d6d2",
         "statusTextColor": "#922b21",
         "triggers": [
           {
@@ -146,6 +76,26 @@
             "objectList": true,
             "customFieldId": "visitors",
             "contactField": "visitorTelephone"
+          },
+          {
+            "template": "rejectionEmail",
+            "channel": "email",
+            "target": "admin",
+            "objectListPlaceholder": true,
+            "contactFilters": [
+              "grpHos",
+              "hod"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "meetingDepartment",
+                  "operator": "eq",
+                  "value": "$meetingDepartment$"
+                }
+              ]
+            }
           }
         ],
         "editableFields": [
@@ -154,7 +104,6 @@
         ],
         "highPriorityFields": [
           "visitorType",
-          "cluster",
           "location",
           "locationName",
           "meetingDepartment",
@@ -180,26 +129,29 @@
       {
         "id": "HOD Approved",
         "name": "HOD Approved",
-        "backgroundColor": "#2ecc71",
+        "color": "#2ecc71",
         "textColor": "#ffffff",
-        "statusBackgroundColor": "#d5f5e3",
+        "statuscolor": "#d5f5e3",
         "statusTextColor": "#27ae60",
         "triggers": [
           {
-            "template": "VM Visit Request Notification: Approval to Visitor",
+            "template": "VM Visit Request Notification: HOS Approval",
             "channel": "email",
             "target": "admin",
-            "objectList": true,
-            "customFieldId": "visitors",
-            "contactField": "visitorEmail"
-          },
-          {
-            "template": "VM Visit Request Notification SMS: Request approved",
-            "channel": "sms",
-            "target": "admin",
-            "objectList": true,
-            "customFieldId": "visitors",
-            "contactField": "visitorTelephone"
+            "objectListPlaceholder": true,
+            "contactFilters": [
+              "grpHos"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "meetingDepartment",
+                  "operator": "eq",
+                  "value": "$meetingDepartment$"
+                }
+              ]
+            }
           }
         ],
         "editableFields": [
@@ -208,7 +160,6 @@
         ],
         "highPriorityFields": [
           "visitorType",
-          "cluster",
           "location",
           "locationName",
           "meetingDepartment",
@@ -234,17 +185,21 @@
       {
         "id": "Pending Group Head of Security Approval",
         "name": "Pending Group Head of Security Approval",
-        "backgroundColor": "#3498db",
+        "color": "#3498db",
         "textColor": "#ffffff",
-        "statusBackgroundColor": "#d6eaf8",
+        "statuscolor": "#d6eaf8",
         "statusTextColor": "#154360",
+        "triggers": [
+          {
+            "channel": "automaticEscalationReset"
+          }
+        ],
         "editableFields": [
           "ghosApprovalReason",
           "visitors"
         ],
         "highPriorityFields": [
           "visitorType",
-          "cluster",
           "location",
           "locationName",
           "meetingDepartment",
@@ -263,9 +218,9 @@
       {
         "id": "Group Head of Security Rejected",
         "name": "Group Head of Security Rejected",
-        "backgroundColor": "#e74c3c",
+        "color": "#e74c3c",
         "textColor": "#ffffff",
-        "statusBackgroundColor": "#f9d6d2",
+        "statuscolor": "#f9d6d2",
         "statusTextColor": "#922b21",
         "triggers": [
           {
@@ -283,6 +238,26 @@
             "objectList": true,
             "customFieldId": "visitors",
             "contactField": "visitorTelephone"
+          },
+          {
+            "template": "rejectionEmail",
+            "channel": "email",
+            "target": "admin",
+            "objectListPlaceholder": true,
+            "contactFilters": [
+              "grpHos",
+              "hod"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "meetingDepartment",
+                  "operator": "eq",
+                  "value": "$meetingDepartment$"
+                }
+              ]
+            }
           }
         ],
         "editableFields": [
@@ -291,7 +266,6 @@
         ],
         "highPriorityFields": [
           "visitorType",
-          "cluster",
           "location",
           "locationName",
           "meetingDepartment",
@@ -317,9 +291,9 @@
       {
         "id": "Completed",
         "name": "Group Head of Security Approved",
-        "backgroundColor": "#27ae60",
+        "color": "#27ae60",
         "textColor": "#ffffff",
-        "statusBackgroundColor": "#d5f5e3",
+        "statuscolor": "#d5f5e3",
         "statusTextColor": "#2e8b57",
         "triggers": [
           {
@@ -345,7 +319,6 @@
         ],
         "highPriorityFields": [
           "visitorType",
-          "cluster",
           "location",
           "locationName",
           "meetingDepartment",
@@ -371,9 +344,9 @@
       {
         "id": "Gate Rejected",
         "name": "Gate Rejected",
-        "backgroundColor": "#e74c3c",
+        "color": "#e74c3c",
         "textColor": "#ffffff",
-        "statusBackgroundColor": "#f9d6d2",
+        "statuscolor": "#f9d6d2",
         "statusTextColor": "#922b21",
         "triggers": [
           {
@@ -391,6 +364,26 @@
             "objectList": true,
             "customFieldId": "visitors",
             "contactField": "visitorTelephone"
+          },
+          {
+            "template": "rejectionEmail",
+            "channel": "email",
+            "target": "admin",
+            "objectListPlaceholder": true,
+            "contactFilters": [
+              "grpHos",
+              "hod"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "meetingDepartment",
+                  "operator": "eq",
+                  "value": "$meetingDepartment$"
+                }
+              ]
+            }
           }
         ],
         "editableFields": [
@@ -399,7 +392,6 @@
         ],
         "highPriorityFields": [
           "visitorType",
-          "cluster",
           "location",
           "locationName",
           "meetingDepartment",
@@ -425,16 +417,15 @@
       {
         "id": "Checked-In",
         "name": "Checked-In",
-        "backgroundColor": "#16a085",
+        "color": "#16a085",
         "textColor": "#ffffff",
-        "statusBackgroundColor": "#d0ece7",
+        "statuscolor": "#d0ece7",
         "statusTextColor": "#0b5345",
         "editableFields": [
           "visitors"
         ],
         "highPriorityFields": [
           "visitorType",
-          "cluster",
           "location",
           "locationName",
           "visitPurpose",
@@ -446,26 +437,22 @@
           "visitTime",
           "visitTimeTo",
           "visitCoordinatorName",
-          "meetingRoom",
-          "accessControlAreas",
-          "mealPreference",
-          "plsDescribePreference"
+          "mealPreference"
         ],
         "triggers": []
       },
       {
         "id": "Checked-Out",
         "name": "Checked-Out",
-        "backgroundColor": "#8e44ad",
+        "color": "#8e44ad",
         "textColor": "#ffffff",
-        "statusBackgroundColor": "#e8daef",
+        "statuscolor": "#e8daef",
         "statusTextColor": "#512e5f",
         "editableFields": [
           "visitors"
         ],
         "highPriorityFields": [
           "visitorType",
-          "cluster",
           "location",
           "locationName",
           "visitPurpose",
@@ -477,10 +464,175 @@
           "visitTime",
           "visitTimeTo",
           "visitCoordinatorName",
-          "meetingRoom",
-          "accessControlAreas",
-          "mealPreference",
-          "plsDescribePreference"
+          "mealPreference"
+        ]
+      },
+      {
+        "id": "Pending Duty Officer Approval",
+        "name": "Pending Duty Officer Approval",
+        "color": "#3498db",
+        "textColor": "#ffffff",
+        "statuscolor": "#d6eaf8",
+        "statusTextColor": "#154360",
+        "editableFields": [
+          "dutyOfficerApprovalReason",
+          "visitors"
+        ],
+        "highPriorityFields": [
+          "visitorType",
+          "location",
+          "locationName",
+          "meetingDepartment",
+          "visitPurpose",
+          "visitPurposeOther",
+          "visitOrganization",
+          "visitors",
+          "visitDate",
+          "visitDateTo",
+          "visitTime",
+          "visitTimeTo",
+          "visitCoordinatorName",
+          "visitCoordinatorEmail"
+        ],
+        "triggers": [
+          {
+            "template": "Pending Duty Officer Approval",
+            "channel": "email",
+            "target": "admin",
+            "objectListPlaceholder": true,
+            "contactFilters": [
+              "dutyOfficer"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "meetingDepartment",
+                  "operator": "eq",
+                  "value": "$meetingDepartment$"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "Duty Officer Approved",
+        "name": "Duty Officer Approved",
+        "color": "#27ae60",
+        "textColor": "#ffffff",
+        "statuscolor": "#d5f5e3",
+        "statusTextColor": "#2e8b57",
+        "triggers": [
+          {
+            "channel": "fieldChange",
+            "changingFields": [
+              {
+                "id": "status",
+                "value": "Completed"
+              }
+            ]
+          }
+        ],
+        "editableFields": [
+          "dutyOfficerApprovalReason",
+          "visitors"
+        ],
+        "highPriorityFields": [
+          "visitorType",
+          "location",
+          "locationName",
+          "meetingDepartment",
+          "visitPurpose",
+          "visitPurposeOther",
+          "visitOrganization",
+          "visitors",
+          "visitDate",
+          "visitDateTo",
+          "visitTime",
+          "visitTimeTo",
+          "visitCoordinatorName",
+          "visitCoordinatorEmail"
+        ],
+        "fieldsValidation": [
+          {
+            "fieldID": "dutyOfficerApprovalReason",
+            "required": true,
+            "message": "Please enter the approval reason."
+          }
+        ]
+      },
+      {
+        "id": "Duty Officer Rejected",
+        "name": "Duty Officer Rejected",
+        "color": "#e74c3c",
+        "textColor": "#ffffff",
+        "statuscolor": "#f9d6d2",
+        "statusTextColor": "#922b21",
+        "triggers": [
+          {
+            "template": "VM Visit Request Notification: Rejection to Visitor",
+            "channel": "email",
+            "target": "admin",
+            "objectList": true,
+            "customFieldId": "visitors",
+            "contactField": "visitorEmail"
+          },
+          {
+            "template": "VM Visit Request Notification SMS: Request rejected",
+            "channel": "sms",
+            "target": "admin",
+            "objectList": true,
+            "customFieldId": "visitors",
+            "contactField": "visitorTelephone"
+          },
+          {
+            "template": "rejectionEmail",
+            "channel": "email",
+            "target": "admin",
+            "objectListPlaceholder": true,
+            "contactFilters": [
+              "grpHos",
+              "hod"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "meetingDepartment",
+                  "operator": "eq",
+                  "value": "$meetingDepartment$"
+                }
+              ]
+            }
+          }
+        ],
+        "editableFields": [
+          "dutyOfficerRejectionReason",
+          "visitors"
+        ],
+        "highPriorityFields": [
+          "visitorType",
+          "location",
+          "locationName",
+          "meetingDepartment",
+          "visitPurpose",
+          "visitPurposeOther",
+          "visitOrganization",
+          "visitors",
+          "visitDate",
+          "visitDateTo",
+          "visitTime",
+          "visitTimeTo",
+          "visitCoordinatorName",
+          "visitCoordinatorEmail"
+        ],
+        "fieldsValidation": [
+          {
+            "fieldID": "dutyOfficerRejectionReason",
+            "required": true,
+            "message": "Please enter the rejection reason."
+          }
         ]
       }
     ]
@@ -508,6 +660,18 @@
     ]
   },
   "customFields": {
+    "overdue": {
+      "name": "Overdue",
+      "readOnly": true,
+      "type": "enum",
+      "hidden": true,
+      "values": [
+        {
+          "id": "HOD Approval Overdue",
+          "name": "HOD Approval Overdue"
+        }
+      ]
+    },
     "visitors": {
       "name": "Visitor Details",
       "type": "objectList",
@@ -521,13 +685,13 @@
         },
         {
           "id": "nic",
-          "name": "Visitor NIC/Passport",
+          "name": "NIC/Passport /Driver's License",
           "readOnly": true,
           "type": "string"
         },
         {
           "id": "nicUpload",
-          "name": "Visitor NIC/Passport Upload",
+          "name": "NIC/Passport /Driver's License Upload",
           "readOnly": true,
           "type": "link"
         },
@@ -802,7 +966,7 @@
       ]
     },
     "nic": {
-      "name": "Visitor NIC/Passport",
+      "name": "NIC/Passport /Driver's License",
       "readOnly": true,
       "type": "string"
     },
@@ -1040,72 +1204,60 @@
       "type": "multiselect",
       "values": [
         {
-          "id": "Admin",
-          "name": "Administration"
+          "id": "Center of Excellence",
+          "name": "Center of Excellence"
         },
         {
-          "id": "Factory",
-          "name": "Operations / Factory Management"
+          "id": "Civil, Establishment & Transport",
+          "name": "Civil, Establishment & Transport"
         },
         {
-          "id": "Production",
-          "name": "Production (Biscuits)"
+          "id": "Corporate",
+          "name": "Corporate"
         },
         {
-          "id": "Quality Assurance",
-          "name": "Quality Assurance & Food Safety"
-        },
-        {
-          "id": "Research and Development",
-          "name": "Research & Development (NPD)"
+          "id": "Customer Marketing",
+          "name": "Customer Marketing"
         },
         {
           "id": "Engineering",
-          "name": "Engineering & Maintenance"
+          "name": "Engineering"
         },
         {
-          "id": "Maintenance",
-          "name": "Utilities & Maintenance"
-        },
-        {
-          "id": "Supply Chain",
-          "name": "Supply Chain & Procurement"
-        },
-        {
-          "id": "Marketing",
-          "name": "Marketing & Brand"
-        },
-        {
-          "id": "Sales",
-          "name": "Sales & Commercial"
+          "id": "Export",
+          "name": "Export"
         },
         {
           "id": "Finance",
           "name": "Finance"
         },
         {
-          "id": "Human Resource",
-          "name": "Human Resources & Admin"
+          "id": "HR",
+          "name": "HR"
         },
         {
-          "id": "Logistics",
-          "name": "Logistics & Distribution"
+          "id": "Import",
+          "name": "Import"
         },
         {
-          "id": "Packaging",
-          "name": "Packaging"
+          "id": "Information Technology",
+          "name": "Information Technology"
         },
         {
-          "id": "Raw Material Stores",
-          "name": "Raw Materials Warehouse"
+          "id": "Marketing",
+          "name": "Marketing"
         },
         {
-          "id": "Finished Goods Stores",
-          "name": "Finished Goods Warehouse"
+          "id": "Production",
+          "name": "Production"
         },
         {
-          "id": "Other",
-          "name": "Other"
+          "id": "QA & RD",
+          "name": "QA & RD"
+        },
+        {
+          "id": "SupplyChain",
+          "name": "SupplyChain"
         }
       ]
     },
@@ -1137,7 +1289,7 @@
       "values": [
         {
           "id": "HO",
-          "name": "Head Office",
+          "name": "Maliban Head Office",
           "triggers": [
             {
               "channel": "fieldChange",
@@ -1265,6 +1417,14 @@
       "name": "Rejection Reason",
       "type": "string"
     },
+    "dutyOfficerApprovalReason": {
+      "name": "Approval Reason",
+      "type": "string"
+    },
+    "dutyOfficerRejectionReason": {
+      "name": "Rejection Reason",
+      "type": "string"
+    },
     "multipleVisitors": {
       "name": "Include Multiple Visitors",
       "readOnly": true,
@@ -1282,6 +1442,16 @@
     },
     "createdBy": {
       "name": "Created By",
+      "readOnly": true,
+      "type": "string"
+    },
+    "requesterName": {
+      "name": "Requester Name",
+      "readOnly": true,
+      "type": "string"
+    },
+    "requesterPhoneNumber": {
+      "name": "Requester Phone Number",
       "readOnly": true,
       "type": "string"
     },
@@ -1352,6 +1522,18 @@
     {
       "id": "general",
       "companyName": "Maliban",
+      "consent": {
+        "message": "Please review and agree to the visitor consent information before continuing.",
+        "link": "https://www.malibangroup.com/privacy-policy/"
+      },
+      "uiConfiguration": {
+        "localization": {
+          "enabled": true,
+          "controlType": "buttons",
+          "defaultLanguageCode": "en-UK",
+          "showWhenSingleLanguage": false
+        }
+      },
       "validationTypes": [
         {
           "type": "QR",
@@ -1365,7 +1547,7 @@
         },
         {
           "type": "input",
-          "name": "NIC",
+          "name": "NIC/Passport /Driver's License",
           "mappingField": "nic"
         }
       ],
@@ -1403,7 +1585,7 @@
               "id": "multiple",
               "images": [
                 {
-                  "url": "https://storage.emojot.com/pictures/generalImages/667a43f41189fa2fe875a820-skin4.png",
+                  "url": "https://storage.emojot.com/pictures/emailImages/686d036bec4f8da2899fed8c-skin2.png",
                   "styles": {
                     "width": "30%",
                     "height": "auto",
@@ -1427,7 +1609,12 @@
       "details": [
         "visitDate",
         "visitDateTo",
+        "visitTime",
+        "visitTimeTo",
+        "requesterName",
+        "requesterPhoneNumber",
         "visitorName",
+        "visitorTelephone",
         "visitorEmail",
         "visitorAddress",
         "nic",
@@ -1445,6 +1632,10 @@
           "values": [
             "visitDate",
             "visitDateTo",
+            "visitTime",
+            "visitTimeTo",
+            "requesterName",
+            "requesterPhoneNumber",
             "status",
             "boiPass",
             "boiPassReference",
@@ -1492,6 +1683,14 @@
                         "var": "status"
                       },
                       "Completed"
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "status"
+                      },
+                      "Duty Officer Approved"
                     ]
                   },
                   {
@@ -1591,7 +1790,11 @@
               "type": "validation",
               "messages": {}
             }
-          ]
+          ],
+          "displayName": "English",
+          "symbol": "E",
+          "enabled": true,
+          "order": 1
         },
         {
           "language": "Sinhala",
@@ -1603,7 +1806,7 @@
             "supplierDelivery": "සැපයුම්කරු ඇතුලත් කිරීම",
             "back": "ආපසු",
             "searchVisitId": "පිවිසුම් අංකය ඇසුරෙන් සොයන්න",
-            "searchNIC": "ජාතික හැඳුනුම්පත්/විදේශ ගමන් බලපත්‍ර අංකය ඇසුරෙන් සොයන්න",
+            "searchNIC": "ජාතික හැඳුනුම්පත්/විදේශ ගමන් බලපත්‍ර/රියදුරු බලපත්‍ර අංකය ඇසුරෙන් සොයන්න",
             "Check-In": "ඇතුල්වීම සටහන් කරන්න",
             "Check-Out": "පිටවීම සටහන් කරන්න"
           },
@@ -1611,19 +1814,21 @@
             "visitorManagement": "අමුත්තන් කළමනාකරණය",
             "scanQRCode": "QR කේතය ස්කෑන් කරන්න",
             "searchByVisitID": "පිවිසුම් අංකය ඇසුරෙන් සොයන්න",
-            "searchNICPassport": "ජාතික හැඳුනුම්පත්/විදේශ ගමන් බලපත්u200Dරය අංකය ඇසුරෙන් සොයන්න",
+            "searchNICPassport": "ජාතික හැඳුනුම්පත්/විදේශ ගමන් බලපත්‍ර/රියදුරු බලපත්‍ර අංකය ඇසුරෙන් සොයන්න",
             "visitorDetails": "අමුත්තන්ගේ විස්තර"
           },
           "ejVistorValidationPortalInputs": {
             "enterVisitID": "අමුත්තන්ගේ පිවිසුම් අංකය ඇතුලත් කරන්න",
-            "enterNICPassport": "අමුත්තන්ගේ ජාතික හැඳුනුම්පත්/විදේශ ගමන් බලපත්u200Dරය අංකය ඇතුලත් කරන්න"
+            "enterNICPassport": "අමුත්තන්ගේ ජාතික හැඳුනුම්පත්/විදේශ ගමන් බලපත්‍ර/රියදුරු බලපත්‍ර අංකය ඇතුලත් කරන්න"
           },
           "ejVisitorDetailFields": {
             "status": "තත්ත්වය",
+            "requesterName": "ඉල්ලුම්කරුගේ නම",
+            "requesterPhoneNumber": "ඉල්ලුම්කරුගේ දුරකථන අංකය",
             "visitorName": "අමුත්තන්ගේ නම",
             "visitorEmail": "අමුත්තන්ගේ ඊතැපැල් ලිපිනය",
-            "nic": "ජාතික හැඳුනුම්පත්/විදේශ ගමන් බලපත්u200Dරය අංකය",
-            "nicUpload": "ජාතික හැඳුනුම්පත/විදේශ ගමන් බලපත්‍රය උඩුගත කිරීම",
+            "nic": "ජාතික හැඳුනුම්පත්/විදේශ ගමන් බලපත්‍ර/රියදුරු බලපත්‍ර අංකය",
+            "nicUpload": "ජාතික හැඳුනුම්පත/විදේශ ගමන් බලපත්‍රය/රියදුරු බලපත්‍රය උඩුගත කිරීම",
             "visitorVehicle": "අමුත්තන්ගේ වාහන අංකය",
             "visitDate": "පැමිණීමේ ආරම්භක දිනය",
             "visitDateTo": "සංචාරය අවසාන දිනය",
@@ -1631,7 +1836,6 @@
             "boiPassReference": "BOI අවසරපත් අංකය"
           },
           "visitorStatus": {
-            "Triage": "අනුමැතිය සඳහා යොමුකර ඇත",
             "Pending HR OPs Approval": "OHS අනුමැතිය සඳහා යොමුකර ඇත",
             "Pending Security Manager Approval": "GM අනුමැතිය සඳහා යොමුකර ඇත",
             "HR Ops Approved": "OHS අනුමතයි",
@@ -1639,6 +1843,9 @@
             "GM Approved": "GM අනුමතයි",
             "Security Manager Rejected": "GM ප්‍රතික්ෂේප කළා",
             "Completed": "සම්පූර්ණ කළා",
+            "Pending Duty Officer Approval": "රාජකාරි නිලධාරියාගේ අනුමැතිය සඳහා යොමුකර ඇත",
+            "Duty Officer Approved": "රාජකාරි නිලධාරියා අනුමත කළා",
+            "Duty Officer Rejected": "රාජකාරි නිලධාරියා ප්‍රතික්ෂේප කළා",
             "Checked-In": "ඇතුළුවී ඇත",
             "Checked-Out": "පිටවී ඇත"
           },
@@ -1656,7 +1863,7 @@
             "error": {
               "messages": {
                 "invalidId": "වලංගු නොවන හැඳුනුම්පතක්",
-                "invalidNICPassportNumber": "වලංගු නොවන හැඳුනුම්පත්/පාස්පොර්ට් අංකය",
+                "invalidNICPassportNumber": "වලංගු නොවන ජාතික හැඳුනුම්පත්/විදේශ ගමන් බලපත්‍ර/රියදුරු බලපත්‍ර අංකය",
                 "visitorRequestFailed": "අමුත්තන්ගේ ඉල්ලීම අසාර්ථක විය",
                 "invalidFieldValues": "කරුණාකර දත්ත පරීක්ෂා කරන්න",
                 "cantFindTheVisitor": "අමුත්තා සොයාගත නොහැක",
@@ -1669,7 +1876,11 @@
             "validation": {
               "messages": {}
             }
-          }
+          },
+          "displayName": "සිංහල",
+          "symbol": "සි",
+          "enabled": true,
+          "order": 2
         },
         {
           "language": "Tamil",
@@ -1681,7 +1892,7 @@
             "supplierDelivery": "சப்ளையர் டெலிவரி",
             "back": "திரும்பு",
             "searchVisitId": "விசிட் ஐடியைத் தேடுங்கள்",
-            "searchNIC": "என்ஐசி/பாஸ்போர்ட்டைத் தேடுங்கள்",
+            "searchNIC": "என்ஐசி/பாஸ்போர்ட்/ஓட்டுநர் உரிமத்தைத் தேடுங்கள்",
             "Check-In": "நுழைவு",
             "Check-Out": "சரிபார்"
           },
@@ -1689,20 +1900,22 @@
             "visitorManagement": "பார்வையாளர் முகாமைத்துவம்",
             "scanQRCode": "QR குறியீட்டை ஸ்கேன் செய்யவும்",
             "searchByVisitID": "விசிட் ஐடி மூலம் தேடவும்",
-            "searchNICPassport": "என்ஐசி/பாஸ்போர்ட்டைத் தேடுங்கள்",
+            "searchNICPassport": "என்ஐசி/பாஸ்போர்ட்/ஓட்டுநர் உரிமத்தைத் தேடுங்கள்",
             "visitorDetails": "பார்வையாளர் விவரங்கள்",
             "noDeviceSelected": "எந்த சாதனமும் தேர்ந்தெடுக்கப்படவில்லை"
           },
           "ejVistorValidationPortalInputs": {
             "enterVisitID": "வருகை ஐடியை உள்ளிடவும்",
-            "enterNICPassport": "பார்வையாளர் என்ஐசி/பாஸ்போர்ட்டை உள்ளிடவும்"
+            "enterNICPassport": "பார்வையாளர் என்ஐசி/பாஸ்போர்ட்/ஓட்டுநர் உரிமத்தை உள்ளிடவும்"
           },
           "ejVisitorDetailFields": {
             "status": "நிலை",
+            "requesterName": "கோரிக்கையாளரின் பெயர்",
+            "requesterPhoneNumber": "கோரிக்கையாளரின் தொலைபேசி எண்",
             "visitorName": "பார்வையாளர் பெயர்",
             "visitorEmail": "பார்வையாளர் மின்னஞ்சல்",
-            "nic": "பார்வையாளர் என்ஐசி/பாஸ்போர்ட்",
-            "nicUpload": "பார்வையாளர் என்ஐசி/பாஸ்போர்ட் பதிவேற்றம்",
+            "nic": "பார்வையாளர் என்ஐசி/பாஸ்போர்ட்/ஓட்டுநர் உரிமம்",
+            "nicUpload": "பார்வையாளர் என்ஐசி/பாஸ்போர்ட்/ஓட்டுநர் உரிமம் பதிவேற்றம்",
             "visitorVehicle": "பார்வையாளர் வாகன எண்",
             "visitDate": "வருகை தேதி ______ முதல்",
             "visitDateTo": "வருகை தேதி ______வரை",
@@ -1711,6 +1924,9 @@
           },
           "visitorStatus": {
             "Completed": "நிறைவு",
+            "Pending Duty Officer Approval": "கடமை அதிகாரியின் ஒப்புதலுக்காக நிலுவையில் உள்ளது",
+            "Duty Officer Approved": "கடமை அதிகாரி அங்கீகரித்தார்",
+            "Duty Officer Rejected": "கடமை அதிகாரி நிராகரித்தார்",
             "Checked-In": "நுழைந்துவிட்டேன்",
             "Checked-Out": "செக்-அவுட்"
           },
@@ -1728,7 +1944,7 @@
             "error": {
               "messages": {
                 "invalidId": "தவறான ஐடி",
-                "invalidNICPassportNumber": "தவறான NIC/கடவுச்சீட்டு",
+                "invalidNICPassportNumber": "தவறான NIC/கடவுச்சீட்டு/ஓட்டுநர் உரிமம்",
                 "visitorRequestFailed": "வருகை கோரிக்கை தோல்வியடைந்தது",
                 "invalidFieldValues": "தவறான புல மதிப்புகள்",
                 "cantFindTheVisitor": "வந்தவரைக் கண்டுபிடிக்க முடியவில்லை",
@@ -1741,7 +1957,11 @@
             "validation": {
               "messages": {}
             }
-          }
+          },
+          "displayName": "தமிழ்",
+          "symbol": "அ",
+          "enabled": true,
+          "order": 3
         }
       ]
     },
@@ -1753,7 +1973,7 @@
         {
           "name": "nic/passport",
           "regex": "^[A-Za-z0-9]{1,20}$",
-          "message": "The NIC/Passport number you have entered is not valid"
+          "message": "The NIC/Passport /Driver's License number you have entered is not valid"
         },
         {
           "name": "email",
@@ -1774,7 +1994,7 @@
               "id": "multiple",
               "images": [
                 {
-                  "url": "https://storage.emojot.com/pictures/generalImages/667a43f41189fa2fe875a820-skin4.png",
+                  "url": "https://storage.emojot.com/pictures/emailImages/686d036bec4f8da2899fed8c-skin2.png",
                   "styles": {
                     "width": "30%",
                     "height": "auto",
@@ -1821,7 +2041,7 @@
                 "invalidFieldValues": "Please check field values",
                 "noRecordsFound": "Cannot find any records",
                 "duplicateUser": "Duplicate user",
-                "nic/passport": "The NIC/Passport number you have entered is not valid",
+                "nic/passport": "The NIC/Passport /Driver's License number you have entered is not valid",
                 "addingUserError": "Error while adding the user!",
                 "invalidTicketId": "Invalid ticket id",
                 "invalidEmail": "Invalid email",
@@ -1832,12 +2052,16 @@
               "type": "validation",
               "messages": {
                 "email": "Invalid email",
-                "nic/passport": "The NIC/Passport number you have entered is not valid",
+                "nic/passport": "The NIC/Passport /Driver's License number you have entered is not valid",
                 "commonEmail": "Invalid email"
               }
             }
           ],
-          "thankYouMessage": "Thank you, your visit request has been submitted successfully! You will be notified via the contact method provided in the application when your visit request has been approved."
+          "thankYouMessage": "Thank you, your visit request has been submitted successfully! You will be notified via the contact method provided in the application when your visit request has been approved.",
+          "displayName": "English",
+          "symbol": "E",
+          "enabled": true,
+          "order": 1
         },
         {
           "language": "Tamil",
@@ -1869,11 +2093,11 @@
                 },
                 {
                   "id": "nic",
-                  "text": "பார்வையாளர் என்ஐசி/பாஸ்போர்ட்"
+                  "text": "பார்வையாளர் என்ஐசி/பாஸ்போர்ட்/ஓட்டுநர் உரிமம்"
                 },
                 {
                   "id": "nicUpload",
-                  "text": "பார்வையாளர் என்ஐசி/பாஸ்போர்ட் பதிவேற்றம்"
+                  "text": "பார்வையாளர் என்ஐசி/பாஸ்போர்ட்/ஓட்டுநர் உரிமம் பதிவேற்றம்"
                 },
                 {
                   "id": "visitorVehicle",
@@ -2072,81 +2296,77 @@
               "text": "நீங்கள் வருகை தரும் துறையைத் தேர்ந்தெடுக்கவும்",
               "responses": [
                 {
-                  "id": "Admin",
-                  "text": "நிர்வாகம்"
+                  "id": "Center of Excellence",
+                  "text": "சிறப்பு மையம்"
                 },
                 {
-                  "id": "Factory",
-                  "text": "செயல்பாடுகள் / தொழிற்சாலை மேலாண்மை"
+                  "id": "Civil, Establishment & Transport",
+                  "text": "சிவில், ஸ்தாபன மற்றும் போக்குவரத்து"
                 },
                 {
-                  "id": "Production",
-                  "text": "உற்பத்தி (பிஸ்கட்)"
+                  "id": "Corporate",
+                  "text": "நிறுவன விவகாரங்கள்"
                 },
                 {
-                  "id": "Quality Assurance",
-                  "text": "தர உறுதி மற்றும் உணவு பாதுகாப்பு"
-                },
-                {
-                  "id": "Research and Development",
-                  "text": "ஆராய்ச்சி மற்றும் மேம்பாடு (NPD)"
+                  "id": "Customer Marketing",
+                  "text": "வாடிக்கையாளர் சந்தைப்படுத்தல்"
                 },
                 {
                   "id": "Engineering",
-                  "text": "பொறியியல் மற்றும் பராமரிப்பு"
+                  "text": "பொறியியல்"
                 },
                 {
-                  "id": "Maintenance",
-                  "text": "பயன்பாட்டு சேவைகள் மற்றும் பராமரிப்பு"
-                },
-                {
-                  "id": "Supply Chain",
-                  "text": "விநியோகச் சங்கிலி மற்றும் கொள்முதல்"
-                },
-                {
-                  "id": "Marketing",
-                  "text": "சந்தைப்படுத்தல் மற்றும் பிராண்ட்"
-                },
-                {
-                  "id": "Sales",
-                  "text": "விற்பனை மற்றும் வர்த்தகம்"
+                  "id": "Export",
+                  "text": "ஏற்றுமதி"
                 },
                 {
                   "id": "Finance",
                   "text": "நிதி"
                 },
                 {
-                  "id": "Human Resource",
-                  "text": "மனிதவள மற்றும் நிர்வாகம்"
+                  "id": "HR",
+                  "text": "மனிதவளம்"
                 },
                 {
-                  "id": "Logistics",
-                  "text": "சரக்குப் போக்குவரத்து மற்றும் விநியோகம்"
+                  "id": "Import",
+                  "text": "இறக்குமதி"
                 },
                 {
-                  "id": "Packaging",
-                  "text": "பொதியிடுதல்"
+                  "id": "Information Technology",
+                  "text": "தகவல் தொழில்நுட்பம்"
                 },
                 {
-                  "id": "Raw Material Stores",
-                  "text": "மூலப்பொருள் கிடங்கு"
+                  "id": "Marketing",
+                  "text": "சந்தைப்படுத்தல்"
                 },
                 {
-                  "id": "Finished Goods Stores",
-                  "text": "முடிவுற்ற பொருட்கள் கிடங்கு"
+                  "id": "Production",
+                  "text": "உற்பத்தி"
                 },
                 {
-                  "id": "Other",
-                  "text": "மற்றவை"
+                  "id": "QA & RD",
+                  "text": "தர உறுதி மற்றும் ஆராய்ச்சி மற்றும் மேம்பாடு"
+                },
+                {
+                  "id": "SupplyChain",
+                  "text": "விநியோகச் சங்கிலி"
                 }
               ]
+            },
+            {
+              "id": "q31",
+              "text": "கோரிக்கையாளரின் பெயர்"
+            },
+            {
+              "id": "q32",
+              "text": "கோரிக்கையாளரின் தொலைபேசி எண்"
             },
             {
               "id": "q29",
               "responses": [
                 {
                   "id": "staffNic",
-                  "text": "பார்வையாளர் என்ஐசி/பாஸ்போர்ட்்"
+                  "text": "பார்வையாளர் என்ஐசி/பாஸ்போர்ட்/ஓட்டுநர் உரிமம்"
                 },
                 {
                   "id": "staffMobile",
@@ -2190,7 +2410,7 @@
                 "invalidFieldValues": "தவறான புல மதிப்புகள்",
                 "noRecordsFound": "Cannot find any records",
                 "duplicateUser": "நகல் பயனர்",
-                "invalidNic": "தவறான NIC/கடவுச்சீட்டு",
+                "invalidNic": "தவறான NIC/கடவுச்சீட்டு/ஓட்டுநர் உரிமம்",
                 "addingUserError": "பயனரைச் சேர்க்கும்போது பிழை",
                 "invalidTicketId": "தவறான ஐடி",
                 "invalidEmail": "தவறான மின்னஞ்சல்",
@@ -2201,7 +2421,7 @@
               "type": "validation",
               "messages": {
                 "email": "தவறான மின்னஞ்சல்",
-                "nic/passport": "தவறான NIC/கடவுச்சீட்டு",
+                "nic/passport": "தவறான NIC/கடவுச்சீட்டு/ஓட்டுநர் உரிமம்",
                 "commonEmail": "தவறான மின்னஞ்சல்"
               }
             }
@@ -2226,7 +2446,11 @@
             "header": "உங்கள் சுயவிவரம் உருவாக்கப்பட்டது",
             "body": null,
             "footer": "உங்கள் சுயவிவரத்தைப் பயன்படுத்தி நீங்கள் அவற்றை உருவாக்கும் போது, ​​உங்கள் வருகைக் கோரிக்கைகள் முன்கூட்டியே அங்கீகரிக்கப்படும்"
-          }
+          },
+          "displayName": "தமிழ்",
+          "symbol": "அ",
+          "enabled": true,
+          "order": 3
         },
         {
           "language": "Sinhala",
@@ -2242,11 +2466,11 @@
               "responses": [
                 {
                   "id": "nic",
-                  "text": "ආගන්තුක ජාතික හැඳුනුම්පත/විදේශ ගමන් බලපත්‍රය"
+                  "text": "ආගන්තුක ජාතික හැඳුනුම්පත/විදේශ ගමන් බලපත්‍රය/රියදුරු බලපත්‍රය"
                 },
                 {
                   "id": "nicUpload",
-                  "text": "ජාතික හැඳුනුම්පත/විදේශ ගමන් බලපත්‍රය උඩුගත කිරීම"
+                  "text": "ජාතික හැඳුනුම්පත/විදේශ ගමන් බලපත්‍රය/රියදුරු බලපත්‍රය උඩුගත කිරීම"
                 },
                 {
                   "id": "visitorName",
@@ -2466,81 +2690,77 @@
               "text": "ඔබ පැමිණෙන දෙපාර්තමේන්තුව තෝරන්න.",
               "responses": [
                 {
-                  "id": "Admin",
-                  "text": "පරිපාලනය"
+                  "id": "Center of Excellence",
+                  "text": "විශිෂ්ටතා මධ්‍යස්ථානය"
                 },
                 {
-                  "id": "Factory",
-                  "text": "මෙහෙයුම් / කර්මාන්තශාලා කළමනාකරණය"
+                  "id": "Civil, Establishment & Transport",
+                  "text": "සිවිල්, ආයතන හා ප්‍රවාහන"
                 },
                 {
-                  "id": "Production",
-                  "text": "නිෂ්පාදනය (බිස්කට්)"
+                  "id": "Corporate",
+                  "text": "ආයතනික"
                 },
                 {
-                  "id": "Quality Assurance",
-                  "text": "තත්ත්ව සහතිකය සහ ආහාර සුරක්ෂිතතාව"
-                },
-                {
-                  "id": "Research and Development",
-                  "text": "පර්යේෂණ හා සංවර්ධන (නව නිෂ්පාදන සංවර්ධනය)"
+                  "id": "Customer Marketing",
+                  "text": "පාරිභෝගික අලෙවිකරණය"
                 },
                 {
                   "id": "Engineering",
-                  "text": "ඉංජිනේරු සහ නඩත්තු"
+                  "text": "ඉංජිනේරු"
                 },
                 {
-                  "id": "Maintenance",
-                  "text": "උපයෝගිතා හා නඩත්තු"
-                },
-                {
-                  "id": "Supply Chain",
-                  "text": "සැපයුම් දාමය සහ ප්‍රසම්පාදනය"
-                },
-                {
-                  "id": "Marketing",
-                  "text": "අලෙවිකරණය සහ සන්නාමය"
-                },
-                {
-                  "id": "Sales",
-                  "text": "අලෙවි හා වාණිජ"
+                  "id": "Export",
+                  "text": "අපනයන"
                 },
                 {
                   "id": "Finance",
-                  "text": "මුදල්"
+                  "text": "මූල්‍ය"
                 },
                 {
-                  "id": "Human Resource",
-                  "text": "මානව සම්පත් සහ පරිපාලන"
+                  "id": "HR",
+                  "text": "මානව සම්පත්"
                 },
                 {
-                  "id": "Logistics",
-                  "text": "සැපයුම් සහ බෙදාහැරීම"
+                  "id": "Import",
+                  "text": "ආනයන"
                 },
                 {
-                  "id": "Packaging",
-                  "text": "ඇසුරුම්කරණය"
+                  "id": "Information Technology",
+                  "text": "තොරතුරු තාක්ෂණය"
                 },
                 {
-                  "id": "Raw Material Stores",
-                  "text": "අමුද්‍රව්‍ය ගබඩාව"
+                  "id": "Marketing",
+                  "text": "අලෙවිකරණය"
                 },
                 {
-                  "id": "Finished Goods Stores",
-                  "text": "නිමි භාණ්ඩ ගබඩාව"
+                  "id": "Production",
+                  "text": "නිෂ්පාදනය"
                 },
                 {
-                  "id": "Other",
-                  "text": "වෙනත්"
+                  "id": "QA & RD",
+                  "text": "තත්ත්ව සහතික හා පර්යේෂණ සහ සංවර්ධන"
+                },
+                {
+                  "id": "SupplyChain",
+                  "text": "සැපයුම් දාමය"
                 }
               ]
+            },
+            {
+              "id": "q31",
+              "text": "ඉල්ලුම්කරුගේ නම"
+            },
+            {
+              "id": "q32",
+              "text": "ඉල්ලුම්කරුගේ දුරකථන අංකය"
             },
             {
               "id": "q29",
               "responses": [
                 {
                   "id": "staffNic",
-                  "text": "ආගන්තුක ජාතික හැඳුනුම්පත/විදේශ ගමන් බලපත්‍රය"
+                  "text": "ආගන්තුක ජාතික හැඳුනුම්පත/විදේශ ගමන් බලපත්‍රය/රියදුරු බලපත්‍රය"
                 },
                 {
                   "id": "staffMobile",
@@ -2590,7 +2810,7 @@
                 "invalidFieldValues": "කරුණාකර ක්ෂේත්‍ර අගයන් පරීක්ෂා කරන්න",
                 "noRecordsFound": "කිසිදු වාර්තාවක් සොයාගත නොහැක",
                 "duplicateUser": "අනුපිටපත් පරිශීලක නාමයක්",
-                "invalidNic": "ඔබ ඇතුළත් කළ ජාතික හැඳුනුම්පත/විදේශ ගමන් බලපත්‍ර අංකය වලංගු නැත",
+                "invalidNic": "ඔබ ඇතුළත් කළ ජාතික හැඳුනුම්පත්/විදේශ ගමන් බලපත්‍ර/රියදුරු බලපත්‍ර අංකය වලංගු නැත",
                 "addingUserError": "පරිශීලකයා එකතු කිරීමේදී දෝෂයක්!",
                 "invalidTicketId": "වලංගු නොවන ටිකට් හැඳුනුම්පතක්",
                 "multipleVehicleInput": "මෙය සැපයුම්කරු ආකාරයේ සංචාරයක් බැවින්, ඔබට වාහන අංක කිහිපයක් ඇතුළත් කිරීමට හැකියාවක් නොමැත",
@@ -2601,14 +2821,14 @@
               "type": "validation",
               "messages": {
                 "email": "වලංගු නොවන විද්යුත් තැපෑල",
-                "nic/passport": "ඔබ ඇතුළත් කළ ජාතික හැඳුනුම්පත/විදේශ ගමන් බලපත්‍ර අංකය වලංගු නැත",
+                "nic/passport": "ඔබ ඇතුළත් කළ ජාතික හැඳුනුම්පත්/විදේශ ගමන් බලපත්‍ර/රියදුරු බලපත්‍ර අංකය වලංගු නැත",
                 "commonEmail": "වලංගු නොවන විද්යුත් තැපෑල"
               }
             }
           ],
           "visitors": {
-            "nic": "ජාතික හැඳුනුම්පත/විදේශ ගමන් බලපත්‍රය",
-            "nicUpload": "ජාතික හැඳුනුම්පත/විදේශ ගමන් බලපත්‍රය උඩුගත කිරීම",
+            "nic": "ජාතික හැඳුනුම්පත/විදේශ ගමන් බලපත්‍රය/රියදුරු බලපත්‍රය",
+            "nicUpload": "ජාතික හැඳුනුම්පත/විදේශ ගමන් බලපත්‍රය/රියදුරු බලපත්‍රය උඩුගත කිරීම",
             "visitorName": "නම",
             "visitorEmail": "විද්යුත් තැපෑල",
             "visitorTelephone": "ජංගම",
@@ -2634,7 +2854,11 @@
             "header": "ඔබේ ප්‍රොෆයිලය / ආකෘතිය නිර්මාණය කර ඇත",
             "body": null,
             "footer": "ඔබගේ පැමිණීම් සහ ඉල්ලීම ඔබගේ ප්‍රොෆයිලය / ආකෘතිය භාවිතයෙන් ඉදිරිපත් කරන විට පූර්ව අනුමත කෙරේ."
-          }
+          },
+          "displayName": "සිංහල",
+          "symbol": "සි",
+          "enabled": true,
+          "order": 2
         }
       ],
       "conditionalSurveys": [
@@ -2673,14 +2897,14 @@
                 },
                 {
                   "id": "nic",
-                  "text": "Visitor NIC/Passport",
+                  "text": "NIC/Passport /Driver's License",
                   "required": true,
                   "type": "text",
                   "validation": "nic/passport"
                 },
                 {
                   "id": "nicUpload",
-                  "text": "Visitor NIC/Passport Upload",
+                  "text": "NIC/Passport /Driver's License Upload",
                   "required": false,
                   "type": "file"
                 },
@@ -2795,7 +3019,7 @@
               "responses": [
                 {
                   "id": "HO",
-                  "name": "Head Office"
+                  "name": "Maliban Head Office"
                 },
                 {
                   "id": "MBF",
@@ -2921,7 +3145,7 @@
               "responses": [
                 {
                   "id": "MBL",
-                  "name": "Head Office and Biscuit Factory"
+                  "name": "Maliban Head Office and Maliban Biscuit Factory"
                 },
                 {
                   "id": "MDAP",
@@ -2940,7 +3164,7 @@
               "responses": [
                 {
                   "id": "HO",
-                  "name": "Head Office"
+                  "name": "Maliban Head Office"
                 },
                 {
                   "id": "MBF",
@@ -2960,76 +3184,78 @@
               "text": "Select the department you will be visiting",
               "responses": [
                 {
-                  "id": "Admin",
-                  "name": "Administration"
+                  "id": "Center of Excellence",
+                  "name": "Center of Excellence"
                 },
                 {
-                  "id": "Factory",
-                  "name": "Operations / Factory Management"
+                  "id": "Civil, Establishment & Transport",
+                  "name": "Civil, Establishment & Transport"
+                },
+                {
+                  "id": "Corporate",
+                  "name": "Corporate"
+                },
+                {
+                  "id": "Customer Marketing",
+                  "name": "Customer Marketing"
                 },
                 {
                   "id": "Engineering",
-                  "name": "Engineering & Maintenance"
+                  "name": "Engineering"
+                },
+                {
+                  "id": "Export",
+                  "name": "Export"
                 },
                 {
                   "id": "Finance",
                   "name": "Finance"
                 },
                 {
-                  "id": "Human Resource",
-                  "name": "Human Resources & Admin"
+                  "id": "HR",
+                  "name": "HR"
+                },
+                {
+                  "id": "Import",
+                  "name": "Import"
+                },
+                {
+                  "id": "Information Technology",
+                  "name": "Information Technology"
                 },
                 {
                   "id": "Marketing",
-                  "name": "Marketing & Brand"
-                },
-                {
-                  "id": "Sales",
-                  "name": "Sales & Commercial"
+                  "name": "Marketing"
                 },
                 {
                   "id": "Production",
-                  "name": "Production (Biscuits)"
+                  "name": "Production"
                 },
                 {
-                  "id": "Quality Assurance",
-                  "name": "Quality Assurance & Food Safety"
+                  "id": "QA & RD",
+                  "name": "QA & RD"
                 },
                 {
-                  "id": "Raw Material Stores",
-                  "name": "Raw Materials Warehouse"
-                },
-                {
-                  "id": "Research and Development",
-                  "name": "Research & Development (NPD)"
-                },
-                {
-                  "id": "Supply Chain",
-                  "name": "Supply Chain & Procurement"
-                },
-                {
-                  "id": "Logistics",
-                  "name": "Logistics & Distribution"
-                },
-                {
-                  "id": "Packaging",
-                  "name": "Packaging"
-                },
-                {
-                  "id": "Finished Goods Stores",
-                  "name": "Finished Goods Warehouse"
-                },
-                {
-                  "id": "Maintenance",
-                  "name": "Utilities & Maintenance"
-                },
-                {
-                  "id": "Other",
-                  "name": "Other"
+                  "id": "SupplyChain",
+                  "name": "SupplyChain"
                 }
               ],
               "required": true,
               "incidentMappingField": "meetingDepartment"
+            },
+            {
+              "id": "q31",
+              "type": "text",
+              "text": "Requester Name",
+              "required": true,
+              "incidentMappingField": "requesterName"
+            },
+            {
+              "id": "q32",
+              "type": "text",
+              "text": "Requester Phone Number",
+              "required": true,
+              "incidentMappingField": "requesterPhoneNumber"
             },
             {
               "id": "q29",
@@ -3039,7 +3265,7 @@
                 {
                   "id": "staffNic",
                   "type": "text",
-                  "text": "Visitor NIC/Passport",
+                  "text": "NIC/Passport /Driver's License",
                   "required": true,
                   "incidentMappingField": "staffNic"
                 },
@@ -3058,7 +3284,7 @@
                   "responses": [
                     {
                       "id": "MBL",
-                      "name": "Head Office and Biscuit Factory"
+                      "name": "Maliban Head Office and Maliban Biscuit Factory"
                     },
                     {
                       "id": "MDAP",
@@ -3225,12 +3451,24 @@
                 "q16",
                 "q21",
                 "q24",
+                "q31",
+                "q32",
                 "q5",
-                "q17",
                 "q11"
               ],
               "id": "p1530",
               "navigation": [
+                {
+                  "condition": {
+                    "==": [
+                      {
+                        "var": "q5"
+                      },
+                      "Other"
+                    ]
+                  },
+                  "nextPage": "p1533"
+                },
                 {
                   "condition": {
                     "==": [
@@ -3272,11 +3510,21 @@
                 "q6",
                 "q24",
                 "q5",
-                "q17",
                 "q11"
               ],
               "id": "p1532",
               "navigation": [
+                {
+                  "condition": {
+                    "==": [
+                      {
+                        "var": "q5"
+                      },
+                      "Other"
+                    ]
+                  },
+                  "nextPage": "p1533"
+                },
                 {
                   "condition": {
                     "==": [
@@ -3316,6 +3564,8 @@
               "drilldowns": [
                 "q21",
                 "q24",
+                "q31",
+                "q32",
                 "q11"
               ],
               "id": "p1531",
@@ -3368,12 +3618,75 @@
                   "condition": {
                     "==": [
                       {
+                        "var": "q5"
+                      },
+                      "Other"
+                    ]
+                  },
+                  "nextPage": "p1533"
+                },
+                {
+                  "condition": {
+                    "==": [
+                      {
                         "var": "q14"
                       },
                       "supplier"
                     ]
                   },
                   "nextPage": "p1523"
+                }
+              ],
+              "buttonActions": [
+                {
+                  "buttonId": "back",
+                  "action": "previous"
+                },
+                {
+                  "buttonId": "next",
+                  "action": "next"
+                }
+              ]
+            },
+            {
+              "name": "General",
+              "drilldowns": [
+                "q17"
+              ],
+              "id": "p1533",
+              "navigation": [
+                {
+                  "condition": {
+                    "==": [
+                      {
+                        "var": "q14"
+                      },
+                      "supplier"
+                    ]
+                  },
+                  "nextPage": "p1523"
+                },
+                {
+                  "condition": {
+                    "==": [
+                      {
+                        "var": "q11"
+                      },
+                      "Yes"
+                    ]
+                  },
+                  "nextPage": "p1518"
+                },
+                {
+                  "condition": {
+                    "==": [
+                      {
+                        "var": "q11"
+                      },
+                      "No"
+                    ]
+                  },
+                  "nextPage": "p1516"
                 }
               ],
               "buttonActions": [
@@ -3469,12 +3782,20 @@
               "fields": [
                 {
                   "mappingField": "status",
-                  "value": "pending"
+                  "value": "Pending HOD Approval"
                 },
                 {
                   "mappingField": "coordinator",
                   "id": "email",
                   "parameter": true
+                },
+                {
+                  "mappingField": "location",
+                  "value": "MBL"
+                },
+                {
+                  "mappingField": "cluster",
+                  "value": "MBL"
                 }
               ]
             }
@@ -3507,10 +3828,60 @@
                   "value": "MBL"
                 }
               ]
+            },
+            {
+              "channel": "fieldChange",
+              "condition": {
+                "or": [
+                  {
+                    "==": [
+                      {
+                        "var": "locationName"
+                      },
+                      "HO"
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "locationName"
+                      },
+                      "MBF"
+                    ]
+                  },
+                  {
+                    "==": [
+                      {
+                        "var": "locationName"
+                      },
+                      "MCF"
+                    ]
+                  }
+                ]
+              },
+              "changingFields": [
+                {
+                  "id": "location",
+                  "value": "MBL"
+                },
+                {
+                  "id": "cluster",
+                  "value": "MBL"
+                }
+              ]
             }
           ]
         }
-      ]
+      ],
+      "uiConfiguration": {
+        "localization": {
+          "enabled": true,
+          "controlType": "buttons",
+          "defaultLanguageCode": "en-UK",
+          "placeholder": "Select language",
+          "showWhenSingleLanguage": false
+        }
+      }
     }
   ],
   "workflowCreation": {
@@ -3538,6 +3909,15 @@
         ]
       },
       {
+        "channel": "fieldChange",
+        "changingFields": [
+          {
+            "id": "location",
+            "value": "MBL"
+          }
+        ]
+      },
+      {
         "channel": "email",
         "template": "VM Visit Request Notification: New Visitor",
         "target": "admin",
@@ -3554,63 +3934,21 @@
         "contactField": "visitorTelephone"
       },
       {
+        "template": "VM Visit Request Notification: HOD Approval",
         "channel": "email",
-        "template": "VM Visit Request Notification: HR Ops Approval",
         "target": "admin",
         "objectListPlaceholder": true,
-        "condition": {
-          "and": [
-            {
-              "!=": [
-                {
-                  "var": "visitorType"
-                },
-                "Factory Visitor"
-              ]
-            }
-          ]
-        },
         "contactFilters": [
-          "dutyOfficer"
+          "hod",
+          "grpHos"
         ],
         "adminUserQuery": {
           "condition": "and",
           "rules": [
             {
-              "field": "location",
+              "field": "meetingDepartment",
               "operator": "eq",
-              "value": "$location$"
-            }
-          ]
-        }
-      },
-      {
-        "template": "VM Visit Request Notification: Security Manager Approval",
-        "channel": "email",
-        "target": "admin",
-        "objectListPlaceholder": true,
-        "condition": {
-          "and": [
-            {
-              "==": [
-                {
-                  "var": "visitorType"
-                },
-                "Factory Visitor"
-              ]
-            }
-          ]
-        },
-        "contactFilters": [
-          "securityManager"
-        ],
-        "adminUserQuery": {
-          "condition": "and",
-          "rules": [
-            {
-              "field": "location",
-              "operator": "eq",
-              "value": "$location$"
+              "value": "$meetingDepartment$"
             }
           ]
         }
@@ -3750,6 +4088,11 @@
         "id": "grpHos",
         "name": "Group Head of Security",
         "type": "contact"
+      },
+      {
+        "id": "dutyOfficer",
+        "name": "Duty Officer",
+        "type": "contact"
       }
     ],
     "id": "AHI_1752472605000_1234567"
@@ -3761,9 +4104,13 @@
       "email": "bot@emojot.com",
       "resolvedStatus": [
         "Completed",
+        "HOD Rejected",
         "Group Head of Security Rejected",
-        "Head of Department Approved",
-        "Head of Department Rejected"
+        "Gate Rejected",
+        "Duty Officer Approved",
+        "Duty Officer Rejected",
+        "Checked-Out",
+        "Checked-In"
       ],
       "maxLevel": 2,
       "triggerFlows": [
@@ -3771,11 +4118,11 @@
           "condition": {
             "and": [
               {
-                "!=": [
+                "==": [
                   {
                     "var": "status"
                   },
-                  "Completed"
+                  "Pending Group Head of Security Approval"
                 ]
               }
             ]
@@ -3783,14 +4130,35 @@
           "skipAssignment": true,
           "levels": [
             {
-              "nextLevelTime": 1200000
+              "nextLevelTime": 300000
             },
             {
-              "nextLevelTime": 1200000,
+              "nextLevelTime": 600000,
               "fieldsChange": [
                 {
                   "id": "status",
-                  "value": "Pending Group Head of Security Approval"
+                  "value": "Pending Duty Officer Approval"
+                }
+              ],
+              "triggers": [
+                {
+                  "template": "Pending Duty Officer Approval",
+                  "channel": "email",
+                  "target": "admin",
+                  "objectListPlaceholder": true,
+                  "contactFilters": [
+                    "dutyOfficer"
+                  ],
+                  "adminUserQuery": {
+                    "condition": "and",
+                    "rules": [
+                      {
+                        "field": "meetingDepartment",
+                        "operator": "eq",
+                        "value": "$meetingDepartment$"
+                      }
+                    ]
+                  }
                 }
               ]
             }
@@ -3843,7 +4211,7 @@
           "type": "header",
           "enabled": true,
           "height": 20,
-          "backgroundColor": "{{colors.headerBg}}",
+          "color": "{{colors.headerBg}}",
           "content": {
             "title": {
               "text": "SAMPATH UNIFIED COMPLAINT REPORT",
@@ -3869,7 +4237,7 @@
             {
               "label": "STATUS",
               "value": "{{status}}",
-              "backgroundColor": "{{colors.cardBg}}",
+              "color": "{{colors.cardBg}}",
               "border": {
                 "color": "{{colors.border}}"
               }
@@ -3877,7 +4245,7 @@
             {
               "label": "PRIORITY",
               "value": "{{priority}}",
-              "backgroundColor": "{{colors.cardBg}}",
+              "color": "{{colors.cardBg}}",
               "border": {
                 "color": "{{colors.border}}"
               }
@@ -3885,7 +4253,7 @@
             {
               "label": "CHANNEL",
               "value": "{{type}}",
-              "backgroundColor": "{{colors.cardBg}}",
+              "color": "{{colors.cardBg}}",
               "border": {
                 "color": "{{colors.border}}"
               }
@@ -3893,7 +4261,7 @@
             {
               "label": "ASSIGNED TO",
               "value": "{{assigneeUserName}}",
-              "backgroundColor": "{{colors.cardBg}}",
+              "color": "{{colors.cardBg}}",
               "border": {
                 "color": "{{colors.border}}"
               }
@@ -3914,8 +4282,7 @@
                   "title": "Complaint Information",
                   "titleStyle": {
                     "fontSize": 10,
-                    "color": "{{colors.titleText}}",
-                    "backgroundColor": "{{colors.titleBg}}"
+                    "color": "{{colors.titleBg}}"
                   },
                   "fields": [
                     {
@@ -3961,8 +4328,7 @@
                   "title": "Customer Information",
                   "titleStyle": {
                     "fontSize": 10,
-                    "color": "{{colors.titleText}}",
-                    "backgroundColor": "{{colors.titleBg}}"
+                    "color": "{{colors.titleBg}}"
                   },
                   "fields": [
                     {
@@ -3980,7 +4346,7 @@
           "title": "Issue Description",
           "field": {
             "value": "{{issueDescription}}",
-            "backgroundColor": "{{colors.white}}",
+            "color": "{{colors.white}}",
             "border": {
               "color": "{{colors.border}}"
             },
@@ -3995,7 +4361,7 @@
           "title": "Customer Comment",
           "field": {
             "value": "{{comment}}",
-            "backgroundColor": "{{colors.white}}",
+            "color": "{{colors.white}}",
             "border": {
               "color": "{{colors.border}}"
             },
@@ -4010,8 +4376,7 @@
           "title": "Attachments",
           "titleStyle": {
             "fontSize": 10,
-            "color": "{{colors.titleText}}",
-            "backgroundColor": "{{colors.titleBg}}"
+            "color": "{{colors.titleBg}}"
           },
           "fields": [
             {
@@ -4132,12 +4497,6 @@
         },
         "transitions": [
           {
-            "sourceState": "Triage",
-            "targetStates": [
-              "Pending HOD Approval"
-            ]
-          },
-          {
             "sourceState": "Pending HOD Approval",
             "targetStates": [
               "HOD Approved",
@@ -4168,6 +4527,14 @@
         },
         "transitions": [
           {
+            "sourceState": "Pending HOD Approval",
+            "targetStates": [
+              "Pending Group Head of Security Approval",
+              "Completed",
+              "Group Head of Security Rejected"
+            ]
+          },
+          {
             "sourceState": "HOD Approved",
             "targetStates": [
               "Pending Group Head of Security Approval"
@@ -4179,14 +4546,65 @@
               "Completed",
               "Group Head of Security Rejected"
             ]
+          },
+          {
+            "sourceState": "Pending Duty Officer Approval",
+            "targetStates": [
+              "Completed",
+              "Group Head of Security Rejected"
+            ]
+          },
+          {
+            "sourceState": "Completed",
+            "targetStates": [
+              "Gate Rejected"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "adminHierarchy",
+        "contactFilters": [
+          "dutyOfficer"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "location",
+              "operator": "eq",
+              "value": "$location$"
+            },
+            {
+              "field": "meetingDepartment",
+              "operator": "eq",
+              "value": "$meetingDepartment$"
+            }
+          ]
+        },
+        "transitions": [
+          {
+            "sourceState": "Pending Group Head of Security Approval",
+            "targetStates": [
+              "Pending Duty Officer Approval"
+            ]
+          },
+          {
+            "sourceState": "Pending Duty Officer Approval",
+            "targetStates": [
+              "Duty Officer Approved",
+              "Duty Officer Rejected"
+            ]
+          },
+          {
+            "sourceState": "Completed",
+            "targetStates": [
+              "Gate Rejected"
+            ]
           }
         ]
       }
     ]
-  },
-  "informUserConsent": {
-    "title": "We Value Your Privacy",
-    "content": "<p>Before we proceed, please acknowledge that we’ll be collecting and processing the following personal information:</p>\n<ul class=\"info-list\">\n  <li><strong>Name</strong> (for identification &amp; security)</li>\n  <li><strong>Company/Organization</strong> (to verify affiliation)</li>\n  <li><strong>Contact Information</strong> (phone number and/or email)</li>\n  <li><strong>Driver’s License, NIC/Passport Number</strong> (official ID number)</li>\n  <li><strong>Purpose of Visit</strong> (reason for visiting)</li>\n  <li><strong>Visitor Sign‑in/Out Time</strong> (arrival &amp; departure timestamps)</li>\n  <li><strong>Facial Image</strong> (captured and stored securely for visitor identification, security verification, access control, and audit trail purposes. Images will be retained according to our data retention policy)</li>\n</ul>\n<p>To continue using this service, please confirm that you agree to our <a href=\"/privacy-policy\" target=\"_blank\">Privacy Policy</a> and the processing of your personal data in compliance with GDPR.</p>"
   },
   "sourceWorkflow": "6a7d5c45f7b38fc01f7ef59d"
 }

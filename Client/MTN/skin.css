@@ -1,0 +1,1820 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+
+/* =========================================================
+   STAFF QUESTION TITLE — GRID FIX
+   (Placed first in the file in case this field truncates
+   long stylesheets — this rule must never be cut off.)
+
+   On mobile, the shared container becomes a 2-column CSS grid
+   (see the "multiple native groups" rules further down). The
+   injected staff-question title is a direct child of that same
+   container, so without this rule it consumes one grid cell
+   like a card instead of spanning above the whole grid — which
+   pushes the first staff card onto the same row as the title.
+   ========================================================= */
+
+#custom-staff-question-title {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+
+/* =========================================================
+   GLOBAL FONT
+   ========================================================= */
+
+#master-section,
+#headerCompanyInfo,
+.footer,
+.emote-title,
+.sensor-title,
+.form-group label,
+.panel-title,
+.loyalty-message,
+.pdGroupTitle,
+.thank-you-note,
+.email-emote-message,
+.progress_bar .progress_number,
+.nps-bar::before,
+.nps-bar::after,
+#headerCompanyInfo > .access-user,
+.btn-next,
+.btn-submit,
+.btn-prev,
+.btn-clear,
+.btn-skip,
+.btn-ok,
+.loyalty-redeem-button {
+    font-family: 'Manrope', Helvetica, Arial, sans-serif !important;
+    font-weight: 800 !important;
+    font-synthesis: none;
+    letter-spacing: -0.5px;
+}
+
+
+/* =========================================================
+   MTN UI REFINEMENT: TITLE, QUESTION AND EMOTE CARDS
+   ========================================================= */
+
+/* Page title / introductory message */
+.sensor-title {
+    max-width: 1180px !important;
+    margin: 0 auto 28px !important;
+    padding: 8px 10px 16px !important;
+    color: #000000 !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-bottom: 5px solid #FFCB05 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    font-size: 20pt !important;
+    font-weight: 800 !important;
+    line-height: 1.35 !important;
+    letter-spacing: -0.5px !important;
+    text-align: center !important;
+}
+
+/* Current question */
+.emote-title {
+    position: relative !important;
+    max-width: 1180px !important;
+    margin: 0 auto 24px !important;
+    padding: 0 0 12px 0 !important;
+    color: #000000 !important;
+    font-size: 16pt !important;
+    font-weight: 800 !important;
+    line-height: 1.28 !important;
+    letter-spacing: -0.7px !important;
+    text-align: left !important;
+}
+
+.emote-title::after {
+    content: "" !important;
+    display: block !important;
+    width: 62px !important;
+    height: 5px !important;
+    margin-top: 11px !important;
+    background: #FFCB05 !important;
+    border-radius: 999px !important;
+}
+
+/* Emojot's native emote row — follows the supplied working sample. */
+.flex {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: stretch !important;
+    gap: 18px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 22px !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+}
+
+.flex > .emo-cont {
+    flex: 0 1 calc((100% - 36px) / 3) !important;
+    width: calc((100% - 36px) / 3) !important;
+    max-width: calc((100% - 36px) / 3) !important;
+    min-width: 0 !important;
+    margin: 10px 0 !important;
+    box-sizing: border-box !important;
+}
+
+.emo-cont {
+    position: relative !important;
+    float: none !important;
+    clear: none !important;
+    vertical-align: top !important;
+    min-height: 150px !important;
+    margin: 10px 7px !important;
+    padding: 20px 12px 17px !important;
+    background: rgba(255, 203, 5, 0.14) !important;
+    border: 2px solid #000000 !important;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+    color: #000000 !important;
+    overflow: hidden !important;
+    cursor: pointer !important;
+    transition: transform 0.18s ease, box-shadow 0.18s ease,
+                border-color 0.18s ease, background 0.18s ease !important;
+}
+
+.emo-cont::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 5px !important;
+    background: #FFCB05 !important;
+    opacity: 0 !important;
+    transition: opacity 0.18s ease !important;
+}
+
+.emo-cont:hover {
+    transform: translateY(-4px) !important;
+    border-color: #000000 !important;
+    background: rgba(255, 203, 5, 0.45) !important;
+    box-shadow: none !important;
+}
+
+.emo-cont:hover::before,
+.clicked-emo-cont::before {
+    opacity: 1 !important;
+}
+
+.clicked-emo-cont {
+    background: #FFCB05 !important;
+    border: 2px solid #000000 !important;
+    box-shadow: 0 0 0 4px rgba(255, 203, 5, 0.30) !important;
+    transform: translateY(-3px) !important;
+}
+
+.emo-ico {
+    width: 100% !important;
+    min-height: 76px !important;
+    display: flex !important;
+    float: none !important;
+    clear: both !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto 8px !important;
+    padding: 0 !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+}
+
+.emo-ico img {
+    display: block !important;
+    float: none !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: 70px !important;
+    max-height: 70px !important;
+    margin: 0 auto !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 4px 5px rgba(0, 0, 0, 0.08));
+}
+
+.emo-text {
+    display: block !important;
+    padding: 0 5px !important;
+    color: #000000 !important;
+    font-size: 12pt !important;
+    font-weight: 600 !important;
+    line-height: 1.35 !important;
+    letter-spacing: -0.25px !important;
+}
+
+@media (max-width: 768px) {
+    /* A question containing one generated emote group still uses two columns. */
+    #master-section *:not(:has(> .flex ~ .flex)) > .flex:has(.emo-cont) {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        padding: 0 10px !important;
+        box-sizing: border-box !important;
+    }
+
+    #master-section *:not(:has(> .flex ~ .flex)) > .flex:has(.emo-cont) > .emo-cont,
+    #master-section *:not(:has(> .flex ~ .flex)) > .flex:has(.emo-cont) > *:has(.emo-cont) {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    #master-section *:not(:has(> .flex ~ .flex)) > .flex:has(.emo-cont) > *:has(.emo-cont) .emo-cont {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* With an odd number, place only the final card in the middle. */
+    #master-section *:not(:has(> .flex ~ .flex)) > .flex:has(.emo-cont)
+        > :last-child:nth-child(odd) {
+        grid-column: 1 / -1 !important;
+        width: calc((100% - 12px) / 2) !important;
+        max-width: calc((100% - 12px) / 2) !important;
+        justify-self: center !important;
+    }
+
+    /* Flatten Emojot's 3-item groups into one continuous 2-column grid. */
+    #master-section *:has(> .flex ~ .flex):has(.emo-cont) {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        padding: 0 10px !important;
+        box-sizing: border-box !important;
+    }
+
+    #master-section *:has(> .flex ~ .flex):has(.emo-cont) > .flex {
+        display: contents !important;
+    }
+
+    #master-section *:has(> .flex ~ .flex):has(.emo-cont) > .flex > .emo-cont,
+    #master-section *:has(> .flex ~ .flex):has(.emo-cont) > .flex > *:has(.emo-cont) {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    #master-section *:has(> .flex ~ .flex):has(.emo-cont) > .flex > *:has(.emo-cont) .emo-cont {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /*
+     * Five-option questions are generated as 3 + 2. Emojot may append a
+     * non-card helper after option 5, so count emote cards instead of using
+     * :last-child. A six-option group has a third emote and is excluded.
+     */
+    #master-section *:has(> .flex ~ .flex):not(:has(> .flex ~ .flex ~ .flex)):has(.emo-cont)
+        > .flex:not(:has(~ .flex)):has(> :nth-child(2)):not(:has(> :nth-child(3).emo-cont, > :nth-child(3) .emo-cont))
+        > :nth-child(2) {
+        grid-column: 1 / -1 !important;
+        width: calc((100% - 12px) / 2) !important;
+        max-width: calc((100% - 12px) / 2) !important;
+        justify-self: center !important;
+    }
+
+    /* Also centre a single card in the last generated group. */
+    #master-section *:has(> .flex ~ .flex):has(.emo-cont)
+        > .flex:not(:has(~ .flex)):has(> :only-child) > :only-child {
+        grid-column: 1 / -1 !important;
+        width: calc((100% - 12px) / 2) !important;
+        max-width: calc((100% - 12px) / 2) !important;
+        justify-self: center !important;
+    }
+
+    /* Nine-option questions: centre item 9 after four complete mobile rows. */
+    #master-section *:has(> .flex ~ .flex ~ .flex):not(:has(> .flex ~ .flex ~ .flex ~ .flex)):has(.emo-cont)
+        > .flex:not(:has(~ .flex)):has(> :nth-child(3):last-child) > :last-child {
+        grid-column: 1 / -1 !important;
+        width: calc((100% - 12px) / 2) !important;
+        max-width: calc((100% - 12px) / 2) !important;
+        justify-self: center !important;
+    }
+
+    .sensor-title {
+        margin: 0 12px 22px !important;
+        padding: 6px 2px 12px !important;
+        border: 0 !important;
+        border-bottom: 4px solid #FFCB05 !important;
+        border-radius: 0 !important;
+        font-size: 16pt !important;
+        text-align: center !important;
+        line-height: 1.35 !important;
+    }
+
+    .emote-title {
+        margin: 0 12px 20px !important;
+        padding-bottom: 10px !important;
+        font-size: 14pt !important;
+        line-height: 1.3 !important;
+    }
+
+    .emote-title::after {
+        width: 48px !important;
+        height: 4px !important;
+        margin-top: 8px !important;
+    }
+
+    .emo-cont {
+        min-height: 126px !important;
+        margin: 7px 4px !important;
+        padding: 14px 7px 12px !important;
+        border-radius: 12px !important;
+    }
+
+    .emo-cont:hover {
+        transform: none !important;
+    }
+
+    .clicked-emo-cont {
+        transform: none !important;
+    }
+
+    .emo-ico {
+        min-height: 60px !important;
+        margin-bottom: 5px !important;
+    }
+
+    .emo-ico img {
+        max-width: 56px !important;
+        max-height: 56px !important;
+    }
+
+    .emo-text {
+        font-size: 10.5pt !important;
+        line-height: 1.3 !important;
+    }
+}
+
+/* =========================================================
+   MTN SENSOR BACKGROUND
+   ========================================================= */
+
+#master-section {
+    background:
+        linear-gradient(rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)),
+        url('https://storage.emojot.com/pictures/skinImages/6a9a9b9521bb803a89324045-skin1.png');
+
+    min-height: 657px;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    position: relative;
+
+    overflow-x: hidden;
+
+    font-family: 'Manrope', Helvetica, Arial, sans-serif;
+    font-weight: 800;
+
+    color: #000000;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+#headerCompanyInfo {
+    color: #000000 !important;
+    min-height: 70px;
+    margin-bottom: 20px;
+}
+
+.container[style] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+
+/* =========================================================
+   QUESTION TITLE
+   ========================================================= */
+
+.emote-title {
+    color: #000000 !important;
+
+    font-family: 'Manrope', Helvetica, Arial, sans-serif;
+
+    font-size: 13pt;
+
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   EMOTE TEXT
+   ========================================================= */
+
+.emo-text {
+    font-size: 12pt;
+
+    color: #000000;
+
+    font-family: 'Manrope', Helvetica, Arial, sans-serif;
+
+    font-weight: 400 !important;
+}
+
+.middle-box {
+    margin-top: 10px;
+
+    padding: 10px;
+
+    border: 1px solid #000000;
+}
+
+
+/* =========================================================
+   ANSWER CARDS
+   ========================================================= */
+
+.emo-cont {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+
+    margin: 3px 0;
+
+    text-align: center;
+
+    display: inline-block;
+
+    background: rgba(255, 255, 255, 0.72);
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.10);
+
+    padding: 7px 0;
+
+    border-radius: 4px;
+
+    color: #000000;
+}
+
+
+/* =========================================================
+   SELECTED ANSWER
+   ========================================================= */
+
+.clicked-emo-cont {
+    background: rgba(255, 203, 5, 0.62) !important;
+
+    border: 3px solid #000000 !important;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+
+/* =========================================================
+   ANSWER ICON
+   ========================================================= */
+
+.emo-ico img {
+    width: 80%;
+
+    display: inline-block;
+
+    text-align: center;
+
+    max-width: 55px;
+
+    margin: 5px;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTONS
+   ========================================================= */
+
+.btn-next,
+.btn-submit,
+.btn-ok,
+.loyalty-redeem-button {
+    color: #000000 !important;
+
+    background: #FFCB05 !important;
+
+    border: 1px solid #D9B300 !important;
+}
+
+
+/* =========================================================
+   SECONDARY BUTTONS
+   ========================================================= */
+
+.btn-prev,
+.btn-clear,
+.btn-skip {
+    color: #000000 !important;
+
+    background: #ffffff !important;
+
+    border: 1px solid #000000 !important;
+}
+
+
+/* =========================================================
+   ALL BUTTONS
+   ========================================================= */
+
+.btn-next,
+.btn-submit,
+.btn-prev,
+.btn-clear,
+.btn-skip,
+.btn-ok,
+.loyalty-redeem-button {
+    margin: 10px 5px;
+
+    text-align: center;
+
+    min-width: 90px;
+
+    display: inline-block;
+
+    border-radius: 40px;
+
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.22);
+
+    padding: 9px 25px;
+
+    font-family: 'Manrope', Helvetica, Arial, sans-serif;
+
+    font-weight: 800;
+
+    font-size: 12pt;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.clear-submit-row {
+    text-align: center !important;
+}
+
+
+/* =========================================================
+   BUTTON HOVER
+   ========================================================= */
+
+.btn-next:hover,
+.btn-submit:hover,
+.btn-ok:hover,
+.loyalty-redeem-button:hover {
+    color: #FFCB05 !important;
+
+    background: #191919 !important;
+
+    border-color: #191919 !important;
+
+    text-decoration: none;
+
+    box-shadow:
+        0 3px 8px rgba(0, 0, 0, 0.30);
+}
+
+.btn-prev:hover,
+.btn-clear:hover,
+.btn-skip:hover {
+    color: #000000 !important;
+
+    background: #FFF3B8 !important;
+
+    border-color: #000000 !important;
+
+    text-decoration: none;
+}
+
+.btn-ok:hover,
+.btn-ok:active {
+    border-color: #191919 !important;
+}
+
+.btn-skip {
+    color: #000000 !important;
+
+    display: none !important;
+}
+
+.loyalty-redeem-button {
+    border-color: #D9B300 !important;
+
+    color: #000000 !important;
+}
+
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.logo-cust {
+    margin: 8px 10px !important;
+
+    height: 75px !important;
+
+    width: auto !important;
+}
+
+.company-logo img,
+.logo-cust {
+    height: 75px !important;
+
+    width: auto !important;
+
+    max-width: 230px !important;
+
+    margin: 8px 10px !important;
+
+    padding: 0 !important;
+
+    background: transparent !important;
+
+    border: none !important;
+
+    border-radius: 0 !important;
+
+    object-fit: contain !important;
+}
+
+.company-logo {
+    padding: 2px !important;
+}
+
+
+/* =========================================================
+   DYNAMIC SENSOR TITLE
+   =========================================================
+   
+   IMPORTANT:
+   
+   Set the required MTN survey title in Emojot.
+   It displays the actual dynamic title generated by Emojot.
+   
+   ========================================================= */
+
+.sensor-title {
+    position: relative;
+
+    width: calc(100% - 20px) !important;
+
+    padding: 8px 10px 16px !important;
+
+    margin: 0 auto 28px !important;
+
+    text-align: center !important;
+
+    line-height: 1.35 !important;
+
+    box-sizing: border-box;
+
+    color: #000000 !important;
+
+    font-size: 20pt !important;
+
+    font-family: 'Manrope', Helvetica, Arial, sans-serif !important;
+
+    font-weight: 800 !important;
+
+    letter-spacing: -0.5px !important;
+
+    background: transparent !important;
+}
+
+
+/* =========================================================
+   DISABLE OLD HARDCODED TITLE
+   ========================================================= */
+
+.sensor-title::before,
+.sensor-title::after {
+    content: none !important;
+
+    display: none !important;
+}
+
+
+/* =========================================================
+   FORM CONTROLS
+   ========================================================= */
+
+.form-control {
+    display: block;
+
+    flex: 1;
+
+    width: 100%;
+
+    height: 34px;
+
+    padding: 6px 12px;
+
+    font-size: 14px;
+
+    line-height: 1.42857143;
+
+    color: #555;
+
+    background-color: #ffffff;
+
+    background-image: none;
+
+    border: 1px solid #D9B300;
+
+    border-radius: 8px;
+
+    -webkit-box-shadow:
+        inset 0 1px 1px rgba(0, 0, 0, 0.075);
+
+    box-shadow:
+        inset 0 1px 1px rgba(0, 0, 0, 0.075);
+
+    transition:
+        border-color 0.15s ease-in-out,
+        box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: #000000 !important;
+
+    outline: none !important;
+
+    box-shadow:
+        0 0 0 2px rgba(0, 0, 0, 0.12) !important;
+}
+
+
+/* =========================================================
+   PANELS
+   ========================================================= */
+
+.panel {
+    margin: 0 10px;
+}
+
+.panel-group .panel {
+    margin-bottom: 0;
+
+    border-radius: 5px;
+
+    box-shadow: none;
+
+    background: rgba(255, 255, 255, 0.72);
+}
+
+.panel-group .panel-heading {
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.12);
+
+    border-radius: 5px;
+
+    color: #000000;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.96) 0%,
+            rgba(255, 243, 184, 0.96) 100%
+        );
+}
+
+.panel-title {
+    font-size: 11pt;
+
+    max-width: 90%;
+
+    font-family: 'Manrope', Helvetica, Arial, sans-serif;
+
+    font-weight: 800;
+
+    line-height: 1.6;
+
+    color: #000000;
+}
+
+.row {
+    background: transparent !important;
+}
+
+.my-emojots {
+    display: none;
+}
+
+.panel-body {
+    background: transparent !important;
+}
+
+
+/* =========================================================
+   USER NAME + USER ICON
+   ========================================================= */
+
+#headerCompanyInfo > .access-user {
+    text-align: center;
+
+    float: right;
+
+    font-family:
+        'Manrope',
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    background-size: 120px 80px;
+
+    background-repeat: no-repeat;
+
+    background-position: right center;
+
+    position: relative;
+
+    color: #000000;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: flex-end !important;
+
+    gap: 6px;
+}
+
+#headerCompanyInfo .access-user .access-user-name,
+#headerCompanyInfo .access-user .access-user-icon {
+    float: none !important;
+
+    width: auto !important;
+
+    max-width: none !important;
+
+    flex: 0 0 auto;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+
+    vertical-align: middle;
+
+    padding: 0 !important;
+
+    margin: 0 !important;
+
+    line-height: 1 !important;
+}
+
+.access-user-name,
+#headerCompanyInfo .access-user-name {
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    height: auto;
+
+    font-family:
+        'Manrope',
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    font-weight: 800;
+
+    color: #000000 !important;
+
+    line-height: 1;
+
+    vertical-align: middle;
+
+    white-space: nowrap;
+}
+
+#headerCompanyInfo .access-user-icon {
+    line-height: 1 !important;
+
+    vertical-align: middle;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+
+    justify-content: center !important;
+
+    height: 28px;
+}
+
+#headerCompanyInfo .user-icon.fa-user-circle:before,
+#headerCompanyInfo .fa-user-circle.user-icon:before {
+    content: "\f2bd" !important;
+
+    display: inline-block;
+
+    width: 28px;
+
+    height: 28px;
+
+    background: none !important;
+
+    color: #000000;
+
+    font-family: FontAwesome, sans-serif;
+
+    font-size: 28px;
+
+    line-height: 28px;
+
+    vertical-align: middle;
+}
+
+#headerCompanyInfo .user-icon {
+    font-size: 0;
+
+    color: transparent;
+
+    padding: 0;
+
+    cursor: pointer;
+
+    line-height: 1;
+
+    display: inline-flex !important;
+
+    align-items: center !important;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+    background: #FFCB05 !important;
+
+    color: #000000;
+
+    position: absolute;
+
+    right: 10px;
+
+    left: 0;
+
+    z-index: 800;
+
+    bottom: 0;
+
+    height: 40px;
+
+    padding: 12px 13px;
+
+    font-size: 8pt;
+
+    margin: 0 -10px 0 0;
+
+    font-family:
+        'Manrope',
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    font-weight: 800;
+
+    border-top: 1px solid #D9B300;
+}
+
+
+/* =========================================================
+   FORM LABELS
+   ========================================================= */
+
+.form-group label {
+    color: #000000 !important;
+
+    font-family:
+        'Manrope',
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    font-weight: 800;
+
+    font-size: 12pt;
+}
+
+
+/* =========================================================
+   LOYALTY
+   ========================================================= */
+
+.loyalty-message {
+    color: #000000;
+
+    font-size: 13pt;
+
+    text-align: center;
+}
+
+.loyalty-bottom {
+    text-align: center;
+}
+
+.email-emote-message {
+    color: #000000 !important;
+}
+
+
+/* =========================================================
+   PROGRESS BAR
+   ========================================================= */
+
+#progressfill {
+    background:
+        linear-gradient(
+            270deg,
+            #000000,
+            #FFCB05,
+            #FFE36E,
+            #000000
+        );
+
+    background-size: 300% 300%;
+
+    animation:
+        mtnProgressMove 3s ease infinite;
+
+    border-radius: 999px;
+
+    height: 100%;
+
+    position: relative;
+
+    transition:
+        width 0.5s ease-in-out;
+}
+
+@keyframes mtnProgressMove {
+
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+/* =========================================================
+   COMMENT MODAL
+   ========================================================= */
+
+#groupCommentBuzzModal .modal-header {
+    background: #ffffff;
+
+    color: #e4e4e4;
+}
+
+#groupCommentBuzzModal .modal-body {
+    background: #ffffff;
+
+    color: #333333;
+}
+
+#groupCommentBuzzModal .modal-footer {
+    background: #ffffff;
+
+    color: #000000;
+}
+
+#groupCommentBuzzModal .panel-body.comment-panel {
+    background: #f6f6f6 !important;
+}
+
+#groupCommentBuzzModal .panel-footer.comment-footer {
+    color: #333333;
+}
+
+
+/* =========================================================
+   THANK YOU
+   ========================================================= */
+
+.thank-you-note {
+    color: #000000 !important;
+}
+
+
+/* =========================================================
+   GROUP TITLE
+   ========================================================= */
+
+.pdGroupTitle {
+    margin: 0 10px 22px !important;
+
+    max-width: 1120px;
+
+    color: #000000;
+
+    font-size: 11pt !important;
+
+    font-weight: 600 !important;
+
+    line-height: 1.55 !important;
+}
+
+
+/* =========================================================
+   PROGRESS NUMBER
+   ========================================================= */
+
+.progress_bar .progress_number {
+    color: #000000 !important;
+
+    font-family:
+        'Manrope',
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    font-weight: 800 !important;
+}
+
+.progress_bar .pro-bar {
+    margin-top: 15px !important;
+
+    background: #ffffff !important;
+
+    border-radius: 999px;
+
+    overflow: visible;
+
+    height: 5px;
+}
+
+
+/* =========================================================
+   TITLE IMAGE
+   ========================================================= */
+
+.title-image {
+    margin-left: auto;
+
+    margin-right: auto;
+
+    width: 80px;
+
+    color: #000000;
+}
+
+
+/* =========================================================
+   NPS
+   ========================================================= */
+
+.nps-bar {
+    position: relative;
+
+    margin-bottom: 50px !important;
+}
+
+.nps-bar::before,
+.nps-bar::after {
+    position: absolute;
+
+    font-size: 15px;
+
+    color: #000000;
+
+    font-weight: 800;
+
+    top: 100%;
+
+    transform: translateY(8px);
+
+    white-space: nowrap;
+
+    font-family:
+        'Manrope',
+        Helvetica,
+        Arial,
+        sans-serif;
+}
+
+.nps-bar::before {
+    content: "Less likely";
+
+    left: 0;
+
+    text-align: left;
+}
+
+.nps-bar::after {
+    content: "More likely";
+
+    right: 0;
+
+    text-align: right;
+}
+
+
+/* =========================================================
+   NPS 0 - 6
+   ========================================================= */
+
+.evz-nps-position-0,
+.evz-nps-position-1,
+.evz-nps-position-2,
+.evz-nps-position-3,
+.evz-nps-position-4,
+.evz-nps-position-5,
+.evz-nps-position-6 {
+    background: #ff2942;
+
+    color: #ffffff;
+
+    border:
+        1px solid rgba(255, 0, 55, 0.61);
+
+    border-radius: 8px;
+}
+
+
+/* =========================================================
+   NPS 7 - 8
+   ========================================================= */
+
+.evz-nps-position-7,
+.evz-nps-position-8 {
+    background: #ff7924;
+
+    color: #ffffff;
+
+    border:
+        1px solid rgba(195, 117, 34, 0.61);
+
+    border-radius: 8px;
+}
+
+
+/* =========================================================
+   NPS 9 - 10
+   ========================================================= */
+
+.evz-nps-position-9,
+.evz-nps-position-10 {
+    background: #1ca757;
+
+    color: #ffffff;
+
+    border:
+        1px solid rgba(17, 144, 74, 0.61);
+
+    border-radius: 8px;
+}
+
+
+/* =========================================================
+   SELECTED NPS
+   ========================================================= */
+
+.clicked-nps-icon {
+    background: #000000 !important;
+
+    color: #ffffff !important;
+
+    border:
+        3px solid #000000;
+
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.45);
+
+    border-radius: 8px;
+}
+
+
+/* =========================================================
+   FACEBOOK
+   ========================================================= */
+
+#facebook-login-section {
+    display: none;
+}
+
+.btn-fb {
+    color: #000000;
+}
+
+
+/* =========================================================
+   THANK YOU IMAGE
+   ========================================================= */
+
+.thankYouImage {
+    width: 200px;
+}
+
+.repeated-item {
+    display: block;
+}
+
+div#qt_q2682.col-xs-12 {
+    margin-bottom: -60px !important;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+
+    /* =====================================================
+       BACKGROUND
+       ===================================================== */
+
+    #master-section {
+        background:
+            linear-gradient(rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)),
+            url('https://storage.emojot.com/pictures/skinImages/6a9a9b9521bb803a89324045-skin1.png');
+
+        background-size: cover;
+
+        background-repeat: no-repeat;
+
+        background-position: center;
+    }
+
+
+    /* =====================================================
+       EMOTE TEXT
+       ===================================================== */
+
+    .emo-text {
+        font-size: 10pt;
+    }
+
+
+    /* =====================================================
+       NPS
+       ===================================================== */
+
+    .nps-bar::before,
+    .nps-bar::after {
+        font-size: 12px !important;
+    }
+
+
+    /* =====================================================
+       LOGO - MOBILE
+       ===================================================== */
+
+    .company-logo img,
+    .logo-cust {
+        height: 65px !important;
+
+        width: auto !important;
+
+        max-width: 200px !important;
+
+        margin: 6px 8px !important;
+
+        padding: 0 !important;
+
+        background: transparent !important;
+
+        border: none !important;
+
+        border-radius: 0 !important;
+
+        object-fit: contain !important;
+    }
+
+
+    /* =====================================================
+       DYNAMIC SENSOR TITLE - MOBILE
+       ===================================================== */
+
+    .sensor-title {
+        position: relative;
+
+        width: auto !important;
+
+        margin: 0 12px 22px !important;
+
+        padding: 6px 2px 12px !important;
+
+        text-align: center !important;
+
+        line-height: 1.35 !important;
+
+        color: #000000 !important;
+
+        font-size: 16pt !important;
+
+        font-family:
+            'Manrope',
+            Helvetica,
+            Arial,
+            sans-serif !important;
+
+        font-weight: 800 !important;
+
+        letter-spacing: -0.5px !important;
+
+        background: transparent !important;
+    }
+
+
+    /* =====================================================
+       DISABLE OLD MOBILE HARDCODED TITLE
+       ===================================================== */
+
+    .sensor-title::before,
+    .sensor-title::after {
+        content: none !important;
+
+        display: none !important;
+    }
+}
+
+/* =========================================================
+   DISABLE PROFILE ICON / USER PROFILE NAVIGATION
+   Keeps the user name and profile icon visible, but prevents
+   mouse/touch interaction so the loyalty/profile page cannot
+   be opened from the header.
+   ========================================================= */
+
+#headerCompanyInfo > .access-user,
+#headerCompanyInfo > .access-user *,
+#headerCompanyInfo .access-user a,
+#headerCompanyInfo .access-user-icon,
+#headerCompanyInfo .user-icon {
+    pointer-events: none !important;
+    cursor: default !important;
+}
+
+#headerCompanyInfo .access-user a {
+    text-decoration: none !important;
+}
+
+
+/* =========================================================
+   STAFF QUESTION - ISOLATED GRID FIX
+   IMPORTANT:
+   - Keep your existing Display Text: "Staff Member Who Assisted You"
+   - The staff cards are moved into ONE dedicated grid that does NOT use .flex
+   - This prevents the generic mobile .flex rules from rearranging the cards
+   - Desktop: 3 + 1 centered
+   - Mobile: 2 x 2
+   ========================================================= */
+
+.mtn-staff-question {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Dedicated staff grid - intentionally NOT a .flex element */
+#master-section .mtn-staff-question > .mtn-staff-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 18px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0 auto !important;
+    padding: 0 22px !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+}
+
+/* Same card sizing as the normal desktop emote cards */
+#master-section .mtn-staff-question > .mtn-staff-grid > .mtn-staff-card.emo-cont {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    min-height: 150px !important;
+    height: auto !important;
+    margin: 10px 0 !important;
+    padding: 20px 12px 17px !important;
+    box-sizing: border-box !important;
+    grid-column: auto !important;
+    justify-self: stretch !important;
+}
+
+/* Desktop: fourth card centered on the second row */
+@media (min-width: 769px) {
+    #master-section .mtn-staff-question > .mtn-staff-grid > .mtn-staff-card.emo-cont:nth-child(4) {
+        grid-column: 2 !important;
+    }
+}
+
+/* Mobile: exact 2 x 2 layout */
+@media (max-width: 768px) {
+    #master-section .mtn-staff-question > .mtn-staff-grid {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 auto !important;
+        padding: 0 10px !important;
+        box-sizing: border-box !important;
+    }
+
+    #master-section .mtn-staff-question > .mtn-staff-grid > .mtn-staff-card.emo-cont,
+    #master-section .mtn-staff-question > .mtn-staff-grid > .mtn-staff-card.emo-cont:nth-child(1),
+    #master-section .mtn-staff-question > .mtn-staff-grid > .mtn-staff-card.emo-cont:nth-child(2),
+    #master-section .mtn-staff-question > .mtn-staff-grid > .mtn-staff-card.emo-cont:nth-child(3),
+    #master-section .mtn-staff-question > .mtn-staff-grid > .mtn-staff-card.emo-cont:nth-child(4),
+    #master-section .mtn-staff-question > .mtn-staff-grid > .mtn-staff-card.emo-cont:last-child,
+    #master-section .mtn-staff-question > .mtn-staff-grid > .mtn-staff-card.emo-cont:last-child:nth-child(odd) {
+        grid-column: auto !important;
+        grid-row: auto !important;
+        justify-self: stretch !important;
+        align-self: stretch !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        min-height: 126px !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 14px 7px 12px !important;
+        box-sizing: border-box !important;
+        transform: none !important;
+    }
+
+    #master-section .mtn-staff-question .mtn-staff-card .emo-ico {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        min-height: 60px !important;
+        margin: 0 auto 5px !important;
+        padding: 0 !important;
+    }
+
+    #master-section .mtn-staff-question .mtn-staff-card .emo-ico img {
+        display: block !important;
+        width: auto !important;
+        height: auto !important;
+        max-width: 56px !important;
+        max-height: 56px !important;
+        margin: 0 auto !important;
+    }
+
+    #master-section .mtn-staff-question .mtn-staff-card .emo-text {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding: 0 3px !important;
+        font-size: 10.5pt !important;
+        line-height: 1.3 !important;
+        text-align: center !important;
+        white-space: normal !important;
+        overflow: visible !important;
+        overflow-wrap: normal !important;
+        word-break: normal !important;
+    }
+}
+
+/* =========================================================
+   STAFF FILTER SCRIPT
+   ========================================================= */
+<script>
+(function () {
+
+    const STORE_STAFF = {
+        "alberton city mall l111": [
+            "popie tadhla",
+            "sbahle khumalo",
+            "janine zackey",
+            "christopher dlamini"
+        ],
+        "eastgate shopping centre l33": [
+            "seithati nkau",
+            "phindy mpongose",
+            "xolani sithole",
+            "philemon segone"
+        ]
+    };
+
+    const ALL_STAFF = [
+        "popie tadhla",
+        "sbahle khumalo",
+        "janine zackey",
+        "christopher dlamini",
+        "seithati nkau",
+        "phindy mpongose",
+        "xolani sithole",
+        "philemon segone"
+    ];
+
+    function normalize(value) {
+        return (value || "")
+            .toLowerCase()
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+    function getStore() {
+        const signatureStore = normalize("$emosignature_store_value");
+
+        if (signatureStore && signatureStore !== "$emosignature_store_value") {
+            if (signatureStore.includes("alberton city mall l111")) {
+                return "alberton city mall l111";
+            }
+            if (signatureStore.includes("eastgate shopping centre l33")) {
+                return "eastgate shopping centre l33";
+            }
+        }
+
+        const sensorTitle = document.querySelector(".sensor-title");
+        if (sensorTitle) {
+            const titleText = normalize(sensorTitle.textContent);
+            if (titleText.includes("alberton city mall l111")) {
+                return "alberton city mall l111";
+            }
+            if (titleText.includes("eastgate shopping centre l33")) {
+                return "eastgate shopping centre l33";
+            }
+        }
+
+        return "";
+    }
+
+    function getStaffCards() {
+        return Array.from(document.querySelectorAll(".emo-cont")).filter(function (card) {
+            const text = card.querySelector(".emo-text");
+            if (!text) return false;
+            return ALL_STAFF.includes(normalize(text.textContent));
+        });
+    }
+
+    function hideEmptyNativeTitle(container) {
+        if (!container) return;
+
+        container.querySelectorAll(".emote-title").forEach(function (title) {
+            if (!normalize(title.textContent)) {
+                title.style.setProperty("display", "none", "important");
+            }
+        });
+    }
+
+    function applyStaffLayout() {
+        const store = getStore();
+        if (!STORE_STAFF[store]) return;
+
+        const cards = getStaffCards();
+        if (!cards.length) return;
+
+        const allowed = STORE_STAFF[store];
+
+        const originalRows = Array.from(new Set(
+            cards
+                .map(function (card) { return card.closest(".flex"); })
+                .filter(Boolean)
+        ));
+
+        if (!originalRows.length) return;
+
+        const container = originalRows[0].parentElement;
+        if (!container) return;
+
+        container.classList.add("mtn-staff-question");
+        hideEmptyNativeTitle(container);
+
+        /* Already rebuilt correctly for this store */
+        const existingGrid = container.querySelector(":scope > .mtn-staff-grid");
+        if (
+            existingGrid &&
+            existingGrid.dataset.store === store &&
+            existingGrid.querySelectorAll(":scope > .mtn-staff-card").length === allowed.length
+        ) {
+            return;
+        }
+
+        const visibleCards = [];
+
+        cards.forEach(function (card) {
+            const text = card.querySelector(".emo-text");
+            const name = text ? normalize(text.textContent) : "";
+
+            if (allowed.includes(name)) {
+                card.style.removeProperty("display");
+                card.classList.add("mtn-staff-card");
+                visibleCards.push(card);
+            } else {
+                card.remove();
+            }
+        });
+
+        if (!visibleCards.length) return;
+
+        visibleCards.sort(function (a, b) {
+            const aName = normalize(a.querySelector(".emo-text").textContent);
+            const bName = normalize(b.querySelector(".emo-text").textContent);
+            return allowed.indexOf(aName) - allowed.indexOf(bName);
+        });
+
+        /* Detach the four allowed cards before removing original rows */
+        visibleCards.forEach(function (card) {
+            card.remove();
+        });
+
+        /* Remove original Emojot .flex rows so the generic mobile rules no longer apply */
+        originalRows.forEach(function (row) {
+            if (row && row.parentElement) {
+                row.remove();
+            }
+        });
+
+        /* Remove any older custom staff structures */
+        container.querySelectorAll(":scope > .mtn-staff-row, :scope > .mtn-staff-grid").forEach(function (node) {
+            node.remove();
+        });
+
+        /* One isolated grid - no .flex class */
+        const grid = document.createElement("div");
+        grid.className = "mtn-staff-grid";
+        grid.dataset.store = store;
+
+        visibleCards.forEach(function (card) {
+            grid.appendChild(card);
+        });
+
+        container.appendChild(grid);
+        hideEmptyNativeTitle(container);
+    }
+
+    function run() {
+        applyStaffLayout();
+        setTimeout(applyStaffLayout, 100);
+        setTimeout(applyStaffLayout, 300);
+        setTimeout(applyStaffLayout, 700);
+        setTimeout(applyStaffLayout, 1200);
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", run);
+    } else {
+        run();
+    }
+
+    let timer;
+    const observer = new MutationObserver(function () {
+        clearTimeout(timer);
+        timer = setTimeout(applyStaffLayout, 80);
+    });
+
+    observer.observe(document.documentElement, {
+        childList: true,
+        subtree: true
+    });
+
+})();
+</script>

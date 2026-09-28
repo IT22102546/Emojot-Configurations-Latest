@@ -1,0 +1,1139 @@
+<div class="emote-title ng-scope" ng-if="drillDownGroupings">
+                        <!-- ngIf: showNumbering -->
+                        <!-- ngIf: !pd.displayText --><!--span ng-show="pd.required">*</span-->
+                        <!-- ngIf: pd.displayText --><div ng-if="pd.displayText" ng-bind-html="getHtmlContent(pd.displayText)" class="ng-binding ng-scope"><style>
+/* Staff title: keep ONE visible underline only */
+#mtn-staff-display-title {
+    display: block !important;
+    width: 100% !important;
+}
+
+/* IMPORTANT: Emojot wraps this Display Text inside its own native
+   .emote-title. That outer wrapper creates the second yellow line.
+   Hide ONLY the outer wrapper underline/border, while keeping the
+   inner visible title and its single underline. */
+.emote-title:has(#mtn-staff-display-title)::before,
+.emote-title:has(#mtn-staff-display-title)::after {
+    content: none !important;
+    display: none !important;
+}
+
+.emote-title:has(#mtn-staff-display-title) {
+    border: 0 !important;
+    border-bottom: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Hide every native question title inside the staff question.
+   The visible title above is outside .mtn-staff-question. */
+.mtn-staff-question .emote-title,
+.mtn-staff-question .emote-title::before,
+.mtn-staff-question .emote-title::after {
+    display: none !important;
+    content: none !important;
+    border: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+
+/* =========================================================
+   FINAL MOBILE WIDTH FIX FOR CUSTOM STAFF GRID
+   The staff grid is rendered inside a narrower Emojot wrapper,
+   so percentage widths are relative to the wrong parent.
+   On mobile we size the grid from the viewport and re-center it.
+   ========================================================= */
+@media (max-width: 768px) {
+    #mtn-store-staff-grid {
+        width: calc(100vw - 40px) !important;
+        max-width: calc(100vw - 40px) !important;
+        min-width: 0 !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+        padding: 0 !important;
+        transform: translateX(-50%) !important;
+        box-sizing: border-box !important;
+        overflow: visible !important;
+    }
+
+    #mtn-store-staff-grid > .emo-cont,
+    #mtn-store-staff-grid > .mtn-staff-card,
+    #mtn-store-staff-grid > .mtn-staff-card.emo-cont {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        margin: 0 !important;
+        padding: 16px 8px !important;
+        min-height: 150px !important;
+        box-sizing: border-box !important;
+        left: auto !important;
+        right: auto !important;
+        transform: none !important;
+    }
+
+    #mtn-store-staff-grid .emo-text {
+        width: 100% !important;
+        max-width: 100% !important;
+        white-space: normal !important;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+        text-align: center !important;
+    }
+
+    #mtn-store-staff-grid.mobile-odd > .emo-cont:last-child,
+    #mtn-store-staff-grid.mobile-odd > .mtn-staff-card:last-child {
+        grid-column: 1 / -1 !important;
+        width: calc((100% - 12px) / 2) !important;
+        max-width: calc((100% - 12px) / 2) !important;
+        justify-self: center !important;
+    }
+}
+</style>
+
+<div class="emote-title" id="mtn-staff-display-title">Which staff member assisted you?
+</div>
+
+<script>
+(function () {
+
+    /* =========================================================
+       STORE -> STAFF
+       ========================================================= */
+
+    const STORE_STAFF = {
+
+        "alberton city mall l111": [
+            "popie tadhla",
+            "sbahle khumalo",
+            "janine zackey",
+            "christopher dlamini",
+            "patricia matlanyane"
+        ],
+
+        "eastgate shopping centre l33": [
+            "seithati nkau",
+            "phindy mpongose",
+            "xolani sithole",
+            "philemon segone",
+            "andries mahlangu"
+        ],
+
+        "mall of the south f066": [
+            "kim grammar",
+            "gopolang moshodi", 
+            "lesego nyakale",
+            "abubakr genner",
+            "portia moyo",
+            "vuyiswa shazi"
+        ],
+
+        "the glen shopping centre m44": [
+            "bruno khofi",
+            "ntlanhla williams",
+            "makhosazana gabela",
+            "nhlanhla shabalala",
+            "kuen phillips", 
+            "nthabiseng mphuthi",
+            "noxolo selepe",
+            "refilwe rubushe",
+            "bongiwe mabaso",
+            "kyle vissie",
+        ],
+
+        "eastgate shopping centre u76b": [
+            "ayanda ngakane",
+            "mfundo mama",
+            "thabiso moerane",
+            "bonginkosi khumalo",
+            "brian chaloner",
+            "aabid isaacs",
+            "max moloto",
+            "reuben durais"
+        ]
+    };
+
+
+    /* =========================================================
+       COMMON OPTIONS
+       THESE SHOW FOR EVERY STORE
+       ========================================================= */
+
+    const COMMON_OPTIONS = [
+        "not sure"
+    ];
+
+
+    /* =========================================================
+       ALL KNOWN STAFF
+       ========================================================= */
+
+    const ALL_STAFF = [
+
+        /* Alberton City Mall L111 */
+        "popie tadhla",
+        "sbahle khumalo",
+        "janine zackey",
+        "christopher dlamini",
+        "patricia matlanyane",
+
+        /* Eastgate Shopping Centre L33 */
+        "seithati nkau",
+        "phindy mpongose",
+        "xolani sithole",
+        "philemon segone",
+        "andries mahlangu",
+
+        /* Mall of the South F066 */
+        "kim grammar",
+        "gopolang moshodi",
+        "lesego nyakale",
+        "abubakr genner",
+        "portia moyo",
+        "vuyiswa shazi",
+
+        /* The Glen Shopping Centre M44 */
+        "bruno khofi",
+        "ntlanhla williams",
+        "makhosazana gabela",
+        "nhlanhla shabalala",
+        "kuen phillips",
+        "nthabiseng mphuthi", 
+        "noxolo selepe",
+        "refilwe rubushe",
+        "bongiwe mabaso",
+        "kyle vissie",
+
+        /* Eastgate Shopping Centre U76B */
+        "ayanda ngakane",
+        "mfundo mama",
+        "thabiso moerane",
+        "brian chaloner",
+        "aabid isaacs",
+        "max moloto",
+        "reuben durais"
+    ];
+
+
+    /* =========================================================
+       NORMALIZE TEXT
+       ========================================================= */
+
+    function normalize(value) {
+
+        return (value || "")
+            .toLowerCase()
+            .replace(/[^a-z0-9\s]/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+
+    /* =========================================================
+       INJECT STAFF GRID CSS
+       ========================================================= */
+
+    function addStaffCSS() {
+
+        if (
+            document.getElementById(
+                "mtn-staff-filter-style"
+            )
+        ) {
+            return;
+        }
+
+
+        const style =
+            document.createElement("style");
+
+
+        style.id =
+            "mtn-staff-filter-style";
+
+
+        style.textContent = `
+
+            /* ================================================
+               STAFF GRID - DESKTOP
+               ================================================ */
+
+            #mtn-store-staff-grid {
+
+                display: grid !important;
+
+                grid-template-columns:
+                    repeat(3, minmax(0, 1fr)) !important;
+
+                gap: 18px !important;
+
+                width: 100% !important;
+                max-width: 100% !important;
+
+                margin: 0 auto !important;
+
+                padding:
+                    0 22px !important;
+
+                box-sizing:
+                    border-box !important;
+            }
+
+
+            #mtn-store-staff-grid
+            > .emo-cont {
+
+                display: flex !important;
+
+                flex-direction:
+                    column !important;
+
+                align-items:
+                    center !important;
+
+                justify-content:
+                    center !important;
+
+                width:
+                    100% !important;
+
+                max-width:
+                    100% !important;
+
+                min-width:
+                    0 !important;
+
+                margin:
+                    10px 0 !important;
+
+                box-sizing:
+                    border-box !important;
+            }
+
+
+            /* ================================================
+               DESKTOP:
+               ONE CARD LEFT IN FINAL ROW -> CENTER IT
+               ================================================ */
+
+            @media (min-width: 769px) {
+
+                #mtn-store-staff-grid.last-row-1
+                > .emo-cont:last-child {
+
+                    grid-column:
+                        2 !important;
+                }
+
+
+                /* ============================================
+                   DESKTOP:
+                   TWO CARDS LEFT -> CENTER THE PAIR
+                   ============================================ */
+
+                #mtn-store-staff-grid.last-row-2
+                > .emo-cont:nth-last-child(2) {
+
+                    position:
+                        relative !important;
+
+                    left:
+                        50% !important;
+                }
+
+
+                #mtn-store-staff-grid.last-row-2
+                > .emo-cont:last-child {
+
+                    position:
+                        relative !important;
+
+                    left:
+                        50% !important;
+                }
+            }
+
+
+            /* ================================================
+               MOBILE - 2 COLUMNS
+               ================================================ */
+
+            @media (max-width: 768px) {
+
+                #mtn-store-staff-grid {
+
+                    grid-template-columns:
+                        repeat(2, minmax(0, 1fr)) !important;
+
+                    gap:
+                        12px !important;
+
+                    padding:
+                        0 10px !important;
+                }
+
+
+                #mtn-store-staff-grid
+                > .emo-cont {
+
+                    position:
+                        relative !important;
+
+                    left:
+                        auto !important;
+
+                    grid-column:
+                        auto !important;
+
+                    grid-row:
+                        auto !important;
+
+                    justify-self:
+                        stretch !important;
+
+                    width:
+                        100% !important;
+
+                    max-width:
+                        100% !important;
+
+                    min-width:
+                        0 !important;
+
+                    margin:
+                        0 !important;
+                }
+
+
+                /* ============================================
+                   MOBILE:
+                   ODD NUMBER OF CARDS -> CENTER FINAL CARD
+                   ============================================ */
+
+                #mtn-store-staff-grid.mobile-odd
+                > .emo-cont:last-child {
+
+                    grid-column:
+                        1 / -1 !important;
+
+                    width:
+                        calc((100% - 12px) / 2) !important;
+
+                    max-width:
+                        calc((100% - 12px) / 2) !important;
+
+                    justify-self:
+                        center !important;
+                }
+            }
+        `;
+
+
+        document.head.appendChild(
+            style
+        );
+    }
+
+
+    /* =========================================================
+       GET STORE
+       ========================================================= */
+
+    function detectStoreFromText(value) {
+
+        const text = normalize(value);
+
+        if (!text) {
+            return "";
+        }
+
+        /* Alberton short URL is /albertoncitymall, while the
+           EmoSignature/store value is Alberton City Mall L111. */
+        if (
+            text.includes("alberton city mall l111") ||
+            text.includes("albertoncitymalll111") ||
+            text.includes("albertoncitymall")
+        ) {
+            return "alberton city mall l111";
+        }
+
+        if (
+            text.includes("eastgate shopping centre l33") ||
+            text.includes("eastgateshoppingcentrel33")
+        ) {
+            return "eastgate shopping centre l33";
+        }
+
+        if (
+            (text.includes("mall of the south") && text.includes("f066")) ||
+            text.includes("mallofthesouthf066")
+        ) {
+            return "mall of the south f066";
+        }
+
+        if (
+            (text.includes("the glen shopping centre") && text.includes("m44")) ||
+            text.includes("theglenshoppingcentrem44")
+        ) {
+            return "the glen shopping centre m44";
+        }
+
+        if (
+            (text.includes("eastgate shopping centre") && text.includes("u76b")) ||
+            text.includes("eastgateshoppingcentreu76b")
+        ) {
+            return "eastgate shopping centre u76b";
+        }
+
+        return "";
+    }
+
+
+    function decodeEmoSignatureFromUrl() {
+
+        try {
+            const params = new URLSearchParams(window.location.search);
+            const encoded = params.get("emoSignature");
+
+            if (!encoded) {
+                return "";
+            }
+
+            let base64 = encoded
+                .replace(/-/g, "+")
+                .replace(/_/g, "/");
+
+            while (base64.length % 4) {
+                base64 += "=";
+            }
+
+            return decodeURIComponent(
+                Array.prototype.map.call(
+                    atob(base64),
+                    function (c) {
+                        return "%" +
+                            ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+                    }
+                ).join("")
+            );
+
+        } catch (e) {
+            return "";
+        }
+    }
+
+
+    function getStore() {
+
+        /* =====================================================
+           1. EMOJOT EMOSIGNATURE VALUE
+           ===================================================== */
+
+        const signatureStore =
+            "$emosignature_store_value";
+
+        let detected =
+            detectStoreFromText(signatureStore);
+
+        if (detected) {
+            return detected;
+        }
+
+
+        /* =====================================================
+           2. DECODE emoSignature DIRECTLY FROM FINAL URL
+
+           This is important for emo.run short links. After the
+           redirect, the token can still exist in mobile.jsp even
+           when $emosignature_store_value is not ready yet.
+           ===================================================== */
+
+        detected =
+            detectStoreFromText(
+                decodeEmoSignatureFromUrl()
+            );
+
+        if (detected) {
+            return detected;
+        }
+
+
+        /* =====================================================
+           3. SENSOR TITLE
+           ===================================================== */
+
+        const sensorTitle =
+            document.querySelector(
+                ".sensor-title"
+            );
+
+        if (sensorTitle) {
+
+            detected =
+                detectStoreFromText(
+                    sensorTitle.textContent
+                );
+
+            if (detected) {
+                return detected;
+            }
+        }
+
+
+        /* =====================================================
+           4. CURRENT / REDIRECTED URL
+           ===================================================== */
+
+        detected =
+            detectStoreFromText(
+                window.location.href
+            );
+
+        if (detected) {
+            return detected;
+        }
+
+
+        /* =====================================================
+           5. SHORT-LINK REFERRER
+
+           When emo.run redirects to emojot.com, browsers normally
+           keep the emo.run URL as document.referrer. This catches:
+
+           /theglenshoppingcentreM44
+           /mallofthesouthF066
+           /eastgateshoppingcentreU76B
+           /eastgateshoppingcentreL33
+           /albertoncitymall
+           ===================================================== */
+
+        detected =
+            detectStoreFromText(
+                document.referrer
+            );
+
+        if (detected) {
+            return detected;
+        }
+
+
+        /* =====================================================
+           6. EXPLICIT SHORT-URL SLUG FALLBACK
+           ===================================================== */
+
+        const urlSources = [
+            String(window.location.href || "").toLowerCase(),
+            String(document.referrer || "").toLowerCase()
+        ].join(" ");
+
+        if (urlSources.includes("theglenshoppingcentrem44")) {
+            return "the glen shopping centre m44";
+        }
+
+        if (urlSources.includes("mallofthesouthf066")) {
+            return "mall of the south f066";
+        }
+
+        if (urlSources.includes("eastgateshoppingcentreu76b")) {
+            return "eastgate shopping centre u76b";
+        }
+
+        if (urlSources.includes("eastgateshoppingcentrel33")) {
+            return "eastgate shopping centre l33";
+        }
+
+        if (urlSources.includes("albertoncitymall")) {
+            return "alberton city mall l111";
+        }
+
+
+        return "";
+    }
+
+
+    /* =========================================================
+       GET CARD NAME
+       ========================================================= */
+
+    function getCardName(card) {
+
+        const text =
+            card.querySelector(
+                ".emo-text"
+            );
+
+
+        if (!text) {
+            return "";
+        }
+
+
+        return normalize(
+            text.textContent
+        );
+    }
+
+
+    /* =========================================================
+       GET ALL STAFF + COMMON OPTION CARDS
+       ========================================================= */
+
+    function getRelevantCards() {
+
+        return Array.from(
+            document.querySelectorAll(
+                ".emo-cont"
+            )
+        ).filter(function (card) {
+
+            const name =
+                getCardName(card);
+
+
+            return (
+                ALL_STAFF.includes(name) ||
+                COMMON_OPTIONS.includes(name)
+            );
+        });
+    }
+
+
+    /* =========================================================
+       HIDE EMPTY NATIVE TITLE
+       ========================================================= */
+
+    function hideEmptyNativeTitle(
+        container
+    ) {
+
+        if (!container) {
+            return;
+        }
+
+
+        container
+            .querySelectorAll(
+                ".emote-title"
+            )
+            .forEach(
+                function (title) {
+
+                    if (
+                        normalize(
+                            title.textContent
+                        ) === ""
+                    ) {
+
+                        title.style.setProperty(
+                            "display",
+                            "none",
+                            "important"
+                        );
+                    }
+                }
+            );
+    }
+
+
+    /* =========================================================
+       APPLY FILTER
+       ========================================================= */
+
+    function applyStaffFilter() {
+
+        addStaffCSS();
+
+
+        const store =
+            getStore();
+
+
+        if (
+            !store ||
+            !STORE_STAFF[store]
+        ) {
+            return;
+        }
+
+
+        const cards =
+            getRelevantCards();
+
+
+        if (!cards.length) {
+            return;
+        }
+
+
+        const allowedStaff =
+            STORE_STAFF[store];
+
+
+        /* =====================================================
+           MATCH STAFF FOR CURRENT STORE
+           ===================================================== */
+
+        const matchingStaffCards =
+            cards.filter(
+                function (card) {
+
+                    return allowedStaff.includes(
+                        getCardName(card)
+                    );
+                }
+            );
+
+
+        /*
+         * Safety:
+         * don't blank the page if no staff matched.
+         */
+        if (!matchingStaffCards.length) {
+
+            console.warn(
+                "MTN staff filter: no staff matched for:",
+                store
+            );
+
+            return;
+        }
+
+
+        /* =====================================================
+           FIND "NOT SURE"
+           ===================================================== */
+
+        const commonCards =
+            cards.filter(
+                function (card) {
+
+                    return COMMON_OPTIONS.includes(
+                        getCardName(card)
+                    );
+                }
+            );
+
+
+        /* =====================================================
+           FIND QUESTION CONTAINER
+           ===================================================== */
+
+        const firstRow =
+            matchingStaffCards[0].closest(
+                ".flex"
+            );
+
+
+        if (!firstRow) {
+            return;
+        }
+
+
+        const container =
+            firstRow.parentElement;
+
+
+        if (!container) {
+            return;
+        }
+
+
+        container.classList.add(
+            "mtn-staff-question"
+        );
+
+
+        hideEmptyNativeTitle(
+            container
+        );
+
+
+        /* =====================================================
+           ORDER STORE STAFF
+           ===================================================== */
+
+        const orderedStaffCards =
+            allowedStaff
+                .map(
+                    function (name) {
+
+                        return matchingStaffCards.find(
+                            function (card) {
+
+                                return (
+                                    getCardName(card) ===
+                                    name
+                                );
+                            }
+                        );
+                    }
+                )
+                .filter(Boolean);
+
+
+        /*
+         * FINAL ORDER:
+         *
+         * Store staff first
+         * "Not Sure" always last.
+         */
+        const orderedCards = [
+            ...orderedStaffCards,
+            ...commonCards
+        ];
+
+
+        if (!orderedCards.length) {
+            return;
+        }
+
+
+        /* =====================================================
+           CREATE / FIND GRID
+           ===================================================== */
+
+        let grid =
+            container.querySelector(
+                "#mtn-store-staff-grid"
+            );
+
+
+        if (!grid) {
+
+            grid =
+                document.createElement(
+                    "div"
+                );
+
+
+            grid.id =
+                "mtn-store-staff-grid";
+
+
+            container.appendChild(
+                grid
+            );
+        }
+
+
+        /* =====================================================
+           RESET LAYOUT CLASSES
+           ===================================================== */
+
+        grid.classList.remove(
+            "last-row-1",
+            "last-row-2",
+            "last-row-0",
+            "mobile-odd",
+            "mobile-even"
+        );
+
+
+        const total =
+            orderedCards.length;
+
+
+        const desktopRemainder =
+            total % 3;
+
+
+        if (
+            desktopRemainder === 1
+        ) {
+            grid.classList.add(
+                "last-row-1"
+            );
+        }
+
+        else if (
+            desktopRemainder === 2
+        ) {
+            grid.classList.add(
+                "last-row-2"
+            );
+        }
+
+        else {
+            grid.classList.add(
+                "last-row-0"
+            );
+        }
+
+
+        if (
+            total % 2 === 1
+        ) {
+            grid.classList.add(
+                "mobile-odd"
+            );
+        }
+
+        else {
+            grid.classList.add(
+                "mobile-even"
+            );
+        }
+
+
+        /* =====================================================
+           HIDE ALL STAFF + NOT SURE
+           ===================================================== */
+
+        cards.forEach(
+            function (card) {
+
+                card.style.setProperty(
+                    "display",
+                    "none",
+                    "important"
+                );
+            }
+        );
+
+
+        /* =====================================================
+           SHOW CURRENT STORE STAFF + NOT SURE
+           ===================================================== */
+
+        orderedCards.forEach(
+            function (card) {
+
+                grid.appendChild(
+                    card
+                );
+
+
+                card.style.removeProperty(
+                    "display"
+                );
+
+
+                card.classList.add(
+                    "mtn-staff-card"
+                );
+            }
+        );
+
+
+        /* =====================================================
+           HIDE ORIGINAL EMOJOT ROWS
+           ===================================================== */
+
+        Array.from(
+            container.querySelectorAll(
+                ":scope > .flex"
+            )
+        ).forEach(
+            function (row) {
+
+                if (
+                    !row.contains(grid)
+                ) {
+
+                    row.style.setProperty(
+                        "display",
+                        "none",
+                        "important"
+                    );
+                }
+            }
+        );
+
+
+        hideEmptyNativeTitle(
+            container
+        );
+
+
+        container.dataset.staffStore =
+            store;
+    }
+
+
+    /* =========================================================
+       RUN
+       ========================================================= */
+
+    function run() {
+
+        applyStaffFilter();
+
+
+        setTimeout(
+            applyStaffFilter,
+            100
+        );
+
+
+        setTimeout(
+            applyStaffFilter,
+            300
+        );
+
+
+        setTimeout(
+            applyStaffFilter,
+            700
+        );
+
+
+        setTimeout(
+            applyStaffFilter,
+            1200
+        );
+    }
+
+
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            run
+        );
+
+    } else {
+
+        run();
+    }
+
+
+    /* =========================================================
+       WATCH EMOJOT DYNAMIC PAGE CHANGES
+       ========================================================= */
+
+    let timer;
+
+
+    const observer =
+        new MutationObserver(
+            function () {
+
+                clearTimeout(
+                    timer
+                );
+
+
+                timer =
+                    setTimeout(
+                        applyStaffFilter,
+                        80
+                    );
+            }
+        );
+
+
+    observer.observe(
+        document.documentElement,
+        {
+            childList: true,
+            subtree: true
+        }
+    );
+
+})();
+</script></div><!-- end ngIf: pd.displayText -->
+                    </div>

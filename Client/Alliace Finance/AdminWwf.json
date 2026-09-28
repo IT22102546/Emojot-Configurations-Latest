@@ -1,7 +1,7 @@
 {
   "name": "ComplaintWF",
-  "reportNamePrefix": "Alliance Finalance Concerns",
-  "nameTemplate": "Alliance Finalance Concern: $type$ - $complaintType$",
+  "reportNamePrefix": "Alliance Finance Concerns",
+  "nameTemplate": "Alliance Finance Concern: $type$ - $complaintType$",
   "reporterNamePrefix": "Customer",
   "descriptionFormat": "text",
   "timeZone": "+330",
@@ -2297,7 +2297,24 @@
         "changingFields": [
           {
             "id": "assignee",
-            "value": "alliance@emojot.com"
+            "contactFilters": [
+              "defaultAssignee"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "Branch",
+                  "operator": "eq",
+                  "value": "$Branch$"
+                },
+                {
+                  "field": "complaintType",
+                  "operator": "eq",
+                  "value": "$type$"
+                }
+              ]
+            }
           }
         ]
       }
@@ -2381,6 +2398,11 @@
         "id": "Branch",
         "name": "Branch",
         "type": "customField"
+      },
+      {
+        "id": "defaultAssignee",
+        "name": "Default Assignee",
+        "type": "contact"
       },
       {
         "id": "ticketCreationAlert",

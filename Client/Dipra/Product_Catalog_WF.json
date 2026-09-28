@@ -1,0 +1,148 @@
+{
+  "name": "Dipra Product Catalog",
+  "reportNamePrefix": "Product",
+  "reporterNamePrefix": "Submitted By",
+  "nameTemplate": "$productCode$ - $productName$",
+  "descriptionTemplate": "$description$",
+  "descriptionFormat": "text",
+  "timeZone": -330,
+  "type": {
+    "name": "Record Type",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Product",
+        "name": "Product",
+        "highPriorityFields": [
+          "productCode",
+          "productName",
+          "supplierName",
+          "supplierCode",
+          "brandCode",
+          "brandName",
+          "modelCode",
+          "modelName",
+          "capacity",
+          "capacityUnit",
+          "productType",
+          "machineAttributes",
+          "description"
+        ]
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "readOnly": true,
+    "values": [
+      {
+        "id": "Medium",
+        "name": "Medium"
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "transitions": [
+      {
+        "sourceState": "Draft",
+        "targetStates": [
+          "Active"
+        ]
+      },
+      {
+        "sourceState": "Active",
+        "targetStates": [
+          "Discontinued"
+        ]
+      },
+      {
+        "sourceState": "Discontinued",
+        "targetStates": [
+          "Active"
+        ]
+      }
+    ],
+    "values": [
+      {
+        "id": "Draft",
+        "name": "Draft",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000"
+      },
+      {
+        "id": "Active",
+        "name": "Active",
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff"
+      },
+      {
+        "id": "Discontinued",
+        "name": "Discontinued",
+        "backgroundColor": "#7f8c8d",
+        "textColor": "#ffffff"
+      }
+    ]
+  },
+  "customFields": {
+    "productCode": {
+      "name": "Product Code",
+      "type": "string"
+    },
+    "productName": {
+      "name": "Product Name",
+      "type": "string"
+    },
+    "supplierCode": {
+      "name": "Supplier Code",
+      "type": "string",
+      "readOnly": true
+    },
+    "supplierName": {
+      "name": "Select Supplier Name",
+      "type": "enum",
+      "values": [
+      ]
+    },
+    "brandCode": {
+      "name": "Brand Code",
+      "type": "string"
+    },
+    "brandName": {
+      "name": "Brand Name",
+      "type": "string"
+    },
+    "modelCode": {
+      "name": "Model Code",
+      "type": "string"
+    },
+    "modelName": {
+      "name": "Model Name",
+      "type": "string"
+    },
+    "capacity": {
+      "name": "Capacity",
+      "type": "number"
+    },
+    "capacityUnit": {
+      "name": "Capacity Unit",
+      "type": "string"
+    },
+    "productType": {
+      "name": "Product Type",
+      "type": "string"
+    },
+    "machineAttributes": {
+      "name": "Machine Attributes",
+      "type": "textArea"
+    },
+    "description": {
+      "name": "Description",
+      "type": "textArea"
+    }
+  },
+  "tableEdit": "true"
+}
