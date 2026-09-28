@@ -181,7 +181,7 @@ exports = async function(changeEvent) {
           ORM_DATABASE,
 
         assignee:
-         dheveshan.pillay@mtn.com,
+          DEFAULT_ASSIGNEE,
 
         message:
           "Live trigger loaded successfully. Insert a review to test RP creation."
@@ -947,16 +947,8 @@ async function createTicket(
   }
 
 
-  if (
-    hasValue(
-      mandatoryFields.assignee
-    )
-  ) {
-
-    payload.assignee =
-      mandatoryFields.assignee;
-
-  }
+  payload.assignee =
+    DEFAULT_ASSIGNEE;
 
 
   if (

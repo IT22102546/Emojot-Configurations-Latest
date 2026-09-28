@@ -64,7 +64,7 @@ const INTEGRATION_CONFIG_COLLECTION =
 // ============================================================
 
 const DEFAULT_ASSIGNEE =
-  "sanjanan@emojot.com";
+  "dheveshan.pillay@mtn.com";
 
 
 // ============================================================
@@ -899,16 +899,8 @@ async function createTicket(
   }
 
 
-  if (
-    hasValue(
-      mandatoryFields.assignee
-    )
-  ) {
-
-    payload.assignee =
-      mandatoryFields.assignee;
-
-  }
+  payload.assignee =
+    DEFAULT_ASSIGNEE;
 
 
   if (

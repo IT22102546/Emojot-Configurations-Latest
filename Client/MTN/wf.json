@@ -460,6 +460,11 @@
               "template": "MTN_overdueAlertEmail_2ndLevel",
               "target": "admin",
               "contacts": [
+               "dheveshan.pillay@mtn.com",
+                "info@mtncellmate.co.za",
+                "larry@celmate.co.za",
+                "sanjanan@emojot.com",
+                "dewminil@emojot.com",
                 "sanjanan@emojot.com"
               ],
               "appendEditUrl": true
@@ -492,6 +497,11 @@
               "template": "MTN_overdueAlertEmail_3rdLevel",
               "target": "admin",
               "contacts": [
+               "dheveshan.pillay@mtn.com",
+                "info@mtncellmate.co.za",
+                "larry@celmate.co.za",
+                "sanjanan@emojot.com",
+                "dewminil@emojot.com",
                 "sanjanan@emojot.com"
               ],
               "appendEditUrl": true
@@ -626,7 +636,7 @@
               "nextLevelTime": 3600000
             },
             {
-              "nextLevelTime": 172800000,
+              "nextLevelTime": 3600000,
               "fieldsChange": [
                 {
                   "id": "overdue",
@@ -635,7 +645,7 @@
               ]
             },
             {
-              "nextLevelTime": 172800000,
+              "nextLevelTime": 21600000,
               "fieldsChange": [
                 {
                   "id": "overdue",
