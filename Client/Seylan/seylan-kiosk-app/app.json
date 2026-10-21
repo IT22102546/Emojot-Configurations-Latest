@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "Seylan Bank Kiosk",
+    "slug": "seylan-bank",
+    "version": "1.0.0",
+    "orientation": "default",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.emojot.seylanbank"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#010101",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.emojot.seylanbank"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-font",
+      [
+        "expo-navigation-bar",
+        {
+          "hidden": true
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/seylan-logo.png",
+          "imageWidth": 180,
+          "resizeMode": "contain",
+          "backgroundColor": "#FFFFFF",
+          "dark": {
+            "image": "./assets/seylan-logo.png",
+            "backgroundColor": "#FFFFFF"
+          }
+        }
+      ]
+    ],
+    "owner": "sanjananimeshemojots-team",
+    "backgroundColor": "#FFFFFF",
+    "extra": {
+      "eas": {
+        "projectId": "35f17b27-7cb6-4886-9ab4-3361871ea60e"
+      }
+    }
+  }
+}
