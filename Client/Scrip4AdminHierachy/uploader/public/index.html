@@ -1,0 +1,909 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Admin Hierarchy Uploader</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  :root {
+    --brand: #3a7bbf;
+    --brand-dark: #2f6aa6;
+    --text: #1a1a1a;
+    --muted: #5f6368;
+    --border: #e3e5e8;
+    --dash: #c9ccd1;
+    --surface: #ffffff;
+    --soft: #f8f9fb;
+    --ok: #1e8e3e;
+    --warn: #b06000;
+    --err: #c5221f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--text);
+    background: var(--surface);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header, footer { background: var(--brand); color: #fff; }
+  header .inner {
+    max-width: 1400px; margin: 0 auto; padding: 18px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { display: flex; align-items: center; gap: 14px; font-size: 26px; font-weight: 700; }
+  .brand .logo {
+    width: 40px; height: 40px; border-radius: 8px; background: #fff; color: var(--brand);
+    display: grid; place-items: center; font-size: 20px;
+  }
+  .help { color: #fff; text-decoration: none; font-size: 15px; cursor: pointer; }
+  main { flex: 1; padding: 40px 32px; }
+  .card {
+    max-width: 1400px; margin: 0 auto; border: 1px solid var(--border); border-radius: 10px;
+    padding: 28px 24px;
+  }
+  h1 { margin: 0 0 6px; font-size: 28px; }
+  .subtitle { margin: 0 0 32px; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  h2 { font-size: 19px; font-weight: 500; margin: 0 0 18px; }
+  .label { display: block; font-size: 15px; margin: 0 0 8px; }
+  .drop {
+    border: 2px dashed var(--dash); border-radius: 8px; background: var(--soft);
+    padding: 26px 16px; text-align: center; cursor: pointer; transition: border-color .15s, background .15s;
+  }
+  .drop:hover, .drop.drag { border-color: var(--brand); background: #f0f6fc; }
+  .drop svg { color: var(--muted); }
+  .drop .main { margin: 10px 0 6px; color: var(--muted); }
+  .drop .main b { color: #4a4f55; }
+  .drop .hint { font-size: 13px; color: var(--muted); }
+  .drop .file { margin-top: 8px; font-weight: 600; color: var(--brand); word-break: break-all; }
+  .stepper { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 0; margin: 0 0 28px; counter-reset: none; }
+  .stepper li { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--soft); color: var(--muted); font-size: 14px; cursor: not-allowed; }
+  .stepper li .num { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: #e3e5e8; color: var(--muted); font-weight: 600; flex-shrink: 0; }
+  .stepper li.reachable { cursor: pointer; color: var(--text); background: #fff; }
+  .stepper li.done .num { background: var(--ok); color: #fff; }
+  .stepper li.active { border-color: var(--brand); background: #f0f6fc; color: var(--brand); font-weight: 600; }
+  .stepper li.active .num { background: var(--brand); color: #fff; }
+  .step-intro { margin: -8px 0 20px; color: var(--muted); font-size: 14px; }
+  .step-panel h3 { font-size: 15px; font-weight: 600; margin: 22px 0 10px; }
+  .step-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--border); }
+  .step-reason { color: var(--muted); font-size: 13px; flex: 1; text-align: right; }
+  .btn-next { padding: 11px 22px; border: none; border-radius: 6px; background: var(--brand); color: #fff; font-size: 15px; cursor: pointer; font-family: inherit; }
+  .btn-next:hover:not(:disabled) { background: var(--brand-dark); }
+  .btn-next:disabled { opacity: .45; cursor: not-allowed; }
+  .btn-back { padding: 10px 16px; border: 1px solid var(--border); border-radius: 6px; background: #fff; color: var(--text); font-size: 14px; cursor: pointer; font-family: inherit; }
+  .btn-back:disabled { opacity: .45; cursor: not-allowed; }
+  .field input[readonly] { background: var(--soft); color: var(--muted); }
+  .summary { border: 1px solid var(--border); border-radius: 8px; background: var(--soft); padding: 14px 18px; margin-bottom: 22px; font-size: 14px; line-height: 1.8; }
+  .summary b { display: inline-block; min-width: 130px; color: var(--muted); font-weight: 500; }
+  .advanced { margin-top: 6px; font-size: 14px; }
+  .advanced summary { cursor: pointer; color: var(--muted); margin-bottom: 10px; }
+  .hint-text { font-size: 13px; color: var(--brand); margin-top: 10px; }
+  .builder { border: 1px solid var(--border); border-radius: 8px; padding: 20px; background: #fbfcfe; }
+  .builder h3 { font-size: 15px; font-weight: 600; margin: 22px 0 10px; }
+  .builder-intro { margin: -8px 0 0; color: var(--muted); font-size: 14px; }
+  .pickers { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+  .picker { border: 1px solid var(--border); border-radius: 8px; background: #fff; padding: 12px; }
+  .picker-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 8px; }
+  .picker-head b { font-size: 14px; }
+  .picker-head span { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .picker input[type=search] { width: 100%; padding: 7px 10px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; font-family: inherit; }
+  .pick-actions { font-size: 13px; color: var(--muted); margin: 6px 0; }
+  .pick-actions .link-btn { margin: 0; font-size: 13px; }
+  .pick-list { max-height: 220px; overflow: auto; border-top: 1px solid var(--border); padding-top: 6px; }
+  .pick-list label, .role-list label { display: flex; align-items: center; gap: 8px; font-size: 13px; padding: 3px 2px; cursor: pointer; }
+  .role-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2px 16px; }
+  .role-list small { color: var(--muted); }
+  .free-text { font-size: 13px; color: var(--warn); }
+  .builder-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; font-size: 14px; }
+  .builder-foot b { color: var(--brand); }
+  .drop-sm { padding: 14px 12px; }
+  .drop-sm .main { margin: 0; font-size: 14px; }
+  .warn-text { display: block; color: var(--warn) !important; margin-top: 4px; }
+  .link-btn {
+    background: none; border: none; color: var(--brand); padding: 0; margin-top: 10px;
+    font-size: 14px; cursor: pointer; text-decoration: underline;
+  }
+  .field { margin-bottom: 14px; }
+  .field input {
+    width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px;
+    font-size: 14px; font-family: inherit;
+  }
+  .field input:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 3px #3a7bbf22; }
+  .field small { color: var(--muted); font-size: 12px; }
+  .toggles { margin-top: 18px; display: grid; gap: 14px; }
+  .toggle { display: flex; align-items: center; gap: 14px; cursor: pointer; user-select: none; }
+  .toggle input { display: none; }
+  .switch {
+    width: 50px; height: 28px; border-radius: 14px; background: #e3e5e8; position: relative; flex-shrink: 0;
+    transition: background .15s;
+  }
+  .switch::after {
+    content: ""; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%;
+    background: #fff; box-shadow: 0 1px 3px #0003; transition: transform .15s;
+  }
+  .toggle input:checked + .switch { background: var(--brand); }
+  .toggle input:checked + .switch::after { transform: translateX(22px); }
+  .toggle .desc { display: block; font-size: 12px; color: var(--muted); }
+  .section { margin-top: 28px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .chip { background: var(--soft); border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font-size: 13px; }
+  .chip.err { color: var(--err); border-color: #f3c3c2; background: #fdf1f0; }
+  .chip.ok { color: var(--ok); border-color: #bfe3c8; background: #eef8f1; }
+  .cols { font-size: 13px; color: var(--muted); margin-bottom: 10px; line-height: 1.6; }
+  .cols code { background: var(--soft); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; color: var(--text); }
+  .table-wrap { max-height: 320px; overflow: auto; border: 1px solid var(--border); border-radius: 8px; }
+  table { border-collapse: collapse; font-size: 12px; width: 100%; }
+  th, td { padding: 6px 10px; border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; max-width: 260px; overflow: hidden; text-overflow: ellipsis; }
+  th { position: sticky; top: 0; background: var(--soft); font-weight: 600; }
+  th.contact { color: var(--brand); }
+  td.missing { background: #fdf1f0; }
+  .issues { color: var(--err); font-size: 13px; margin: 8px 0 0; padding-left: 18px; }
+  .primary {
+    width: 100%; margin-top: 28px; padding: 15px; border: none; border-radius: 6px;
+    background: var(--brand); color: #fff; font-size: 16px; cursor: pointer; font-family: inherit;
+  }
+  .primary:hover:not(:disabled) { background: var(--brand-dark); }
+  .primary:disabled { opacity: .5; cursor: not-allowed; }
+  .primary.stop { background: var(--err); }
+  .progress { height: 10px; background: var(--soft); border: 1px solid var(--border); border-radius: 5px; overflow: hidden; }
+  .progress div { height: 100%; width: 0; background: var(--brand); transition: width .2s; }
+  .status-line { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 14px; margin: 10px 0; }
+  .log {
+    background: #1f2328; color: #e6e6e6; font: 12px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+    border-radius: 8px; padding: 12px 14px; max-height: 320px; overflow: auto; white-space: pre-wrap; word-break: break-word;
+  }
+  .log .ok { color: #7ee2a8; }
+  .log .err { color: #ff8a80; }
+  .log .warn { color: #ffd479; }
+  .actions { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+  .secondary {
+    padding: 8px 14px; border: 1px solid var(--brand); color: var(--brand); background: #fff;
+    border-radius: 6px; cursor: pointer; font-size: 14px; font-family: inherit;
+  }
+  .hidden { display: none !important; }
+  .banner { display: flex; justify-content: space-between; align-items: center; gap: 12px; background: #eef8f1; border: 1px solid #bfe3c8; color: var(--ok); border-radius: 8px; padding: 12px 16px; margin-bottom: 20px; font-size: 15px; }
+  .banner-close { background: none; border: none; color: inherit; font-size: 22px; line-height: 1; cursor: pointer; padding: 0 4px; }
+  .guide { background: var(--soft); border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+  .guide code { background: #fff; border: 1px solid var(--border); border-radius: 4px; padding: 0 5px; }
+  footer { text-align: center; padding: 18px; font-size: 15px; }
+  @media (max-width: 820px) {
+    header .inner { padding: 14px 16px; }
+    .brand { font-size: 20px; }
+    main { padding: 20px 16px; }
+    .grid { grid-template-columns: 1fr; }
+    .stepper { grid-template-columns: 1fr 1fr; }
+    .stepper li .txt { font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="inner">
+    <div class="brand"><div class="logo">⛓</div>Admin Hierarchy Uploader</div>
+    <a class="help" id="guideToggle">ⓘ User Guide</a>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <div class="banner hidden" id="banner"><span id="bannerText"></span><button class="banner-close" id="bannerClose" aria-label="Dismiss">×</button></div>
+    <h1>Bulk Admin Hierarchy Upload</h1>
+    <p class="subtitle">Upload ticket categories and their assignees from Excel into a workflow's admin hierarchy</p>
+
+    <div class="guide hidden" id="guide">
+      <b>1. Workflow:</b> export the workflow JSON from the portal and upload it. Enter its Workflow ID and Company ID. The Admin Hierarchy ID is read from the JSON.<br>
+      <b>2. Template:</b> pick the categories/branches (or any ticket fields) and roles you need, download the Excel file and fill in the admins. In a role cell, separate several emails with <code>;</code>. Clearing a field leaves that column empty for you to fill.<br>
+      <b>3. Upload:</b> upload the filled Excel. It is checked against the workflow: names must match exactly, no empty cells, valid emails, no duplicate rows.<br>
+      <b>4. Send:</b> paste the token (portal → DevTools → Network → any API call → <code>authorization</code> header). Run a dry run first, then upload.<br>
+      <b>Safety:</b> before writing, the tool reads the live hierarchy and sends nothing if a row's <code>_id</code> belongs to another hierarchy or a row would be duplicated. After a fully successful upload everything resets to step 1.
+    </div>
+
+    <ol class="stepper" id="stepper">
+      <li data-step="1"><span class="num">1</span><span class="txt">Workflow</span></li>
+      <li data-step="2"><span class="num">2</span><span class="txt">Download template</span></li>
+      <li data-step="3"><span class="num">3</span><span class="txt">Upload filled Excel</span></li>
+      <li data-step="4"><span class="num">4</span><span class="txt">Check &amp; send</span></li>
+    </ol>
+
+    <!-- Step 1: workflow -->
+    <section class="step-panel" id="step1">
+      <h2>Step 1 · Workflow</h2>
+      <p class="step-intro">Upload the workflow JSON exported from the portal, then enter the IDs of that workflow.</p>
+      <div class="grid">
+        <div>
+          <span class="label">Workflow JSON</span>
+          <div class="drop" id="wfDrop">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>
+            <div class="main"><b>Click to upload</b> or drag and drop</div>
+            <div class="hint">Workflow export: .json</div>
+            <div class="file hidden" id="wfName"></div>
+          </div>
+          <input type="file" id="wfInput" accept=".json,application/json" hidden>
+          <button class="link-btn hidden" id="wfClear">Remove workflow and start over</button>
+        </div>
+        <div>
+          <div class="field"><label class="label" for="workflowId">Workflow ID</label>
+            <input id="workflowId" placeholder="24-character workflow ID" autocomplete="off"></div>
+          <div class="field"><label class="label" for="companyId">Company ID</label>
+            <input id="companyId" placeholder="24-character company ID" autocomplete="off"></div>
+          <div class="field"><label class="label" for="hierarchyId">Admin Hierarchy ID</label>
+            <input id="hierarchyId" placeholder="Filled from the workflow JSON" autocomplete="off" readonly>
+            <small>Read from <code>adminHierarchy.id</code> in the workflow JSON</small>
+            <small class="warn-text hidden" id="hierWarn"></small></div>
+        </div>
+      </div>
+      <div class="step-foot">
+        <span class="step-reason" id="reason1"></span>
+        <button class="btn-next" id="next1">Next: Download template →</button>
+      </div>
+    </section>
+
+    <!-- Step 2: template -->
+    <section class="step-panel hidden" id="step2">
+      <h2>Step 2 · Download Excel template</h2>
+      <p class="step-intro">Pick what the Excel file should contain and download it. Fill in the admins, then come back for step 3.</p>
+      <h3>Ticket fields: choose the values you need</h3>
+      <div class="pickers" id="keyPickers"></div>
+      <h3>Roles: choose the columns you need</h3>
+      <div class="pick-actions"><button class="link-btn" data-roles="all">Select all</button> · <button class="link-btn" data-roles="none">Clear</button></div>
+      <div class="role-list" id="rolePicker"></div>
+      <h3>Pre-fill (optional)</h3>
+      <div class="field">
+        <input id="fillContacts" placeholder="e.g. user1@company.com; user2@company.com" autocomplete="off">
+        <small>These contacts go in every selected role cell. Leave empty to fill the Excel yourself.</small>
+      </div>
+      <div class="builder-foot">
+        <span id="builderCount"></span>
+        <button class="secondary" id="builderDownload">Download Excel template</button>
+      </div>
+      <div class="step-foot">
+        <button class="btn-back" data-back="1">← Back</button>
+        <span class="step-reason">Already have a filled Excel? Just continue.</span>
+        <button class="btn-next" id="next2">Next: Upload filled Excel →</button>
+      </div>
+    </section>
+
+    <!-- Step 3: upload filled Excel -->
+    <section class="step-panel hidden" id="step3">
+      <h2>Step 3 · Upload the filled Excel</h2>
+      <p class="step-intro">The file is checked against the workflow from step 1: names, empty cells, emails and duplicates.</p>
+      <div class="drop" id="drop">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>
+        <div class="main"><b>Click to upload</b> or drag and drop</div>
+        <div class="hint">Supported file: .xlsx, .xls, .csv</div>
+        <div class="file hidden" id="fileName"></div>
+      </div>
+      <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" hidden>
+
+      <div class="section hidden" id="previewSection">
+        <h3>Preview</h3>
+        <div class="chips" id="chips"></div>
+        <div class="cols" id="cols"></div>
+        <div class="table-wrap"><table id="table"></table></div>
+        <ul class="issues" id="issues"></ul>
+      </div>
+      <div class="step-foot">
+        <button class="btn-back" data-back="2">← Back</button>
+        <span class="step-reason" id="reason3"></span>
+        <button class="btn-next" id="next3">Next: Check &amp; send →</button>
+      </div>
+    </section>
+
+    <!-- Step 4: check and send -->
+    <section class="step-panel hidden" id="step4">
+      <h2>Step 4 · Check &amp; send</h2>
+      <div class="summary" id="summary"></div>
+      <div class="grid">
+        <div>
+          <div class="field"><label class="label" for="token">Bearer Token</label>
+            <input id="token" type="password" placeholder="Paste token (not saved)" autocomplete="off">
+            <small>Portal → DevTools → Network → any API call → <code>authorization</code> header. Kept in this tab only.</small></div>
+          <details class="advanced"><summary>Advanced</summary>
+            <div class="field"><label class="label" for="base">API Base URL</label>
+              <input id="base" autocomplete="off"></div>
+          </details>
+        </div>
+        <div class="toggles">
+          <label class="toggle"><input type="checkbox" id="dryRun" checked><span class="switch"></span>
+            <span>Dry run<span class="desc">Check and preview without writing anything (with a token, the safety check runs too)</span></span></label>
+          <label class="toggle"><input type="checkbox" id="merge"><span class="switch"></span>
+            <span>Merge with existing rows<span class="desc">Add to contacts already on matching rows instead of replacing them</span></span></label>
+          <label class="toggle"><input type="checkbox" id="ensureUsers" checked><span class="switch"></span>
+            <span>Create missing users<span class="desc">Look up each email once and create the user if it doesn't exist</span></span></label>
+        </div>
+      </div>
+
+      <button class="primary" id="runBtn" disabled>Upload</button>
+
+      <div class="section hidden" id="runSection">
+        <h3 id="runTitle">Progress</h3>
+        <div class="progress"><div id="bar"></div></div>
+        <div class="status-line"><span id="statusText"></span><span id="counts"></span></div>
+        <div class="log" id="log"></div>
+        <div class="actions">
+          <button class="secondary hidden" id="failedBtn">Download failed rows</button>
+          <button class="secondary hidden" id="remainingBtn">Download unsent rows</button>
+        </div>
+      </div>
+      <div class="step-foot">
+        <button class="btn-back" data-back="3">← Back</button>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>Emojot internal tool · runs locally</footer>
+
+<script>
+const DEFAULT_BASE = "https://wkseq0mv55.execute-api.us-west-2.amazonaws.com/v1";
+const CONFIG_FIELDS = ["companyId", "workflowId", "hierarchyId", "base"];
+const EMAIL_RE = /^[^\s@|]+@[^\s@|]+\.[^\s@|]+$/;
+
+const $ = id => document.getElementById(id);
+const state = { step: 1, rows: [], headers: [], keyCols: [], contactCols: [], issues: [], fileName: "", running: null, results: new Map(), wf: null, builder: null };
+
+// ---- config fields ----
+// Nothing is remembered between visits: a stale ID from another workflow must never be reused by accident.
+// Also wipe values older versions of this page saved.
+for (const id of CONFIG_FIELDS) {
+  try { localStorage.removeItem(`ahu.${id}`); } catch {}
+  $(id).value = "";
+  $(id).addEventListener("input", updateButton);
+}
+if (!$("base").value) $("base").value = DEFAULT_BASE;
+$("token").addEventListener("input", updateButton);
+for (const id of ["dryRun", "merge", "ensureUsers"]) $(id).addEventListener("change", updateButton);
+$("guideToggle").onclick = () => $("guide").classList.toggle("hidden");
+
+// ---- step 1: workflow JSON ----
+const wfDrop = $("wfDrop");
+wfDrop.onclick = () => $("wfInput").click();
+$("wfInput").onchange = e => e.target.files[0] && loadWorkflow(e.target.files[0]);
+wfDrop.ondragover = e => { e.preventDefault(); wfDrop.classList.add("drag"); };
+wfDrop.ondragleave = () => wfDrop.classList.remove("drag");
+wfDrop.ondrop = e => { e.preventDefault(); wfDrop.classList.remove("drag"); e.dataTransfer.files[0] && loadWorkflow(e.dataTransfer.files[0]); };
+// Removing the workflow starts over: the sheet and IDs belonged to that workflow.
+$("wfClear").onclick = () => resetAll();
+
+async function loadWorkflow(file) {
+  try {
+    const wf = JSON.parse(await file.text());
+    const ah = wf.adminHierarchy;
+    if (!ah?.id || !Array.isArray(ah.headers)) throw new Error("No adminHierarchy.id / headers in this JSON.");
+    if (!String(ah.id).startsWith("AHI_")) {
+      throw new Error(`adminHierarchy.id is "${ah.id}", which is a placeholder, not a real hierarchy ID. Export the workflow from the portal after it is deployed and upload that JSON.`);
+    }
+    const keyCols = ah.headers.filter(h => h.type !== "contact").map(h => h.id);
+    const contactCols = ah.headers.filter(h => h.type === "contact").map(h => h.id);
+    const values = {};
+    const labels = {};
+    // Show the names used on the portal's Admin Hierarchy page (the headers), falling back to the field's own name.
+    for (const h of ah.headers) labels[h.id] = h.name || wf.customFields?.[h.id]?.name || h.id;
+    // Values come from the custom field, or from a ticket-level list (e.g. the ticket "type") with that id.
+    for (const col of keyCols) {
+      const field = wf.customFields?.[col] || wf[col];
+      if (Array.isArray(field?.values)) values[col] = field.values.map(v => String(v.id));
+    }
+    // A different workflow invalidates a sheet checked against the previous one.
+    if (state.wf && state.wf.hierarchyId !== ah.id && state.rows.length) clearSheet();
+    state.wf = { name: wf.name || file.name, hierarchyId: ah.id, keyCols, contactCols, values, labels };
+    state.builder = {
+      selected: Object.fromEntries(keyCols.map(c => [c, new Set(values[c] || [])])),
+      roles: new Set(contactCols),
+    };
+    renderBuilder();
+    $("hierarchyId").value = ah.id;
+    const sizes = keyCols.map(c => `${values[c]?.length ?? "free text"} ${labels[c]}`).join(" × ");
+    $("wfName").textContent = `${state.wf.name} · ${ah.id} · ${sizes} · ${contactCols.length} roles`;
+    $("wfName").classList.remove("hidden");
+    $("wfClear").classList.remove("hidden");
+    if (state.rows.length) analyze();
+    updateButton();
+  } catch (err) {
+    alert(`Could not read workflow JSON: ${err.message}`);
+  }
+  $("wfInput").value = "";
+}
+
+// ---- file input ----
+const drop = $("drop");
+drop.onclick = () => $("fileInput").click();
+$("fileInput").onchange = e => e.target.files[0] && loadFile(e.target.files[0]);
+drop.ondragover = e => { e.preventDefault(); drop.classList.add("drag"); };
+drop.ondragleave = () => drop.classList.remove("drag");
+drop.ondrop = e => { e.preventDefault(); drop.classList.remove("drag"); e.dataTransfer.files[0] && loadFile(e.dataTransfer.files[0]); };
+
+async function loadFile(file) {
+  $("banner").classList.add("hidden");
+  try {
+    const wb = XLSX.read(await file.arrayBuffer());
+    const sheet = wb.Sheets[wb.SheetNames[0]];
+    const matrix = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: "", raw: false });
+    const headers = (matrix[0] || []).map(h => String(h).trim());
+    const rows = matrix.slice(1)
+      .filter(r => r.some(v => String(v).trim() !== ""))
+      .map(r => Object.fromEntries(headers.map((h, i) => [h, String(r[i] ?? "").trim()])));
+    state.fileName = file.name;
+    state.headers = headers.filter(Boolean);
+    state.rows = rows;
+    state.results = new Map();
+    analyze();
+    $("fileName").textContent = `${file.name} · ${rows.length} rows`;
+    $("fileName").classList.remove("hidden");
+  } catch (err) {
+    alert(`Could not read file: ${err.message}`);
+  }
+  $("fileInput").value = "";
+}
+
+function entries(value) {
+  return String(value || "").split(/[;,\n]/).map(s => s.trim()).filter(Boolean).map(s => {
+    const [email, id] = s.split("|").map(p => p.trim());
+    return { email, id };
+  });
+}
+
+function analyze() {
+  const { rows, headers } = state;
+  const dataCols = headers.filter(h => h !== "_id");
+  const wf = state.wf;
+  // The workflow JSON says which columns are contacts. Without it, a column is a contact column
+  // if it holds an email or is named like a role (so an all-empty role column isn't taken for a ticket field).
+  const isContact = wf
+    ? h => wf.contactCols.includes(h)
+    : h => /assignee|alert/i.test(h) || rows.some(r => String(r[h]).includes("@"));
+  state.contactCols = dataCols.filter(isContact);
+  state.keyCols = dataCols.filter(h => !state.contactCols.includes(h));
+
+  const issues = [];
+  if (wf) {
+    const known = new Set([...wf.keyCols, ...wf.contactCols]);
+    const unknown = dataCols.filter(h => !known.has(h));
+    if (unknown.length) issues.push(`Column(s) not in the workflow's admin hierarchy: ${unknown.join(", ")}`);
+    const missing = wf.keyCols.filter(c => !dataCols.includes(c));
+    if (missing.length) issues.push(`Sheet is missing ticket field column(s): ${missing.join(", ")}`);
+  }
+  const emails = new Set();
+  const seenKeys = new Map();
+  rows.forEach((row, i) => {
+    const line = i + 2;
+    const missing = state.keyCols.filter(c => !row[c]);
+    if (missing.length) issues.push(`Row ${line}: empty ${missing.join(", ")}`);
+    if (wf) for (const c of state.keyCols) {
+      const allowed = wf.values[c];
+      if (row[c] && allowed && !allowed.includes(row[c])) issues.push(`Row ${line}: "${row[c]}" is not a ${c} in the workflow`);
+    }
+    if (!state.contactCols.some(c => row[c])) issues.push(`Row ${line}: no contacts`);
+    for (const c of state.contactCols) for (const e of entries(row[c])) {
+      if (!EMAIL_RE.test(e.email || "")) issues.push(`Row ${line}, ${c}: "${e.email}" is not a valid email`);
+      else emails.add(e.email.toLowerCase());
+    }
+    const key = state.keyCols.map(c => row[c]).join(" / ");
+    if (seenKeys.has(key) && !row._id) issues.push(`Row ${line}: duplicate of row ${seenKeys.get(key)} (${key})`);
+    else seenKeys.set(key, line);
+  });
+  if (!state.keyCols.length) issues.unshift("No ticket field columns found (e.g. complaintType, Branch).");
+  if (!state.contactCols.length) issues.unshift("No contact columns found. Contact cells must contain emails.");
+  state.issues = issues;
+
+  const withId = rows.filter(r => r._id).length;
+  $("chips").innerHTML = [
+    `<span class="chip">${rows.length} rows</span>`,
+    `<span class="chip">${withId} update · ${rows.length - withId} new</span>`,
+    `<span class="chip">${emails.size} unique people</span>`,
+    issues.length ? `<span class="chip err">${issues.length} issue(s)</span>` : `<span class="chip ok">No issues</span>`,
+  ].join("");
+  $("cols").innerHTML =
+    `Ticket fields: ${state.keyCols.map(c => `<code>${esc(c)}</code>`).join(" ") || "none"}<br>` +
+    `Contact roles: ${state.contactCols.map(c => `<code>${esc(c)}</code>`).join(" ") || "none"}`;
+
+  const shown = rows.slice(0, 100);
+  $("table").innerHTML =
+    `<thead><tr><th>#</th>${state.headers.map(h => `<th class="${state.contactCols.includes(h) ? "contact" : ""}">${esc(h)}</th>`).join("")}</tr></thead>` +
+    `<tbody>${shown.map((r, i) => `<tr><td>${i + 2}</td>${state.headers.map(h =>
+      `<td class="${state.keyCols.includes(h) && !r[h] ? "missing" : ""}" title="${esc(r[h])}">${esc(r[h])}</td>`).join("")}</tr>`).join("")}</tbody>`;
+  $("issues").innerHTML = issues.slice(0, 20).map(t => `<li>${esc(t)}</li>`).join("") +
+    (issues.length > 20 ? `<li>…and ${issues.length - 20} more</li>` : "");
+  $("previewSection").classList.remove("hidden");
+  updateButton();
+}
+
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+
+function config() {
+  return {
+    companyId: $("companyId").value.trim(),
+    workflowId: $("workflowId").value.trim(),
+    hierarchyId: $("hierarchyId").value.trim(),
+    base: $("base").value.trim() || DEFAULT_BASE,
+    token: $("token").value.trim().replace(/^Bearer\s+/i, ""),
+  };
+}
+
+function updateButton() {
+  const btn = $("runBtn");
+  if (state.running) return;
+  const c = config();
+  const dry = $("dryRun").checked;
+  const hierWarn = !c.hierarchyId ? "" : [
+    state.wf && c.hierarchyId !== state.wf.hierarchyId ? `Differs from the workflow JSON (${state.wf.hierarchyId}): check you are uploading to the right workflow.` : "",
+
+  ].filter(Boolean).join(" ");
+  $("hierWarn").textContent = hierWarn;
+  $("hierWarn").classList.toggle("hidden", !hierWarn);
+  let reason = "";
+  if (!state.rows.length) reason = "Upload the filled Excel in step 3";
+  else if (state.issues.length) reason = "Fix the issues in the sheet first";
+  else if (!c.companyId || !c.workflowId || !c.hierarchyId) reason = "Fill in Company ID, Workflow ID and Hierarchy ID";
+  else if (!dry && !c.token) reason = "Paste a bearer token to upload";
+  btn.disabled = Boolean(reason);
+  btn.textContent = reason || (dry ? `Dry run: check ${state.rows.length} row(s)` : `Upload ${state.rows.length} Row(s)`);
+  btn.classList.remove("stop");
+  updateNav();
+}
+
+// ---- steps ----
+// Each step unlocks only when the previous one is complete.
+function stepState() {
+  const c = config();
+  const step1 = Boolean(state.wf && c.workflowId && c.companyId && c.hierarchyId);
+  const step3 = step1 && state.rows.length > 0 && !state.issues.length;
+  return { step1, step3, maxStep: step3 ? 4 : step1 ? 3 : 1 };
+}
+
+function updateNav() {
+  const { step1, step3, maxStep } = stepState();
+  const c = config();
+  const idPattern = /^[0-9a-f]{24}$/i;
+  const reason1 = !state.wf ? "Upload the workflow JSON."
+    : !c.workflowId ? "Enter the Workflow ID."
+    : !c.companyId ? "Enter the Company ID."
+    : "";
+  const idHint = [c.workflowId && !idPattern.test(c.workflowId) ? "Workflow ID" : "", c.companyId && !idPattern.test(c.companyId) ? "Company ID" : ""]
+    .filter(Boolean).join(" and ");
+  $("reason1").textContent = reason1 || (idHint ? `${idHint} doesn't look like a 24-character ID. Check it.` : "");
+  $("next1").disabled = !step1;
+  $("next3").disabled = !step3;
+  $("reason3").textContent = !state.rows.length ? "Upload the filled Excel file." : state.issues.length ? "Fix the issues listed above, then upload the file again." : "";
+
+  for (const li of $("stepper").children) {
+    const n = Number(li.dataset.step);
+    li.classList.toggle("active", n === state.step);
+    li.classList.toggle("done", n < state.step || (n === 1 && step1 && state.step !== 1) || (n === 3 && step3 && state.step > 3));
+    li.classList.toggle("reachable", n <= maxStep && !state.running);
+  }
+}
+
+function goTo(step) {
+  if (state.running || step > stepState().maxStep) return;
+  state.step = step;
+  for (let n = 1; n <= 4; n += 1) $(`step${n}`).classList.toggle("hidden", n !== step);
+  if (step === 4) renderSummary();
+  updateButton();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderSummary() {
+  const c = config();
+  const withId = state.rows.filter(r => r._id).length;
+  const people = new Set(state.rows.flatMap(r => state.contactCols.flatMap(col => entries(r[col]).map(e => e.email.toLowerCase()))));
+  $("summary").innerHTML = [
+    ["Workflow", state.wf.name],
+    ["Workflow ID", c.workflowId],
+    ["Company ID", c.companyId],
+    ["Hierarchy ID", c.hierarchyId],
+    ["Excel file", state.fileName],
+    ["Rows", `${state.rows.length} (${state.rows.length - withId} new, ${withId} update)`],
+    ["Roles", state.contactCols.map(col => state.wf.labels[col] || col).join(", ")],
+    ["People", `${people.size} unique`],
+  ].map(([k, v]) => `<div><b>${esc(k)}</b>${esc(v)}</div>`).join("");
+}
+
+$("stepper").addEventListener("click", e => {
+  const li = e.target.closest("li[data-step]");
+  if (li) goTo(Number(li.dataset.step));
+});
+$("next1").onclick = () => goTo(2);
+$("next2").onclick = () => goTo(3);
+$("next3").onclick = () => goTo(4);
+for (const btn of document.querySelectorAll("[data-back]")) btn.onclick = () => goTo(Number(btn.dataset.back));
+
+// Drops the uploaded sheet (used when the workflow changes).
+function clearSheet() {
+  Object.assign(state, { rows: [], headers: [], keyCols: [], contactCols: [], issues: [], fileName: "", results: new Map() });
+  $("fileName").classList.add("hidden");
+  $("previewSection").classList.add("hidden");
+}
+
+// ---- run ----
+$("runBtn").onclick = () => state.running ? stopRun() : startRun();
+
+function log(message, cls = "") {
+  const el = $("log");
+  const line = document.createElement("div");
+  if (cls) line.className = cls;
+  line.textContent = message;
+  el.appendChild(line);
+  el.scrollTop = el.scrollHeight;
+}
+
+async function startRun() {
+  const dry = $("dryRun").checked;
+  if (!dry) {
+    const c = config();
+    const msg = `Write ${state.rows.length} row(s) ONLY to this admin hierarchy:\n\n` +
+      (state.wf ? `Workflow:   ${state.wf.name}\n` : "") +
+      `Company ID:   ${c.companyId}\nWorkflow ID:  ${c.workflowId}\nHierarchy ID: ${c.hierarchyId}\n\n` +
+      `A read-only safety check runs first. If any row would touch another hierarchy or create a duplicate, nothing is sent.`;
+    if (!confirm(msg)) return;
+  }
+
+  state.results = new Map();
+  state.running = new AbortController();
+  $("runSection").classList.remove("hidden");
+  $("runTitle").textContent = dry ? "Dry Run" : "Upload Progress";
+  $("log").innerHTML = "";
+  $("bar").style.width = "0";
+  $("failedBtn").classList.add("hidden");
+  $("remainingBtn").classList.add("hidden");
+  $("statusText").textContent = dry ? "Building requests…" : "Starting…";
+  $("counts").textContent = "";
+  $("runBtn").textContent = "Stop";
+  $("runBtn").classList.add("stop");
+  setInputsDisabled(true);
+
+  let sent = 0, failed = 0, finished = false, stopped = false;
+  try {
+    const res = await fetch("/api/run", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        config: config(),
+        input: { rows: state.rows, keyCols: state.keyCols, contactCols: state.contactCols },
+        options: { apply: !dry, merge: $("merge").checked, ensureUsers: $("ensureUsers").checked },
+      }),
+      signal: state.running.signal,
+    });
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = "";
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      let nl;
+      while ((nl = buffer.indexOf("\n")) >= 0) {
+        const line = buffer.slice(0, nl);
+        buffer = buffer.slice(nl + 1);
+        if (!line.trim()) continue;
+        const ev = JSON.parse(line);
+        if (ev.type === "log") log(ev.message, ev.level === "error" ? "err" : ev.level === "warn" ? "warn" : "");
+        else if (ev.type === "error") { log(`Error: ${ev.message}`, "err"); $("statusText").textContent = "Stopped with an error. Nothing further was sent."; }
+        else if (ev.type === "preview") {
+          log(`Dry run: ${ev.total} request(s) would be sent. First ${ev.payloads.length}:`);
+          log(JSON.stringify(ev.payloads, null, 2));
+        } else if (ev.type === "row") {
+          state.results.set(ev.index, ev.ok);
+          ev.ok ? sent++ : failed++;
+          log(`${ev.ok ? "✓" : "✗"} Row ${ev.index + 2}: ${ev.message}`, ev.ok ? "ok" : "err");
+          $("counts").textContent = `${sent} sent · ${failed} failed`;
+        } else if (ev.type === "progress") {
+          $("bar").style.width = `${(ev.done / ev.total) * 100}%`;
+          $("statusText").textContent = `${ev.done} / ${ev.total} rows`;
+        } else if (ev.type === "done") {
+          finished = true;
+          stopped = ev.stopped;
+          $("bar").style.width = ev.stopped ? $("bar").style.width : "100%";
+          $("statusText").textContent = dry ? "Dry run complete. Turn off Dry run to upload."
+            : ev.stopped ? `Stopped: ${ev.sent} sent, ${ev.failed} failed.` : `Done: ${ev.sent} sent, ${ev.failed} failed.`;
+        }
+      }
+    }
+  } catch (err) {
+    if (err.name === "AbortError") log("Stopped by user. Rows already sent stay applied.", "warn");
+    else log(`Connection error: ${err.message}. Is the local server still running?`, "err");
+    $("statusText").textContent = "Stopped.";
+  }
+
+  state.running = null;
+  setInputsDisabled(false);
+  if (!dry && finished && !stopped && !failed && sent === state.rows.length) {
+    const c = config();
+    resetAll(`Upload complete: ${sent} row(s) sent to ${c.hierarchyId}${state.wf ? ` (${state.wf.name})` : ""}. Everything was reset for the next upload.`);
+    return;
+  }
+  if (!dry) {
+    if (failed) $("failedBtn").classList.remove("hidden");
+    if (state.results.size < state.rows.length && (state.results.size || !finished)) $("remainingBtn").classList.remove("hidden");
+  }
+  updateButton();
+}
+
+// Back to the first stage (after a fully successful upload, or when the workflow JSON is removed).
+function resetAll(message = "") {
+  clearSheet();
+  Object.assign(state, { wf: null, builder: null });
+  for (const id of ["companyId", "workflowId", "hierarchyId", "token", "fillContacts"]) $(id).value = "";
+  $("base").value = DEFAULT_BASE;
+  $("dryRun").checked = true;
+  $("merge").checked = false;
+  $("ensureUsers").checked = true;
+  for (const id of ["runSection", "wfName", "wfClear", "failedBtn", "remainingBtn"]) $(id).classList.add("hidden");
+  $("log").innerHTML = "";
+  $("bar").style.width = "0";
+  $("bannerText").textContent = message;
+  $("banner").classList.toggle("hidden", !message);
+  goTo(1);
+}
+$("bannerClose").onclick = () => $("banner").classList.add("hidden");
+
+function stopRun() {
+  state.running?.abort();
+}
+
+function setInputsDisabled(disabled) {
+  for (const el of document.querySelectorAll("input, .btn-back, .btn-next")) el.disabled = disabled;
+  drop.style.pointerEvents = disabled ? "none" : "";
+  updateNav();
+}
+
+// ---- downloads ----
+function downloadRows(rows, suffix) {
+  const ws = XLSX.utils.json_to_sheet(rows, { header: state.headers });
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Hierarchy");
+  const base = state.fileName.replace(/\.[^.]+$/, "") || "hierarchy";
+  XLSX.writeFile(wb, `${base}-${suffix}.xlsx`);
+}
+$("failedBtn").onclick = () => downloadRows(state.rows.filter((_, i) => state.results.get(i) === false), "failed");
+$("remainingBtn").onclick = () => downloadRows(state.rows.filter((_, i) => !state.results.has(i)), "unsent");
+
+// ---- template builder (from workflow JSON) ----
+const MAX_TEMPLATE_ROWS = 50000;
+
+function renderBuilder() {
+  const { keyCols, contactCols, values, labels } = state.wf;
+  const { selected, roles } = state.builder;
+
+  $("keyPickers").innerHTML = keyCols.map(col => {
+    const options = values[col];
+    if (!options) {
+      return `<div class="picker"><div class="picker-head"><b>${esc(labels[col])}</b><span>${esc(col)}</span></div>
+        <div class="free-text">Free-text field: the template gets one empty cell per row for you to fill.</div></div>`;
+    }
+    return `<div class="picker" data-col="${esc(col)}">
+      <div class="picker-head"><b>${esc(labels[col])}</b><span data-count>${selected[col].size} of ${options.length} · ${esc(col)}</span></div>
+      <input type="search" placeholder="Search ${esc(labels[col])}…" data-search>
+      <div class="pick-actions"><button class="link-btn" data-all>Select all</button> · <button class="link-btn" data-none>Clear</button> · <button class="link-btn" data-shown>Select only shown</button></div>
+      <div class="pick-list">${options.map(v =>
+        `<label data-value="${esc(v)}"><input type="checkbox" value="${esc(v)}" ${selected[col].has(v) ? "checked" : ""}>${esc(v)}</label>`).join("")}</div>
+    </div>`;
+  }).join("");
+
+  $("rolePicker").innerHTML = contactCols.map(col =>
+    `<label><input type="checkbox" value="${esc(col)}" ${roles.has(col) ? "checked" : ""}>${esc(labels[col])} <small>${esc(col)}</small></label>`).join("");
+
+  updateBuilderCount();
+}
+
+function templateRowCount() {
+  const { keyCols, values } = state.wf;
+  // A field with nothing selected stays in the template as an empty column to fill in Excel.
+  return keyCols.reduce((n, col) => n * (values[col] ? state.builder.selected[col].size || 1 : 1), 1);
+}
+
+function updateBuilderCount() {
+  const { keyCols, values, labels } = state.wf;
+  const parts = keyCols.map(col => {
+    const size = values[col] ? state.builder.selected[col].size : 0;
+    return size ? `${size} ${labels[col]}` : `${labels[col]} (empty, fill in Excel)`;
+  });
+  const rows = templateRowCount();
+  const tooMany = rows > MAX_TEMPLATE_ROWS ? ` <span class="warn-text">Too many rows, narrow the selection (max ${MAX_TEMPLATE_ROWS.toLocaleString()}).</span>` : "";
+  const noRoles = !state.builder.roles.size ? ` <span class="warn-text">Select at least one role.</span>` : "";
+  $("builderCount").innerHTML = `${parts.map(esc).join(" × ")} = <b>${rows.toLocaleString()} row(s)</b>, ${state.builder.roles.size} role column(s)${tooMany}${noRoles}`;
+  $("builderDownload").disabled = !state.builder.roles.size || rows > MAX_TEMPLATE_ROWS;
+  for (const picker of document.querySelectorAll(".picker[data-col]")) {
+    const col = picker.dataset.col;
+    picker.querySelector("[data-count]").textContent = `${state.builder.selected[col].size} of ${values[col].length} · ${col}`;
+  }
+}
+
+$("keyPickers").addEventListener("change", e => {
+  const picker = e.target.closest(".picker[data-col]");
+  if (!picker || e.target.type !== "checkbox") return;
+  const set = state.builder.selected[picker.dataset.col];
+  e.target.checked ? set.add(e.target.value) : set.delete(e.target.value);
+  updateBuilderCount();
+});
+
+$("keyPickers").addEventListener("input", e => {
+  if (!e.target.matches("[data-search]")) return;
+  const term = e.target.value.trim().toLowerCase();
+  for (const label of e.target.closest(".picker").querySelectorAll(".pick-list label")) {
+    label.classList.toggle("hidden", !label.dataset.value.toLowerCase().includes(term));
+  }
+});
+
+$("keyPickers").addEventListener("click", e => {
+  const picker = e.target.closest(".picker[data-col]");
+  if (!picker || !e.target.matches("[data-all],[data-none],[data-shown]")) return;
+  const set = state.builder.selected[picker.dataset.col];
+  for (const label of picker.querySelectorAll(".pick-list label")) {
+    const box = label.querySelector("input");
+    const shown = !label.classList.contains("hidden");
+    box.checked = e.target.matches("[data-all]") || (e.target.matches("[data-shown]") && shown);
+    box.checked ? set.add(box.value) : set.delete(box.value);
+  }
+  updateBuilderCount();
+});
+
+$("rolePicker").addEventListener("change", e => {
+  e.target.checked ? state.builder.roles.add(e.target.value) : state.builder.roles.delete(e.target.value);
+  updateBuilderCount();
+});
+
+document.querySelector("[data-roles=all]").onclick = () => { state.builder.roles = new Set(state.wf.contactCols); renderBuilder(); };
+document.querySelector("[data-roles=none]").onclick = () => { state.builder.roles = new Set(); renderBuilder(); };
+
+$("builderDownload").onclick = () => {
+  const { keyCols, contactCols, values, labels, hierarchyId, name } = state.wf;
+  const fill = $("fillContacts").value.trim();
+  const badFill = entries(fill).filter(e => !EMAIL_RE.test(e.email || ""));
+  if (badFill.length) return alert(`Not a valid email in the pre-fill box: ${badFill.map(e => e.email).join(", ")}`);
+
+  // Keep the workflow's order for values and roles.
+  const roleCols = contactCols.filter(c => state.builder.roles.has(c));
+  const picked = col => {
+    const chosen = values[col] ? values[col].filter(v => state.builder.selected[col].has(v)) : [];
+    return chosen.length ? chosen : [""];
+  };
+  let combos = [[]];
+  for (const col of keyCols) combos = combos.flatMap(combo => picked(col).map(v => [...combo, v]));
+
+  const headers = ["_id", ...keyCols, ...roleCols];
+  const data = XLSX.utils.aoa_to_sheet([headers, ...combos.map(combo => ["", ...combo, ...roleCols.map(() => fill)])]);
+  data["!cols"] = headers.map(h => ({ wch: h === "_id" ? 10 : keyCols.includes(h) ? 32 : 36 }));
+  data["!autofilter"] = { ref: XLSX.utils.encode_range({ s: { r: 0, c: 0 }, e: { r: combos.length, c: headers.length - 1 } }) };
+
+  const guide = XLSX.utils.aoa_to_sheet([
+    [`Admin hierarchy template: ${name}`],
+    [`Hierarchy ID: ${hierarchyId}`],
+    [],
+    ["Column", "Name in the portal", "What to put in it"],
+    ["_id", "", "Leave empty for new rows. Only set it to replace an existing row's contacts."],
+    ...keyCols.map(c => [c, labels[c], !values[c] ? "Free text: fill in the value."
+      : state.builder.selected[c].size ? "Do not change. Must match the workflow exactly (see 'Allowed values')."
+      : "Left empty for you: fill in a value from 'Allowed values', exactly as written there. Rows with an empty value cannot be uploaded."]),
+    ...roleCols.map(c => [c, labels[c], "Emails, separated by ; (e.g. a@company.com; b@company.com). Use email|userId if the ID is known. May be empty."]),
+    [],
+    ["Keep 'Hierarchy' as the first sheet and do not rename its column headers. Delete rows you don't need."],
+    ["Then upload this file in the Admin Hierarchy Uploader with the same workflow JSON loaded."],
+  ]);
+  guide["!cols"] = [{ wch: 28 }, { wch: 32 }, { wch: 100 }];
+
+  const listCols = keyCols.filter(c => values[c]);
+  const longest = Math.max(0, ...listCols.map(c => values[c].length));
+  const allowed = XLSX.utils.aoa_to_sheet([
+    listCols.map(c => `${labels[c]} (${c})`),
+    ...Array.from({ length: longest }, (_, i) => listCols.map(c => values[c][i] ?? "")),
+  ]);
+  allowed["!cols"] = listCols.map(() => ({ wch: 40 }));
+
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, data, "Hierarchy");
+  XLSX.utils.book_append_sheet(wb, guide, "How to fill");
+  XLSX.utils.book_append_sheet(wb, allowed, "Allowed values");
+  XLSX.writeFile(wb, `${hierarchyId}-admin-hierarchy.xlsx`);
+};
+
+goTo(1);
+</script>
+</body>
+</html>

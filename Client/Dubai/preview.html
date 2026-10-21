@@ -1,0 +1,1013 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Popup Preview</title>
+<style>
+  body{margin:0;font-family:Mulish,Arial,sans-serif;color:#222;background:#fff}
+  nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:18px 48px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+  nav b{color:#04331d;font-size:22px} nav a{margin-left:22px;color:#3c6e35;text-decoration:none;border-bottom:1px solid #cfa64b;font-size:14px}
+  .hero{padding:60px 48px;max-width:620px} .hero h1{font-size:26px}
+  .btn{display:inline-block;background:#cfa64b;color:#fff;padding:10px 18px;text-decoration:none;font-size:14px}
+  footer{background:#04331d;color:#fff;padding:40px 48px;margin-top:200px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+</style></head>
+<body>
+<nav><b>SLP × emojot</b><div><a href="#about">About</a><a href="#offer">Offer details</a><a href="#reg">Register interest</a></div></nav>
+<section class="hero">
+  <h1>We are proud partners to Dubai Department of Economy and Tourism…</h1>
+  <p>Mock of the Wix page. Every “Register interest” link/button opens the popup.</p>
+  <a class="btn" href="#">Register insterest</a>
+</section>
+<footer><div><h2>Are you interested?</h2><p>See what faster guest response could look like for your business.</p></div>
+<a class="btn" href="#">Register interest</a></footer>
+<!-- ===== popup snippet (copied from emojot-register-popup.html) ===== -->
+<!--
+  SLP – Emojot | Register Interest + Book Session popup
+  ------------------------------------------------------
+  Paste this whole file into Wix:  Settings → Custom Code → + Add Custom Code
+    • Add Code to Pages: the landing page only
+    • Place Code in: Body - end
+  Any button/link whose text is "Register interest" (or links to #register)
+  will open the popup. See README.md for setup.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  .ejr-root {
+    --ejr-green-900: #04331d;   /* footer / dark band */
+    --ejr-green-700: #3c6e35;   /* section headings   */
+    --ejr-teal: #17675b;        /* sub-headings       */
+    --ejr-gold: #cfa64b;        /* CTA buttons        */
+    --ejr-gold-dark: #b38c35;
+    --ejr-gold-soft: #f6eedb;
+    --ejr-mint: #eef6f1;        /* "What businesses will gain" panel */
+    --ejr-line: #d6e4dc;
+    --ejr-text: #2a2a2a;
+    --ejr-muted: #5f6b66;
+    --ejr-error: #b3261e;
+    font-family: "Mulish", "Helvetica Neue", Arial, sans-serif;
+    color: var(--ejr-text);
+    -webkit-font-smoothing: antialiased;
+  }
+  .ejr-root *, .ejr-root *::before, .ejr-root *::after { box-sizing: border-box; }
+
+  /* ---------- overlay / modal ---------- */
+  .ejr-overlay {
+    position: fixed; inset: 0; z-index: 2147483000;
+    background: rgba(4, 51, 29, .55);
+    backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px; opacity: 0; visibility: hidden;
+    transition: opacity .25s ease, visibility .25s ease;
+  }
+  .ejr-overlay.ejr-open { opacity: 1; visibility: visible; }
+  .ejr-modal {
+    position: relative; width: 100%; max-width: 640px;
+    max-height: calc(100vh - 32px); overflow: auto;
+    background: #fff; border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(4, 51, 29, .35);
+    transform: translateY(16px) scale(.98); transition: transform .25s ease;
+  }
+  .ejr-overlay.ejr-open .ejr-modal { transform: none; }
+  .ejr-inline .ejr-modal { max-height: none; box-shadow: none; transform: none; margin: 0 auto; }
+
+  .ejr-head {
+    background: var(--ejr-green-900); color: #fff;
+    padding: 22px 28px 18px; border-radius: 18px 18px 0 0;
+    border-bottom: 3px solid var(--ejr-gold);
+  }
+  .ejr-brand { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 700;
+    letter-spacing: .04em; text-transform: uppercase; color: var(--ejr-gold); }
+  .ejr-brand img { height: 26px; width: auto; display: block; }
+  .ejr-head h2 { margin: 8px 0 4px; font-size: 22px; font-weight: 800; line-height: 1.25; color: #fff; }
+  .ejr-head p { margin: 0; font-size: 14px; color: rgba(255,255,255,.82); line-height: 1.5; }
+  .ejr-close {
+    position: absolute; top: 14px; right: 14px; width: 36px; height: 36px;
+    border: 0; border-radius: 50%; background: rgba(255,255,255,.1); color: #fff;
+    font-size: 22px; line-height: 1; cursor: pointer; transition: background .2s;
+  }
+  .ejr-close:hover { background: rgba(255,255,255,.22); }
+  .ejr-inline .ejr-close { display: none; }
+
+  /* ---------- stepper ---------- */
+  .ejr-steps { display: flex; gap: 8px; padding: 18px 28px 0; list-style: none; margin: 0; }
+  .ejr-steps li { flex: 1; display: flex; align-items: center; gap: 8px; font-size: 13px;
+    font-weight: 700; color: var(--ejr-muted); }
+  .ejr-steps li::after { content: ""; flex: 1; height: 2px; background: var(--ejr-line); border-radius: 2px; }
+  .ejr-steps li:last-child { flex: 0 0 auto; }
+  .ejr-steps li:last-child::after { display: none; }
+  .ejr-num { flex: 0 0 26px; width: 26px; height: 26px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--ejr-mint); color: var(--ejr-teal); font-size: 13px; font-weight: 800; }
+  .ejr-steps li.ejr-active { color: var(--ejr-green-900); }
+  .ejr-steps li.ejr-active .ejr-num { background: var(--ejr-gold); color: #fff; }
+  .ejr-steps li.ejr-done .ejr-num { background: var(--ejr-teal); color: #fff; }
+  .ejr-steps li.ejr-done::after { background: var(--ejr-teal); }
+
+  /* ---------- body ---------- */
+  .ejr-body { padding: 20px 28px 28px; }
+  .ejr-pane[hidden], .ejr-root [hidden] { display: none !important; }
+  .ejr-pane h3 { margin: 0 0 4px; font-size: 18px; font-weight: 800; color: var(--ejr-green-700); }
+  .ejr-lead { margin: 0 0 18px; font-size: 14px; color: var(--ejr-muted); line-height: 1.5; }
+
+  .ejr-field { margin-bottom: 14px; }
+  .ejr-field label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; color: var(--ejr-teal); }
+  .ejr-field label .ejr-req { color: var(--ejr-gold-dark); }
+  .ejr-input-wrap { position: relative; }
+  .ejr-input-wrap svg { position: absolute; left: 13px; top: 50%; width: 18px; height: 18px;
+    transform: translateY(-50%); fill: #8a9a92; pointer-events: none; }
+  .ejr-field input {
+    width: 100%; height: 46px; padding: 0 14px 0 40px;
+    font: inherit; font-size: 15px; color: var(--ejr-text);
+    background: #fff; border: 1.5px solid var(--ejr-line); border-radius: 8px;
+    outline: none; transition: border-color .2s, box-shadow .2s;
+  }
+  .ejr-field input::placeholder { color: #9aa7a1; }
+  .ejr-field input:focus { border-color: var(--ejr-teal); box-shadow: 0 0 0 3px rgba(23,103,91,.14); }
+  .ejr-field.ejr-invalid input { border-color: var(--ejr-error); }
+  .ejr-err { display: none; margin-top: 5px; font-size: 12.5px; color: var(--ejr-error); }
+  .ejr-field.ejr-invalid .ejr-err { display: block; }
+  .ejr-phone { display: flex; }
+  .ejr-cc { position: relative; flex: 0 0 auto; display: flex; align-items: center; gap: 6px;
+    height: 46px; padding: 0 26px 0 12px; background: var(--ejr-mint); color: var(--ejr-green-900);
+    border: 1.5px solid var(--ejr-line); border-right: 0; border-radius: 8px 0 0 8px;
+    font-size: 14.5px; font-weight: 700; white-space: nowrap; transition: border-color .2s; }
+  .ejr-cc::after { content: ""; position: absolute; right: 11px; top: 50%; width: 6px; height: 6px; margin-top: -5px;
+    border-right: 2px solid var(--ejr-teal); border-bottom: 2px solid var(--ejr-teal); transform: rotate(45deg); }
+  .ejr-cc-flag { font-size: 18px; line-height: 1; }
+  .ejr-cc select { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 16px; }
+  .ejr-phone input { flex: 1; min-width: 0; padding-left: 12px; border-radius: 0 8px 8px 0; }
+  .ejr-phone:focus-within .ejr-cc { border-color: var(--ejr-teal); }
+  .ejr-field.ejr-invalid .ejr-cc { border-color: var(--ejr-error); }
+  .ejr-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+
+  .ejr-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; opacity: 0; }
+
+  .ejr-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; min-height: 48px; padding: 0 22px; border: 0; border-radius: 3px;
+    font: inherit; font-size: 15px; font-weight: 700; color: #fff; cursor: pointer;
+    background: var(--ejr-gold); transition: background .2s, transform .1s;
+    text-decoration: none;
+  }
+  .ejr-btn:hover { background: var(--ejr-gold-dark); }
+  .ejr-btn:active { transform: translateY(1px); }
+  .ejr-btn[disabled] { background: #d9cfb6; cursor: not-allowed; }
+  .ejr-btn-outline { background: #fff; color: var(--ejr-green-900); border: 1.5px solid var(--ejr-line); }
+  .ejr-btn-outline:hover { background: var(--ejr-mint); }
+  .ejr-link { background: none; border: 0; padding: 0; font: inherit; font-size: 13.5px; font-weight: 700;
+    color: var(--ejr-teal); text-decoration: underline; cursor: pointer; }
+  .ejr-hint { display: flex; gap: 10px; align-items: flex-start; margin: 16px 0 0; padding: 12px 14px;
+    background: var(--ejr-mint); border-radius: 10px; font-size: 13px; color: var(--ejr-teal); line-height: 1.45; }
+  .ejr-hint svg { flex: 0 0 18px; width: 18px; height: 18px; fill: var(--ejr-teal); margin-top: 1px; }
+  .ejr-alert { display: none; margin: 0 0 14px; padding: 10px 14px; border-radius: 8px;
+    background: #fdecea; color: var(--ejr-error); font-size: 13.5px; }
+  .ejr-alert.ejr-show { display: block; }
+
+  /* ---------- booking ---------- */
+  .ejr-who { display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    margin: 0 0 16px; padding: 10px 14px; border: 1px dashed var(--ejr-line); border-radius: 10px;
+    font-size: 13.5px; color: var(--ejr-muted); }
+  .ejr-who strong { color: var(--ejr-green-900); }
+  .ejr-book { display: grid; grid-template-columns: 1.15fr 1fr; gap: 18px; }
+  .ejr-cal { background: #fff; border: 1.5px solid var(--ejr-line); border-radius: 14px; padding: 14px 14px 12px; }
+  .ejr-pick { display: flex; align-items: center; gap: 8px; margin: 0 0 10px; font-size: 14px; font-weight: 800; color: var(--ejr-green-900); }
+  .ejr-pick b { width: 22px; height: 22px; border-radius: 50%; background: var(--ejr-green-900); color: #fff;
+    display: inline-flex; align-items: center; justify-content: center; font-size: 12px; }
+  .ejr-cal-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;
+    padding: 6px; background: var(--ejr-mint); border-radius: 10px; }
+  .ejr-cal-head strong { font-size: 15.5px; font-weight: 800; color: var(--ejr-green-900); }
+  .ejr-cal-nav { width: 34px; height: 34px; border: 1.5px solid var(--ejr-line); border-radius: 8px; background: #fff;
+    color: var(--ejr-green-900); font-size: 20px; font-weight: 700; line-height: 1; cursor: pointer; transition: background .15s, color .15s; }
+  .ejr-cal-nav:hover:not([disabled]) { background: var(--ejr-green-900); color: #fff; border-color: var(--ejr-green-900); }
+  .ejr-cal-nav[disabled] { opacity: .3; cursor: default; }
+  .ejr-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; }
+  .ejr-dow { font-size: 12px; font-weight: 800; color: var(--ejr-teal); padding: 2px 0 6px; text-transform: uppercase; letter-spacing: .03em; }
+  .ejr-dow.ejr-we { color: #a9b6b0; }
+  .ejr-day { position: relative; aspect-ratio: 1; min-height: 36px; border: 1.5px solid #b9d5c8; border-radius: 10px;
+    background: var(--ejr-mint); font: inherit; font-size: 15px; font-weight: 800; color: var(--ejr-green-900);
+    cursor: pointer; transition: background .15s, color .15s, border-color .15s, transform .1s; }
+  .ejr-day:hover:not([disabled]):not(.ejr-sel) { background: var(--ejr-teal); border-color: var(--ejr-teal); color: #fff; }
+  .ejr-day:active:not([disabled]) { transform: scale(.94); }
+  .ejr-day[disabled] { background: transparent; border-color: transparent; color: #c3ccc8; font-weight: 500;
+    text-decoration: line-through; cursor: default; }
+  .ejr-day.ejr-sel { background: var(--ejr-gold); border-color: var(--ejr-gold-dark); color: #fff;
+    box-shadow: 0 4px 10px rgba(179, 140, 53, .4); }
+  .ejr-day.ejr-today::after { content: ""; position: absolute; left: 50%; bottom: 4px; width: 5px; height: 5px;
+    margin-left: -2.5px; border-radius: 50%; background: var(--ejr-gold-dark); }
+  .ejr-day.ejr-today.ejr-sel::after { background: #fff; }
+  .ejr-legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 12px; padding-top: 10px;
+    border-top: 1px solid var(--ejr-line); font-size: 12px; color: var(--ejr-muted); }
+  .ejr-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .ejr-legend i { width: 14px; height: 14px; border-radius: 4px; display: inline-block; }
+  .ejr-legend .l-av { background: var(--ejr-mint); border: 1.5px solid #b9d5c8; }
+  .ejr-legend .l-sel { background: var(--ejr-gold); }
+  .ejr-legend .l-na { background: #eef1f0; }
+  .ejr-slots-title { margin: 0 0 4px; font-size: 15px; font-weight: 800; color: var(--ejr-teal); }
+  .ejr-tz { margin: 0 0 12px; font-size: 12px; color: var(--ejr-muted); }
+  .ejr-slots { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; max-height: 300px; overflow: auto; padding-right: 2px; }
+  .ejr-slot { padding: 10px 6px; border: 1.5px solid #b9d5c8; border-radius: 10px; background: var(--ejr-mint);
+    font: inherit; font-size: 14.5px; font-weight: 800; color: var(--ejr-green-900); cursor: pointer; line-height: 1.25;
+    transition: background .15s, color .15s, border-color .15s; }
+  .ejr-slot small { display: block; margin-top: 2px; font-size: 11px; font-weight: 600; color: var(--ejr-muted); }
+  .ejr-slot:hover:not(.ejr-sel) { background: var(--ejr-teal); border-color: var(--ejr-teal); color: #fff; }
+  .ejr-slot:hover:not(.ejr-sel) small { color: rgba(255,255,255,.85); }
+  .ejr-slot.ejr-sel { background: var(--ejr-gold); border-color: var(--ejr-gold-dark); color: #fff; box-shadow: 0 4px 10px rgba(179, 140, 53, .4); }
+  .ejr-slot.ejr-sel small { color: rgba(255,255,255,.9); }
+  .ejr-empty { grid-column: 1 / -1; padding: 22px 8px; text-align: center; font-size: 13px; color: var(--ejr-muted);
+    border: 1px dashed var(--ejr-line); border-radius: 10px; }
+  .ejr-summary { margin: 16px 0 12px; font-size: 14px; color: var(--ejr-teal); font-weight: 700; min-height: 20px; }
+  .ejr-actions { display: flex; gap: 12px; align-items: center; }
+  .ejr-actions .ejr-btn { flex: 1; }
+
+  /* ---------- success ---------- */
+  .ejr-success { text-align: center; padding: 8px 0 4px; }
+  .ejr-check { width: 64px; height: 64px; margin: 0 auto 14px; border-radius: 50%;
+    background: var(--ejr-mint); display: flex; align-items: center; justify-content: center; }
+  .ejr-check svg { width: 32px; height: 32px; fill: var(--ejr-teal); }
+  .ejr-when { display: inline-block; margin: 6px 0 18px; padding: 12px 18px; border-radius: 12px;
+    background: var(--ejr-gold-soft); color: var(--ejr-green-900); font-weight: 800; font-size: 15px; line-height: 1.45; }
+  .ejr-when small { display: block; font-weight: 600; font-size: 12.5px; color: var(--ejr-muted); }
+  .ejr-cal-links { display: flex; gap: 10px; margin-bottom: 12px; }
+  .ejr-cal-links .ejr-btn { flex: 1; font-size: 14px; min-height: 44px; }
+
+  /* ---------- "don't leave yet" nudge ---------- */
+  .ejr-nudge { position: absolute; inset: 0; z-index: 2; display: none; align-items: center; justify-content: center;
+    padding: 24px; background: #fff; border-radius: 18px; text-align: center; }
+  .ejr-nudge.ejr-show { display: flex; }
+  .ejr-nudge-box { max-width: 380px; }
+  .ejr-nudge h4 { margin: 0 0 8px; font-size: 19px; font-weight: 800; color: var(--ejr-green-700); }
+  .ejr-nudge p { margin: 0 0 18px; font-size: 14px; color: var(--ejr-muted); line-height: 1.5; }
+  .ejr-nudge .ejr-btn { margin-bottom: 10px; }
+
+  .ejr-spin-dark { display: inline-block; vertical-align: -4px; margin-right: 6px; border-color: var(--ejr-line); border-top-color: var(--ejr-teal); }
+  .ejr-cal.ejr-loading .ejr-cal-grid { opacity: .45; pointer-events: none; }
+  .ejr-spin { width: 18px; height: 18px; border: 2.5px solid rgba(255,255,255,.45); border-top-color: #fff;
+    border-radius: 50%; animation: ejr-spin .8s linear infinite; }
+  @keyframes ejr-spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 600px) {
+    .ejr-overlay { padding: 0; align-items: flex-end; }
+    .ejr-modal { max-height: 94vh; border-radius: 18px 18px 0 0; }
+    .ejr-head { padding: 20px 20px 16px; }
+    .ejr-head h2 { font-size: 19px; padding-right: 30px; }
+    .ejr-steps { padding: 16px 20px 0; }
+    .ejr-steps .ejr-step-label { display: none; }
+    .ejr-steps li.ejr-active .ejr-step-label { display: inline; }
+    .ejr-body { padding: 18px 20px 24px; }
+    .ejr-grid-2, .ejr-book { grid-template-columns: 1fr; }
+    .ejr-slots { grid-template-columns: repeat(3, 1fr); max-height: none; }
+    .ejr-cal-links { flex-direction: column; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ejr-overlay, .ejr-modal { transition: none; }
+  }
+</style>
+
+<script>
+(function () {
+  if (window.__ejrLoaded) return;
+  window.__ejrLoaded = true;
+
+  /* =====================================================================
+     CONFIG — edit these values
+     ===================================================================== */
+  var CONFIG = {
+    // Google Apps Script web app URL (see apps-script/ + README). When set, the calendar shows
+    // REAL free slots from Google Calendar, bookings create a Calendar event + Google Meet invite,
+    // and all emails are sent by the script, so WEB3FORMS_KEY isn't needed.
+    BOOKING_API_URL: 'https://script.google.com/macros/s/AKfycbxIL816Kj4hDayjsalUZx_8Mjc_7WjvaEWpGlB1m-eWjMPpt1aM_4iDEBcapLXc-THQfg/exec',
+
+    // Only used when BOOKING_API_URL is empty: free key from https://web3forms.com (enter the inbox that should receive leads).
+    // While this is left as-is the form runs in TEST mode (logs to console, sends nothing).
+    WEB3FORMS_KEY: 'YOUR_WEB3FORMS_ACCESS_KEY',
+
+    // Send a "lead" email right after step 1, so you still get the contact
+    // even if they don't finish booking. A second email follows with the booking.
+    EMAIL_ON_REGISTER: true,
+
+    LOGO_URL: '',                       // optional: white/transparent logo for the dark header
+    MEETING_TITLE: 'SLP – Emojot introductory session',
+    MEETING_MINUTES: 30,
+
+    // Availability (Dubai time, GST = UTC+4, no daylight saving).
+    // With BOOKING_API_URL set, the real rules live in the Apps Script CONFIG; keep WORK_DAYS in sync.
+    UTC_OFFSET_HOURS: 4,
+    TZ_LABEL: 'Dubai time (GST)',
+    WORK_DAYS: [1, 2, 3, 4, 5],         // 0=Sun … 6=Sat  (UAE weekend = Sat/Sun)
+    DAY_START: '10:00',
+    DAY_END: '17:00',                   // last slot starts DAY_END minus MEETING_MINUTES
+    SLOT_STEP_MINUTES: 30,
+    MIN_NOTICE_HOURS: 18,               // earliest bookable time from "now"
+    MAX_DAYS_AHEAD: 30,
+    BLOCKED_DATES: [],                  // e.g. ['2026-12-02', '2026-12-03']
+
+    DEFAULT_COUNTRY: 'AE',             // phone country when it can't be guessed from the visitor's timezone
+    BLOCK_FREE_EMAIL: false,            // true = reject gmail/yahoo/hotmail… addresses
+
+    // What opens the popup
+    TRIGGER_TEXT: /register\s+in?s?terest/i,  // also matches the page typo "insterest"
+    TRIGGER_HASH: '#register'
+  };
+  /* ===================================================================== */
+
+  var API = CONFIG.BOOKING_API_URL;
+  var TEST_MODE = !API && (!CONFIG.WEB3FORMS_KEY || CONFIG.WEB3FORMS_KEY.indexOf('YOUR_') === 0);
+  var STORE_KEY = 'ejr_lead_v1';
+  var FREE_DOMAINS = ['gmail.com','yahoo.com','hotmail.com','outlook.com','live.com','icloud.com','aol.com','msn.com','ymail.com','proton.me','protonmail.com','gmx.com','mail.com'];
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var DOW = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+
+  var inline = !/[?&]ejr=popup/.test(location.search) && (window.self !== window.top || !!document.getElementById('ejr-inline'));
+  var state = { step: 1, lead: null, date: null, slot: null, viewY: 0, viewM: 0, nudged: false, booked: false,
+    avail: null, availAt: 0, availStatus: 'idle' };   // avail = { 'yyyy-mm-dd': [minutes…] } from the API
+  var lastFocus = null;
+
+  var ICON = {
+    user: '<svg viewBox="0 0 24 24"><path d="M12 12a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9Zm0 2c-4 0-8 2-8 5v2h16v-2c0-3-4-5-8-5Z"/></svg>',
+    org: '<svg viewBox="0 0 24 24"><path d="M4 21V3h10v4h6v14H4Zm2-2h2v-2H6v2Zm0-4h2v-2H6v2Zm0-4h2V9H6v2Zm0-4h2V5H6v2Zm4 12h2v-2h-2v2Zm0-4h2v-2h-2v2Zm0-4h2V9h-2v2Zm0-4h2V5h-2v2Zm4 12h4v-2h-4v2Zm0-4h4v-2h-4v2Zm0-4h4V9h-4v2Z"/></svg>',
+    mail: '<svg viewBox="0 0 24 24"><path d="M3 5h18v14H3V5Zm9 7 7-4.5V7l-7 4.5L5 7v.5L12 12Z"/></svg>',
+    phone: '<svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg>',
+    cal: '<svg viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7Zm-2 8h14v10H5V10Z"/></svg>',
+    check: '<svg viewBox="0 0 24 24"><path d="m9 16.2-4.2-4.2-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2Z"/></svg>'
+  };
+
+  /* ---------------- helpers ---------------- */
+  function $(sel, ctx) { return (ctx || root).querySelector(sel); }
+  function $all(sel, ctx) { return Array.prototype.slice.call((ctx || root).querySelectorAll(sel)); }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function hm(str) { var p = str.split(':'); return (+p[0]) * 60 + (+p[1]); }
+  function ymd(y, m, d) { return y + '-' + pad(m + 1) + '-' + pad(d); }
+  function store(v) { try { v ? sessionStorage.setItem(STORE_KEY, JSON.stringify(v)) : sessionStorage.removeItem(STORE_KEY); } catch (e) {} }
+  function load() { try { return JSON.parse(sessionStorage.getItem(STORE_KEY) || 'null'); } catch (e) { return null; } }
+
+  // A wall-clock time in Dubai → real Date
+  function dubaiToDate(y, m, d, minutes) {
+    return new Date(Date.UTC(y, m, d, 0, minutes) - CONFIG.UTC_OFFSET_HOURS * 3600e3);
+  }
+  // "Now" expressed as Dubai wall-clock parts
+  function dubaiNow() {
+    var t = new Date(Date.now() + CONFIG.UTC_OFFSET_HOURS * 3600e3);
+    return { y: t.getUTCFullYear(), m: t.getUTCMonth(), d: t.getUTCDate() };
+  }
+  function fmt12(minutes) {
+    var h = Math.floor(minutes / 60), mi = minutes % 60, ap = h >= 12 ? 'PM' : 'AM';
+    return ((h % 12) || 12) + ':' + pad(mi) + ' ' + ap;
+  }
+  function localTime(date) { return date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }); }
+  function localDateTime(date) {
+    return date.toLocaleString([], { weekday: 'short', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' });
+  }
+  var visitorTZ = (function () { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { return ''; } })();
+  var visitorIsDubaiTime = -new Date().getTimezoneOffset() === CONFIG.UTC_OFFSET_HOURS * 60;
+
+  function longDate(y, m, d) {
+    var wd = new Date(Date.UTC(y, m, d)).getUTCDay();
+    return ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][wd] + ', ' + d + ' ' + MONTHS[m] + ' ' + y;
+  }
+
+  function dayAvailable(y, m, d) {
+    if (API) { var a = state.avail && state.avail[ymd(y, m, d)]; return !!(a && slotsFor(y, m, d).length); }
+    var wd = new Date(Date.UTC(y, m, d)).getUTCDay();
+    if (CONFIG.WORK_DAYS.indexOf(wd) < 0) return false;
+    if (CONFIG.BLOCKED_DATES.indexOf(ymd(y, m, d)) >= 0) return false;
+    var t = dubaiNow();
+    var maxDay = Date.UTC(t.y, t.m, t.d + CONFIG.MAX_DAYS_AHEAD);
+    if (Date.UTC(y, m, d) > maxDay) return false;
+    return slotsFor(y, m, d).length > 0;
+  }
+
+  function slotsFor(y, m, d) {
+    var out = [], earliest = Date.now() + CONFIG.MIN_NOTICE_HOURS * 3600e3;
+    if (API) {
+      return ((state.avail && state.avail[ymd(y, m, d)]) || []).map(function (t) { return { minutes: t, date: dubaiToDate(y, m, d, t) }; })
+        .filter(function (s) { return s.date.getTime() >= Date.now(); });
+    }
+    var end = hm(CONFIG.DAY_END) - CONFIG.MEETING_MINUTES;
+    for (var t = hm(CONFIG.DAY_START); t <= end; t += CONFIG.SLOT_STEP_MINUTES) {
+      var dt = dubaiToDate(y, m, d, t);
+      if (dt.getTime() >= earliest) out.push({ minutes: t, date: dt });
+    }
+    return out;
+  }
+
+  /* ---------------- phone / country codes ---------------- */
+  // ISO|Name|Dial code
+  var COUNTRIES = ('AF|Afghanistan|93,AL|Albania|355,DZ|Algeria|213,AD|Andorra|376,AO|Angola|244,AR|Argentina|54,AM|Armenia|374,' +
+    'AU|Australia|61,AT|Austria|43,AZ|Azerbaijan|994,BS|Bahamas|1,BH|Bahrain|973,BD|Bangladesh|880,BB|Barbados|1,BY|Belarus|375,' +
+    'BE|Belgium|32,BZ|Belize|501,BJ|Benin|229,BT|Bhutan|975,BO|Bolivia|591,BA|Bosnia and Herzegovina|387,BW|Botswana|267,BR|Brazil|55,' +
+    'BN|Brunei|673,BG|Bulgaria|359,BF|Burkina Faso|226,BI|Burundi|257,KH|Cambodia|855,CM|Cameroon|237,CA|Canada|1,CV|Cape Verde|238,' +
+    'CF|Central African Republic|236,TD|Chad|235,CL|Chile|56,CN|China|86,CO|Colombia|57,KM|Comoros|269,CG|Congo|242,' +
+    'CD|Congo (DRC)|243,CR|Costa Rica|506,CI|Côte d’Ivoire|225,HR|Croatia|385,CU|Cuba|53,CY|Cyprus|357,CZ|Czechia|420,DK|Denmark|45,' +
+    'DJ|Djibouti|253,DO|Dominican Republic|1,EC|Ecuador|593,EG|Egypt|20,SV|El Salvador|503,GQ|Equatorial Guinea|240,ER|Eritrea|291,' +
+    'EE|Estonia|372,SZ|Eswatini|268,ET|Ethiopia|251,FJ|Fiji|679,FI|Finland|358,FR|France|33,GA|Gabon|241,GM|Gambia|220,GE|Georgia|995,' +
+    'DE|Germany|49,GH|Ghana|233,GR|Greece|30,GT|Guatemala|502,GN|Guinea|224,GY|Guyana|592,HT|Haiti|509,HN|Honduras|504,HK|Hong Kong|852,' +
+    'HU|Hungary|36,IS|Iceland|354,IN|India|91,ID|Indonesia|62,IR|Iran|98,IQ|Iraq|964,IE|Ireland|353,IL|Israel|972,IT|Italy|39,' +
+    'JM|Jamaica|1,JP|Japan|81,JO|Jordan|962,KZ|Kazakhstan|7,KE|Kenya|254,KW|Kuwait|965,KG|Kyrgyzstan|996,LA|Laos|856,LV|Latvia|371,' +
+    'LB|Lebanon|961,LS|Lesotho|266,LR|Liberia|231,LY|Libya|218,LI|Liechtenstein|423,LT|Lithuania|370,LU|Luxembourg|352,MO|Macau|853,' +
+    'MG|Madagascar|261,MW|Malawi|265,MY|Malaysia|60,MV|Maldives|960,ML|Mali|223,MT|Malta|356,MR|Mauritania|222,MU|Mauritius|230,' +
+    'MX|Mexico|52,MD|Moldova|373,MC|Monaco|377,MN|Mongolia|976,ME|Montenegro|382,MA|Morocco|212,MZ|Mozambique|258,MM|Myanmar|95,' +
+    'NA|Namibia|264,NP|Nepal|977,NL|Netherlands|31,NZ|New Zealand|64,NI|Nicaragua|505,NE|Niger|227,NG|Nigeria|234,KP|North Korea|850,' +
+    'MK|North Macedonia|389,NO|Norway|47,OM|Oman|968,PK|Pakistan|92,PS|Palestine|970,PA|Panama|507,PG|Papua New Guinea|675,' +
+    'PY|Paraguay|595,PE|Peru|51,PH|Philippines|63,PL|Poland|48,PT|Portugal|351,PR|Puerto Rico|1,QA|Qatar|974,RO|Romania|40,' +
+    'RU|Russia|7,RW|Rwanda|250,SA|Saudi Arabia|966,SN|Senegal|221,RS|Serbia|381,SC|Seychelles|248,SL|Sierra Leone|232,SG|Singapore|65,' +
+    'SK|Slovakia|421,SI|Slovenia|386,SO|Somalia|252,ZA|South Africa|27,KR|South Korea|82,SS|South Sudan|211,ES|Spain|34,' +
+    'LK|Sri Lanka|94,SD|Sudan|249,SR|Suriname|597,SE|Sweden|46,CH|Switzerland|41,SY|Syria|963,TW|Taiwan|886,TJ|Tajikistan|992,' +
+    'TZ|Tanzania|255,TH|Thailand|66,TL|Timor-Leste|670,TG|Togo|228,TT|Trinidad and Tobago|1,TN|Tunisia|216,TR|Türkiye|90,' +
+    'TM|Turkmenistan|993,UG|Uganda|256,UA|Ukraine|380,AE|United Arab Emirates|971,GB|United Kingdom|44,US|United States|1,' +
+    'UY|Uruguay|598,UZ|Uzbekistan|998,VE|Venezuela|58,VN|Vietnam|84,YE|Yemen|967,ZM|Zambia|260,ZW|Zimbabwe|263')
+    .split(',').map(function (r) { var p = r.split('|'); return { iso: p[0], name: p[1], dial: p[2] }; });
+  var PINNED = ['AE', 'SA', 'QA', 'KW', 'BH', 'OM', 'LK', 'IN'];   // shown first in the list
+  // Allowed national-number lengths (after removing a leading 0); others accept 6–14 digits
+  var PHONE_LEN = { AE: [8, 9], SA: [9, 9], QA: [8, 8], KW: [8, 8], BH: [8, 8], OM: [8, 8], LK: [9, 9], IN: [10, 10],
+    PK: [10, 10], BD: [10, 10], NP: [10, 10], MV: [7, 7], GB: [10, 10], US: [10, 10], CA: [10, 10], AU: [9, 9],
+    SG: [8, 8], MY: [9, 10], PH: [10, 10], EG: [10, 10], JO: [9, 9], FR: [9, 9], CN: [11, 11], RU: [10, 10] };
+  var PHONE_EG = { AE: '50 123 4567', SA: '50 123 4567', LK: '77 123 4567', IN: '98765 43210', QA: '3312 3456',
+    KW: '5012 3456', BH: '3600 1234', OM: '9212 3456', GB: '7400 123456', US: '201 555 0123', CA: '506 234 5678',
+    PK: '301 2345678', AU: '412 345 678' };
+  var KEEP_ZERO = ['IT', 'SM', 'VA'];  // countries where a leading 0 is part of the number
+  var TZ_COUNTRY = { 'Asia/Dubai': 'AE', 'Asia/Colombo': 'LK', 'Asia/Kolkata': 'IN', 'Asia/Calcutta': 'IN', 'Asia/Riyadh': 'SA',
+    'Asia/Qatar': 'QA', 'Asia/Kuwait': 'KW', 'Asia/Bahrain': 'BH', 'Asia/Muscat': 'OM', 'Europe/London': 'GB',
+    'Asia/Karachi': 'PK', 'Asia/Dhaka': 'BD', 'Asia/Kathmandu': 'NP', 'Indian/Maldives': 'MV', 'Asia/Singapore': 'SG',
+    'Asia/Kuala_Lumpur': 'MY', 'Asia/Manila': 'PH', 'Africa/Cairo': 'EG', 'Asia/Amman': 'JO', 'Europe/Paris': 'FR',
+    'Europe/Berlin': 'DE', 'Asia/Shanghai': 'CN', 'Australia/Sydney': 'AU', 'Australia/Melbourne': 'AU' };
+
+  function country(iso) { for (var i = 0; i < COUNTRIES.length; i++) if (COUNTRIES[i].iso === iso) return COUNTRIES[i]; return null; }
+  function flag(iso) { return String.fromCodePoint.apply(null, iso.split('').map(function (c) { return 127397 + c.charCodeAt(0); })); }
+  function countryOptions() {
+    function opt(c) { return '<option value="' + c.iso + '">' + c.name + ' (+' + c.dial + ')</option>'; }
+    var pinned = PINNED.map(country);
+    return pinned.map(opt).join('') + '<option disabled>──────────</option>' +
+      COUNTRIES.filter(function (c) { return PINNED.indexOf(c.iso) < 0; }).map(opt).join('');
+  }
+  function defaultCountry() {
+    var tz = '';
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    return TZ_COUNTRY[tz] || CONFIG.DEFAULT_COUNTRY;
+  }
+  function nationalDigits(iso, raw) {
+    var d = raw.replace(/\D/g, '');
+    if (KEEP_ZERO.indexOf(iso) < 0) d = d.replace(/^0+/, '');
+    return d;
+  }
+  // If someone types/pastes an international number (+94…, 0094…), switch the country to match
+  function detectFromInternational(raw) {
+    var m = raw.replace(/[\s()\-.]/g, '').match(/^(?:\+|00)(\d+)/);
+    if (!m) return null;
+    var digits = m[1], cur = country($('#ejr-cc').value), best = null;
+    COUNTRIES.forEach(function (c) {
+      if (digits.indexOf(c.dial) === 0 && (!best || c.dial.length > best.dial.length || (c.dial === best.dial && c === cur))) best = c;
+    });
+    if (best && best.dial === '1' && cur && cur.dial === '1') best = cur;
+    return best ? { iso: best.iso, rest: digits.slice(best.dial.length) } : null;
+  }
+
+  /* ---------------- markup ---------------- */
+  function field(id, label, type, icon, placeholder, autocomplete, extra) {
+    return '<div class="ejr-field" data-field="' + id + '">' +
+      '<label for="ejr-' + id + '">' + label + ' <span class="ejr-req">*</span></label>' +
+      '<div class="ejr-input-wrap">' + ICON[icon] +
+      '<input id="ejr-' + id + '" name="' + id + '" type="' + type + '" placeholder="' + placeholder +
+      '" autocomplete="' + autocomplete + '" ' + (extra || '') + ' required></div>' +
+      '<div class="ejr-err" role="alert"></div></div>';
+  }
+
+  var root = document.createElement('div');
+  root.className = 'ejr-root' + (inline ? ' ejr-inline' : '');
+  root.innerHTML =
+    '<div class="ejr-overlay' + (inline ? ' ejr-open' : '') + '" ' + (inline ? 'style="position:static;background:none;backdrop-filter:none;padding:0"' : '') + '>' +
+      '<div class="ejr-modal" role="dialog" aria-modal="' + (!inline) + '" aria-labelledby="ejr-title">' +
+        '<div class="ejr-head">' +
+          '<div class="ejr-brand">' + (CONFIG.LOGO_URL ? '<img src="' + CONFIG.LOGO_URL + '" alt="SLP – Emojot">' : 'SLP &times; Emojot') + '</div>' +
+          '<h2 id="ejr-title">Register your interest</h2>' +
+          '<p>Free access for Dubai based tourism companies, 6 months for micro enterprises and 3 months for other eligible enterprises.</p>' +
+          '<button type="button" class="ejr-close" aria-label="Close">&times;</button>' +
+        '</div>' +
+        '<ol class="ejr-steps">' +
+          '<li data-s="1"><span class="ejr-num">1</span><span class="ejr-step-label">Your details</span></li>' +
+          '<li data-s="2"><span class="ejr-num">2</span><span class="ejr-step-label">Book session</span></li>' +
+          '<li data-s="3"><span class="ejr-num">3</span><span class="ejr-step-label">Confirmed</span></li>' +
+        '</ol>' +
+        '<div class="ejr-body">' +
+
+          /* STEP 1 */
+          '<form class="ejr-pane" data-pane="1" novalidate>' +
+            '<h3>Tell us about you</h3>' +
+            '<p class="ejr-lead">Takes 30 seconds. Next, you’ll pick a time for a short online introductory session with the Emojot team.</p>' +
+            '<div class="ejr-alert" data-alert="1"></div>' +
+            field('name', 'Name', 'text', 'user', 'Your full name', 'name') +
+            field('company', 'Company Name', 'text', 'org', 'Your company', 'organization') +
+            '<div class="ejr-grid-2">' +
+              field('email', 'Work Email', 'email', 'mail', 'name@company.com', 'email', 'inputmode="email"') +
+              '<div class="ejr-field" data-field="phone">' +
+                '<label for="ejr-phone">Contact Number <span class="ejr-req">*</span></label>' +
+                '<div class="ejr-phone">' +
+                  '<div class="ejr-cc"><span class="ejr-cc-flag" aria-hidden="true"></span><span class="ejr-cc-code"></span>' +
+                    '<select id="ejr-cc" name="country" aria-label="Country code">' + countryOptions() + '</select></div>' +
+                  '<input id="ejr-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" required>' +
+                '</div><div class="ejr-err" role="alert"></div></div>' +
+            '</div>' +
+            '<input class="ejr-hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+            '<button type="submit" class="ejr-btn">Register &amp; book session <span aria-hidden="true">→</span></button>' +
+            '<div class="ejr-hint">' + ICON.cal + '<span><strong>Next:</strong> choose a ' + CONFIG.MEETING_MINUTES + '-minute slot that suits you. Your registration is complete once your session is booked.</span></div>' +
+          '</form>' +
+
+          /* STEP 2 */
+          '<div class="ejr-pane" data-pane="2" hidden>' +
+            '<h3>Book your introductory session</h3>' +
+            '<p class="ejr-lead">A ' + CONFIG.MEETING_MINUTES + '-minute online call to set up your free access and walk you through the platform.</p>' +
+            '<div class="ejr-who"><span>Booking for <strong data-who></strong></span><button type="button" class="ejr-link" data-edit>Edit details</button></div>' +
+            '<div class="ejr-alert" data-alert="2"></div>' +
+            '<div class="ejr-book">' +
+              '<div class="ejr-cal">' +
+                '<p class="ejr-pick"><b>1</b>Pick a date</p>' +
+                '<div class="ejr-cal-head"><button type="button" class="ejr-cal-nav" data-nav="-1" aria-label="Previous month">‹</button>' +
+                '<strong data-month></strong>' +
+                '<button type="button" class="ejr-cal-nav" data-nav="1" aria-label="Next month">›</button></div>' +
+                '<div class="ejr-cal-grid" data-grid></div>' +
+                '<div class="ejr-legend"><span><i class="l-av"></i>Available</span><span><i class="l-sel"></i>Selected</span><span><i class="l-na"></i>Unavailable</span></div>' +
+              '</div>' +
+              '<div>' +
+                '<p class="ejr-pick"><b>2</b>Pick a time</p>' +
+                '<p class="ejr-slots-title" data-slots-title>Select a date</p>' +
+                '<p class="ejr-tz">Times shown in ' + CONFIG.TZ_LABEL + (visitorIsDubaiTime ? '' : ', with your local time below') + '</p>' +
+                '<div class="ejr-slots" data-slots><div class="ejr-empty">Pick a date to see available times.</div></div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="ejr-summary" data-summary></div>' +
+            '<div class="ejr-actions"><button type="button" class="ejr-btn" data-confirm disabled>Confirm booking</button></div>' +
+          '</div>' +
+
+          /* STEP 3 */
+          '<div class="ejr-pane" data-pane="3" hidden>' +
+            '<div class="ejr-success">' +
+              '<div class="ejr-check">' + ICON.check + '</div>' +
+              '<h3 data-thanks>You’re all set!</h3>' +
+              '<p class="ejr-lead" style="margin-bottom:6px">Your registration is complete and your introductory session is booked.</p>' +
+              '<div class="ejr-when" data-when></div>' +
+              '<p class="ejr-lead" data-next>Our team will send the meeting link to <strong data-email></strong>. Add the session to your calendar so you don’t miss it.</p>' +
+              '<a class="ejr-btn" data-meet target="_blank" rel="noopener" hidden style="margin-bottom:12px">Open Google Meet link</a>' +
+              '<div class="ejr-cal-links">' +
+                '<a class="ejr-btn" data-gcal target="_blank" rel="noopener">Add to Google Calendar</a>' +
+                '<a class="ejr-btn ejr-btn-outline" data-ics download="slp-emojot-session.ics">Outlook / Apple (.ics)</a>' +
+              '</div>' +
+              '<button type="button" class="ejr-link" data-done>Close</button>' +
+            '</div>' +
+          '</div>' +
+
+        '</div>' +
+
+        /* Nudge when closing on step 2 */
+        '<div class="ejr-nudge" role="alertdialog" aria-labelledby="ejr-nudge-t">' +
+          '<div class="ejr-nudge-box">' +
+            '<div class="ejr-check" style="background:var(--ejr-gold-soft)">' + ICON.cal.replace('<svg', '<svg style="fill:var(--ejr-gold-dark)"') + '</div>' +
+            '<h4 id="ejr-nudge-t">You’re one step away</h4>' +
+            '<p>Your free access is activated during the introductory session. Pick a time now and it takes less than a minute.</p>' +
+            '<button type="button" class="ejr-btn" data-stay>Choose a time</button>' +
+            '<button type="button" class="ejr-link" data-leave>I’ll book later</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  var overlay = $('.ejr-overlay');
+  var form = $('form[data-pane="1"]');
+  var nudge = $('.ejr-nudge');
+
+  function setCountry(iso) {
+    var c = country(iso) || country('AE');
+    $('#ejr-cc').value = c.iso;
+    $('.ejr-cc-flag').textContent = flag(c.iso);
+    $('.ejr-cc-code').textContent = '+' + c.dial;
+    $('#ejr-phone').placeholder = PHONE_EG[c.iso] || 'Phone number';
+  }
+  setCountry(defaultCountry());
+  $('#ejr-cc').addEventListener('change', function () { setCountry(this.value); setErr('phone', ''); $('#ejr-phone').focus(); });
+  $('#ejr-phone').addEventListener('input', function () {
+    var hit = detectFromInternational(this.value);
+    if (hit) { setCountry(hit.iso); this.value = hit.rest; }
+  });
+
+  /* ---------------- step / open / close ---------------- */
+  function go(step) {
+    state.step = step;
+    $all('.ejr-pane').forEach(function (p) { p.hidden = +p.getAttribute('data-pane') !== step; });
+    $all('.ejr-steps li').forEach(function (li) {
+      var s = +li.getAttribute('data-s');
+      li.className = s === step ? 'ejr-active' : (s < step ? 'ejr-done' : '');
+    });
+    $('#ejr-title').textContent = step === 1 ? 'Register your interest' : step === 2 ? 'Book your session' : 'Registration complete';
+    $('.ejr-modal').scrollTop = 0;
+    if (step === 2) renderBooking();
+  }
+
+  function open() {
+    if (inline) return;
+    lastFocus = document.activeElement;
+    var saved = load();
+    if (saved && saved.lead && !state.booked) {
+      state.lead = saved.lead;
+      fillForm(saved.lead);
+      go(2);
+    } else if (!state.booked) {
+      go(1);
+    }
+    loadAvailability();
+    nudge.classList.remove('ejr-show');
+    overlay.classList.add('ejr-open');
+    document.documentElement.style.overflow = 'hidden';
+    setTimeout(function () {
+      var f = state.step === 1 ? $('#ejr-name') : $('.ejr-close');
+      if (f) f.focus();
+    }, 60);
+  }
+
+  function close(force) {
+    if (inline) return;
+    if (!force && state.step === 2 && !state.nudged) {
+      state.nudged = true;
+      nudge.classList.add('ejr-show');
+      $('[data-stay]').focus();
+      return;
+    }
+    overlay.classList.remove('ejr-open');
+    nudge.classList.remove('ejr-show');
+    document.documentElement.style.overflow = '';
+    if (state.booked) { state.booked = false; resetAll(); }
+    if (lastFocus && lastFocus.focus) try { lastFocus.focus(); } catch (e) {}
+  }
+
+  function resetAll() {
+    form.reset();
+    state.lead = null; state.date = null; state.slot = null; state.nudged = false;
+    store(null);
+    go(1);
+  }
+
+  function fillForm(l) {
+    ['name', 'company', 'email', 'phone'].forEach(function (k) { $('#ejr-' + k).value = l[k] || ''; });
+    if (l.country) setCountry(l.country);
+  }
+
+  /* ---------------- validation ---------------- */
+  function setErr(name, msg) {
+    var f = $('[data-field="' + name + '"]');
+    f.classList.toggle('ejr-invalid', !!msg);
+    $('.ejr-err', f).textContent = msg || '';
+    return !msg;
+  }
+  function validate() {
+    var v = {
+      name: $('#ejr-name').value.trim(),
+      company: $('#ejr-company').value.trim(),
+      email: $('#ejr-email').value.trim(),
+      phone: $('#ejr-phone').value.trim(),
+      country: $('#ejr-cc').value
+    };
+    var ok = true, first = null;
+    function chk(k, msg) { if (!setErr(k, msg) && ok) { ok = false; first = k; } }
+    chk('name', v.name.length < 2 ? 'Please enter your name.' : '');
+    chk('company', v.company.length < 2 ? 'Please enter your company name.' : '');
+    var domain = (v.email.split('@')[1] || '').toLowerCase();
+    chk('email', !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email) ? 'Please enter a valid email address.'
+      : (CONFIG.BLOCK_FREE_EMAIL && FREE_DOMAINS.indexOf(domain) >= 0) ? 'Please use your work email address.' : '');
+    var c = country(v.country), nat = nationalDigits(v.country, v.phone), len = PHONE_LEN[v.country] || [6, 14];
+    chk('phone', !v.phone ? 'Please enter your contact number.'
+      : (/[^\d\s()\-.]/.test(v.phone) || nat.length < len[0] || nat.length > len[1])
+        ? 'Please enter a valid ' + c.name + ' number' + (len[0] === len[1] ? ' (' + len[0] + ' digits)' : '') + '.' : '');
+    if (ok) v.phoneFull = '+' + c.dial + ' ' + nat;
+    if (!ok) $('#ejr-' + first).focus();
+    return ok ? v : null;
+  }
+
+  /* ---------------- Apps Script API ---------------- */
+  function apiPost(data) {
+    data.botcheck = form.botcheck.checked ? 'on' : '';
+    // text/plain avoids a CORS preflight, which Apps Script can't answer
+    return fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json(); });
+  }
+  function leadPayload(l) {
+    return { name: l.name, company: l.company, email: l.email, phone: l.phoneFull, country: country(l.country).name,
+      visitorTZ: visitorTZ, page: location.href.split('#')[0] };
+  }
+  function loadAvailability(force) {
+    if (!API) return;
+    if (state.availStatus === 'loading') return;
+    if (!force && state.avail && Date.now() - state.availAt < 120e3) return;
+    state.availStatus = 'loading';
+    if (state.step === 2) { renderCal(); renderSlots(); }
+    fetch(API + (API.indexOf('?') < 0 ? '?' : '&') + 'action=slots&t=' + Date.now())
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (!j.ok) throw new Error(j.message || j.error);
+        state.avail = j.slots || {}; state.availAt = Date.now(); state.availStatus = 'ok';
+      })
+      .catch(function (err) { console.warn('[Emojot popup] availability failed', err); state.availStatus = 'error'; })
+      .then(function () {
+        if (state.step !== 2) return;
+        if (state.date && !dayAvailable.apply(null, state.date.split('-').map(function (x, i) { return i === 1 ? x - 1 : +x; }))) {
+          state.date = null; state.slot = null;
+        }
+        if (!state.date) { var f = firstAvailableMonth(); state.viewY = f.y; state.viewM = f.m; }
+        renderCal(); renderSlots(); renderSummary();
+      });
+  }
+
+  /* ---------------- email (Web3Forms) ---------------- */
+  function send(subject, data) {
+    var payload = {
+      access_key: CONFIG.WEB3FORMS_KEY,
+      subject: subject,
+      from_name: 'SLP – Emojot Landing Page',
+      replyto: data['Work Email'],
+      botcheck: form.botcheck.checked ? 'on' : ''
+    };
+    for (var k in data) payload[k] = data[k];
+    if (TEST_MODE) {
+      console.info('[Emojot popup] TEST MODE (set WEB3FORMS_KEY to send). Would email:', payload);
+      return new Promise(function (r) { setTimeout(function () { r(true); }, 600); });
+    }
+    return fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (r) { return r.json(); }).then(function (j) {
+      if (!j.success) throw new Error(j.message || 'Submission failed');
+      return true;
+    });
+  }
+
+  function leadFields(l) {
+    return {
+      'Name': l.name, 'Company Name': l.company, 'Work Email': l.email, 'Contact Number': l.phoneFull, 'Country': country(l.country).name,
+      'Page': location.href.split('#')[0], 'Visitor timezone': visitorTZ,
+      'Submitted at (UTC)': new Date().toISOString().replace('T', ' ').slice(0, 16)
+    };
+  }
+
+  function busy(btn, on, label) {
+    btn.disabled = on;
+    if (on) { btn.setAttribute('data-label', btn.innerHTML); btn.innerHTML = '<span class="ejr-spin"></span>' + label; }
+    else if (btn.getAttribute('data-label')) btn.innerHTML = btn.getAttribute('data-label');
+  }
+  function alertMsg(n, msg) {
+    var a = $('[data-alert="' + n + '"]');
+    a.textContent = msg || ''; a.classList.toggle('ejr-show', !!msg);
+  }
+
+  /* ---------------- step 1 submit ---------------- */
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    alertMsg(1, '');
+    var v = validate();
+    if (!v) return;
+    var changed = !state.lead || JSON.stringify(state.lead) !== JSON.stringify(v);
+    state.lead = v;
+    store({ lead: v });
+    if (CONFIG.EMAIL_ON_REGISTER && changed && API) {
+      var lp = leadPayload(v); lp.action = 'lead';
+      apiPost(lp).catch(function (err) { console.warn('[Emojot popup] lead save failed', err); });
+    } else if (CONFIG.EMAIL_ON_REGISTER && changed) {
+      var f = leadFields(v);
+      f['Status'] = 'REGISTERED, session not booked yet';
+      send('New registration: ' + v.company + ' (session pending)', f)
+        .catch(function (err) { console.warn('[Emojot popup] lead email failed', err); });
+    }
+    go(2);
+  });
+
+  $all('.ejr-field input').forEach(function (inp) {
+    inp.addEventListener('input', function () { setErr(inp.name, ''); });
+  });
+
+  /* ---------------- step 2: calendar ---------------- */
+  function firstAvailableMonth() {
+    var t = dubaiNow();
+    for (var i = 0; i <= CONFIG.MAX_DAYS_AHEAD; i++) {
+      var dt = new Date(Date.UTC(t.y, t.m, t.d + i));
+      if (dayAvailable(dt.getUTCFullYear(), dt.getUTCMonth(), dt.getUTCDate())) return { y: dt.getUTCFullYear(), m: dt.getUTCMonth() };
+    }
+    return { y: t.y, m: t.m };
+  }
+
+  function renderBooking() {
+    $('[data-who]').textContent = state.lead.name + ' · ' + state.lead.company;
+    if (!state.date) { var f = firstAvailableMonth(); state.viewY = f.y; state.viewM = f.m; }
+    renderCal(); renderSlots(); renderSummary();
+    loadAvailability();
+  }
+
+  function renderCal() {
+    var y = state.viewY, m = state.viewM, t = dubaiNow();
+    $('[data-month]').textContent = MONTHS[m] + ' ' + y;
+    var html = DOW.map(function (d, i) { return '<div class="ejr-dow' + (CONFIG.WORK_DAYS.indexOf(i) < 0 ? ' ejr-we' : '') + '">' + d + '</div>'; }).join('');
+    var startDow = new Date(Date.UTC(y, m, 1)).getUTCDay();
+    var days = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+    for (var i = 0; i < startDow; i++) html += '<div></div>';
+    for (var d = 1; d <= days; d++) {
+      var key = ymd(y, m, d), ok = dayAvailable(y, m, d);
+      var cls = 'ejr-day' + (state.date === key ? ' ejr-sel' : '') + (t.y === y && t.m === m && t.d === d ? ' ejr-today' : '');
+      html += '<button type="button" class="' + cls + '" data-day="' + key + '"' + (ok ? '' : ' disabled') +
+        ' aria-label="' + longDate(y, m, d) + (ok ? '' : ' (unavailable)') + '"' + (state.date === key ? ' aria-pressed="true"' : '') + '>' + d + '</button>';
+    }
+    $('[data-grid]').innerHTML = html;
+    $('.ejr-cal').classList.toggle('ejr-loading', !!API && state.availStatus === 'loading');
+    var lastDay = new Date(Date.UTC(t.y, t.m, t.d + CONFIG.MAX_DAYS_AHEAD));
+    $('[data-nav="-1"]').disabled = y === t.y && m === t.m;
+    $('[data-nav="1"]').disabled = y > lastDay.getUTCFullYear() || (y === lastDay.getUTCFullYear() && m >= lastDay.getUTCMonth());
+  }
+
+  function renderSlots() {
+    var box = $('[data-slots]');
+    if (API && state.availStatus === 'loading' && !state.avail) {
+      $('[data-slots-title]').textContent = 'Checking availability…';
+      box.innerHTML = '<div class="ejr-empty"><span class="ejr-spin ejr-spin-dark"></span> Loading live availability…</div>';
+      return;
+    }
+    if (API && state.availStatus === 'error' && !state.avail) {
+      $('[data-slots-title]').textContent = 'Couldn’t load times';
+      box.innerHTML = '<div class="ejr-empty">We couldn’t load available times. <button type="button" class="ejr-link" data-retry>Try again</button></div>';
+      return;
+    }
+    if (API && state.avail && !Object.keys(state.avail).length) {
+      $('[data-slots-title]').textContent = 'No times available';
+      box.innerHTML = '<div class="ejr-empty">All sessions are currently booked. Please check back soon, or our team will contact you.</div>';
+      return;
+    }
+    if (!state.date) {
+      $('[data-slots-title]').textContent = 'Select a date';
+      box.innerHTML = '<div class="ejr-empty">Pick a date to see available times.</div>';
+      return;
+    }
+    var p = state.date.split('-'), y = +p[0], m = +p[1] - 1, d = +p[2];
+    $('[data-slots-title]').textContent = longDate(y, m, d);
+    var slots = slotsFor(y, m, d);
+    box.innerHTML = slots.length ? slots.map(function (s) {
+      return '<button type="button" class="ejr-slot' + (state.slot === s.minutes ? ' ejr-sel' : '') + '" data-slot="' + s.minutes + '">' +
+        fmt12(s.minutes) + (visitorIsDubaiTime ? '' : '<small>' + localTime(s.date) + ' yours</small>') + '</button>';
+    }).join('') : '<div class="ejr-empty">No times left on this day. Please choose another date.</div>';
+  }
+
+  function selectedDate() {
+    if (!state.date || state.slot == null) return null;
+    var p = state.date.split('-');
+    return dubaiToDate(+p[0], +p[1] - 1, +p[2], state.slot);
+  }
+
+  function whenText() {
+    var p = state.date.split('-');
+    return longDate(+p[0], +p[1] - 1, +p[2]) + ' at ' + fmt12(state.slot) + ' ' + CONFIG.TZ_LABEL.replace(/ \(.*\)/, '');
+  }
+
+  function renderSummary() {
+    var dt = selectedDate();
+    $('[data-summary]').textContent = dt ? '✓ ' + whenText() + (visitorIsDubaiTime ? '' : '  (' + localDateTime(dt) + ' your time)') : '';
+    $('[data-confirm]').disabled = !dt;
+  }
+
+  root.addEventListener('click', function (e) {
+    var t = e.target.closest ? e.target : e.target.parentNode;
+    var day = t.closest('[data-day]'), slot = t.closest('[data-slot]'), nav = t.closest('[data-nav]');
+    if (day && !day.disabled) { state.date = day.getAttribute('data-day'); state.slot = null; renderCal(); renderSlots(); renderSummary(); }
+    else if (slot) { state.slot = +slot.getAttribute('data-slot'); renderSlots(); renderSummary(); }
+    else if (nav && !nav.disabled) {
+      var m = state.viewM + (+nav.getAttribute('data-nav'));
+      state.viewY += Math.floor(m / 12); state.viewM = (m + 12) % 12; renderCal();
+    }
+    else if (t.closest('[data-retry]')) loadAvailability(true);
+    else if (t.closest('[data-edit]')) go(1);
+    else if (t.closest('[data-stay]')) nudge.classList.remove('ejr-show');
+    else if (t.closest('[data-leave]')) close(true);
+    else if (t.closest('[data-done]')) close(true);
+    else if (t.closest('.ejr-close')) close(false);
+    else if (t === overlay) close(false);
+  });
+
+  /* ---------------- step 2 confirm ---------------- */
+  $('[data-confirm]').addEventListener('click', function () {
+    var btn = this, dt = selectedDate();
+    if (!dt) return;
+    alertMsg(2, '');
+    busy(btn, true, 'Booking…');
+
+    var req;
+    if (API) {
+      var bp = leadPayload(state.lead);
+      bp.action = 'book'; bp.date = state.date; bp.minutes = state.slot;
+      bp.visitorLocal = localDateTime(dt) + (visitorTZ ? ' ' + visitorTZ : '');
+      req = apiPost(bp).then(function (j) {
+        if (j.ok) return j;
+        var e = new Error(j.error || 'failed'); e.code = j.error; throw e;
+      });
+    } else {
+      var f = leadFields(state.lead);
+      f['Status'] = 'SESSION BOOKED';
+      f['Session (Dubai time)'] = whenText();
+      f['Session (visitor local time)'] = localDateTime(dt) + (visitorTZ ? ' ' + visitorTZ : '');
+      f['Session start (UTC)'] = dt.toISOString();
+      f['Duration'] = CONFIG.MEETING_MINUTES + ' minutes';
+      req = send('Session booked: ' + state.lead.company + ', ' + whenText(), f).then(function () { return {}; });
+    }
+
+    req.then(function (res) {
+      busy(btn, false);
+      state.booked = true;
+      store(null);
+      showSuccess(dt, res.meetLink || '');
+      go(3);
+      if (window.dataLayer) window.dataLayer.push({ event: 'emojot_session_booked' });
+    }).catch(function (err) {
+      busy(btn, false);
+      console.warn('[Emojot popup] booking failed', err);
+      if (err.code === 'taken') {
+        state.slot = null;
+        alertMsg(2, 'Sorry, that time was just booked by someone else. Please choose another time.');
+        loadAvailability(true);
+        renderSummary();
+      } else {
+        alertMsg(2, 'Sorry, we couldn’t confirm your booking. Please check your connection and try again.');
+      }
+    });
+  });
+
+  /* ---------------- step 3 ---------------- */
+  function icsStamp(d) { return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); }
+  function showSuccess(start, meetLink) {
+    var end = new Date(start.getTime() + CONFIG.MEETING_MINUTES * 60e3);
+    $('[data-thanks]').textContent = 'You’re all set, ' + state.lead.name.split(' ')[0] + '!';
+    $('[data-when]').innerHTML = '';
+    $('[data-when]').appendChild(document.createTextNode(whenText()));
+    if (!visitorIsDubaiTime) {
+      var s = document.createElement('small'); s.textContent = localDateTime(start) + ' your time';
+      $('[data-when]').appendChild(s);
+    }
+    if (API) {
+      // A real Google Calendar invite (with the Meet link) was sent, so skip the manual "add to calendar" buttons
+      $('[data-next]').innerHTML = 'A calendar invite with the Google Meet link has been sent to <strong data-email></strong>.';
+      $('.ejr-cal-links').style.display = 'none';
+      var mt = $('[data-meet]'); mt.hidden = !meetLink; if (meetLink) mt.href = meetLink;
+    }
+    $('[data-email]').textContent = state.lead.email;
+    var details = 'Online introductory session with the Emojot team.\nThe meeting link will be emailed to you.';
+    $('[data-gcal]').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+      '&text=' + encodeURIComponent(CONFIG.MEETING_TITLE) +
+      '&dates=' + icsStamp(start) + '/' + icsStamp(end) +
+      '&details=' + encodeURIComponent(details);
+    var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Emojot//Register//EN', 'BEGIN:VEVENT',
+      'UID:' + Date.now() + '@emojot.com', 'DTSTAMP:' + icsStamp(new Date()),
+      'DTSTART:' + icsStamp(start), 'DTEND:' + icsStamp(end),
+      'SUMMARY:' + CONFIG.MEETING_TITLE, 'DESCRIPTION:' + details.replace(/\n/g, '\\n'),
+      'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    $('[data-ics]').href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+  }
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener('keydown', function (e) {
+    if (inline || !overlay.classList.contains('ejr-open')) return;
+    if (e.key === 'Escape') { e.preventDefault(); nudge.classList.contains('ejr-show') ? nudge.classList.remove('ejr-show') : close(false); }
+    if (e.key === 'Tab') {
+      var scope = nudge.classList.contains('ejr-show') ? nudge : $('.ejr-modal');
+      var f = $all('button:not([disabled]), input:not(.ejr-hp), a[href]', scope).filter(function (el) { return el.offsetParent !== null; });
+      if (!f.length) return;
+      if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+    }
+  });
+
+  /* ---------------- hook "Register interest" buttons ---------------- */
+  function isTrigger(el) {
+    if (!el || root.contains(el)) return false;
+    var href = el.getAttribute && (el.getAttribute('href') || '');
+    if (href && CONFIG.TRIGGER_HASH && href.slice(-CONFIG.TRIGGER_HASH.length) === CONFIG.TRIGGER_HASH) return true;
+    if (el.hasAttribute && el.hasAttribute('data-emojot-register')) return true;
+    var txt = (el.textContent || el.getAttribute('aria-label') || '').replace(/\s+/g, ' ').trim();
+    return txt.length < 40 && CONFIG.TRIGGER_TEXT.test(txt);
+  }
+  if (!inline) {
+    document.addEventListener('click', function (e) {
+      var el = e.target && e.target.closest && e.target.closest('a, button, [role="button"], [data-testid="linkElement"]');
+      if (!isTrigger(el)) return;
+      e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+      open();
+    }, true);
+  }
+
+  /* ---------------- mount ---------------- */
+  function mount() {
+    var host = document.getElementById('ejr-inline');
+    (host || document.body).appendChild(root);
+    if (inline) {
+      var saved = load();
+      if (saved && saved.lead) { state.lead = saved.lead; fillForm(saved.lead); go(2); } else go(1);
+    } else if (CONFIG.TRIGGER_HASH && location.hash === CONFIG.TRIGGER_HASH) {
+      open();
+    }
+  }
+  if (document.body) mount(); else document.addEventListener('DOMContentLoaded', mount);
+
+  window.EmojotRegister = { open: open, close: function () { close(true); } };
+})();
+</script>
+
+</body></html>

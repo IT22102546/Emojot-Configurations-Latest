@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bulk Upload · Hierarchies &amp; Comm-Center</title>
+<meta name="description" content="Upload ticket categories and assignees from Excel into a workflow&#39;s admin hierarchy, and create Comm-Center users and add them to lists. Runs in your browser with your own Emojot token; nothing is stored.">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 8px; }
+  .tool {
+    display: flex; flex-direction: column; gap: 12px; padding: 26px 24px; border: 1px solid var(--border);
+    border-radius: 10px; background: #fff; color: var(--text); text-decoration: none; transition: border-color .15s, box-shadow .15s, transform .15s;
+  }
+  .tool:hover { border-color: var(--brand); box-shadow: 0 6px 20px #3a7bbf1f; transform: translateY(-2px); }
+  .tool-icon { width: 48px; height: 48px; border-radius: 10px; background: #f0f6fc; color: var(--brand); display: grid; place-items: center; font-size: 24px; }
+  .tool h2 { margin: 0; font-size: 20px; font-weight: 600; }
+  .tool p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.6; }
+  .tool ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 13px; line-height: 1.8; }
+  .tool .go { margin-top: auto; padding-top: 8px; color: var(--brand); font-weight: 600; font-size: 15px; }
+  .order { margin-top: 28px; padding: 14px 18px; border-radius: 8px; background: var(--soft); border: 1px solid var(--border); font-size: 14px; color: var(--muted); line-height: 1.6; }
+  .order b { color: var(--text); }
+</style>
+</head>
+<body>
+<header>
+  <div class="inner">
+    <div class="brand"><div class="logo">⚙</div>Bulk Upload: Admin Hierarchies &amp; Comm-Center</div>
+    <div class="header-right">
+      <nav class="nav"><a href="index.html" class="current">Home</a><a href="hierarchy.html">Admin Hierarchy</a><a href="users.html">Comm-Center Users</a></nav>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <h1>What do you want to do?</h1>
+    <p class="subtitle">Upload ticket categories and assignees from Excel into a workflow's admin hierarchy, and create Comm-Center users and add them to lists. Both tools work for any company, run in your browser with your own Emojot token, store nothing, and let you check everything with a dry run first.</p>
+
+    <div class="tools">
+      <a class="tool" href="users.html">
+        <div class="tool-icon">👥</div>
+        <h2>Comm-Center User Upload</h2>
+        <p>Add people to Comm-Center from Excel and put them in lists.</p>
+        <ul>
+          <li>Name, Email, Telephone and profile data fields</li>
+          <li>Existing users are not created twice or changed</li>
+          <li>Adds everyone to the list(s) you pick</li>
+        </ul>
+        <span class="go">Open →</span>
+      </a>
+
+      <a class="tool" href="hierarchy.html">
+        <div class="tool-icon">⛓</div>
+        <h2>Admin Hierarchy Upload</h2>
+        <p>Set who gets assigned and alerted for each ticket category and branch in a workflow.</p>
+        <ul>
+          <li>Builds the Excel template from the workflow JSON</li>
+          <li>Checks names, emails and duplicates before sending</li>
+          <li>Optionally adds everyone to Comm-Center lists first</li>
+        </ul>
+        <span class="go">Open →</span>
+      </a>
+    </div>
+
+    <div class="order">
+      <b>New client?</b> Usually: first <b>Comm-Center User Upload</b> (so everyone has a proper name and is in the right list), then <b>Admin Hierarchy Upload</b>.
+    </div>
+  </div>
+</main>
+
+<footer>Emojot internal tool · runs in your browser</footer>
+</body>
+</html>

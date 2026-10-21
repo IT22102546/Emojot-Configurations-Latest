@@ -1,0 +1,2187 @@
+exports = async function (changeEvent) {
+
+  console.log("============================================");
+  console.log("DIPRA MASTER DATA SYNC START");
+  console.log("============================================");
+
+
+  /*
+   * ============================================================
+   * CONFIGURATION
+   * ============================================================
+   */
+
+  const SERVICE_NAME =
+    "";
+
+  const COMPANY_ID =
+    "61fa9273717213000f07db66";
+
+  const INCIDENTS_DATABASE =
+    "emojot_61fa9273717213000f07db66";
+
+  const WORKFLOWS_DATABASE =
+    "emojot";
+
+  const INCIDENTS_COLLECTION =
+    "Incidents";
+
+  const WORKFLOWS_COLLECTION =
+    "IncidentWorkflows";
+
+  /*
+   * ============================================================
+   * WORKFLOW IDS
+   * ============================================================
+   */
+
+  const WF = {
+
+    CUSTOMERS:
+      "6aacda282b21faf58cc28cf8",
+
+    SUPPLIERS:
+      "6aacda852cb42d36db52f3b3", 
+
+    LOCATIONS:
+      "6aacda5e2cb42d36db52f3b2",
+
+    PRODUCT_CATALOG:
+      "6aacda743e435a7d8c47e4f6",
+
+    INSTALLED_MACHINES:
+      "6aacda44616c549e7ffb5a17",
+
+    AGREEMENT_WARRANTY:
+      "6aacda1618672f7288975408"
+
+  };
+
+
+  /*
+   * ============================================================
+   * HELPERS
+   * ============================================================
+   */
+
+  function oid(id) {
+
+    return new BSON.ObjectId(id);
+
+  }
+
+
+  function workflowValues(id) {
+
+    const values = [
+      id
+    ];
+
+
+    try {
+
+      values.push(
+        oid(id)
+      );
+
+    } catch (e) {
+
+      // ignore
+
+    }
+
+
+    return values;
+
+  }
+
+
+  function cleanObject(obj) {
+
+    const result = {};
+
+
+    Object.keys(obj).forEach(
+      function (key) {
+
+        if (
+          obj[key] !== undefined &&
+          obj[key] !== null
+        ) {
+
+          result[key] =
+            obj[key];
+
+        }
+
+      }
+    );
+
+
+    return result;
+
+  }
+
+
+  /*
+   * ============================================================
+   * DATABASE
+   * ============================================================
+   */
+
+  const mongo =
+    context.services.get(
+      SERVICE_NAME
+    );
+
+
+  if (
+    !mongo ||
+    typeof mongo.db !== "function"
+  ) {
+
+    throw new Error(
+      "MongoDB service unavailable: " +
+      SERVICE_NAME
+    );
+
+  }
+
+
+  const incidents =
+    mongo
+      .db(INCIDENTS_DATABASE)
+      .collection(INCIDENTS_COLLECTION);
+
+
+  const workflows =
+    mongo
+      .db(WORKFLOWS_DATABASE)
+      .collection(WORKFLOWS_COLLECTION);
+
+
+  /*
+   * ============================================================
+   * DROPDOWN SOURCES
+   *
+   * Every dropdown is rebuilt from the Incidents database.
+   * The workflow only keeps the result of the latest query, so
+   * deleted / renamed records disappear instead of piling up.
+   *
+   * Options are plain { id, name }. Codes and details of the
+   * selected record are filled after save by the resolve*
+   * functions below, not by option triggers.
+   *
+   * source       : workflow whose incidents feed the dropdown
+   * idField      : incident field used as option id
+   * nameField    : incident field shown in the dropdown
+   * targets      : workflows that show this dropdown
+   * ============================================================
+   */
+
+  const SELECTORS = {
+
+    customerName: {
+      source: WF.CUSTOMERS,
+      idField: "customerCode",
+      nameField: "customerName",
+      targets: [
+        WF.LOCATIONS,
+        WF.INSTALLED_MACHINES,
+        WF.AGREEMENT_WARRANTY
+      ]
+    },
+
+    supplierName: {
+      source: WF.SUPPLIERS,
+      idField: "supplierCode",
+      nameField: "supplierName",
+      targets: [
+        WF.PRODUCT_CATALOG,
+        WF.INSTALLED_MACHINES,
+        WF.AGREEMENT_WARRANTY
+      ]
+    },
+
+    locationName: {
+      source: WF.LOCATIONS,
+      idField: "locationCode",
+      nameField: "locationName",
+      targets: [
+        WF.INSTALLED_MACHINES,
+        WF.AGREEMENT_WARRANTY
+      ]
+    },
+
+    productName: {
+      source: WF.PRODUCT_CATALOG,
+      idField: "productCode",
+      nameField: "productName",
+      targets: [
+        WF.INSTALLED_MACHINES,
+        WF.AGREEMENT_WARRANTY
+      ]
+    },
+
+    serialNumber: {
+      source: WF.INSTALLED_MACHINES,
+      idField: "machineId",
+      nameField: "serialNumber",
+      targets: [
+        WF.AGREEMENT_WARRANTY
+      ]
+    }
+
+  };
+
+
+  /*
+   * ============================================================
+   * SOURCE FIELDS
+   *
+   * Incident fields a dropdown reads. Used to fetch only these
+   * fields and to skip rebuilds when none of them changed.
+   * ============================================================
+   */
+
+  function sourceFields(
+    selectorField
+  ) {
+
+    const config =
+      SELECTORS[selectorField];
+
+
+    return [
+      config.idField,
+      config.nameField
+    ];
+
+  }
+
+
+  /*
+   * ============================================================
+   * LOAD DROPDOWN OPTIONS FROM DB
+   * ============================================================
+   */
+
+  async function loadOptions(
+    selectorField
+  ) {
+
+    const config =
+      SELECTORS[selectorField];
+
+
+    const query = {
+
+      workflow: {
+        $in:
+          workflowValues(
+            config.source
+          )
+      }
+
+    };
+
+
+    query[config.idField] = {
+      $exists: true,
+      $nin: [null, ""]
+    };
+
+
+    query[config.nameField] = {
+      $exists: true,
+      $nin: [null, ""]
+    };
+
+
+    const projection = {
+      _id: 0
+    };
+
+
+    sourceFields(
+      selectorField
+    ).forEach(
+      function (field) {
+
+        projection[field] =
+          1;
+
+      }
+    );
+
+
+    const records =
+      await incidents.find(
+        query,
+        projection
+      ).toArray();
+
+
+    const options = [];
+
+    const seen = {};
+
+
+    records.forEach(
+      function (record) {
+
+        const id =
+          String(
+            record[config.idField] || ""
+          ).trim();
+
+
+        const name =
+          String(
+            record[config.nameField] || ""
+          ).trim();
+
+
+        if (
+          !id ||
+          !name ||
+          seen[id]
+        ) {
+
+          return;
+
+        }
+
+
+        seen[id] =
+          true;
+
+
+        options.push({
+
+          id:
+            id,
+
+          name:
+            name
+
+        });
+
+      }
+    );
+
+
+    options.sort(
+      function (a, b) {
+
+        return String(
+          a.name
+        ).localeCompare(
+          String(
+            b.name
+          )
+        );
+
+      }
+    );
+
+
+    return options;
+
+  }
+
+
+  /*
+   * ============================================================
+   * REFRESH DROPDOWN IN TARGET WORKFLOWS
+   *
+   * Replaces customFields.<field>.values with the fresh DB list.
+   * ============================================================
+   */
+
+  async function refreshSelector(
+    selectorField
+  ) {
+
+    const config =
+      SELECTORS[selectorField];
+
+
+    const options =
+      await loadOptions(
+        selectorField
+      );
+
+
+    const set = {};
+
+
+    set[
+      "customFields." +
+      selectorField +
+      ".values"
+    ] =
+      options;
+
+
+    const result =
+      await workflows.updateMany(
+
+        {
+          _id: {
+            $in:
+              config.targets.map(
+                oid
+              )
+          },
+
+          companyID:
+            COMPANY_ID
+        },
+
+        {
+          $set:
+            set
+        }
+
+      );
+
+
+    const sizeKB =
+      Math.round(
+        JSON.stringify(
+          options
+        ).length / 1024
+      );
+
+
+    console.log(
+      "DROPDOWN REFRESH:",
+      selectorField,
+      "| options:",
+      options.length,
+      "| size KB:",
+      sizeKB,
+      "| matched:",
+      result.matchedCount,
+      "| modified:",
+      result.modifiedCount
+    );
+
+
+    if (
+      sizeKB > 4096
+    ) {
+
+      console.log(
+        "WARNING: dropdown",
+        selectorField,
+        "is over 4 MB. Workflow documents are limited to 16 MB."
+      );
+
+    }
+
+
+    return options.length;
+
+  }
+
+
+  /*
+   * ============================================================
+   * MANUAL RUN
+   *
+   * Rebuilds every dropdown in every workflow from the DB.
+   * ============================================================
+   */
+
+  if (
+    !changeEvent ||
+    !changeEvent.operationType
+  ) {
+
+    console.log("============================================");
+    console.log("DROPDOWN REBUILD START");
+    console.log("============================================");
+
+
+    const counts = {};
+
+
+    for (
+      const selectorField of
+      Object.keys(
+        SELECTORS
+      )
+    ) {
+
+      counts[selectorField] =
+        await refreshSelector(
+          selectorField
+        );
+
+    }
+
+
+    console.log("============================================");
+    console.log("DROPDOWN REBUILD COMPLETE");
+    console.log("============================================");
+
+
+    return {
+
+      success:
+        true,
+
+      manualRun:
+        true,
+
+      options:
+        counts
+
+    };
+
+  }
+
+
+  /*
+   * ============================================================
+   * EVENT VALIDATION
+   * ============================================================
+   */
+
+  const operation =
+    changeEvent.operationType;
+
+
+  if (
+    operation !== "insert" &&
+    operation !== "update" &&
+    operation !== "replace"
+  ) {
+
+    return;
+
+  }
+
+
+  if (
+    !changeEvent.ns ||
+    changeEvent.ns.coll !==
+      INCIDENTS_COLLECTION
+  ) {
+
+    return;
+
+  }
+
+
+  let doc =
+    changeEvent.fullDocument;
+
+
+  if (!doc) {
+
+    console.log(
+      "fullDocument missing."
+    );
+
+
+    return;
+
+  }
+
+
+  let workflowId =
+    doc.workflow
+      ? doc.workflow.toString()
+      : "";
+
+
+  if (!workflowId) {
+
+    return;
+
+  }
+
+
+  console.log(
+    "Operation:",
+    operation
+  );
+
+
+  console.log(
+    "Workflow:",
+    workflowId
+  );
+
+
+  /*
+   * ============================================================
+   * DOCUMENT HELPERS
+   * ============================================================
+   */
+
+  function get(field) {
+
+    return doc[field];
+
+  }
+
+
+  async function refreshDoc() {
+
+    const latest =
+      await incidents.findOne({
+
+        _id:
+          doc._id
+
+      });
+
+
+    if (latest) {
+
+      doc =
+        latest;
+
+
+      workflowId =
+        doc.workflow
+          ? doc.workflow.toString()
+          : workflowId;
+
+    }
+
+
+    return doc;
+
+  }
+
+
+  async function updateCurrent(
+    fields,
+    label
+  ) {
+
+    const update =
+      cleanObject(
+        fields
+      );
+
+
+    if (
+      Object.keys(
+        update
+      ).length === 0
+    ) {
+
+      return false;
+
+    }
+
+
+    const result =
+      await incidents.updateOne(
+
+        {
+          _id:
+            doc._id
+        },
+
+        {
+          $set:
+            update
+        }
+
+      );
+
+
+    Object.keys(
+      update
+    ).forEach(
+      function (field) {
+
+        doc[field] =
+          update[field];
+
+      }
+    );
+
+
+    console.log(
+      label || "CURRENT INCIDENT UPDATE",
+      "| matched:",
+      result.matchedCount,
+      "| modified:",
+      result.modifiedCount
+    );
+
+
+    return (
+      result.matchedCount === 1
+    );
+
+  }
+
+
+  /*
+   * ============================================================
+   * TITLE
+   *
+   * The platform builds the title from nameTemplate only when a
+   * record is created. Rebuild it on every save so renames and
+   * newly assigned codes show in the list view.
+   *
+   * Keep these in sync with nameTemplate in each *_WF.json.
+   * ============================================================
+   */
+
+  const TITLE_TEMPLATES = {};
+
+  TITLE_TEMPLATES[WF.CUSTOMERS] =
+    "$customerCode$ - $customerName$";
+
+  TITLE_TEMPLATES[WF.SUPPLIERS] =
+    "$supplierCode$ - $supplierName$";
+
+  TITLE_TEMPLATES[WF.LOCATIONS] =
+    "$locationCode$ - $locationName$";
+
+  TITLE_TEMPLATES[WF.PRODUCT_CATALOG] =
+    "$productCode$ - $productName$";
+
+  TITLE_TEMPLATES[WF.INSTALLED_MACHINES] =
+    "$machineId$ - $serialNumber$";
+
+  TITLE_TEMPLATES[WF.AGREEMENT_WARRANTY] =
+    "$agreementNumber$ - $customerName$";
+
+
+  /*
+   * A dropdown field (e.g. customerName on an agreement) may hold
+   * the selected option id. Show the source record's name instead.
+   */
+
+  async function displayValue(
+    field
+  ) {
+
+    const raw =
+      get(
+        field
+      );
+
+
+    const value =
+      raw === undefined ||
+      raw === null
+        ? ""
+        : String(
+            raw
+          ).trim();
+
+
+    const config =
+      SELECTORS[field];
+
+
+    if (
+      !value ||
+      !config ||
+      config.source === workflowId
+    ) {
+
+      return value;
+
+    }
+
+
+    const lookup = {
+      $or: [
+        {},
+        {}
+      ]
+    };
+
+
+    lookup.workflow = {
+      $in:
+        workflowValues(
+          config.source
+        )
+    };
+
+
+    lookup.$or[0][config.idField] =
+      value;
+
+
+    lookup.$or[1][config.nameField] =
+      value;
+
+
+    const record =
+      await incidents.findOne(
+        lookup
+      );
+
+
+    if (
+      record &&
+      record[config.nameField]
+    ) {
+
+      return String(
+        record[config.nameField]
+      ).trim();
+
+    }
+
+
+    return value;
+
+  }
+
+
+  async function refreshTitle() {
+
+    await refreshDoc();
+
+
+    const template =
+      TITLE_TEMPLATES[workflowId];
+
+
+    if (!template) {
+
+      return;
+
+    }
+
+
+    const tokens =
+      template.match(
+        /\$[A-Za-z0-9_]+\$/g
+      ) || [];
+
+
+    let title =
+      template;
+
+
+    for (
+      const token of
+      tokens
+    ) {
+
+      const value =
+        await displayValue(
+          token.slice(1, -1)
+        );
+
+
+      title =
+        title.split(
+          token
+        ).join(
+          value || "N/A"
+        );
+
+    }
+
+
+    const updates = {};
+
+
+    [
+      "name",
+      "title",
+      "incidentName"
+    ].forEach(
+      function (field) {
+
+        const current =
+          get(
+            field
+          );
+
+
+        if (
+          typeof current !== "string"
+        ) {
+
+          return;
+
+        }
+
+
+        const prefix =
+          (
+            current.match(
+              /^#\s*/
+            ) || [""]
+          )[0];
+
+
+        const corrected =
+          prefix +
+          title;
+
+
+        if (
+          corrected !== current
+        ) {
+
+          updates[
+            field
+          ] =
+            corrected;
+
+        }
+
+      }
+    );
+
+
+    await updateCurrent(
+      updates,
+      "TITLE UPDATE"
+    );
+
+  }
+
+
+  /*
+   * ============================================================
+   * GENERATED CODE
+   * ============================================================
+   */
+
+  async function assignGeneratedCode(
+    field
+  ) {
+
+    await refreshDoc();
+
+
+    const current =
+      String(
+        get(field) || ""
+      ).trim();
+
+
+    if (current) {
+
+      return current;
+
+    }
+
+
+    const incidentKey =
+      String(
+        get(
+          "incidentKey"
+        ) || ""
+      ).trim();
+
+
+    if (!incidentKey) {
+
+      return "";
+
+    }
+
+
+    await updateCurrent(
+
+      {
+        [field]:
+          incidentKey
+      },
+
+      "ASSIGN " + field
+
+    );
+
+
+    await refreshDoc();
+
+
+    const saved =
+      String(
+        get(field) || ""
+      ).trim();
+
+
+    return saved;
+
+  }
+
+
+  /*
+   * ============================================================
+   * LOCATION CUSTOMER
+   * ============================================================
+   */
+
+  async function resolveLocationCustomer() {
+
+    await refreshDoc();
+
+
+    const selected =
+      String(
+        get(
+          "customerName"
+        ) || ""
+      ).trim();
+
+
+    if (!selected) {
+
+      return;
+
+    }
+
+
+    const customer =
+      await incidents.findOne({
+
+        workflow: {
+          $in:
+            workflowValues(
+              WF.CUSTOMERS
+            )
+        },
+
+        $or: [
+          {
+            customerCode:
+              selected
+          },
+          {
+            customerName:
+              selected
+          }
+        ]
+
+      });
+
+
+    if (!customer) {
+
+      return;
+
+    }
+
+
+    await updateCurrent(
+
+      {
+        customerCode:
+          customer.customerCode
+      },
+
+      "LOCATION CUSTOMER CODE"
+
+    );
+
+  }
+
+
+  /*
+   * ============================================================
+   * PRODUCT SUPPLIER
+   * ============================================================
+   */
+
+  async function resolveProductSupplier() {
+
+    await refreshDoc();
+
+
+    const selected =
+      String(
+        get(
+          "supplierName"
+        ) || ""
+      ).trim();
+
+
+    if (!selected) {
+
+      return;
+
+    }
+
+
+    const supplier =
+      await incidents.findOne({
+
+        workflow: {
+          $in:
+            workflowValues(
+              WF.SUPPLIERS
+            )
+        },
+
+        $or: [
+          {
+            supplierCode:
+              selected
+          },
+          {
+            supplierName:
+              selected
+          }
+        ]
+
+      });
+
+
+    if (!supplier) {
+
+      return;
+
+    }
+
+
+    await updateCurrent(
+
+      {
+        supplierCode:
+          supplier.supplierCode
+      },
+
+      "PRODUCT SUPPLIER CODE"
+
+    );
+
+  }
+
+
+
+  /*
+   * ============================================================
+   * MACHINE FIELD RESOLUTION
+   * ============================================================
+   */
+
+  async function resolveMachineFields() {
+
+    await refreshDoc();
+
+
+    const updates = {};
+
+
+    /*
+     * PRODUCT
+     */
+
+    const selectedProduct =
+      String(
+        get(
+          "productName"
+        ) || ""
+      ).trim();
+
+
+    if (selectedProduct) {
+
+      const product =
+        await incidents.findOne({
+
+          workflow: {
+            $in:
+              workflowValues(
+                WF.PRODUCT_CATALOG
+              )
+          },
+
+          $or: [
+            {
+              productCode:
+                selectedProduct
+            },
+            {
+              productName:
+                selectedProduct
+            }
+          ]
+
+        });
+
+
+      if (product) {
+
+        if (
+          product.productCode
+        ) {
+
+          updates.productCode =
+            product.productCode;
+
+        }
+
+
+        if (
+          product.brandName !== undefined &&
+          product.brandName !== null
+        ) {
+
+          updates.brand =
+            product.brandName;
+
+        }
+
+
+        if (
+          product.modelName !== undefined &&
+          product.modelName !== null
+        ) {
+
+          updates.model =
+            product.modelName;
+
+        }
+
+
+        if (
+          product.capacity !== undefined &&
+          product.capacity !== null
+        ) {
+
+          updates.capacity =
+            product.capacity;
+
+        }
+
+
+        if (
+          product.capacityUnit !== undefined &&
+          product.capacityUnit !== null
+        ) {
+
+          updates.unit =
+            product.capacityUnit;
+
+        }
+
+
+        if (
+          product.supplierCode
+        ) {
+
+          updates.supplierCode =
+            product.supplierCode;
+
+        }
+
+      }
+
+    }
+
+
+    /*
+     * CUSTOMER
+     */
+
+    const selectedCustomer =
+      String(
+        get(
+          "customerName"
+        ) || ""
+      ).trim();
+
+
+    if (selectedCustomer) {
+
+      const customer =
+        await incidents.findOne({
+
+          workflow: {
+            $in:
+              workflowValues(
+                WF.CUSTOMERS
+              )
+          },
+
+          $or: [
+            {
+              customerCode:
+                selectedCustomer
+            },
+            {
+              customerName:
+                selectedCustomer
+            }
+          ]
+
+        });
+
+
+      if (
+        customer &&
+        customer.customerCode
+      ) {
+
+        updates.customerCode =
+          customer.customerCode;
+
+      }
+
+    }
+
+
+    /*
+     * LOCATION
+     */
+
+    const selectedLocation =
+      String(
+        get(
+          "locationName"
+        ) || ""
+      ).trim();
+
+
+    if (selectedLocation) {
+
+      const location =
+        await incidents.findOne({
+
+          workflow: {
+            $in:
+              workflowValues(
+                WF.LOCATIONS
+              )
+          },
+
+          $or: [
+            {
+              locationCode:
+                selectedLocation
+            },
+            {
+              locationName:
+                selectedLocation
+            }
+          ]
+
+        });
+
+
+      if (location) {
+
+        if (
+          location.locationCode
+        ) {
+
+          updates.locationCode =
+            location.locationCode;
+
+        }
+
+
+        if (
+          location.route !== undefined &&
+          location.route !== null
+        ) {
+
+          updates.route =
+            location.route;
+
+        }
+
+      }
+
+    }
+
+
+    /*
+     * SUPPLIER
+     */
+
+    const selectedSupplier =
+      String(
+        get(
+          "supplierName"
+        ) || ""
+      ).trim();
+
+
+    if (selectedSupplier) {
+
+      const supplier =
+        await incidents.findOne({
+
+          workflow: {
+            $in:
+              workflowValues(
+                WF.SUPPLIERS
+              )
+          },
+
+          $or: [
+            {
+              supplierCode:
+                selectedSupplier
+            },
+            {
+              supplierName:
+                selectedSupplier
+            }
+          ]
+
+        });
+
+
+      if (
+        supplier &&
+        supplier.supplierCode
+      ) {
+
+        updates.supplierCode =
+          supplier.supplierCode;
+
+      }
+
+    }
+
+
+    if (
+      Object.keys(
+        updates
+      ).length > 0
+    ) {
+
+      await updateCurrent(
+        updates,
+        "MACHINE DERIVED FIELDS"
+      );
+
+    }
+
+
+    return updates;
+
+  }
+
+
+
+  /*
+   * ============================================================
+   * AGREEMENT FIELD RESOLUTION
+   * ============================================================
+   */
+
+  async function resolveAgreementFields() {
+
+    await refreshDoc();
+
+
+    const updates = {};
+
+
+    /*
+     * CUSTOMER
+     */
+
+    const selectedCustomer =
+      String(
+        get(
+          "customerName"
+        ) || ""
+      ).trim();
+
+
+    if (selectedCustomer) {
+
+      const customer =
+        await incidents.findOne({
+
+          workflow: {
+            $in:
+              workflowValues(
+                WF.CUSTOMERS
+              )
+          },
+
+          $or: [
+            {
+              customerCode:
+                selectedCustomer
+            },
+            {
+              customerName:
+                selectedCustomer
+            }
+          ]
+
+        });
+
+
+      if (
+        customer &&
+        customer.customerCode
+      ) {
+
+        updates.customerCode =
+          customer.customerCode;
+
+      }
+
+    }
+
+
+    /*
+     * SUPPLIER
+     */
+
+    const selectedSupplier =
+      String(
+        get(
+          "supplierName"
+        ) || ""
+      ).trim();
+
+
+    if (selectedSupplier) {
+
+      const supplier =
+        await incidents.findOne({
+
+          workflow: {
+            $in:
+              workflowValues(
+                WF.SUPPLIERS
+              )
+          },
+
+          $or: [
+            {
+              supplierCode:
+                selectedSupplier
+            },
+            {
+              supplierName:
+                selectedSupplier
+            }
+          ]
+
+        });
+
+
+      if (
+        supplier &&
+        supplier.supplierCode
+      ) {
+
+        updates.supplierCode =
+          supplier.supplierCode;
+
+      }
+
+    }
+
+
+    /*
+     * LOCATION
+     */
+
+    const selectedLocation =
+      String(
+        get(
+          "locationName"
+        ) || ""
+      ).trim();
+
+
+    if (selectedLocation) {
+
+      const location =
+        await incidents.findOne({
+
+          workflow: {
+            $in:
+              workflowValues(
+                WF.LOCATIONS
+              )
+          },
+
+          $or: [
+            {
+              locationCode:
+                selectedLocation
+            },
+            {
+              locationName:
+                selectedLocation
+            }
+          ]
+
+        });
+
+
+      if (
+        location &&
+        location.locationCode
+      ) {
+
+        updates.locationCode =
+          location.locationCode;
+
+      }
+
+    }
+
+
+    /*
+     * PRODUCT
+     */
+
+    const selectedProduct =
+      String(
+        get(
+          "productName"
+        ) || ""
+      ).trim();
+
+
+    if (selectedProduct) {
+
+      const product =
+        await incidents.findOne({
+
+          workflow: {
+            $in:
+              workflowValues(
+                WF.PRODUCT_CATALOG
+              )
+          },
+
+          $or: [
+            {
+              productCode:
+                selectedProduct
+            },
+            {
+              productName:
+                selectedProduct
+            }
+          ]
+
+        });
+
+
+      if (
+        product &&
+        product.productCode
+      ) {
+
+        updates.productCode =
+          product.productCode;
+
+      }
+
+
+      if (
+        product &&
+        product.supplierCode &&
+        !updates.supplierCode
+      ) {
+
+        updates.supplierCode =
+          product.supplierCode;
+
+      }
+
+    }
+
+
+    /*
+     * INSTALLED MACHINE
+     */
+
+    const selectedMachine =
+      String(
+        get(
+          "serialNumber"
+        ) || ""
+      ).trim();
+
+
+    if (selectedMachine) {
+
+      const machine =
+        await incidents.findOne({
+
+          workflow: {
+            $in:
+              workflowValues(
+                WF.INSTALLED_MACHINES
+              )
+          },
+
+          $or: [
+            {
+              machineId:
+                selectedMachine
+            },
+            {
+              serialNumber:
+                selectedMachine
+            }
+          ]
+
+        });
+
+
+      if (machine) {
+
+        if (
+          machine.machineId
+        ) {
+
+          updates.machineId =
+            machine.machineId;
+
+        }
+
+
+        if (
+          machine.productCode
+        ) {
+
+          updates.productCode =
+            machine.productCode;
+
+        }
+
+
+        if (
+          machine.customerCode
+        ) {
+
+          updates.customerCode =
+            machine.customerCode;
+
+        }
+
+
+        if (
+          machine.locationCode
+        ) {
+
+          updates.locationCode =
+            machine.locationCode;
+
+        }
+
+
+        if (
+          machine.supplierCode
+        ) {
+
+          updates.supplierCode =
+            machine.supplierCode;
+
+        }
+
+      }
+
+    }
+
+
+    if (
+      Object.keys(
+        updates
+      ).length > 0
+    ) {
+
+      await updateCurrent(
+        updates,
+        "AGREEMENT DERIVED FIELDS"
+      );
+
+    }
+
+
+    await refreshDoc();
+
+
+    console.log(
+      "AGREEMENT FINAL:",
+      "| customerCode:",
+      get("customerCode"),
+      "| supplierCode:",
+      get("supplierCode"),
+      "| locationCode:",
+      get("locationCode"),
+      "| productCode:",
+      get("productCode"),
+      "| machineId:",
+      get("machineId")
+    );
+
+  }
+
+
+  /*
+   * ============================================================
+   * REFRESH ONLY WHEN THE DROPDOWN IS AFFECTED
+   *
+   * Inserts / replaces always refresh. Updates refresh only when
+   * one of the dropdown's source fields changed, so editing e.g.
+   * a customer's phone number does not rebuild the whole list.
+   * ============================================================
+   */
+
+  async function refreshSelectorIfChanged(
+    selectorField
+  ) {
+
+    if (
+      operation === "update"
+    ) {
+
+      const description =
+        changeEvent.updateDescription || {};
+
+
+      const changed =
+        Object.keys(
+          description.updatedFields || {}
+        ).concat(
+          description.removedFields || []
+        ).map(
+          function (path) {
+
+            return String(
+              path
+            ).split(".")[0];
+
+          }
+        );
+
+
+      const watched =
+        sourceFields(
+          selectorField
+        );
+
+
+      const affected =
+        changed.some(
+          function (field) {
+
+            return watched.indexOf(
+              field
+            ) !== -1;
+
+          }
+        );
+
+
+      if (!affected) {
+
+        console.log(
+          "DROPDOWN SKIPPED:",
+          selectorField,
+          "| no source field changed"
+        );
+
+
+        return;
+
+      }
+
+    }
+
+
+    await refreshSelector(
+      selectorField
+    );
+
+  }
+
+
+  /*
+   * ============================================================
+   * ROUTING
+   * ============================================================
+   */
+
+  try {
+
+    switch (
+      workflowId
+    ) {
+
+
+      /*
+       * CUSTOMER
+       */
+
+      case WF.CUSTOMERS: {
+
+        await assignGeneratedCode(
+          "customerCode"
+        );
+
+
+        await refreshDoc();
+
+
+        await refreshSelectorIfChanged(
+          "customerName"
+        );
+
+
+        await refreshTitle();
+
+
+        break;
+
+      }
+
+
+      /*
+       * SUPPLIER
+       */
+
+      case WF.SUPPLIERS: {
+
+        await assignGeneratedCode(
+          "supplierCode"
+        );
+
+
+        await refreshDoc();
+
+
+        await refreshSelectorIfChanged(
+          "supplierName"
+        );
+
+
+        await refreshTitle();
+
+
+        break;
+
+      }
+
+
+      /*
+       * LOCATION
+       */
+
+      case WF.LOCATIONS: {
+
+        await resolveLocationCustomer();
+
+
+        await refreshDoc();
+
+
+        await assignGeneratedCode(
+          "locationCode"
+        );
+
+
+        await refreshDoc();
+
+
+        await refreshSelectorIfChanged(
+          "locationName"
+        );
+
+
+        await refreshTitle();
+
+
+        break;
+
+      }
+
+
+      /*
+       * PRODUCT
+       */
+
+      case WF.PRODUCT_CATALOG: {
+
+        await resolveProductSupplier();
+
+
+        await refreshDoc();
+
+
+        await assignGeneratedCode(
+          "productCode"
+        );
+
+
+        await refreshDoc();
+
+
+        await refreshSelectorIfChanged(
+          "productName"
+        );
+
+
+        await refreshTitle();
+
+
+        break;
+
+      }
+
+
+      /*
+       * INSTALLED MACHINE
+       */
+
+      case WF.INSTALLED_MACHINES: {
+
+        await assignGeneratedCode(
+          "machineId"
+        );
+
+
+        await refreshDoc();
+
+
+        await resolveMachineFields();
+
+
+        await refreshDoc();
+
+
+        await refreshSelectorIfChanged(
+          "serialNumber"
+        );
+
+
+        await refreshTitle();
+
+
+        break;
+
+      }
+
+
+      /*
+       * AGREEMENT / WARRANTY
+       */
+
+      case WF.AGREEMENT_WARRANTY: {
+
+        console.log(
+          "AGREEMENT / WARRANTY PROCESS START"
+        );
+
+
+        await resolveAgreementFields();
+
+
+        console.log(
+          "AGREEMENT / WARRANTY PROCESS END"
+        );
+
+
+        await refreshTitle();
+
+
+        break;
+
+      }
+
+
+      default: {
+
+        console.log(
+          "Ignored workflow:",
+          workflowId
+        );
+
+
+        break;
+
+      }
+
+    }
+
+
+    console.log(
+      "============================================"
+    );
+
+
+    console.log(
+      "DIPRA MASTER DATA SYNC COMPLETED"
+    );
+
+
+    console.log(
+      "============================================"
+    );
+
+
+    return {
+
+      success:
+        true,
+
+      workflow:
+        workflowId,
+
+      operation:
+        operation
+
+    };
+
+
+  } catch (error) {
+
+    console.log(
+      "============================================"
+    );
+
+
+    console.log(
+      "DIPRA MASTER DATA SYNC ERROR"
+    );
+
+
+    console.log(
+      "Message:",
+      error.message
+    );
+
+
+    if (
+      error.stack
+    ) {
+
+      console.log(
+        error.stack
+      );
+
+    }
+
+
+    console.log(
+      "============================================"
+    );
+
+
+    throw error;
+
+  }
+
+};

@@ -72,7 +72,7 @@ const DEFAULT_ASSIGNEE =
 // ============================================================
 
 const GEMINI_API_KEY =
-  "";
+  "PASTE_YOUR_GEMINI_API_KEY_HERE";
 
 const GEMINI_API_BASE_URL =
   "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
@@ -94,7 +94,7 @@ const TICKET_API_URL =
  * Do NOT put the Gemini key here.
  */
 const TICKET_BEARER_TOKEN =
-  "";
+  "PASTE_YOUR_EMOJOT_BEARER_TOKEN_HERE";
 
 
 // ============================================================

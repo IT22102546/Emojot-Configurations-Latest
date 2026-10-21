@@ -1,0 +1,2 @@
+_id,complaintType,Branch,defaultAssignee,ticketCreationAlert,ticketOverdueAlert_01,ticketOverdueAlert_02,ticketOverdueAlert_03,ticketResolutionAlert,ticketOverdueAssignee_01,ticketOverdueAssignee_02,ticketOverdueAssignee_03
+,Category name,Branch name,person1@company.com; person2@company.com,alerts@company.com,level1@company.com,level2@company.com,level3@company.com,resolution@company.com,assignee1@company.com,assignee2@company.com,assignee3@company.com

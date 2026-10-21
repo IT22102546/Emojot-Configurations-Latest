@@ -23,7 +23,7 @@
       },
       {
         "fieldId": "assignee",
-        "dataField": "$currentUser$"
+        "defaultValue": "dheveshan.pillay@mtn.com"
       }
     ],
     "customFields": [

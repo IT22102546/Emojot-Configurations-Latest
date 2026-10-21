@@ -1,0 +1,418 @@
+@import url('https://fonts.googleapis.com/css?family=Exo:300,400');
+#master-section {
+    background-image: url('https://storage.emojot.com/pictures/skinImages/65c4bdcf831a9d3f875d236b-skin1.png');
+    background-color: #FFFFFF;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    min-height: 657px;
+    position: relative;
+    padding-bottom: 65px;
+    box-sizing: border-box;
+}
+
+
+ #headerCompanyInfo {
+     background: #FFFFFF !important;
+}
+ .container[style]{
+     padding-left:0px !important;
+     padding-right:0px !important;
+}
+ .emote-title {
+     color: #000000;
+     font-family: 'exo 2.0', Helvetica, Arial, sans-serif;
+     font-size:12pt;
+     font-weight: bold;
+}
+.emo-text {
+    color: #000;
+}
+ .middle-box {
+     margin-top: 10px;
+     padding: 10px;
+     border: 1px solid #f3f3f3;
+}
+ 
+ .emo-cont {
+     border: 2px solid #3330;
+     margin: 3px 0px;
+     text-align: center;
+     display: inline-block;
+     border-radius: 0px;
+     box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+     padding: 7px 0;
+     border-radius: 4px;
+     color:#666;
+     background: rgba(255, 255, 255, 0.94);
+     }
+
+.clicked-emo-cont {
+    border: 3px #2a92ce solid !important;
+}
+.emo-ico img {
+    width: 80%;
+    display: inline-block;
+    text-align: center;
+    max-width: 55px;
+    margin: 5px;
+}
+
+ .btn-next {
+     color: #2a92ce;
+}
+ .btn-submit {
+     color: #2a92ce;
+}
+ .btn-prev {
+     color: #333;
+}
+ .btn-clear {
+     color: #333;
+}
+
+.btn-next,.btn-submit,.btn-prev,.btn-clear,.btn-skip,.btn-ok,.loyalty-redeem-button{
+    border: 1px solid rgba(255,255,255, 0.5);
+    margin: 10px 5px;
+    text-align: center;
+    min-width: 90px;
+    display: inline-block;
+    border-radius: 40px;
+    box-shadow: 0px 2px 6px rgba(0,0,0,0.2);
+    padding: 9px 25px;
+    font-family: 'Exo 2.0', Helvetica, Arial, sans-serif;
+    font-size: 12pt;
+    background: rgba(249,249,249,1);
+     background: -moz-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+     background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(249,249,249,1)), color-stop(100%, rgba(227,227,227,1)));
+     background: -webkit-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+     background: -o-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+     background: -ms-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+     background: linear-gradient(to bottom, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+}
+
+ .clear-submit-row{
+    text-align:center !important;
+}
+ .btn:hover {
+     color: #196d9e;
+     text-decoration: none;
+}
+.btn-ok{
+    color:#333 
+}
+.btn-skip{
+    color:#333;
+display : none;
+}
+.btn-fb{
+    color:white;
+}
+
+.loyalty-redeem-button{
+    border-color: #2a92ce;
+}
+
+ .logo-cust {
+    margin: 3px 0 -3px 9px;
+     height: 50px;
+}
+ .sensor-title {
+     background: #FFFFFF !important;
+     color: #333;
+     font-size: 17pt;
+     padding: 10px 10px 0px 10px;
+     margin-bottom: 10px;
+     font-family: 'Exo 2.0', Helvetica, Arial, sans-serif;
+     border-bottom: 2px solid #8db8ea;
+     letter-spacing: -0.5px;
+     /*background: rgba(255, 255, 255, 0);*/
+     line-height: 40px;
+     font-weight: bold;
+}
+
+.form-control {
+    border-radius: 0px;
+}
+
+.panel {
+    margin: 0 10px;
+}
+
+ .panel-group .panel {
+     margin-bottom: 0;
+     border-radius: 5px;
+     box-shadow: none;
+     background: rgba(250, 247, 247, 0.64);
+}
+ 
+ .panel-group .panel-heading {
+     box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
+     border-radius: 5px;
+     color: black;
+     background: rgba(249,249,249,1);
+     background: -moz-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+     background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(249,249,249,1)), color-stop(100%, rgba(227,227,227,1)));
+     background: -webkit-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+     background: -o-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+     background: -ms-linear-gradient(top, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+     background: linear-gradient(to bottom, rgba(249,249,249,1) 0%, rgba(227,227,227,1) 100%);
+}
+ .panel-title {
+    font-size: 11pt;
+     max-width: 90%;
+     font-family: 'Exo', Helvetica, Arial, sans-serif;
+     line-height: 1.6;
+}
+ .row {
+     background: transparent !important;
+}
+ .my-emojots{
+     display:none;
+}
+ .panel-body {
+     background: transparent !important;
+}
+ .thank-you-note{
+     color:white !important;
+}
+ 
+ #headerCompanyInfo > .access-user{
+     text-align: center;
+     float: right;
+     text-shadow: 1px 1px 1px #000;
+     font-family: 'Exo 2.0', Helvetica, Arial, sans-serif;
+     font-style: italic;
+     font-size: 15px;
+     background-size: 120px 80px;
+     background-repeat: no-repeat;
+     background-position: right center;
+     position: relative;
+}
+ .company-logo img{
+     height: 50px;
+}
+ .footer {
+     background: #00b9d2b8 !important;
+     color: #fff;
+     position: absolute;
+     right: 10px;
+     left: 0;
+     z-index: 1030;
+     bottom: 0;
+     height: 40px;
+     padding: 12px 13px;
+     font-size: 8pt;
+     margin: 0 -10px 0px 0;
+     font-family: 'Exo', Helvetica, Arial, sans-serif;
+}
+ .form-group label{
+     columns: #fff !important;
+     font-family: 'Exo 2.0', Helvetica, Arial, sans-serif;
+     font-size:12pt;
+}
+ .loyalty-message{
+     color:#591350;
+     font-size: 14pt;
+}
+ .loyalty-bottom{
+     text-align:center;
+margin-bottom : 30px
+}
+ 
+.loyalty-dialog > div:nth-child(3) {
+    text-align: center;
+}
+ 
+.email-emote-message{
+     color:white !important;
+}
+
+#progressfill{
+    background-color: #22808D;
+}
+
+#groupCommentBuzzModal .modal-header{
+	background:#fff ;
+	color:#e4e4e4;
+}
+
+#groupCommentBuzzModal .modal-body{
+	background:#fff;
+	color:#333333;
+}
+
+#groupCommentBuzzModal .modal-footer{
+	background:#fff;
+	color:white;
+}
+
+#groupCommentBuzzModal .panel-body.comment-panel{
+	background:#f6f6f6 !important;
+}
+
+#groupCommentBuzzModal .panel-footer.comment-footer{
+	color:#333333;
+}
+
+.thank-you-note{
+    color: #333 !important; 
+}
+
+#barChart{
+    width:100%;
+}
+
+.emj-required-indicator {
+    color: red;
+}
+.purple {
+color : #57114e
+}
+
+.blue {
+color : #337ab7
+}
+
+.red{
+color : red
+}
+
+/* Keep the labels positioned below their own score row. */
+.nps-bar {
+    position: relative;
+    margin-bottom: 45px;
+    overflow: visible;
+}
+
+/* NPS anchor labels */
+.nps-bar::before,
+.nps-bar::after {
+    content: "";
+    position: absolute;
+    font-size: 15px;
+    color: #000000;
+    font-weight: bold;
+    top: 100%;
+    transform: translateY(8px);
+    font-family: 'Exo 2.0', Helvetica, Arial, sans-serif !important;
+    font-style: normal !important;
+}
+
+.nps-bar::before {
+    content: "Less Likely";
+    left: 10px;
+    margin-left: -10px !important;
+}
+
+.nps-bar::after {
+    content: "More Likely";
+    right: 10px;
+    margin-right: -8px !important;
+}
+
+/* Match the live dropdown selection, not the initial selected attribute. */
+/* Sinhala */
+body:has(.lngSelectDropdown select option[value="string:Sinhala"]:checked) .nps-bar::before {
+    content: "අඩු ඉඩක්";
+}
+
+body:has(.lngSelectDropdown select option[value="string:Sinhala"]:checked) .nps-bar::after {
+    content: "වැඩි ඉඩක්";
+}
+
+/* Tamil */
+body:has(.lngSelectDropdown select option[value="string:Tamil"]:checked) .nps-bar::before {
+    content: "குறைவான வாய்ப்பு";
+}
+
+body:has(.lngSelectDropdown select option[value="string:Tamil"]:checked) .nps-bar::after {
+    content: "அதிக வாய்ப்பு";
+}
+
+.evz-nps-position-0,
+.evz-nps-position-1,
+.evz-nps-position-2,
+.evz-nps-position-3,
+.evz-nps-position-4,
+.evz-nps-position-5,
+.evz-nps-position-6{
+    background: #ff2942;
+    color: white;
+    border: 1px solid rgba(255, 0, 55, 0.61);
+}
+
+.evz-nps-position-7,
+.evz-nps-position-8{
+    background: #ff7924;
+    color: white;
+    border: 1px solid rgba(195, 117, 34, 0.61);
+}
+
+.evz-nps-position-9,
+.evz-nps-position-10{
+    background: #1ca757;
+    color: white;
+    border: 1px solid rgba(17, 144, 74, 0.61);
+}
+
+.clicked-nps-icon{
+    border: 3px solid #333;
+    box-shadow: 0px 2px 6px #716868;
+} 
+
+.emo-text-only {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    font-size: 13pt;
+    color: #000000;
+    font-family: 'Exo 2.0',Helvetica, Arial, sans-serif;
+    font-weight: 300;
+}
+body{
+color:#22808D;
+}
+
+#ec_0_0q3848,#ec_0_0q6785,#ec_0_0q8196,#ec_0_0q2750,#ec_0_0q3173,#ec_0_0q2603,#ec_0_0q2722,#ec_0_0q7054,#ec_0_0q2526  {  background:#fb7f81; }
+#ec_0_1q3848,#ec_0_1q6785,#ec_0_1q8196,#ec_0_1q2750,#ec_0_1q3173,#ec_0_1q2603,#ec_0_1q2722,#ec_0_1q7054,#ec_0_1q2526  {  background:#f79e6f; }
+#ec_0_2q3848,#ec_0_2q6785,#ec_0_2q8196,#ec_0_2q2750,#ec_0_2q3173,#ec_0_2q2603,#ec_0_2q2722,#ec_0_2q7054,#ec_0_2q2526  {  background:#fbd887; }
+#ec_0_3q3848,#ec_0_3q6785,#ec_0_3q8196,#ec_0_3q2750,#ec_0_3q3173,#ec_0_3q2603,#ec_0_3q2722,#ec_0_3q7054,#ec_0_3q2526  {  background:#b4d39d; }
+#ec_0_4q3848,#ec_0_4q6785,#ec_0_4q8196,#ec_0_4q2750,#ec_0_4q3173,#ec_0_4q2603,#ec_0_4q2722,#ec_0_4q7054,#ec_0_4q2526  {  background:#79cab1; }
+
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+    #master-section {
+        background-size: 100% 100%;
+        background-position: center center;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    #master-section {
+        background-size: 100% 100%;
+        background-position: center center;
+        min-height: 657px;
+        padding-bottom: 65px;
+    }
+}
+
+
+.emo-cont .emo-text {
+    color: #333333;
+    font-weight: 400;
+}
+
+.emo-cont:hover {
+    background: #FFFFFF;
+}
+
+
+/* The survey renders each emote row as a direct child of .emoticonList.
+   Center incomplete rows while retaining the existing card widths. */
+.emoticonList > .flex {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: center !important;
+}

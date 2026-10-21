@@ -1,0 +1,442 @@
+{
+  "created": 1791273067319,
+  "createdBy": "glenp@emojot.com",
+  "companyID": "6a0aed2e4d3a2f062a7e37d7",
+  "aiModel": "gpt-3.5",
+  "vendors": [
+    "mentionlytics"
+  ],
+  "token": "REDACTED",
+  "competitors": [
+    {
+      "label": "Commercial Credit",
+      "color": "#d31146",
+      "brand": true,
+      "keys": [
+        "Commercial Credit"
+      ]
+    }
+  ],
+  "dataRetreivers": {
+    "mentionlytics": [
+      {
+        "label": "Commercial Credit",
+        "key": "Commercial Credit",
+        "commtracks": [
+          536590,
+          536591,
+          536592,
+          536594
+        ]
+      }
+    ]
+  },
+  "channels": [
+    {
+      "id": "web",
+      "name": "Web",
+      "channelId": 1
+    },
+    {
+      "id": "twitter",
+      "name": "Twitter",
+      "channelId": 2
+    },
+    {
+      "id": "facebook",
+      "name": "Facebook",
+      "channelId": 3
+    },
+    {
+      "id": "youtube",
+      "name": "Youtube",
+      "channelId": 4
+    },
+    {
+      "id": "instagram",
+      "name": "Instagram",
+      "channelId": 5
+    },
+    {
+      "id": "linkedin",
+      "name": "LinkedIn",
+      "channelId": 6
+    },
+    {
+      "id": "tiktok",
+      "name": "Tiktok",
+      "channelId": 7
+    },
+    {
+      "id": "reddit",
+      "name": "Reddit",
+      "channelId": 8
+    },
+    {
+      "id": "others",
+      "name": "Others",
+      "channelId": 99
+    }
+  ],
+  "sltAICategories": [
+    {
+      "id": "recommendation",
+      "name": "Recommendation"
+    },
+    {
+      "id": "bahavior",
+      "name": "Behaviour and Preferences"
+    }
+  ],
+  "sltPromptForCompetitor": {
+    "recommendation": {
+      "facebook": "Client: ##brands##\n Competitors: ##competitors## \n Please do an analysis of ##brands## facebook posts vs. the ##competitors##, and give the ##brands## an analysis and recommendations to perform better than the ##competitors##, in point form. Note that each post had very good images and videos attached. Please make sure you include what the ##brands## did well and not-so-well, and what the ##competitors## did well and not-so-well, in the analysis, and provide the recommendations only for the ##brands##. Please return your analysis well formatted with HTML tags.\n",
+      "twitter": "Client: ##brands##\n Competitors: ##competitors## \n Please do an analysis of ##brands## tweets vs. the ##competitors##, and give the ##brands## an analysis and recommendations to perform better than the ##competitors##, in point form. Note that each post had very good images and videos attached. Please make sure you include what the ##brands## did well and not-so-well, and what the ##competitors## did well and not-so-well, in the analysis, and provide the recommendations only for the ##brands##. Please return your analysis well formatted with HTML tags.\n",
+      "instagram": "Client: ##brands##\n Competitors: ##competitors## \n Please do an analysis of ##brands## instagrams vs. the ##competitors##, and give the ##brands## an analysis and recommendations to perform better than the ##competitors##, in point form. Note that each post had very good images and videos attached. Please make sure you include what the ##brands## did well and not-so-well, and what the ##competitors## did well and not-so-well, in the analysis, and provide the recommendations only for the ##brands##. Please return your analysis well formatted with HTML tags.\n",
+      "youtube": "Client: ##brands##\n Competitors: ##competitors## \n Please do an analysis of ##brands## YouTube posts vs. the ##competitors##, and give the ##brands## an analysis and recommendations to perform better than the ##competitors##, in point form. Note that each post had very good images and videos attached. Please make sure you include what the ##brands## did well and not-so-well, and what the ##competitors## did well and not-so-well, in the analysis, and provide the recommendations only for the ##brands##. Please return your analysis well formatted with HTML tags.\n",
+      "web": "Client: ##brands##\n Competitors: ##competitors## \n Please do an analysis of ##brands## website posts vs. the ##competitors##, and give the ##brands## an analysis and recommendations to perform better than the ##competitors##, in point form. Note that each post had very good images and videos attached. Please make sure you include what the ##brands## did well and not-so-well, and what the ##competitors## did well and not-so-well, in the analysis, and provide the recommendations only for the ##brands##. Please return your analysis well formatted with HTML tags.\n",
+      "others": "Client: ##brands##\n Competitors: ##competitors## \n Please do an analysis of ##brands## others posts vs. the ##competitors##, and give the ##brands## an analysis and recommendations to perform better than the ##competitors##, in point form. Note that each post had very good images and videos attached. Please make sure you include what the ##brands## did well and not-so-well, and what the ##competitors## did well and not-so-well, in the analysis, and provide the recommendations only for the ##brands##. Please return your analysis well formatted with HTML tags.\n"
+    },
+    "bahavior": {
+      "facebook": "Client: ##brands##\n Competitors: ##competitors## \n Please analyze these Facebook posts of  ##competitors## that received high engagement. Give us a customer behaviour and preference analysis for those competitors based on the engagements in comparison with its brands. Please return your analysis well formatted with HTML tags.\n",
+      "twitter": "Client: ##brands##\n Competitors: ##competitors## \n Please analyze these tweets posts of  ##competitors## that received high engagement. Give us a customer behaviour and preference analysis for those competitors based on the engagements in comparison with its brands. Please return your analysis well formatted with HTML tags.\n",
+      "instagram": "Client: ##brands##\n Competitors: ##competitors## \n Please analyze these instagram posts of  ##competitors## that received high engagement. Give us a customer behaviour and preference analysis for those competitors based on the engagements in comparison with its brands. Please return your analysis well formatted with HTML tags.\n",
+      "youtube": "Client: ##brands##\n Competitors: ##competitors## \n Please analyze these youtube posts of  ##competitors## that received high engagement. Give us a customer behaviour and preference analysis for those competitors based on the engagements in comparison with its brands. Please return your analysis well formatted with HTML tags.\n",
+      "web": "Client: ##brands##\n Competitors: ##competitors## \n Please analyze these web posts of  ##competitors## that received high engagement. Give us a customer behaviour and preference analysis for those competitors based on the engagements in comparison with its brands. Please return your analysis well formatted with HTML tags.\n",
+      "others": "Client: ##brands##\n Competitors: ##competitors## \n Please analyze these tiktok and web posts of  ##competitors## that received high engagement. Give us a customer behaviour and preference analysis for those competitors based on the engagements in comparison with its brands. Please return your analysis well formatted with HTML tags.\n"
+    }
+  },
+  "sltPromptForBrand": {
+    "recommendation": {
+      "facebook": "Please analyze these Facebook posts of ##brands## that received high engagement. Give your analysis as bullet points. Note that each post had very good images and videos attached. Please also suggest recommendations for Facebook engagement improvements. Please return your analysis well formatted with HTML tags.\n",
+      "twitter": "Please analyze these tweets  of ##brands## that received high engagement. Give your analysis as bullet points. Note that each post had very good images and videos attached. Please also suggest recommendations for twitter engagement improvements. Please return your analysis well formatted with HTML tags.\n",
+      "instagram": "Please analyze these instagram posts  of ##brands## that received high engagement. Give your analysis as bullet points. Note that each post had very good images and videos attached. Please also suggest recommendations for instagram engagement improvements. Please return your analysis well formatted with HTML tags.\n",
+      "youtube": "Please analyze these youtube posts  of ##brands## that received high engagement. Give your analysis as bullet points. Note that each post had very good images and videos attached. Please also suggest recommendations for youtube engagement improvements. Please return your analysis well formatted with HTML tags.\n",
+      "web": "Please analyze these website posts  of ##brands## that received high engagement. Give your analysis as bullet points. Note that each post had very good images and videos attached. Please also suggest recommendations for web engagement improvements. Please return your analysis well formatted with HTML tags.\n",
+      "others": "Please analyze these tiktok and news posts  of ##brands## that received high engagement. Give your analysis as bullet points. Note that each post had very good images and videos attached. Please also suggest recommendations for other channels' engagement improvements. Please return your analysis well formatted with HTML tags.\n"
+    },
+    "bahavior": {
+      "facebook": "Please analyze these Facebook posts of ##brands## that received high engagement. Give us a customer behaviour and preference analysis seperately based on the engagements. Please return your analysis well formatted with HTML tags.\n",
+      "twitter": "Please analyze these tweets posts of ##brands## that received high engagement. Give us a customer behaviour and preference analysis seperately based on the engagements. Please return your analysis well formatted with HTML tags.\n",
+      "instagram": "Please analyze these instagram posts of ##brands## that received high engagement. Give us a customer behaviour and preference analysis seperately based on the engagements. Please return your analysis well formatted with HTML tags.\n",
+      "youtube": "Please analyze these youtube posts of ##brands## that received high engagement. Give us a customer behaviour and preference analysis seperately based on the engagements. Please return your analysis well formatted with HTML tags.\n",
+      "web": "Please analyze these web posts of ##brands## that received high engagement. Give us a customer behaviour and preference analysis seperately based on the engagements. Please return your analysis well formatted with HTML tags.\n",
+      "others": "Please analyze these tiktok and news posts of ##brands## that received high engagement. Give us a customer behaviour and preference analysis seperately based on the engagements. Please return your analysis well formatted with HTML tags.\n"
+    }
+  },
+  "sltCategories": {
+    "Personal Loans & Consumer Finance": [
+      "personal loan",
+      "personal finance",
+      "consumer finance",
+      "salary loan",
+      "cash loan",
+      "loan application",
+      "loan eligibility",
+      "loan approval",
+      "loan installment",
+      "monthly installment",
+      "loan repayment",
+      "loan balance",
+      "credit facility",
+      "early settlement",
+      "borrower"
+    ],
+    "Leasing & Vehicle Finance": [
+      "leasing",
+      "vehicle leasing",
+      "vehicle finance",
+      "vehicle loan",
+      "car finance",
+      "motorcycle lease",
+      "three wheeler lease",
+      "three-wheeler leasing",
+      "commercial vehicle finance",
+      "auto loan",
+      "asset finance",
+      "hire purchase",
+      "lease rental",
+      "lease installment",
+      "lease settlement"
+    ],
+    "Gold Loans & Pawning": [
+      "gold loan",
+      "gold loans",
+      "gold financing",
+      "gold pawning",
+      "pawning",
+      "pawn loan",
+      "gold-backed loan",
+      "gold jewellery loan",
+      "jewellery loan",
+      "gold valuation",
+      "gold advance",
+      "redeem gold",
+      "pawn ticket",
+      "pawning interest",
+      "gold loan repayment"
+    ],
+    "Business, SME & Microfinance": [
+      "business loan",
+      "SME loan",
+      "small business finance",
+      "business financing",
+      "working capital",
+      "entrepreneur loan",
+      "business expansion",
+      "enterprise finance",
+      "commercial loan",
+      "microfinance",
+      "micro loan",
+      "agriculture finance",
+      "agri finance",
+      "self-employed loan",
+      "women entrepreneur finance"
+    ],
+    "Fixed Deposits & Savings": [
+      "fixed deposit",
+      "fixed deposits",
+      "savings",
+      "savings account",
+      "deposit rate",
+      "interest rate",
+      "deposit maturity",
+      "fixed deposit maturity",
+      "renew fixed deposit",
+      "deposit withdrawal",
+      "early withdrawal",
+      "monthly interest",
+      "senior citizen deposit",
+      "investment return",
+      "deposit account"
+    ],
+    "Islamic Finance": [
+      "islamic finance",
+      "sharia compliant",
+      "shariah compliant",
+      "islamic leasing",
+      "islamic financing",
+      "islamic loan",
+      "murabaha",
+      "ijara",
+      "mudarabah",
+      "halal finance",
+      "islamic deposit",
+      "islamic investment",
+      "profit sharing",
+      "islamic financial services",
+      "sharia finance"
+    ],
+    "Customer Service & Branches": [
+      "customer service",
+      "customer care",
+      "customer support",
+      "hotline",
+      "branch",
+      "branch location",
+      "service center",
+      "customer inquiry",
+      "staff service",
+      "response time",
+      "follow up",
+      "account inquiry",
+      "loan inquiry",
+      "contact center",
+      "service quality"
+    ],
+    "Digital Services & Payments": [
+      "mobile app",
+      "online payment",
+      "digital payment",
+      "online services",
+      "customer portal",
+      "digital finance",
+      "loan payment online",
+      "payment receipt",
+      "e-statement",
+      "account login",
+      "app issue",
+      "online account",
+      "SMS alert",
+      "payment gateway",
+      "digital service"
+    ],
+    "Repayments & Collections": [
+      "loan repayment",
+      "lease repayment",
+      "installment payment",
+      "missed payment",
+      "overdue installment",
+      "late payment",
+      "payment due date",
+      "repayment schedule",
+      "settlement amount",
+      "early repayment",
+      "loan arrears",
+      "debt collection",
+      "collection agent",
+      "payment reminder",
+      "repayment difficulty"
+    ],
+    "Interest Rates & Fees": [
+      "interest rate",
+      "loan interest",
+      "leasing rate",
+      "deposit interest rate",
+      "finance charges",
+      "service fee",
+      "processing fee",
+      "hidden charges",
+      "late fee",
+      "penalty charge",
+      "administration fee",
+      "loan cost",
+      "effective interest rate",
+      "rate change",
+      "fee refund"
+    ],
+    "Financial Literacy & Guidance": [
+      "financial advice",
+      "financial guidance",
+      "financial literacy",
+      "money management",
+      "budget planning",
+      "responsible borrowing",
+      "credit history",
+      "credit score",
+      "loan calculator",
+      "financial planning",
+      "debt management",
+      "saving tips",
+      "investment guidance",
+      "financial education",
+      "repayment planning"
+    ],
+    "Promotions & Campaigns": [
+      "promotion",
+      "special offer",
+      "loan offer",
+      "leasing offer",
+      "deposit promotion",
+      "campaign",
+      "competition",
+      "giveaway",
+      "event",
+      "launch",
+      "contest",
+      "prize",
+      "customer promotion",
+      "seasonal offer",
+      "brand campaign"
+    ],
+    "Complaints & Negative Sentiment": [
+      "complaint",
+      "poor service",
+      "service delay",
+      "not responding",
+      "loan rejected",
+      "application delay",
+      "payment issue",
+      "incorrect charge",
+      "hidden charges",
+      "harassment",
+      "misleading terms",
+      "unfair treatment",
+      "refund request",
+      "bad experience",
+      "unhappy customer"
+    ],
+    "Brand Reputation & Trust": [
+      "Commercial Credit",
+      "Commercial Credit and Finance",
+      "Commercial Credit and Finance PLC",
+      "CCL",
+      "Commercial Credit Sri Lanka",
+      "financial company",
+      "finance company",
+      "reputation",
+      "customer trust",
+      "reliability",
+      "financial strength",
+      "company rating",
+      "award",
+      "recognition",
+      "corporate responsibility"
+    ],
+    "Careers & Recruitment": [
+      "Commercial Credit careers",
+      "finance job",
+      "job vacancy",
+      "career opportunity",
+      "recruitment",
+      "branch manager",
+      "loan officer",
+      "finance officer",
+      "sales executive",
+      "customer service job",
+      "internship",
+      "trainee",
+      "staff training",
+      "career development",
+      "work at Commercial Credit"
+    ],
+    "Competitor Comparisons": [
+      "compare finance companies",
+      "finance company comparison",
+      "best finance company",
+      "compare loan rates",
+      "leasing comparison",
+      "gold loan comparison",
+      "fixed deposit comparison",
+      "interest rate comparison",
+      "loan terms comparison",
+      "customer reviews",
+      "finance company rates",
+      "alternative lender",
+      "competitor finance company",
+      "better loan offer",
+      "best leasing company"
+    ]
+  },
+  "alertConfig": {
+    "receivers": [],
+    "reminderDate": {
+      "dayOfTheWeek": "Monday",
+      "time": "06:00",
+      "offset": -330
+    },
+    "reportType": "SLT_UPDATE_ALERT",
+    "reminderType": "weekly",
+    "updatedAt": "2025-11-17T01:00:27.274Z",
+    "emailTemplate": "SLT_WeeklyUpdateReport",
+    "dailyAlert": {
+      "emailTemplate": "SLT_DailyUpdateReport",
+      "receivers": [],
+      "sendDailyReport": true,
+      "updatedAt": "2025-11-18T01:00:25.846Z",
+      "nextReminderDate": "2025-11-19T00:30:00.000Z"
+    },
+    "nextReminderDate": "2025-11-24T00:30:00.000Z"
+  },
+  "stormAlertConfig": {
+    "receivers": [],
+    "timeOffset": -330,
+    "companyID": "64ffe40cf70dfe00207099b0",
+    "threshold": 1.2,
+    "averageDates": 7,
+    "emailTemplate": "SLT_StormAlert",
+    "reportType": "SLT_STORM_ALERT"
+  },
+  "sltDataCategorizationPrompt": "give me the aspect base sentiment for given text.the text is $text$. Valid asspects are \nNews, Social, Loan Services, Digital Banking, Saving Accounts, Competition, Credit Cards, E-Banking & Mobile Banking, Youth, Fake calls, E-Banking & Mobile Banking, Youth, Fake calls.\nFind the most relevant aspect from the given aspect list, for the given text.sentiment should be one of neutral,negative,positive.return the response with most suitable aspect and related sentiment as a JSON format. object key is equal to aspect and its value shoud be sentiment {relatedAspect:sentiment}.if there is no relevent aspect found for the text return null",
+  "categorizationConfig": {
+    "AIModel": "manual"
+  },
+  "hideUnloadedImages": true,
+  "companyName": "Commercial Credit",
+  "syncEnabled": true,
+  "isMentionlyticsAdminConnected": true,
+  "mentionlyticsRefreshToken": "REDACTED",
+  "mentionlyticsBearerToken": "REDACTED",
+  "mentionlyticsTrackPeriodDays": 30,
+  "type": "socialNetworkListener"
+}

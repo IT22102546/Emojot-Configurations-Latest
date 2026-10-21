@@ -1,5 +1,5 @@
 {
-  "name": "Dipra Agreement / Warranty",
+  "name": "Dipra_Agreement_Warranty_WF",
   "reportNamePrefix": "Agreement",
   "reporterNamePrefix": "Submitted By",
   "nameTemplate": "$agreementNumber$ - $customerName$",
@@ -36,8 +36,197 @@
           "numberOfServices",
           "currentCompletedServices",
           "agreementValue",
+          "oilChangeValue",
+          "machineServiceValue",
+          "bearingValue",
           "additionalValue",
           "amountReceived",
+          "paymentStatus",
+          "paymentProof",
+          "nextAgreementReminderDate",
+          "priorPermissionNeeded",
+          "customerApproved",
+          "terminationDate",
+          "terminationReason",
+          "remarks",
+          "completedServicesDate"
+        ]
+      },
+      {
+        "id": "Agreement / Warranty - 1 Service",
+        "name": "Agreement / Warranty - 1 Service",
+        "highPriorityFields": [
+          "agreementNumber",
+          "agreementDate",
+          "agreementType",
+          "customerName",
+          "customerCode",
+          "supplierName",
+          "supplierCode",
+          "locationName",
+          "locationCode",
+          "productName",
+          "productCode",
+          "serialNumber",
+          "machineId",
+          "effectiveFrom",
+          "effectiveTo",
+          "firstServiceDate",
+          "serviceInterval",
+          "serviceIntervalUnit",
+          "numberOfServices",
+          "currentCompletedServices",
+          "service1Date",
+          "service1Status",
+          "agreementValue",
+          "oilChangeValue",
+          "machineServiceValue",
+          "bearingValue",
+          "additionalValue",
+          "amountReceived",
+          "paymentStatus",
+          "paymentProof",
+          "nextAgreementReminderDate",
+          "priorPermissionNeeded",
+          "customerApproved",
+          "terminationDate",
+          "terminationReason",
+          "remarks",
+          "completedServicesDate"
+        ]
+      },
+      {
+        "id": "Agreement / Warranty - 2 Services",
+        "name": "Agreement / Warranty - 2 Services",
+        "highPriorityFields": [
+          "agreementNumber",
+          "agreementDate",
+          "agreementType",
+          "customerName",
+          "customerCode",
+          "supplierName",
+          "supplierCode",
+          "locationName",
+          "locationCode",
+          "productName",
+          "productCode",
+          "serialNumber",
+          "machineId",
+          "effectiveFrom",
+          "effectiveTo",
+          "firstServiceDate",
+          "serviceInterval",
+          "serviceIntervalUnit",
+          "numberOfServices",
+          "currentCompletedServices",
+          "service1Date",
+          "service1Status",
+          "service2Date",
+          "service2Status",
+          "agreementValue",
+          "oilChangeValue",
+          "machineServiceValue",
+          "bearingValue",
+          "additionalValue",
+          "amountReceived",
+          "paymentStatus",
+          "paymentProof",
+          "nextAgreementReminderDate",
+          "priorPermissionNeeded",
+          "customerApproved",
+          "terminationDate",
+          "terminationReason",
+          "remarks",
+          "completedServicesDate"
+        ]
+      },
+      {
+        "id": "Agreement / Warranty - 3 Services",
+        "name": "Agreement / Warranty - 3 Services",
+        "highPriorityFields": [
+          "agreementNumber",
+          "agreementDate",
+          "agreementType",
+          "customerName",
+          "customerCode",
+          "supplierName",
+          "supplierCode",
+          "locationName",
+          "locationCode",
+          "productName",
+          "productCode",
+          "serialNumber",
+          "machineId",
+          "effectiveFrom",
+          "effectiveTo",
+          "firstServiceDate",
+          "serviceInterval",
+          "serviceIntervalUnit",
+          "numberOfServices",
+          "currentCompletedServices",
+          "service1Date",
+          "service1Status",
+          "service2Date",
+          "service2Status",
+          "service3Date",
+          "service3Status",
+          "agreementValue",
+          "oilChangeValue",
+          "machineServiceValue",
+          "bearingValue",
+          "additionalValue",
+          "amountReceived",
+          "paymentStatus",
+          "paymentProof",
+          "nextAgreementReminderDate",
+          "priorPermissionNeeded",
+          "customerApproved",
+          "terminationDate",
+          "terminationReason",
+          "remarks",
+          "completedServicesDate"
+        ]
+      },
+      {
+        "id": "Agreement / Warranty - 4 Services",
+        "name": "Agreement / Warranty - 4 Services",
+        "highPriorityFields": [
+          "agreementNumber",
+          "agreementDate",
+          "agreementType",
+          "customerName",
+          "customerCode",
+          "supplierName",
+          "supplierCode",
+          "locationName",
+          "locationCode",
+          "productName",
+          "productCode",
+          "serialNumber",
+          "machineId",
+          "effectiveFrom",
+          "effectiveTo",
+          "firstServiceDate",
+          "serviceInterval",
+          "serviceIntervalUnit",
+          "numberOfServices",
+          "currentCompletedServices",
+          "service1Date",
+          "service1Status",
+          "service2Date",
+          "service2Status",
+          "service3Date",
+          "service3Status",
+          "service4Date",
+          "service4Status",
+          "agreementValue",
+          "oilChangeValue",
+          "machineServiceValue",
+          "bearingValue",
+          "additionalValue",
+          "amountReceived",
+          "paymentStatus",
+          "paymentProof",
           "nextAgreementReminderDate",
           "priorPermissionNeeded",
           "customerApproved",
@@ -150,7 +339,8 @@
   "customFields": {
     "agreementNumber": {
       "name": "Agreement Number",
-      "type": "string"
+      "type": "string",
+      "readOnly": true
     },
     "agreementDate": {
       "name": "Agreement Date",
@@ -158,7 +348,17 @@
     },
     "agreementType": {
       "name": "Agreement Type",
-      "type": "string"
+      "type": "enum",
+      "values": [
+        {
+          "id": "Warranty",
+          "name": "Warranty"
+        },
+        {
+          "id": "AMC",
+          "name": "AMC"
+        }
+      ]
     },
     "customerCode": {
       "name": "Customer Code",
@@ -169,6 +369,118 @@
       "name": "Select Customer Name",
       "type": "enum",
       "values": [
+        {
+          "id": "123",
+          "name": "akilaikila"
+        },
+        {
+          "id": "CUS_0014",
+          "name": "Chethiya"
+        },
+        {
+          "id": "CUS_0013",
+          "name": "Chethiya"
+        },
+        {
+          "id": "CUS-TEST-356",
+          "name": "Chethiya"
+        },
+        {
+          "id": "2001035",
+          "name": "Chethiya test"
+        },
+        {
+          "id": "200103500242",
+          "name": "chethiyaNew"
+        },
+        {
+          "id": "CUST_00458",
+          "name": "Cheya"
+        },
+        {
+          "id": "CUST_00457",
+          "name": "Cheya"
+        },
+        {
+          "id": "CUST_00456",
+          "name": "Cheya"
+        },
+        {
+          "id": "CUS_00455",
+          "name": "Dewmini new"
+        },
+        {
+          "id": "876543",
+          "name": "Imalshaa"
+        },
+        {
+          "id": "87654",
+          "name": "koooshi"
+        },
+        {
+          "id": "87653",
+          "name": "koooshiTwo"
+        },
+        {
+          "id": "C0023",
+          "name": "New Emojot"
+        },
+        {
+          "id": "C0024",
+          "name": "New Emojot 02"
+        },
+        {
+          "id": "C0025",
+          "name": "New RP Sanjana"
+        },
+        {
+          "id": "C0026",
+          "name": "New RP Test Sanjana012"
+        },
+        {
+          "id": "12300321",
+          "name": "nippahNew"
+        },
+        {
+          "id": "C0018",
+          "name": "Sanjana 5555555"
+        },
+        {
+          "id": "C0021",
+          "name": "Sanjana Nimesh 0000"
+        },
+        {
+          "id": "CUS_00567",
+          "name": "Sanjana test"
+        },
+        {
+          "id": "C0022",
+          "name": "Sanjana006789"
+        },
+        {
+          "id": "75775",
+          "name": "SaraG"
+        },
+        {
+          "id": "CUS_0012",
+          "name": "Saranga Gamage"
+        },
+        {
+          "id": "CUS-001",
+          "name": "Sunrise Hotels PLC Test01"
+        },
+        {
+          "id": "C0020",
+          "name": "Test 006"
+        },
+        {
+          "id": "C0019",
+          "name": "Test 123"
+        },
+        {
+          "id": "CUS-TEST-001",
+          "name": "Test Customer IJKL"
+        }
       ]
     },
     "supplierCode": {
@@ -180,6 +492,34 @@
       "name": "Select Supplier Name",
       "type": "enum",
       "values": [
+        {
+          "id": "SUP-002",
+          "name": "Global Cooling Solutions"
+        },
+        {
+          "id": "SUP_00452",
+          "name": "Koshyy"
+        },
+        {
+          "id": "S0003",
+          "name": "Sanjana Sup"
+        },
+        {
+          "id": "SUP_00456",
+          "name": "Sanjana Sup"
+        },
+        {
+          "id": "SUP_00546",
+          "name": "Saraaa"
+        },
+        {
+          "id": "S0004",
+          "name": "test NEW RP"
+        },
+        {
+          "id": "SUP-TEST-001",
+          "name": "Test Supplier B"
+        }
       ]
     },
     "locationCode": {
@@ -191,6 +531,78 @@
       "name": "Select Location Name",
       "type": "enum",
       "values": [
+        {
+          "id": "65432",
+          "name": "abc"
+        },
+        {
+          "id": "LOC_00565",
+          "name": "Alawwa"
+        },
+        {
+          "id": "200103500242_loc_001",
+          "name": "galle"
+        },
+        {
+          "id": "LOC_00455",
+          "name": "Kandy"
+        },
+        {
+          "id": "345678",
+          "name": "kandy test new"
+        },
+        {
+          "id": "L0016",
+          "name": "New Location 00.1"
+        },
+        {
+          "id": "L0013",
+          "name": "New Location With new RP"
+        },
+        {
+          "id": "123",
+          "name": "qwerty"
+        },
+        {
+          "id": "C0021_L0009",
+          "name": "Sanjana6666666"
+        },
+        {
+          "id": "L0012",
+          "name": "sasa"
+        },
+        {
+          "id": "LOC-001",
+          "name": "Sunrise Hotel - Colombo"
+        },
+        {
+          "id": "C0021_L0010",
+          "name": "test 456554"
+        },
+        {
+          "id": "LOC-TEST-001",
+          "name": "Test Location BCD"
+        },
+        {
+          "id": "C0025_L0011",
+          "name": "Test Location New RP"
+        },
+        {
+          "id": "_L0007",
+          "name": "Test location Sanjana"
+        },
+        {
+          "id": "C0022_L0008",
+          "name": "Test new 4343434"
+        },
+        {
+          "id": "L0014",
+          "name": "Test New RP 002Sanjn"
+        },
+        {
+          "id": "L0015",
+          "name": "Update Testing by Sanjana"
+        }
       ]
     },
     "productCode": {
@@ -202,6 +614,34 @@
       "name": "Select Product Name",
       "type": "enum",
       "values": [
+        {
+          "id": "_P0005",
+          "name": "New Pord with RP"
+        },
+        {
+          "id": "PRD-001",
+          "name": "PolarCool Ice Maker 500"
+        },
+        {
+          "id": "_P0004",
+          "name": "rrr"
+        },
+        {
+          "id": "SUP_00456_P0002",
+          "name": "Test prod san2"
+        },
+        {
+          "id": "PRD-TEST-001",
+          "name": "Test Product ABC"
+        },
+        {
+          "id": "PROD_00455",
+          "name": "test product name"
+        },
+        {
+          "id": "_P0003",
+          "name": "Test sanjana prod 03"
+        }
       ]
     },
     "machineId": {
@@ -213,6 +653,42 @@
       "name": "Select Installed Machine",
       "type": "enum",
       "values": [
+        {
+          "id": "123",
+          "name": "123432"
+        },
+        {
+          "id": "M0002",
+          "name": "ddsdewe"
+        },
+        {
+          "id": "M0005",
+          "name": "dhdjd"
+        },
+        {
+          "id": "M0004",
+          "name": "dsdsd"
+        },
+        {
+          "id": "MACH_00455",
+          "name": "MACH_00455"
+        },
+        {
+          "id": "MCH-001",
+          "name": "PC500-2026-001"
+        },
+        {
+          "id": "M0003",
+          "name": "qwe"
+        },
+        {
+          "id": "M0001",
+          "name": "SE1234"
+        },
+        {
+          "id": "MCH-TEST-001",
+          "name": "SER-TEST-002"
+        }
       ]
     },
     "effectiveFrom": {
@@ -229,7 +705,8 @@
     },
     "serviceInterval": {
       "name": "Service Interval",
-      "type": "number"
+      "type": "number",
+      "readOnly": true
     },
     "serviceIntervalUnit": {
       "name": "Service Interval Unit",
@@ -251,18 +728,126 @@
           "id": "Years",
           "name": "Years"
         }
-      ]
+      ],
+      "readOnly": true
     },
     "numberOfServices": {
-      "name": "Number of Services",
-      "type": "number"
+      "name": "No of Services",
+      "type": "enum",
+      "values": [
+        {
+          "id": "1",
+          "name": "1"
+        },
+        {
+          "id": "2",
+          "name": "2"
+        },
+        {
+          "id": "3",
+          "name": "3"
+        },
+        {
+          "id": "4",
+          "name": "4"
+        }
+      ]
     },
     "currentCompletedServices": {
       "name": "Current / Completed Services",
-      "type": "number"
+      "type": "number",
+      "readOnly": true
+    },
+    "service1Date": {
+      "name": "Service 1 Date",
+      "type": "date",
+      "readOnly": true
+    },
+    "service1Status": {
+      "name": "Service 1 Status",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Pending",
+          "name": "Pending"
+        },
+        {
+          "id": "Completed",
+          "name": "Completed"
+        }
+      ]
+    },
+    "service2Date": {
+      "name": "Service 2 Date",
+      "type": "date",
+      "readOnly": true
+    },
+    "service2Status": {
+      "name": "Service 2 Status",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Pending",
+          "name": "Pending"
+        },
+        {
+          "id": "Completed",
+          "name": "Completed"
+        }
+      ]
+    },
+    "service3Date": {
+      "name": "Service 3 Date",
+      "type": "date",
+      "readOnly": true
+    },
+    "service3Status": {
+      "name": "Service 3 Status",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Pending",
+          "name": "Pending"
+        },
+        {
+          "id": "Completed",
+          "name": "Completed"
+        }
+      ]
+    },
+    "service4Date": {
+      "name": "Service 4 Date",
+      "type": "date",
+      "readOnly": true
+    },
+    "service4Status": {
+      "name": "Service 4 Status",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Pending",
+          "name": "Pending"
+        },
+        {
+          "id": "Completed",
+          "name": "Completed"
+        }
+      ]
     },
     "agreementValue": {
       "name": "Agreement Value",
+      "type": "number"
+    },
+    "oilChangeValue": {
+      "name": "Oil Change (OC) Value",
+      "type": "number"
+    },
+    "machineServiceValue": {
+      "name": "Machine Service (MS) Value",
+      "type": "number"
+    },
+    "bearingValue": {
+      "name": "Bearing Value",
       "type": "number"
     },
     "additionalValue": {
@@ -272,6 +857,33 @@
     "amountReceived": {
       "name": "Amount Received",
       "type": "number"
+    },
+    "paymentStatus": {
+      "name": "Payment Status",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Pending",
+          "name": "Pending"
+        },
+        {
+          "id": "Advance Paid",
+          "name": "Advance Paid"
+        },
+        {
+          "id": "Partially Paid",
+          "name": "Partially Paid"
+        },
+        {
+          "id": "Fully Paid",
+          "name": "Fully Paid"
+        }
+      ]
+    },
+    "paymentProof": {
+      "name": "Payment Proof",
+      "type": "file",
+      "description": "Upload payment slip, receipt or bank transfer confirmation"
     },
     "nextAgreementReminderDate": {
       "name": "Next Agreement Reminder Date",
@@ -327,5 +939,207 @@
     }
   },
   "tableEdit": "true",
-  "finalState": true
+  "finalState": true,
+  "consoleIncidentCreation": {
+    "buttonName": "Add Agreement / Warranty",
+    "dialogTitle": "Add Agreement / Warranty",
+    "dialogSubtitle": "Please fill this form to create a new agreement or warranty",
+    "fields": [
+      {
+        "key": "agreementDate",
+        "label": "Agreement Date",
+        "target": "agreementDate",
+        "fieldType": "date",
+        "required": true
+      },
+      {
+        "key": "agreementType",
+        "label": "Agreement Type",
+        "target": "agreementType",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "serialNumber",
+        "label": "Select Installed Machine",
+        "target": "serialNumber",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "customerName",
+        "label": "Select Customer Name",
+        "target": "customerName",
+        "fieldType": "enum",
+        "required": false
+      },
+      {
+        "key": "supplierName",
+        "label": "Select Supplier Name",
+        "target": "supplierName",
+        "fieldType": "enum",
+        "required": false
+      },
+      {
+        "key": "locationName",
+        "label": "Select Location Name",
+        "target": "locationName",
+        "fieldType": "enum",
+        "required": false
+      },
+      {
+        "key": "productName",
+        "label": "Select Product Name",
+        "target": "productName",
+        "fieldType": "enum",
+        "required": false
+      },
+      {
+        "key": "effectiveFrom",
+        "label": "Effective From",
+        "target": "effectiveFrom",
+        "fieldType": "date",
+        "required": true
+      },
+      {
+        "key": "effectiveTo",
+        "label": "Effective To",
+        "target": "effectiveTo",
+        "fieldType": "date",
+        "required": true
+      },
+      {
+        "key": "firstServiceDate",
+        "label": "First Service Date",
+        "target": "firstServiceDate",
+        "fieldType": "date",
+        "required": false
+      },
+      {
+        "key": "numberOfServices",
+        "label": "No of Services",
+        "target": "numberOfServices",
+        "fieldType": "enum",
+        "required": false
+      },
+      {
+        "key": "agreementValue",
+        "label": "Agreement Value",
+        "target": "agreementValue",
+        "fieldType": "number",
+        "required": false
+      },
+      {
+        "key": "oilChangeValue",
+        "label": "Oil Change (OC) Value",
+        "target": "oilChangeValue",
+        "fieldType": "number",
+        "required": false
+      },
+      {
+        "key": "machineServiceValue",
+        "label": "Machine Service (MS) Value",
+        "target": "machineServiceValue",
+        "fieldType": "number",
+        "required": false
+      },
+      {
+        "key": "bearingValue",
+        "label": "Bearing Value",
+        "target": "bearingValue",
+        "fieldType": "number",
+        "required": false
+      },
+      {
+        "key": "additionalValue",
+        "label": "Additional Value",
+        "target": "additionalValue",
+        "fieldType": "number",
+        "required": false
+      },
+      {
+        "key": "amountReceived",
+        "label": "Amount Received",
+        "target": "amountReceived",
+        "fieldType": "number",
+        "required": false
+      },
+      {
+        "key": "paymentStatus",
+        "label": "Payment Status",
+        "target": "paymentStatus",
+        "fieldType": "enum",
+        "required": false
+      },
+      {
+        "key": "nextAgreementReminderDate",
+        "label": "Next Agreement Reminder Date",
+        "target": "nextAgreementReminderDate",
+        "fieldType": "date",
+        "required": false
+      },
+      {
+        "key": "priorPermissionNeeded",
+        "label": "Prior Permission Needed",
+        "target": "priorPermissionNeeded",
+        "fieldType": "enum",
+        "required": false
+      },
+      {
+        "key": "customerApproved",
+        "label": "Customer Approved",
+        "target": "customerApproved",
+        "fieldType": "enum",
+        "required": false
+      },
+      {
+        "key": "terminationDate",
+        "label": "Termination Date",
+        "target": "terminationDate",
+        "fieldType": "date",
+        "required": false
+      },
+      {
+        "key": "terminationReason",
+        "label": "Termination Reason",
+        "target": "terminationReason",
+        "fieldType": "textArea",
+        "required": false
+      },
+      {
+        "key": "remarks",
+        "label": "Remarks",
+        "target": "remarks",
+        "fieldType": "textArea",
+        "required": false
+      },
+      {
+        "key": "completedServicesDate",
+        "label": "Completed Services Date",
+        "target": "completedServicesDate",
+        "fieldType": "date",
+        "required": false
+      }
+    ]
+  },
+  "incidentKeyFormat": {
+    "enabled": true,
+    "pattern": [
+      {
+        "key": "type",
+        "format": "mapping"
+      },
+      {
+        "key": "counter",
+        "format": 4
+      }
+    ],
+    "counterReset": "never",
+    "fieldMappings": {
+      "type": {
+        "mappings": {},
+        "default": "A"
+      }
+    }
+  }
 }

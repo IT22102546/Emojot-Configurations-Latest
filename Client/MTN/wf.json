@@ -49,6 +49,7 @@
         "id": "googleMap",
         "name": "Google",
         "highPriorityFields": [
+          "origin",
           "rating",
           "author",
           "reviewId",
@@ -60,6 +61,7 @@
         "id": "facebook",
         "name": "Facebook",
         "highPriorityFields": [
+          "origin",
           "rating",
           "author",
           "reviewId",
@@ -274,6 +276,21 @@
         }
       ]
     },
+    "origin": {
+      "name": "Origin",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Manual",
+          "name": "Manual"
+        },
+        {
+          "id": "RPA",
+          "name": "RPA"
+        }
+      ]
+    },
     "FullName": {
       "name": "Full Name",
       "type": "string",
@@ -431,23 +448,6 @@
                 "sanjanan@emojot.com"
               ],
               "appendEditUrl": true
-            },
-            {
-              "channel": "fieldChange",
-              "changingFields": [
-                {
-                  "id": "assignee",
-                  "value": "mtn@emojot.com"
-                }
-              ],
-              "condition": {
-                "!=": [
-                  {
-                    "var": "type"
-                  },
-                  "googleMap"
-                ]
-              }
             }
           ]
         },
@@ -460,7 +460,7 @@
               "template": "MTN_overdueAlertEmail_2ndLevel",
               "target": "admin",
               "contacts": [
-               "dheveshan.pillay@mtn.com",
+                "dheveshan.pillay@mtn.com",
                 "info@mtncellmate.co.za",
                 "larry@celmate.co.za",
                 "sanjanan@emojot.com",
@@ -468,23 +468,6 @@
                 "sanjanan@emojot.com"
               ],
               "appendEditUrl": true
-            },
-            {
-              "channel": "fieldChange",
-              "changingFields": [
-                {
-                  "id": "assignee",
-                  "value": "mtn@emojot.com"
-                }
-              ],
-              "condition": {
-                "!=": [
-                  {
-                    "var": "type"
-                  },
-                  "googleMap"
-                ]
-              }
             }
           ]
         },
@@ -497,31 +480,13 @@
               "template": "MTN_overdueAlertEmail_3rdLevel",
               "target": "admin",
               "contacts": [
-               "dheveshan.pillay@mtn.com",
+                "dheveshan.pillay@mtn.com",
                 "info@mtncellmate.co.za",
                 "larry@celmate.co.za",
-                "sanjanan@emojot.com",
                 "dewminil@emojot.com",
                 "sanjanan@emojot.com"
               ],
               "appendEditUrl": true
-            },
-            {
-              "channel": "fieldChange",
-              "changingFields": [
-                {
-                  "id": "assignee",
-                  "value": "mtn@emojot.com"
-                }
-              ],
-              "condition": {
-                "!=": [
-                  {
-                    "var": "type"
-                  },
-                  "googleMap"
-                ]
-              }
             }
           ]
         }
@@ -605,6 +570,22 @@
             "value": "dheveshan.pillay@mtn.com"
           }
         ]
+      },
+      {
+        "channel": "fieldChange",
+        "changingFields": [
+          {
+            "id": "origin",
+            "value": "Manual"
+          }
+        ],
+        "condition": {
+          "!": [
+            {
+              "var": "origin"
+            }
+          ]
+        }
       }
     ]
   },

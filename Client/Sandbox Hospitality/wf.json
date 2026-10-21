@@ -1,0 +1,748 @@
+{
+  "descriptionFormat": "text",
+  "reportNamePrefix": "Complaint",
+  "name": "Sandbox Revamp 2026 v3",
+  "nameTemplate": "User Review From: $type$",
+  "descriptionTemplate": "Channel - $type$",
+  "type": {
+    "name": "Channel",
+    "readOnly": true,
+    "type": "enum",
+    "values": [
+      {
+        "id": "guestSatisfactionSurvey",
+        "name": "Guest Satisfaction Survey",
+        "highPriorityFields": [
+          "complaintType",
+          "issues",
+          "comment",
+          "attachment"
+        ]
+      },
+      {
+        "id": "googleMap",
+        "name": "Google",
+        "highPriorityFields": [
+          "rating",
+          "comment",
+          "reviewId",
+          "reviewLocation",
+          "author"
+        ]
+      },
+      {
+        "id": "facebook",
+        "name": "Facebook"
+      },
+      {
+        "id": "booking",
+        "name": "Booking.com",
+        "highPriorityFields": [
+          "rating",
+          "comment",
+          "reviewId",
+          "reviewLocation"
+        ]
+      },
+      {
+        "id": "tripAdvisor",
+        "name": "TripAdvisor",
+        "highPriorityFields": [
+          "rating",
+          "comment",
+          "reviewId",
+          "reviewLocation"
+        ]
+      },
+      {
+        "id": "instagram",
+        "name": "Instagram"
+      },
+      {
+        "id": "twitter",
+        "name": "Twitter"
+      },
+      {
+        "id": "youtube",
+        "name": "Youtube"
+      },
+      {
+        "id": "web",
+        "name": "Web"
+      },
+      {
+        "id": "other",
+        "name": "Other"
+      }
+    ]
+  },
+  "status": {
+    "name": "Status",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Open",
+        "name": "Open",
+        "backgroundColor": "#f1c40f",
+        "textColor": "#000000",
+        "statusBackgroundColor": "#fcf3cf",
+        "statusTextColor": "#7d6608"
+      },
+      {
+        "id": "In Progress",
+        "name": "In Progress",
+        "backgroundColor": "#3498db",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d6eaf8",
+        "statusTextColor": "#154360"
+      },
+      {
+        "id": "Resolved",
+        "name": "Resolved",
+        "finalState": true,
+        "backgroundColor": "#27ae60",
+        "textColor": "#ffffff",
+        "statusBackgroundColor": "#d5f5e3",
+        "statusTextColor": "#145a32",
+        "triggers": [
+          {
+            "channel": "email",
+            "template": "complaintResolutionAlert",
+            "target": "admin",
+            "condition": {
+              "==": [
+                {
+                  "var": "type"
+                },
+                "guestSatisfactionSurvey"
+              ]
+            },
+            "contactFilters": [
+              "ticketResolutionAlert"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "location",
+                  "operator": "eq",
+                  "value": "$location$"
+                }
+              ]
+            }
+          },
+          {
+            "template": "customerComplaintResolution",
+            "channel": "email",
+            "target": "customer",
+            "appendEditUrl": false
+          },
+          {
+            "channel": "email",
+            "template": "complaintResolutionAlert_orm",
+            "target": "admin",
+            "condition": {
+              "!=": [
+                {
+                  "var": "type"
+                },
+                "guestSatisfactionSurvey"
+              ]
+            },
+            "contactFilters": [
+              "ticketResolutionAlert"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "location",
+                  "operator": "eq",
+                  "value": "$location$"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "priority": {
+    "name": "Priority",
+    "type": "enum",
+    "values": [
+      {
+        "id": "Low",
+        "name": "Low"
+      },
+      {
+        "id": "Medium",
+        "name": "Medium"
+      },
+      {
+        "id": "High",
+        "name": "High"
+      }
+    ]
+  },
+  "customFields": {
+    "complaintType": {
+      "name": "Complaint Type",
+      "type": "enum",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "guestSatisfactionSurvey",
+          "name": "Guest Satisfaction Survey"
+        },
+        {
+          "id": "googleMap",
+          "name": "Google"
+        },
+        {
+          "id": "facebook",
+          "name": "Facebook"
+        },
+        {
+          "id": "booking",
+          "name": "Booking.com"
+        },
+        {
+          "id": "tripAdvisor",
+          "name": "TripAdvisor"
+        },
+        {
+          "id": "twitter",
+          "name": "Twitter"
+        },
+        {
+          "id": "instagram",
+          "name": "Instagram"
+        },
+        {
+          "id": "youtube",
+          "name": "Youtube"
+        },
+        {
+          "id": "web",
+          "name": "Web"
+        },
+        {
+          "id": "other",
+          "name": "Other"
+        }
+      ]
+    },
+    "rating": {
+      "name": "Rating",
+      "readOnly": true,
+      "type": "string"
+    },
+    "issues": {
+      "name": "Issues Experienced",
+      "type": "multiselect",
+      "readOnly": true,
+      "values": [
+        {
+          "id": "Room Quality",
+          "name": "Room Quality"
+        },
+        {
+          "id": "Food and Beverage",
+          "name": "Food and Beverage"
+        },
+        {
+          "id": "Staff Service",
+          "name": "Staff Service"
+        },
+        {
+          "id": "Cleanliness",
+          "name": "Cleanliness"
+        },
+        {
+          "id": "Facilities",
+          "name": "Facilities"
+        },
+        {
+          "id": "Other",
+          "name": "Other"
+        }
+      ]
+    },
+    "comment": {
+      "name": "Comment",
+      "readOnly": true,
+      "type": "textArea"
+    },
+    "attachment": {
+      "name": "Attachment",
+      "type": "file",
+      "readOnly": true
+    },
+    "location": {
+      "name": "Location",
+      "readOnly": true,
+      "type": "enum",
+      "values": [
+        {
+          "id": "JEN Hong Kong by Shangri-La",
+          "name": "JEN Hong Kong by Shangri-La"
+        },
+        {
+          "id": "Island Shangri-La, Hong Kong",
+          "name": "Island Shangri-La, Hong Kong"
+        },
+        {
+          "id": "Kerry Hotel Hong Kong",
+          "name": "Kerry Hotel Hong Kong"
+        },
+        {
+          "id": "Kowloon Shangri-La, Hong Kong",
+          "name": "Kowloon Shangri-La, Hong Kong"
+        }
+      ]
+    },
+    "reviewId": {
+      "name": "Review Id",
+      "type": "string",
+      "hidden": true,
+      "readOnly": true
+    },
+    "reviewLocation": {
+      "name": "Review Location",
+      "type": "string",
+      "hidden": true,
+      "readOnly": true
+    },
+    "country": {
+      "name": "Country",
+      "type": "string",
+      "readOnly": true
+    },
+    "date": {
+      "name": "Date",
+      "type": "string",
+      "readOnly": true
+    },
+    "keyword": {
+      "name": "Keyword",
+      "type": "string",
+      "readOnly": true
+    },
+    "sentiment": {
+      "name": "Sentiment",
+      "type": "string",
+      "readOnly": true
+    },
+    "postiveSentimentCount": {
+      "name": "Sentiment",
+      "type": "number",
+      "readOnly": true
+    },
+    "negativeSentimentCount": {
+      "name": "Sentiment",
+      "type": "number",
+      "readOnly": true
+    },
+    "mixedSentimentCount": {
+      "name": "Sentiment",
+      "type": "number",
+      "readOnly": true
+    },
+    "engagement": {
+      "name": "Engagement",
+      "type": "string",
+      "readOnly": true
+    },
+    "imageUrl": {
+      "name": "Image URL",
+      "type": "string",
+      "readOnly": true
+    },
+    "label": {
+      "name": "Label",
+      "type": "string",
+      "readOnly": true
+    },
+    "link": {
+      "name": "Link",
+      "type": "string",
+      "readOnly": true
+    },
+    "profileName": {
+      "name": "Profile Name",
+      "type": "string",
+      "readOnly": true
+    },
+    "profileUrl": {
+      "name": "Profile URL",
+      "type": "string",
+      "readOnly": true
+    },
+    "profileUsername": {
+      "name": "Profile Username",
+      "type": "string",
+      "readOnly": true
+    },
+    "socialReachCount": {
+      "name": "Social Reach Count",
+      "type": "string",
+      "readOnly": true
+    },
+    "author": {
+      "name": "Author",
+      "type": "string",
+      "readOnly": true
+    },
+    "overdue": {
+      "name": "Overdue",
+      "type": "enum",
+      "values": [
+        {
+          "id": "2nd Level",
+          "name": "2nd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_2ndLevel",
+              "target": "admin",
+              "contactFilters": [
+                "2ndlevel"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Location",
+                    "operator": "eq",
+                    "value": "$Location$"
+                  }
+                ]
+              },
+              "condition": {
+                "==": [
+                  {
+                    "var": "type"
+                  },
+                  "guestSatisfactionSurvey"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "3rd Level",
+          "name": "3rd Level",
+          "triggers": [
+            {
+              "channel": "email",
+              "template": "overdueAlertEmail_3rdLevel",
+              "target": "admin",
+              "contactFilters": [
+                "3rdlevel"
+              ],
+              "adminUserQuery": {
+                "condition": "and",
+                "rules": [
+                  {
+                    "field": "Location",
+                    "operator": "eq",
+                    "value": "$Location$"
+                  }
+                ]
+              },
+              "condition": {
+                "==": [
+                  {
+                    "var": "type"
+                  },
+                  "guestSatisfactionSurvey"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "timeSpent": {
+    "name": "Time spent",
+    "type": "time_accumulation"
+  },
+  "assignment": {
+    "automaticAssignment": {
+      "isEnabled": true,
+      "email": "bot@gmail.com",
+      "resolvedStatus": [
+        "Resolved"
+      ],
+      "filteringQuery": {
+        "condition": "and",
+        "rules": [
+          {
+            "field": "overdue",
+            "operator": "ne",
+            "value": "3rd Level"
+          }
+        ]
+      },
+      "triggerFlows": [
+        {
+          "condition": {
+            "==": [
+              {
+                "var": "status"
+              },
+              "Open"
+            ]
+          },
+          "skipAssignment": true,
+          "levels": [
+            {
+              "nextLevelTime": 600000
+            },
+            {
+              "nextLevelTime": 600000,
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "2nd Level"
+                }
+              ]
+            },
+            {
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "3rd Level"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "==": [
+                  {
+                    "var": "status"
+                  },
+                  "In Progress"
+                ]
+              },
+              {
+                "!=": [
+                  {
+                    "var": "overdue"
+                  },
+                  "2nd Level"
+                ]
+              }
+            ]
+          },
+          "skipAssignment": true,
+          "levels": [
+            {
+              "nextLevelTime": 600000
+            },
+            {
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "3rd Level"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "condition": {
+            "and": [
+              {
+                "==": [
+                  {
+                    "var": "status"
+                  },
+                  "In Progress"
+                ]
+              },
+              {
+                "==": [
+                  {
+                    "var": "overdue"
+                  },
+                  "2nd Level"
+                ]
+              }
+            ]
+          },
+          "skipAssignment": true,
+          "levels": [
+            {
+              "nextLevelTime": 600000
+            },
+            {
+              "fieldsChange": [
+                {
+                  "id": "overdue",
+                  "value": "3rd Level"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "triggers": [
+      {
+        "channel": "email",
+        "template": "complaintAssignment",
+        "target": "employee",
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "guestSatisfactionSurvey"
+          ]
+        }
+      },
+      {
+        "channel": "email",
+        "template": "complaintAssignment_orm",
+        "target": "employee",
+        "condition": {
+          "!=": [
+            {
+              "var": "type"
+            },
+            "guestSatisfactionSurvey"
+          ]
+        }
+      }
+    ]
+  },
+  "workflowCreation": {
+    "email": "bot@emojot.com",
+    "triggers": [
+      {
+        "channel": "fieldChange",
+        "changingFields": [
+          {
+            "id": "assignee",
+            "contactFilters": [
+              "ticketAssignee"
+            ],
+            "adminUserQuery": {
+              "condition": "and",
+              "rules": [
+                {
+                  "field": "location",
+                  "operator": "eq",
+                  "value": "$location$"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "channel": "email",
+        "template": "complaintCreationAlert",
+        "target": "admin",
+        "contactFilters": [
+          "ticketCreationAlert"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "location",
+              "operator": "eq",
+              "value": "$location$"
+            }
+          ]
+        },
+        "condition": {
+          "==": [
+            {
+              "var": "type"
+            },
+            "guestSatisfactionSurvey"
+          ]
+        }
+      },
+      {
+        "template": "customerComplaintCreation",
+        "channel": "email",
+        "target": "customer",
+        "appendEditUrl": false
+      },
+      {
+        "channel": "email",
+        "template": "complaintCreationAlert_orm",
+        "target": "admin",
+        "contactFilters": [
+          "ticketCreationAlert"
+        ],
+        "adminUserQuery": {
+          "condition": "and",
+          "rules": [
+            {
+              "field": "location",
+              "operator": "eq",
+              "value": "$location$"
+            }
+          ]
+        },
+        "condition": {
+          "!=": [
+            {
+              "var": "type"
+            },
+            "guestSatisfactionSurvey"
+          ]
+        }
+      }
+    ]
+  },
+  "adminHierarchy": {
+    "list": "admin",
+    "headers": [
+      {
+        "id": "location",
+        "name": "Location",
+        "type": "customField"
+      },
+      {
+        "id": "ticketAssignee",
+        "name": "Ticket Assignee",
+        "type": "contact"
+      },
+      {
+        "id": "ticketCreationAlert",
+        "name": "Ticket Creation Alert",
+        "type": "contact"
+      },
+      {
+        "id": "ticketResolutionAlert",
+        "name": "Ticket Resolution Alert",
+        "type": "contact"
+      },
+      {
+        "id": "2ndlevel",
+        "name": "2nd Level Alert",
+        "type": "contact"
+      },
+      {
+        "id": "3rdlevel",
+        "name": "3rd Level Alert",
+        "type": "contact"
+      }
+    ],
+    "id": "AHI_1775552634829_195309149"
+  },
+  "reporterNamePrefix": "Customer",
+  "tableEdit": "true"
+}

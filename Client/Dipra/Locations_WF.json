@@ -1,5 +1,5 @@
 {
-  "name": "Dipra Locations",
+  "name": "Dipra_Locations_WF",
   "reportNamePrefix": "Location",
   "reporterNamePrefix": "Submitted By",
   "nameTemplate": "$locationCode$ - $locationName$",
@@ -52,12 +52,6 @@
     "type": "enum",
     "transitions": [
       {
-        "sourceState": "Draft",
-        "targetStates": [
-          "Active"
-        ]
-      },
-      {
         "sourceState": "Active",
         "targetStates": [
           "Inactive"
@@ -72,21 +66,15 @@
     ],
     "values": [
       {
-        "id": "Draft",
-        "name": "Draft",
-        "backgroundColor": "#f1c40f",
-        "textColor": "#000000"
+        "id": "Inactive",
+        "name": "Inactive",
+        "backgroundColor": "#7f8c8d",
+        "textColor": "#ffffff"
       },
       {
         "id": "Active",
         "name": "Active",
         "backgroundColor": "#27ae60",
-        "textColor": "#ffffff"
-      },
-      {
-        "id": "Inactive",
-        "name": "Inactive",
-        "backgroundColor": "#7f8c8d",
         "textColor": "#ffffff"
       }
     ]
@@ -94,7 +82,8 @@
   "customFields": {
     "locationCode": {
       "name": "Location Code",
-      "type": "string"
+      "type": "string",
+      "readOnly": true
     },
     "customerCode": {
       "name": "Customer Code",
@@ -104,8 +93,7 @@
     "customerName": {
       "name": "Select Customer Name",
       "type": "enum",
-      "values": [
-      ]
+      "values": []
     },
     "locationName": {
       "name": "Location Name",
@@ -113,7 +101,149 @@
     },
     "locationCategory": {
       "name": "Location Category",
-      "type": "string"
+      "type": "enum",
+      "values": [
+        {
+          "id": "01",
+          "name": "Super Market"
+        },
+        {
+          "id": "02",
+          "name": "Tea Factory"
+        },
+        {
+          "id": "03",
+          "name": "Food City"
+        },
+        {
+          "id": "05",
+          "name": "Garment Factory"
+        },
+        {
+          "id": "06",
+          "name": "Hotel"
+        },
+        {
+          "id": "07",
+          "name": "Genaral Printers"
+        },
+        {
+          "id": "08",
+          "name": "Studio"
+        },
+        {
+          "id": "09",
+          "name": "Hospital"
+        },
+        {
+          "id": "10",
+          "name": "Residence"
+        },
+        {
+          "id": "101",
+          "name": "Toy Factory"
+        },
+        {
+          "id": "103",
+          "name": "Church"
+        },
+        {
+          "id": "104",
+          "name": "Ayurvedic Company"
+        },
+        {
+          "id": "11",
+          "name": "Trade Center"
+        },
+        {
+          "id": "12",
+          "name": "Stationry Producer"
+        },
+        {
+          "id": "13",
+          "name": "Building Construction"
+        },
+        {
+          "id": "14",
+          "name": "Shoping Complex"
+        },
+        {
+          "id": "15",
+          "name": "Ware House"
+        },
+        {
+          "id": "16",
+          "name": "Washing Plant"
+        },
+        {
+          "id": "17",
+          "name": "Latex Factory"
+        },
+        {
+          "id": "18",
+          "name": "News Paper Printers"
+        },
+        {
+          "id": "19",
+          "name": "Tyre Factories & Traders"
+        },
+        {
+          "id": "20",
+          "name": "Electrical Appliances Repair"
+        },
+        {
+          "id": "21",
+          "name": "Motor Spare Shops"
+        },
+        {
+          "id": "22",
+          "name": "Weighing Machine Plant"
+        },
+        {
+          "id": "23",
+          "name": "Ice Factory"
+        },
+        {
+          "id": "24",
+          "name": "Food Products"
+        },
+        {
+          "id": "25",
+          "name": "Water Supply Board"
+        },
+        {
+          "id": "26",
+          "name": "Polythin & Plastic Factory"
+        },
+        {
+          "id": "27",
+          "name": "Air Lines"
+        },
+        {
+          "id": "28",
+          "name": "Investment"
+        },
+        {
+          "id": "29",
+          "name": "Helmet Manufactures"
+        },
+        {
+          "id": "30",
+          "name": "Commercail Building"
+        },
+        {
+          "id": "31",
+          "name": "Government Department"
+        },
+        {
+          "id": "32",
+          "name": "Vehical Production Factory"
+        },
+        {
+          "id": "33",
+          "name": "Dockyard"
+        }
+      ]
     },
     "addressNo": {
       "name": "Address No.",
@@ -178,5 +308,144 @@
       ]
     }
   },
-  "tableEdit": "true"
+  "tableEdit": "true",
+  "consoleIncidentCreation": {
+    "buttonName": "Add Location",
+    "dialogTitle": "Add Location",
+    "dialogSubtitle": "Please fill this form to create a new location",
+    "fields": [
+      {
+        "key": "customerName",
+        "label": "Select Customer Name",
+        "target": "customerName",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "locationName",
+        "label": "Location Name",
+        "target": "locationName",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "locationCategory",
+        "label": "Location Category",
+        "target": "locationCategory",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "addressNo",
+        "label": "Address No.",
+        "target": "addressNo",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "lane",
+        "label": "Lane",
+        "target": "lane",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "street",
+        "label": "Street",
+        "target": "street",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "city",
+        "label": "City",
+        "target": "city",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "route",
+        "label": "Route",
+        "target": "route",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "subRoute",
+        "label": "Sub Route",
+        "target": "subRoute",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "primaryTelephone",
+        "label": "Primary Telephone",
+        "target": "primaryTelephone",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "secondaryTelephone",
+        "label": "Secondary Telephone",
+        "target": "secondaryTelephone",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "fax",
+        "label": "Fax",
+        "target": "fax",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "email",
+        "label": "Email",
+        "target": "email",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "contactPersonName",
+        "label": "Contact Person Name",
+        "target": "contactPersonName",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "contactPersonTelephone",
+        "label": "Contact Person Telephone",
+        "target": "contactPersonTelephone",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "useCustomerAddress",
+        "label": "Use Customer Address",
+        "target": "useCustomerAddress",
+        "fieldType": "enum",
+        "required": true
+      }
+    ]
+  },
+  "incidentKeyFormat": {
+    "enabled": true,
+    "pattern": [
+      {
+        "key": "type",
+        "format": "mapping"
+      },
+      {
+        "key": "counter",
+        "format": 4
+      }
+    ],
+    "counterReset": "never",
+    "fieldMappings": {
+      "type": {
+        "mappings": {},
+        "default": "L"
+      }
+    }
+  }
 }

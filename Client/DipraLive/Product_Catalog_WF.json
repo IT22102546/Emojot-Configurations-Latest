@@ -19,14 +19,15 @@
           "productName",
           "supplierName",
           "supplierCode",
-          "brandCode",
+          "brandModel",
           "brandName",
-          "modelCode",
           "modelName",
-          "capacity",
           "capacityUnit",
           "productType",
           "machineAttributes",
+          "productSpecifications",
+          "erectionTeam",
+          "electricalTeam",
           "description"
         ]
       }
@@ -48,19 +49,13 @@
     "type": "enum",
     "transitions": [
       {
-        "sourceState": "Draft",
-        "targetStates": [
-          "Active"
-        ]
-      },
-      {
         "sourceState": "Active",
         "targetStates": [
-          "Discontinued"
+          "Inactive"
         ]
       },
       {
-        "sourceState": "Discontinued",
+        "sourceState": "Inactive",
         "targetStates": [
           "Active"
         ]
@@ -68,21 +63,15 @@
     ],
     "values": [
       {
-        "id": "Draft",
-        "name": "Draft",
-        "backgroundColor": "#f1c40f",
-        "textColor": "#000000"
+        "id": "Inactive",
+        "name": "Inactive",
+        "backgroundColor": "#7f8c8d",
+        "textColor": "#ffffff"
       },
       {
         "id": "Active",
         "name": "Active",
         "backgroundColor": "#27ae60",
-        "textColor": "#ffffff"
-      },
-      {
-        "id": "Discontinued",
-        "name": "Discontinued",
-        "backgroundColor": "#7f8c8d",
         "textColor": "#ffffff"
       }
     ]
@@ -107,114 +96,387 @@
       "type": "enum",
       "values": [
         {
+          "id": "S0004",
+          "name": "City Corporation"
+        },
+        {
+          "id": "S0005",
+          "name": "ShenZhen Suvishwa International Trading"
+        },
+        {
           "id": "S0003",
-          "name": "Sanjana Sup",
+          "name": "Supplier"
+        },
+        {
+          "id": "S0001",
+          "name": "Test Supplier"
+        },
+        {
+          "id": "S0002",
+          "name": "Test Supplier Nimesh"
+        }
+      ]
+    },
+    "brandModel": {
+      "name": "Brand / Model",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Iori - DM",
+          "name": "Iori - DM",
           "triggers": [
             {
               "channel": "fieldChange",
               "changingFields": [
                 {
-                  "id": "supplierCode",
-                  "value": "S0003"
+                  "id": "brandName",
+                  "value": "Iori"
                 },
                 {
-                  "id": "supplierName",
-                  "value": "Sanjana Sup"
+                  "id": "modelName",
+                  "value": "DM"
                 }
               ]
             }
           ]
         },
         {
-          "id": "SUP_00452",
-          "name": "Koshyy",
+          "id": "Iori - DT",
+          "name": "Iori - DT",
           "triggers": [
             {
               "channel": "fieldChange",
               "changingFields": [
                 {
-                  "id": "supplierCode",
-                  "value": "SUP_00452"
+                  "id": "brandName",
+                  "value": "Iori"
                 },
                 {
-                  "id": "supplierName",
-                  "value": "Koshyy"
+                  "id": "modelName",
+                  "value": "DT"
                 }
               ]
             }
           ]
         },
         {
-          "id": "SUP_00546",
-          "name": "Saraaa",
+          "id": "Elephant - FA",
+          "name": "Elephant - FA",
           "triggers": [
             {
               "channel": "fieldChange",
               "changingFields": [
                 {
-                  "id": "supplierCode",
-                  "value": "SUP_00546"
+                  "id": "brandName",
+                  "value": "Elephant"
                 },
                 {
-                  "id": "supplierName",
-                  "value": "Saraaa"
+                  "id": "modelName",
+                  "value": "FA"
                 }
               ]
             }
           ]
         },
         {
-          "id": "SUP_00456",
-          "name": "Sanjana Sup",
+          "id": "Elephant - DA",
+          "name": "Elephant - DA",
           "triggers": [
             {
               "channel": "fieldChange",
               "changingFields": [
                 {
-                  "id": "supplierCode",
-                  "value": "SUP_00456"
+                  "id": "brandName",
+                  "value": "Elephant"
                 },
                 {
-                  "id": "supplierName",
-                  "value": "Sanjana Sup"
+                  "id": "modelName",
+                  "value": "DA"
                 }
               ]
             }
           ]
         },
         {
-          "id": "SUP-002",
-          "name": "Global Cooling Solutions",
+          "id": "Street - LX",
+          "name": "Street - LX",
           "triggers": [
             {
               "channel": "fieldChange",
               "changingFields": [
                 {
-                  "id": "supplierCode",
-                  "value": "SUP-002"
+                  "id": "brandName",
+                  "value": "Street"
                 },
                 {
-                  "id": "supplierName",
-                  "value": "Global Cooling Solutions"
+                  "id": "modelName",
+                  "value": "LX"
                 }
               ]
             }
           ]
         },
         {
-          "id": "SUP-TEST-001",
-          "name": "Test Supplier B",
+          "id": "Speed - MH",
+          "name": "Speed - MH",
           "triggers": [
             {
               "channel": "fieldChange",
               "changingFields": [
                 {
-                  "id": "supplierCode",
-                  "value": "SUP-TEST-001"
+                  "id": "brandName",
+                  "value": "Speed"
                 },
                 {
-                  "id": "supplierName",
-                  "value": "Test Supplier B"
+                  "id": "modelName",
+                  "value": "MH"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Speed - MHH",
+          "name": "Speed - MHH",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Speed"
+                },
+                {
+                  "id": "modelName",
+                  "value": "MHH"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Speed - FH",
+          "name": "Speed - FH",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Speed"
+                },
+                {
+                  "id": "modelName",
+                  "value": "FH"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Speed - MHS",
+          "name": "Speed - MHS",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Speed"
+                },
+                {
+                  "id": "modelName",
+                  "value": "MHS"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Speed - MHL",
+          "name": "Speed - MHL",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Speed"
+                },
+                {
+                  "id": "modelName",
+                  "value": "MHL"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Thac - USK",
+          "name": "Thac - USK",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Thac"
+                },
+                {
+                  "id": "modelName",
+                  "value": "USK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Thac - USS",
+          "name": "Thac - USS",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Thac"
+                },
+                {
+                  "id": "modelName",
+                  "value": "USS"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "TBM - SHK",
+          "name": "TBM - SHK",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "TBM"
+                },
+                {
+                  "id": "modelName",
+                  "value": "SHK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "TBM - SDK",
+          "name": "TBM - SDK",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "TBM"
+                },
+                {
+                  "id": "modelName",
+                  "value": "SDK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "BLT - BLT",
+          "name": "BLT - BLT",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "BLT"
+                },
+                {
+                  "id": "modelName",
+                  "value": "BLT"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CMAX - CMAX",
+          "name": "CMAX - CMAX",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "CMAX"
+                },
+                {
+                  "id": "modelName",
+                  "value": "CMAX"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "MORAL - MORAL",
+          "name": "MORAL - MORAL",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "MORAL"
+                },
+                {
+                  "id": "modelName",
+                  "value": "MORAL"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "FRANZ - FRANZ",
+          "name": "FRANZ - FRANZ",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "FRANZ"
+                },
+                {
+                  "id": "modelName",
+                  "value": "FRANZ"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Mutrade - MUTRADE",
+          "name": "Mutrade - MUTRADE",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Mutrade"
+                },
+                {
+                  "id": "modelName",
+                  "value": "MUTRADE"
                 }
               ]
             }
@@ -222,25 +484,15 @@
         }
       ]
     },
-    "brandCode": {
-      "name": "Brand Code",
-      "type": "string"
-    },
     "brandName": {
       "name": "Brand Name",
-      "type": "string"
-    },
-    "modelCode": {
-      "name": "Model Code",
-      "type": "string"
+      "type": "string",
+      "readOnly": true
     },
     "modelName": {
       "name": "Model Name",
-      "type": "string"
-    },
-    "capacity": {
-      "name": "Capacity",
-      "type": "number"
+      "type": "string",
+      "readOnly": true
     },
     "capacityUnit": {
       "name": "Capacity Unit",
@@ -248,11 +500,93 @@
     },
     "productType": {
       "name": "Product Type",
-      "type": "string"
+      "type": "enum",
+      "values": [
+        {
+          "id": "Material Hoist",
+          "name": "Material Hoist"
+        },
+        {
+          "id": "Electrical Operated Chain Hoist",
+          "name": "Electrical Operated Chain Hoist"
+        },
+        {
+          "id": "Electrical Operated Wire Rope Hoist",
+          "name": "Electrical Operated Wire Rope Hoist"
+        },
+        {
+          "id": "Passenger Lift",
+          "name": "Passenger Lift"
+        },
+        {
+          "id": "Scissor Lift",
+          "name": "Scissor Lift"
+        },
+        {
+          "id": "Dumb Waiter",
+          "name": "Dumb Waiter"
+        },
+        {
+          "id": "Cargo Lift",
+          "name": "Cargo Lift"
+        },
+        {
+          "id": "Home Lift",
+          "name": "Home Lift"
+        },
+        {
+          "id": "Car Parking System",
+          "name": "Car Parking System"
+        },
+        {
+          "id": "Tower Hoist",
+          "name": "Tower Hoist"
+        },
+        {
+          "id": "Building Hoist",
+          "name": "Building Hoist"
+        },
+        {
+          "id": "Gantry Crane",
+          "name": "Gantry Crane"
+        },
+        {
+          "id": "EOTC",
+          "name": "EOTC"
+        },
+        {
+          "id": "Winch",
+          "name": "Winch"
+        },
+        {
+          "id": "Boiler",
+          "name": "Boiler"
+        },
+        {
+          "id": "Bed Elevator",
+          "name": "Bed Elevator"
+        },
+        {
+          "id": "Wheel Chair Lift",
+          "name": "Wheel Chair Lift"
+        }
+      ]
     },
     "machineAttributes": {
       "name": "Machine Attributes",
       "type": "textArea"
+    },
+    "productSpecifications": {
+      "name": "Product Specifications",
+      "type": "textArea"
+    },
+    "erectionTeam": {
+      "name": "Erection Team",
+      "type": "string"
+    },
+    "electricalTeam": {
+      "name": "Electrical Team",
+      "type": "string"
     },
     "description": {
       "name": "Description",
@@ -280,39 +614,11 @@
         "required": true
       },
       {
-        "key": "brandCode",
-        "label": "Brand Code",
-        "target": "brandCode",
-        "fieldType": "string",
+        "key": "brandModel",
+        "label": "Brand / Model",
+        "target": "brandModel",
+        "fieldType": "enum",
         "required": true
-      },
-      {
-        "key": "brandName",
-        "label": "Brand Name",
-        "target": "brandName",
-        "fieldType": "string",
-        "required": true
-      },
-      {
-        "key": "modelCode",
-        "label": "Model Code",
-        "target": "modelCode",
-        "fieldType": "string",
-        "required": true
-      },
-      {
-        "key": "modelName",
-        "label": "Model Name",
-        "target": "modelName",
-        "fieldType": "string",
-        "required": true
-      },
-      {
-        "key": "capacity",
-        "label": "Capacity",
-        "target": "capacity",
-        "fieldType": "number",
-        "required": false
       },
       {
         "key": "capacityUnit",
@@ -325,7 +631,7 @@
         "key": "productType",
         "label": "Product Type",
         "target": "productType",
-        "fieldType": "string",
+        "fieldType": "enum",
         "required": true
       },
       {
@@ -333,6 +639,27 @@
         "label": "Machine Attributes",
         "target": "machineAttributes",
         "fieldType": "textArea",
+        "required": false
+      },
+      {
+        "key": "productSpecifications",
+        "label": "Product Specifications",
+        "target": "productSpecifications",
+        "fieldType": "textArea",
+        "required": false
+      },
+      {
+        "key": "erectionTeam",
+        "label": "Erection Team",
+        "target": "erectionTeam",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "electricalTeam",
+        "label": "Electrical Team",
+        "target": "electricalTeam",
+        "fieldType": "string",
         "required": false
       },
       {

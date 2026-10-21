@@ -1,0 +1,1135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SLP – Emojot popup preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Rough stand-in for the Wix landing page so the popup can be tried in context. */
+  body { margin: 0; font-family: Mulish, system-ui, sans-serif; color: #222; background: #fff; }
+  nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+    padding: 18px 48px; box-shadow: 0 2px 8px rgba(0, 0, 0, .06); }
+  nav b { color: #04331d; font-size: 22px; }
+  nav a { margin-left: 22px; color: #3c6e35; text-decoration: none; border-bottom: 1px solid #cfa64b; font-size: 14px; }
+  .hero { padding: 56px 48px; max-width: 620px; }
+  .hero h1 { margin: 0 0 16px; font-size: 28px; line-height: 1.25; }
+  .hero p { margin: 0 0 24px; }
+  .hero strong { color: #3c6e35; }
+  .btn { display: inline-block; background: #cfa64b; color: #fff; padding: 10px 18px; text-decoration: none; font-size: 14px; }
+  .gain { margin: 0 48px; padding: 32px; background: #eef6f1; border-radius: 24px; display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 24px; text-align: center; }
+  .gain h3 { margin: 0 0 6px; color: #3c6e35; font-size: 16px; }
+  .gain p { margin: 0; font-size: 14px; }
+  footer { background: #04331d; color: #fff; padding: 40px 48px; margin-top: 56px; display: flex;
+    justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  footer h2 { margin: 0 0 8px; }
+  .note { padding: 16px 48px; font-size: 13px; color: #777; }
+  @media (max-width: 600px) { nav, .hero, footer, .note { padding-left: 16px; padding-right: 16px; } .gain { margin: 0 16px; } }
+</style>
+</head>
+<body>
+  <nav><b>SLP × emojot</b><div><a href="#">About</a><a href="#">Offer details</a><a href="#register">Register interest</a></div></nav>
+  <section class="hero">
+    <h1>We are proud partners to Dubai Department of Economy and Tourism in supporting 500 Dubai based companies in the tourism sector.</h1>
+    <p>If you are a tourism company in Dubai, then the SLP - Emojot AI-powered platform helps you <strong>respond consistently, act faster</strong> and <strong>retain more bookings.</strong></p>
+    <a class="btn" href="#">Register interest</a>
+  </section>
+  <section class="gain">
+    <div><h3>Save more bookings</h3><p>Turn cancellations into date changes and retain future revenue.</p></div>
+    <div><h3>Respond faster to guests</h3><p>Bring guest requests into a unified inbox.</p></div>
+    <div><h3>Resolve requests quicker</h3><p>AI triage prioritises urgent requests.</p></div>
+    <div><h3>Protect reputation</h3><p>Monitor online reviews and respond faster.</p></div>
+  </section>
+  <footer>
+    <div><h2>Are you interested?</h2><p>See what faster guest response could look like for your business.</p></div>
+    <a class="btn" href="#">Register interest</a>
+  </footer>
+  <p class="note">Test page for popup.js. Bookings made here are real.</p>
+  <!-- ===== popup snippet (copied from emojot-register-popup.html) ===== -->
+<!--
+  SLP – Emojot | Register Interest + Book Session popup
+  ------------------------------------------------------
+  Paste this whole file into Wix:  Settings → Custom Code → + Add Custom Code
+    • Add Code to Pages: the landing page only
+    • Place Code in: Body - end
+  Any button/link whose text is "Register interest" (or links to #register)
+  will open the popup. See README.md for setup.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  .ejr-root {
+    --ejr-accent: #04331d;          /* SLP dark green: header, selection, links */
+    --ejr-accent-press: #0b4a2c;
+    --ejr-gold: #cfa64b;            /* SLP gold: primary buttons + header label */
+    --ejr-gold-press: #bf963c;
+    --ejr-ink: #14211b;
+    --ejr-ink-2: #56635d;
+    --ejr-ink-3: #8d9893;
+    --ejr-green-700: #3c6e35;       /* landing page section headings */
+    --ejr-teal: #17675b;            /* landing page sub-headings */
+    --ejr-fill: #eef6f1;            /* landing page mint panel */
+    --ejr-fill-2: #e1eee6;
+    --ejr-line: rgba(4, 51, 29, .12);
+    --ejr-error: #b3261e;
+    --ejr-error-fill: #fbeceb;
+    --ejr-radius: 8px;              /* inputs, slots, cards */
+    --ejr-radius-btn: 3px;          /* matches the page's square-ish CTA buttons */
+    --ejr-ease: cubic-bezier(.32, .72, 0, 1);   /* fast start, long gentle settle (no overshoot) */
+    font-family: "Mulish", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 15px; line-height: 1.5; text-align: left; letter-spacing: normal; text-transform: none;
+    color: var(--ejr-ink);   /* reset what the host page might inherit */
+    -webkit-font-smoothing: antialiased;
+  }
+  .ejr-root *, .ejr-root *::before, .ejr-root *::after { box-sizing: border-box; }
+  .ejr-root [hidden] { display: none !important; }
+
+  /* ---------- overlay / modal ---------- */
+  .ejr-overlay {
+    position: fixed; inset: 0; z-index: 2147483000;
+    display: flex; align-items: center; justify-content: center; padding: 24px;
+    visibility: hidden; transition: visibility 0s linear .3s;
+  }
+  .ejr-overlay.ejr-open { visibility: visible; transition: none; }
+  .ejr-scrim {
+    position: absolute; inset: 0;
+    background: rgba(2, 20, 11, .55);
+    backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%);
+    opacity: 0; transition: opacity .3s ease;
+  }
+  .ejr-open .ejr-scrim { opacity: 1; }
+  .ejr-modal {
+    position: relative; width: 100%; max-width: 680px;
+    max-height: calc(100vh - 48px); overflow: auto; overscroll-behavior: contain;
+    background: #fff; border-radius: 20px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, .06), 0 2px 6px rgba(0, 0, 0, .08), 0 32px 80px rgba(0, 0, 0, .35);
+    opacity: 0; transform: scale(.96);
+    transition: transform .4s var(--ejr-ease), opacity .2s ease;
+  }
+  .ejr-open .ejr-modal { opacity: 1; transform: none; }
+  .ejr-inline .ejr-overlay { position: static; visibility: visible; padding: 0; }
+  .ejr-inline .ejr-scrim, .ejr-inline .ejr-close, .ejr-inline .ejr-grabber { display: none; }
+  .ejr-inline .ejr-modal { max-height: none; box-shadow: none; opacity: 1; transform: none; margin: 0 auto; }
+
+  /* ---------- header ---------- */
+  .ejr-head { position: relative; padding: 32px 36px 26px; background: var(--ejr-accent); color: #fff;
+    border-bottom: 2px solid var(--ejr-gold);
+    border-radius: 20px 20px 0 0; }
+  .ejr-grabber { display: none; }
+  .ejr-meta { margin: 0 0 6px; font-size: 13px; font-weight: 600; color: var(--ejr-gold); letter-spacing: .005em; }
+  .ejr-meta img { height: 20px; width: auto; display: inline-block; vertical-align: -5px; margin-right: 6px; }
+  .ejr-head h2 { margin: 0; padding-right: 40px; font-size: 24px; font-weight: 700; line-height: 1.2;
+    letter-spacing: -.015em; color: #fff; }
+  .ejr-sub { margin: 8px 0 0; color: rgba(255, 255, 255, .8); max-width: 52ch; }
+  .ejr-close {
+    position: absolute; top: 20px; right: 20px; width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border: 0; border-radius: 50%; background: rgba(255, 255, 255, .12); color: #fff;
+    cursor: pointer; transition: background .15s, transform .1s ease-out;
+  }
+  .ejr-close svg { width: 12px; height: 12px; }
+  .ejr-close:hover { background: rgba(255, 255, 255, .22); }
+  .ejr-close:focus-visible { outline-color: var(--ejr-gold); }
+  .ejr-close:active { transform: scale(.92); }
+
+  /* ---------- body ---------- */
+  .ejr-body { padding: 28px 36px 36px; }
+  .ejr-pane { animation: ejr-in .22s ease both; }
+  @keyframes ejr-in { from { opacity: 0; } }
+
+  .ejr-field { margin-bottom: 16px; }
+  .ejr-field label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; color: var(--ejr-teal); }
+  .ejr-field input {
+    width: 100%; height: 46px; padding: 0 14px;
+    font: inherit; font-size: 16px; color: var(--ejr-ink);   /* 16px stops iOS zooming on focus */
+    background: var(--ejr-fill); border: 1px solid transparent; border-radius: var(--ejr-radius);
+    outline: none; transition: background .15s, border-color .15s, box-shadow .15s;
+  }
+  .ejr-field input::placeholder { color: var(--ejr-ink-3); }
+  .ejr-field input:hover { background: var(--ejr-fill-2); }
+  .ejr-field input:focus { background: #fff; border-color: var(--ejr-accent); box-shadow: 0 0 0 3px rgba(4, 51, 29, .12); }
+  .ejr-field.ejr-invalid input { background: var(--ejr-error-fill); border-color: var(--ejr-error); }
+  .ejr-err { margin-top: 6px; font-size: 13px; color: var(--ejr-error); }
+  .ejr-err:empty { display: none; }
+  .ejr-phone { display: flex; gap: 6px; }
+  .ejr-cc { position: relative; flex: 0 0 auto; display: flex; align-items: center; gap: 6px;
+    height: 46px; padding: 0 28px 0 12px; background: var(--ejr-fill); border: 1px solid transparent;
+    border-radius: var(--ejr-radius); font-size: 15px; font-weight: 600; white-space: nowrap;
+    transition: background .15s, border-color .15s; }
+  .ejr-cc:hover { background: var(--ejr-fill-2); }
+  .ejr-cc::after { content: ""; position: absolute; right: 12px; top: 50%; width: 6px; height: 6px; margin-top: -5px;
+    border-right: 1.5px solid var(--ejr-ink-2); border-bottom: 1.5px solid var(--ejr-ink-2); transform: rotate(45deg); }
+  .ejr-cc-flag { font-size: 17px; line-height: 1; }
+  .ejr-cc select { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 16px; }
+  .ejr-cc:focus-within { background: #fff; border-color: var(--ejr-accent); box-shadow: 0 0 0 3px rgba(4, 51, 29, .12); }
+  .ejr-phone input { flex: 1; min-width: 0; }
+  .ejr-field.ejr-invalid .ejr-cc { border-color: var(--ejr-error); }
+  .ejr-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+
+  .ejr-hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; opacity: 0; }
+
+  .ejr-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; min-height: 48px; padding: 0 20px; border: 0; border-radius: var(--ejr-radius-btn);
+    font: inherit; font-size: 16px; font-weight: 700; color: var(--ejr-accent); text-decoration: none; cursor: pointer;
+    background: var(--ejr-gold); transition: background .15s, transform .1s ease-out;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .ejr-btn:hover { background: var(--ejr-gold-press); }
+  .ejr-btn:active:not([disabled]) { transform: scale(.98); }
+  .ejr-btn[disabled] { background: var(--ejr-fill-2); color: var(--ejr-ink-3); cursor: not-allowed; }
+  .ejr-btn-2 { background: var(--ejr-fill); color: var(--ejr-ink); }
+  .ejr-btn-2:hover { background: var(--ejr-fill-2); }
+  .ejr-link { background: none; border: 0; padding: 4px 2px; font: inherit; font-size: 14px; font-weight: 600;
+    color: var(--ejr-accent); cursor: pointer; border-radius: 6px; }
+  .ejr-link:hover { text-decoration: underline; }
+  .ejr-alert { margin: 0 0 16px; padding: 12px 14px; border-radius: var(--ejr-radius);
+    background: var(--ejr-error-fill); color: var(--ejr-error); font-size: 14px; }
+  .ejr-alert:empty { display: none; }
+  .ejr-root :focus-visible { outline: 2px solid var(--ejr-accent); outline-offset: 2px; }
+  .ejr-root .ejr-modal:focus { outline: none; }
+  .ejr-field input:focus-visible { outline: none; }
+
+  /* ---------- booking ---------- */
+  .ejr-who { display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
+    margin: 0 0 20px; padding-bottom: 16px; border-bottom: 1px solid var(--ejr-line); font-size: 14px; color: var(--ejr-ink-2); }
+  .ejr-who strong { font-weight: 600; color: var(--ejr-ink); }
+  .ejr-book { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .ejr-cal-head { display: flex; align-items: center; justify-content: space-between; margin: 0 0 8px; }
+  .ejr-cal-head strong { font-size: 16px; font-weight: 700; letter-spacing: -.005em; color: var(--ejr-green-700); }
+  .ejr-cal-navs { display: flex; gap: 4px; }
+  .ejr-cal-nav { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+    border: 0; border-radius: 50%; background: none; color: var(--ejr-accent); cursor: pointer;
+    transition: background .15s, transform .1s ease-out; }
+  .ejr-cal-nav svg { width: 14px; height: 14px; }
+  .ejr-cal-nav:hover:not([disabled]) { background: var(--ejr-fill); }
+  .ejr-cal-nav:active:not([disabled]) { transform: scale(.9); }
+  .ejr-cal-nav[disabled] { color: var(--ejr-ink-3); opacity: .5; cursor: default; }
+  .ejr-cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; text-align: center;
+    transition: opacity .2s; }
+  .ejr-dow { padding: 4px 0 6px; font-size: 12px; font-weight: 600; color: var(--ejr-ink-3); }
+  .ejr-day { position: relative; aspect-ratio: 1; min-height: 38px; border: 0; border-radius: 50%;
+    background: var(--ejr-fill); font: inherit; font-size: 15px; font-weight: 700; color: var(--ejr-accent);
+    font-variant-numeric: tabular-nums; cursor: pointer; transition: background .15s, color .15s, transform .1s ease-out;
+    -webkit-tap-highlight-color: transparent; }
+  .ejr-day:hover:not([disabled]):not(.ejr-sel) { background: var(--ejr-fill-2); }
+  .ejr-day:active:not([disabled]) { transform: scale(.92); }
+  .ejr-day[disabled] { background: none; color: var(--ejr-ink-3); font-weight: 400; opacity: .55; cursor: default; }
+  .ejr-day.ejr-sel { background: var(--ejr-accent); color: #fff; box-shadow: 0 4px 12px rgba(4, 51, 29, .25); }
+  .ejr-day.ejr-today::after { content: ""; position: absolute; left: 50%; bottom: 5px; width: 4px; height: 4px;
+    margin-left: -2px; border-radius: 50%; background: var(--ejr-gold); }
+  .ejr-cal.ejr-loading .ejr-cal-grid { opacity: .4; pointer-events: none; }
+  .ejr-slots-title { margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -.005em; color: var(--ejr-green-700); }
+  .ejr-tz { margin: 2px 0 12px; font-size: 13px; color: var(--ejr-ink-3); }
+  .ejr-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .ejr-slot { height: 42px; padding: 0 4px; border: 1px solid transparent; border-radius: var(--ejr-radius); background: var(--ejr-fill);
+    font: inherit; font-size: 14px; white-space: nowrap; font-weight: 600; color: var(--ejr-accent); font-variant-numeric: tabular-nums;
+    cursor: pointer; transition: background .15s, border-color .15s, color .15s, transform .1s ease-out;
+    -webkit-tap-highlight-color: transparent; }
+  .ejr-slot:hover:not(.ejr-sel) { background: var(--ejr-fill-2); }
+  .ejr-slot:active { transform: scale(.97); }
+  .ejr-slot.ejr-sel { background: var(--ejr-accent); border-color: var(--ejr-accent); color: #fff; box-shadow: 0 4px 12px rgba(4, 51, 29, .25); }
+  .ejr-empty { grid-column: 1 / -1; padding: 24px 8px; text-align: center; font-size: 14px; color: var(--ejr-ink-2); }
+  .ejr-foot { display: flex; align-items: center; gap: 16px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--ejr-line); }
+  .ejr-summary { flex: 1; min-width: 0; font-size: 14px; color: var(--ejr-ink-2); }
+  .ejr-summary strong { display: block; color: var(--ejr-ink); font-weight: 600; }
+  .ejr-foot .ejr-btn { width: auto; flex: 0 0 auto; min-width: 180px; }
+
+  /* ---------- success ---------- */
+  .ejr-when { margin: 0 0 16px; padding: 16px 18px; border-radius: var(--ejr-radius); background: var(--ejr-fill); }
+  .ejr-when span { display: block; font-size: 13px; color: var(--ejr-ink-2); }
+  .ejr-when strong { display: block; margin-top: 2px; font-size: 16px; font-weight: 700; line-height: 1.4; }
+  .ejr-note { margin: 0 0 24px; color: var(--ejr-ink-2); }
+  .ejr-note strong { color: var(--ejr-ink); font-weight: 600; }
+  .ejr-stack { display: grid; gap: 8px; }
+  .ejr-cal-links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  /* ---------- "leave without booking?" ---------- */
+  .ejr-nudge { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center;
+    padding: 32px; background: rgba(255, 255, 255, .96); border-radius: inherit; text-align: center;
+    opacity: 0; visibility: hidden; transition: opacity .2s ease, visibility 0s linear .2s; }
+  .ejr-nudge.ejr-show { opacity: 1; visibility: visible; transition: opacity .2s ease; }
+  .ejr-nudge-box { width: 100%; max-width: 340px; }
+  .ejr-nudge h4 { margin: 0 0 8px; font-size: 20px; font-weight: 700; line-height: 1.25; letter-spacing: -.01em; }
+  .ejr-nudge p { margin: 0 0 24px; color: var(--ejr-ink-2); }
+
+  .ejr-spin { width: 16px; height: 16px; border: 2px solid rgba(4, 51, 29, .25); border-top-color: var(--ejr-accent);
+    border-radius: 50%; animation: ejr-spin .7s linear infinite; }
+  .ejr-spin-dark { display: inline-block; vertical-align: -3px; margin-right: 8px; border-color: var(--ejr-fill-2); border-top-color: var(--ejr-ink-2); }
+  @keyframes ejr-spin { to { transform: rotate(360deg); } }
+
+  /* ---------- phone: bottom sheet, drag the top to dismiss ---------- */
+  @media (max-width: 600px) {
+    .ejr-overlay { padding: 0; align-items: flex-end; }
+    .ejr-modal { max-height: 92vh; max-height: 92dvh; border-radius: 16px 16px 0 0;
+      opacity: 1; transform: translateY(100%); transition: transform .45s var(--ejr-ease); }
+    .ejr-head { padding: 22px 20px 20px; border-radius: 16px 16px 0 0; touch-action: none; }
+    .ejr-grabber { display: block; position: absolute; top: 8px; left: 50%; width: 36px; height: 5px; margin-left: -18px;
+      border-radius: 3px; background: rgba(255, 255, 255, .35); }
+    .ejr-head h2 { font-size: 22px; }
+    .ejr-close { top: 16px; right: 16px; }
+    .ejr-body { padding: 20px 20px calc(24px + env(safe-area-inset-bottom)); }
+    .ejr-grid-2, .ejr-book { grid-template-columns: 1fr; }
+    .ejr-book { gap: 20px; }
+    .ejr-foot { flex-direction: column; align-items: stretch; gap: 12px; }
+    .ejr-foot .ejr-btn { width: 100%; }
+    .ejr-cal-links { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ejr-modal, .ejr-open .ejr-modal { transform: none !important; transition: opacity .2s ease; }
+    .ejr-overlay:not(.ejr-open) .ejr-modal { opacity: 0; }
+    .ejr-pane { animation: none; }
+    .ejr-btn, .ejr-day, .ejr-slot, .ejr-close, .ejr-cal-nav { transform: none !important; }
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    .ejr-scrim { background: rgba(10, 20, 15, .6); backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .ejr-nudge { background: #fff; }
+  }
+  @media (prefers-contrast: more) {
+    .ejr-root { --ejr-ink-2: #34403a; --ejr-ink-3: #56635d; --ejr-line: rgba(4, 51, 29, .4); }
+    .ejr-field input, .ejr-cc { border-color: var(--ejr-line); }
+  }
+</style>
+
+<script>
+(function () {
+  if (window.__ejrLoaded) return;
+  window.__ejrLoaded = true;
+
+  /* =====================================================================
+     CONFIG — edit these values
+     ===================================================================== */
+  var CONFIG = {
+    // Google Apps Script web app URL (see apps-script/ + README). When set, the calendar shows
+    // REAL free slots from Google Calendar, bookings create a Calendar event + Google Meet invite,
+    // and all emails are sent by the script, so WEB3FORMS_KEY isn't needed.
+    BOOKING_API_URL: 'https://script.google.com/macros/s/AKfycbyuKcyks_EFUpK_G4Cs2q0Ig4AaQyjZcSwpPM8a9l6P_68sAz1hzHQF8bt0mvWqV_kL6g/exec',   // runs on slp@emojot.com
+
+    // Only used when BOOKING_API_URL is empty: free key from https://web3forms.com (enter the inbox that should receive leads).
+    // While this is left as-is the form runs in TEST mode (logs to console, sends nothing).
+    WEB3FORMS_KEY: 'YOUR_WEB3FORMS_ACCESS_KEY',
+
+    // Send a "lead" email right after step 1, so you still get the contact
+    // even if they don't finish booking. A second email follows with the booking.
+    EMAIL_ON_REGISTER: true,
+
+    LOGO_URL: '',                       // optional: white/transparent logo for the dark header
+    MEETING_TITLE: 'SLP – Emojot introductory session',
+    MEETING_MINUTES: 30,
+
+    // Availability (Dubai time, GST = UTC+4, no daylight saving).
+    // With BOOKING_API_URL set, the real rules live in the Apps Script CONFIG; keep WORK_DAYS in sync.
+    UTC_OFFSET_HOURS: 4,
+    TZ_LABEL: 'GST (Dubai time)',
+    WORK_DAYS: [1, 2, 3, 4, 5],         // 0=Sun … 6=Sat  (UAE weekend = Sat/Sun)
+    DAY_START: '10:00',
+    DAY_END: '17:00',                   // last slot starts DAY_END minus MEETING_MINUTES
+    SLOT_STEP_MINUTES: 30,
+    MIN_NOTICE_HOURS: 18,               // earliest bookable time from "now"
+    MAX_DAYS_AHEAD: 30,
+    BLOCKED_DATES: [],                  // e.g. ['2026-12-02', '2026-12-03']
+
+    DEFAULT_COUNTRY: 'AE',             // phone country when it can't be guessed from the visitor's timezone
+    BLOCK_FREE_EMAIL: false,            // true = reject gmail/yahoo/hotmail… addresses
+
+    // What opens the popup
+    TRIGGER_TEXT: /register\s+in?s?terest/i,  // also matches the page typo "insterest"
+    TRIGGER_HASH: '#register'
+  };
+  /* ===================================================================== */
+
+  var API = CONFIG.BOOKING_API_URL;
+  var TEST_MODE = !API && (!CONFIG.WEB3FORMS_KEY || CONFIG.WEB3FORMS_KEY.indexOf('YOUR_') === 0);
+  var STORE_KEY = 'ejr_lead_v1';
+  var FREE_DOMAINS = ['gmail.com','yahoo.com','hotmail.com','outlook.com','live.com','icloud.com','aol.com','msn.com','ymail.com','proton.me','protonmail.com','gmx.com','mail.com'];
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var DOW = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+
+  var inline = !/[?&]ejr=popup/.test(location.search) && (window.self !== window.top || !!document.getElementById('ejr-inline'));
+  var state = { step: 1, lead: null, date: null, slot: null, viewY: 0, viewM: 0, nudged: false, booked: false,
+    avail: null, availAt: 0, availStatus: 'idle' };   // avail = { 'yyyy-mm-dd': [minutes…] } from the API
+  var lastFocus = null;
+
+  function chevron(d) {
+    return '<svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>';
+  }
+  var ICON = {
+    close: '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><path d="M1.5 1.5l9 9M10.5 1.5l-9 9"/></svg>',
+    prev: chevron('M9 2L4 7l5 5'),
+    next: chevron('M5 2l5 5-5 5')
+  };
+
+  // Header copy per step
+  var STEPS = {
+    1: { title: 'Register your interest',
+         sub: 'Share a few details and book a short call with our team. Free access: 6 months for eligible micro enterprises, 3 months for other eligible enterprises.' },
+    2: { title: 'Book your introductory session',
+         sub: 'A ' + CONFIG.MEETING_MINUTES + '-minute online call. We’ll introduce Emojot, walk you through the platform and get you onboarded.' },
+    3: { title: 'Your session is booked', sub: '' }
+  };
+
+  /* ---------------- helpers ---------------- */
+  function $(sel, ctx) { return (ctx || root).querySelector(sel); }
+  function $all(sel, ctx) { return Array.prototype.slice.call((ctx || root).querySelectorAll(sel)); }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function hm(str) { var p = str.split(':'); return (+p[0]) * 60 + (+p[1]); }
+  function ymd(y, m, d) { return y + '-' + pad(m + 1) + '-' + pad(d); }
+  function store(v) { try { v ? sessionStorage.setItem(STORE_KEY, JSON.stringify(v)) : sessionStorage.removeItem(STORE_KEY); } catch (e) {} }
+  function load() { try { return JSON.parse(sessionStorage.getItem(STORE_KEY) || 'null'); } catch (e) { return null; } }
+
+  // A wall-clock time in Dubai → real Date
+  function dubaiToDate(y, m, d, minutes) {
+    return new Date(Date.UTC(y, m, d, 0, minutes) - CONFIG.UTC_OFFSET_HOURS * 3600e3);
+  }
+  // "Now" expressed as Dubai wall-clock parts
+  function dubaiNow() {
+    var t = new Date(Date.now() + CONFIG.UTC_OFFSET_HOURS * 3600e3);
+    return { y: t.getUTCFullYear(), m: t.getUTCMonth(), d: t.getUTCDate() };
+  }
+  function fmt12(minutes) {
+    var h = Math.floor(minutes / 60), mi = minutes % 60, ap = h >= 12 ? 'PM' : 'AM';
+    return ((h % 12) || 12) + ':' + pad(mi) + ' ' + ap;
+  }
+
+  var visitorTZ = (function () { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { return ''; } })();
+
+  function longDate(y, m, d) {
+    var wd = new Date(Date.UTC(y, m, d)).getUTCDay();
+    return ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][wd] + ', ' + d + ' ' + MONTHS[m] + ' ' + y;
+  }
+
+  function dayAvailable(y, m, d) {
+    if (API) { var a = state.avail && state.avail[ymd(y, m, d)]; return !!(a && slotsFor(y, m, d).length); }
+    var wd = new Date(Date.UTC(y, m, d)).getUTCDay();
+    if (CONFIG.WORK_DAYS.indexOf(wd) < 0) return false;
+    if (CONFIG.BLOCKED_DATES.indexOf(ymd(y, m, d)) >= 0) return false;
+    var t = dubaiNow();
+    var maxDay = Date.UTC(t.y, t.m, t.d + CONFIG.MAX_DAYS_AHEAD);
+    if (Date.UTC(y, m, d) > maxDay) return false;
+    return slotsFor(y, m, d).length > 0;
+  }
+
+  function slotsFor(y, m, d) {
+    var out = [], earliest = Date.now() + CONFIG.MIN_NOTICE_HOURS * 3600e3;
+    if (API) {
+      return ((state.avail && state.avail[ymd(y, m, d)]) || []).map(function (t) { return { minutes: t, date: dubaiToDate(y, m, d, t) }; })
+        .filter(function (s) { return s.date.getTime() >= Date.now(); });
+    }
+    var end = hm(CONFIG.DAY_END) - CONFIG.MEETING_MINUTES;
+    for (var t = hm(CONFIG.DAY_START); t <= end; t += CONFIG.SLOT_STEP_MINUTES) {
+      var dt = dubaiToDate(y, m, d, t);
+      if (dt.getTime() >= earliest) out.push({ minutes: t, date: dt });
+    }
+    return out;
+  }
+
+  /* ---------------- phone / country codes ---------------- */
+  // ISO|Name|Dial code
+  var COUNTRIES = ('AF|Afghanistan|93,AL|Albania|355,DZ|Algeria|213,AD|Andorra|376,AO|Angola|244,AR|Argentina|54,AM|Armenia|374,' +
+    'AU|Australia|61,AT|Austria|43,AZ|Azerbaijan|994,BS|Bahamas|1,BH|Bahrain|973,BD|Bangladesh|880,BB|Barbados|1,BY|Belarus|375,' +
+    'BE|Belgium|32,BZ|Belize|501,BJ|Benin|229,BT|Bhutan|975,BO|Bolivia|591,BA|Bosnia and Herzegovina|387,BW|Botswana|267,BR|Brazil|55,' +
+    'BN|Brunei|673,BG|Bulgaria|359,BF|Burkina Faso|226,BI|Burundi|257,KH|Cambodia|855,CM|Cameroon|237,CA|Canada|1,CV|Cape Verde|238,' +
+    'CF|Central African Republic|236,TD|Chad|235,CL|Chile|56,CN|China|86,CO|Colombia|57,KM|Comoros|269,CG|Congo|242,' +
+    'CD|Congo (DRC)|243,CR|Costa Rica|506,CI|Côte d’Ivoire|225,HR|Croatia|385,CU|Cuba|53,CY|Cyprus|357,CZ|Czechia|420,DK|Denmark|45,' +
+    'DJ|Djibouti|253,DO|Dominican Republic|1,EC|Ecuador|593,EG|Egypt|20,SV|El Salvador|503,GQ|Equatorial Guinea|240,ER|Eritrea|291,' +
+    'EE|Estonia|372,SZ|Eswatini|268,ET|Ethiopia|251,FJ|Fiji|679,FI|Finland|358,FR|France|33,GA|Gabon|241,GM|Gambia|220,GE|Georgia|995,' +
+    'DE|Germany|49,GH|Ghana|233,GR|Greece|30,GT|Guatemala|502,GN|Guinea|224,GY|Guyana|592,HT|Haiti|509,HN|Honduras|504,HK|Hong Kong|852,' +
+    'HU|Hungary|36,IS|Iceland|354,IN|India|91,ID|Indonesia|62,IR|Iran|98,IQ|Iraq|964,IE|Ireland|353,IL|Israel|972,IT|Italy|39,' +
+    'JM|Jamaica|1,JP|Japan|81,JO|Jordan|962,KZ|Kazakhstan|7,KE|Kenya|254,KW|Kuwait|965,KG|Kyrgyzstan|996,LA|Laos|856,LV|Latvia|371,' +
+    'LB|Lebanon|961,LS|Lesotho|266,LR|Liberia|231,LY|Libya|218,LI|Liechtenstein|423,LT|Lithuania|370,LU|Luxembourg|352,MO|Macau|853,' +
+    'MG|Madagascar|261,MW|Malawi|265,MY|Malaysia|60,MV|Maldives|960,ML|Mali|223,MT|Malta|356,MR|Mauritania|222,MU|Mauritius|230,' +
+    'MX|Mexico|52,MD|Moldova|373,MC|Monaco|377,MN|Mongolia|976,ME|Montenegro|382,MA|Morocco|212,MZ|Mozambique|258,MM|Myanmar|95,' +
+    'NA|Namibia|264,NP|Nepal|977,NL|Netherlands|31,NZ|New Zealand|64,NI|Nicaragua|505,NE|Niger|227,NG|Nigeria|234,KP|North Korea|850,' +
+    'MK|North Macedonia|389,NO|Norway|47,OM|Oman|968,PK|Pakistan|92,PS|Palestine|970,PA|Panama|507,PG|Papua New Guinea|675,' +
+    'PY|Paraguay|595,PE|Peru|51,PH|Philippines|63,PL|Poland|48,PT|Portugal|351,PR|Puerto Rico|1,QA|Qatar|974,RO|Romania|40,' +
+    'RU|Russia|7,RW|Rwanda|250,SA|Saudi Arabia|966,SN|Senegal|221,RS|Serbia|381,SC|Seychelles|248,SL|Sierra Leone|232,SG|Singapore|65,' +
+    'SK|Slovakia|421,SI|Slovenia|386,SO|Somalia|252,ZA|South Africa|27,KR|South Korea|82,SS|South Sudan|211,ES|Spain|34,' +
+    'LK|Sri Lanka|94,SD|Sudan|249,SR|Suriname|597,SE|Sweden|46,CH|Switzerland|41,SY|Syria|963,TW|Taiwan|886,TJ|Tajikistan|992,' +
+    'TZ|Tanzania|255,TH|Thailand|66,TL|Timor-Leste|670,TG|Togo|228,TT|Trinidad and Tobago|1,TN|Tunisia|216,TR|Türkiye|90,' +
+    'TM|Turkmenistan|993,UG|Uganda|256,UA|Ukraine|380,AE|United Arab Emirates|971,GB|United Kingdom|44,US|United States|1,' +
+    'UY|Uruguay|598,UZ|Uzbekistan|998,VE|Venezuela|58,VN|Vietnam|84,YE|Yemen|967,ZM|Zambia|260,ZW|Zimbabwe|263')
+    .split(',').map(function (r) { var p = r.split('|'); return { iso: p[0], name: p[1], dial: p[2] }; });
+  var PINNED = ['AE', 'SA', 'QA', 'KW', 'BH', 'OM', 'LK', 'IN'];   // shown first in the list
+  // Allowed national-number lengths (after removing a leading 0); others accept 6–14 digits
+  var PHONE_LEN = { AE: [8, 9], SA: [9, 9], QA: [8, 8], KW: [8, 8], BH: [8, 8], OM: [8, 8], LK: [9, 9], IN: [10, 10],
+    PK: [10, 10], BD: [10, 10], NP: [10, 10], MV: [7, 7], GB: [10, 10], US: [10, 10], CA: [10, 10], AU: [9, 9],
+    SG: [8, 8], MY: [9, 10], PH: [10, 10], EG: [10, 10], JO: [9, 9], FR: [9, 9], CN: [11, 11], RU: [10, 10] };
+  var PHONE_EG = { AE: '50 123 4567', SA: '50 123 4567', LK: '77 123 4567', IN: '98765 43210', QA: '3312 3456',
+    KW: '5012 3456', BH: '3600 1234', OM: '9212 3456', GB: '7400 123456', US: '201 555 0123', CA: '506 234 5678',
+    PK: '301 2345678', AU: '412 345 678' };
+  var KEEP_ZERO = ['IT', 'SM', 'VA'];  // countries where a leading 0 is part of the number
+  var TZ_COUNTRY = { 'Asia/Dubai': 'AE', 'Asia/Colombo': 'LK', 'Asia/Kolkata': 'IN', 'Asia/Calcutta': 'IN', 'Asia/Riyadh': 'SA',
+    'Asia/Qatar': 'QA', 'Asia/Kuwait': 'KW', 'Asia/Bahrain': 'BH', 'Asia/Muscat': 'OM', 'Europe/London': 'GB',
+    'Asia/Karachi': 'PK', 'Asia/Dhaka': 'BD', 'Asia/Kathmandu': 'NP', 'Indian/Maldives': 'MV', 'Asia/Singapore': 'SG',
+    'Asia/Kuala_Lumpur': 'MY', 'Asia/Manila': 'PH', 'Africa/Cairo': 'EG', 'Asia/Amman': 'JO', 'Europe/Paris': 'FR',
+    'Europe/Berlin': 'DE', 'Asia/Shanghai': 'CN', 'Australia/Sydney': 'AU', 'Australia/Melbourne': 'AU' };
+
+  function country(iso) { for (var i = 0; i < COUNTRIES.length; i++) if (COUNTRIES[i].iso === iso) return COUNTRIES[i]; return null; }
+  function flag(iso) { return String.fromCodePoint.apply(null, iso.split('').map(function (c) { return 127397 + c.charCodeAt(0); })); }
+  function countryOptions() {
+    function opt(c) { return '<option value="' + c.iso + '">' + c.name + ' (+' + c.dial + ')</option>'; }
+    var pinned = PINNED.map(country);
+    return pinned.map(opt).join('') + '<option disabled>──────────</option>' +
+      COUNTRIES.filter(function (c) { return PINNED.indexOf(c.iso) < 0; }).map(opt).join('');
+  }
+  function defaultCountry() {
+    var tz = '';
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    return TZ_COUNTRY[tz] || CONFIG.DEFAULT_COUNTRY;
+  }
+  function nationalDigits(iso, raw) {
+    var d = raw.replace(/\D/g, '');
+    if (KEEP_ZERO.indexOf(iso) < 0) d = d.replace(/^0+/, '');
+    return d;
+  }
+  // If someone types/pastes an international number (+94…, 0094…), switch the country to match
+  function detectFromInternational(raw) {
+    var m = raw.replace(/[\s()\-.]/g, '').match(/^(?:\+|00)(\d+)/);
+    if (!m) return null;
+    var digits = m[1], cur = country($('#ejr-cc').value), best = null;
+    COUNTRIES.forEach(function (c) {
+      if (digits.indexOf(c.dial) === 0 && (!best || c.dial.length > best.dial.length || (c.dial === best.dial && c === cur))) best = c;
+    });
+    if (best && best.dial === '1' && cur && cur.dial === '1') best = cur;
+    return best ? { iso: best.iso, rest: digits.slice(best.dial.length) } : null;
+  }
+
+  /* ---------------- markup ---------------- */
+  function field(id, label, type, placeholder, autocomplete, extra) {
+    return '<div class="ejr-field" data-field="' + id + '">' +
+      '<label for="ejr-' + id + '">' + label + '</label>' +
+      '<input id="ejr-' + id + '" name="' + id + '" type="' + type + '" placeholder="' + placeholder +
+      '" autocomplete="' + autocomplete + '" ' + (extra || '') + ' required>' +
+      '<div class="ejr-err" role="alert"></div></div>';
+  }
+
+  var root = document.createElement('div');
+  root.className = 'ejr-root' + (inline ? ' ejr-inline' : '');
+  root.innerHTML =
+    '<div class="ejr-overlay' + (inline ? ' ejr-open' : '') + '">' +
+      '<div class="ejr-scrim"></div>' +
+      '<div class="ejr-modal" role="dialog" tabindex="-1" aria-modal="' + (!inline) + '" aria-labelledby="ejr-title">' +
+        '<div class="ejr-head">' +
+          '<div class="ejr-grabber" aria-hidden="true"></div>' +
+          '<p class="ejr-meta">' + (CONFIG.LOGO_URL ? '<img src="' + CONFIG.LOGO_URL + '" alt="SLP – Emojot">' : 'SLP – Emojot · ') +
+            '<span data-stepno>Step 1 of 3</span></p>' +
+          '<h2 id="ejr-title"></h2>' +
+          '<p class="ejr-sub" data-sub></p>' +
+          '<button type="button" class="ejr-close" aria-label="Close">' + ICON.close + '</button>' +
+        '</div>' +
+        '<div class="ejr-body">' +
+
+          /* STEP 1 */
+          '<form class="ejr-pane" data-pane="1" novalidate>' +
+            '<div class="ejr-alert" data-alert="1"></div>' +
+            field('name', 'Full name', 'text', '', 'name') +
+            field('company', 'Company', 'text', '', 'organization') +
+            '<div class="ejr-grid-2">' +
+              field('email', 'Work email', 'email', 'name@company.com', 'email', 'inputmode="email"') +
+              '<div class="ejr-field" data-field="phone">' +
+                '<label for="ejr-phone">Phone</label>' +
+                '<div class="ejr-phone">' +
+                  '<div class="ejr-cc"><span class="ejr-cc-flag" aria-hidden="true"></span><span class="ejr-cc-code"></span>' +
+                    '<select id="ejr-cc" name="country" aria-label="Country code">' + countryOptions() + '</select></div>' +
+                  '<input id="ejr-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" required>' +
+                '</div><div class="ejr-err" role="alert"></div></div>' +
+            '</div>' +
+            '<input class="ejr-hp" type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+            '<button type="submit" class="ejr-btn" style="margin-top:8px">Continue</button>' +
+          '</form>' +
+
+          /* STEP 2 */
+          '<div class="ejr-pane" data-pane="2" hidden>' +
+            '<div class="ejr-who"><span>Booking for <strong data-who></strong></span><button type="button" class="ejr-link" data-edit>Edit</button></div>' +
+            '<div class="ejr-alert" data-alert="2"></div>' +
+            '<div class="ejr-book">' +
+              '<div class="ejr-cal">' +
+                '<div class="ejr-cal-head"><strong data-month aria-live="polite"></strong><div class="ejr-cal-navs">' +
+                  '<button type="button" class="ejr-cal-nav" data-nav="-1" aria-label="Previous month">' + ICON.prev + '</button>' +
+                  '<button type="button" class="ejr-cal-nav" data-nav="1" aria-label="Next month">' + ICON.next + '</button>' +
+                '</div></div>' +
+                '<div class="ejr-cal-grid" data-grid></div>' +
+              '</div>' +
+              '<div>' +
+                '<p class="ejr-slots-title" data-slots-title>Select a date</p>' +
+                '<p class="ejr-tz">Times in ' + CONFIG.TZ_LABEL + '</p>' +
+                '<div class="ejr-slots" data-slots></div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="ejr-foot">' +
+              '<div class="ejr-summary" data-summary aria-live="polite"></div>' +
+              '<button type="button" class="ejr-btn" data-confirm disabled>Confirm booking</button>' +
+            '</div>' +
+          '</div>' +
+
+          /* STEP 3 */
+          '<div class="ejr-pane" data-pane="3" hidden>' +
+            '<div class="ejr-when"><span>Introductory session · ' + CONFIG.MEETING_MINUTES + ' min</span><strong data-when></strong></div>' +
+            '<p class="ejr-note" data-next>We’ll send the meeting link to <strong data-email></strong>. Add the session to your calendar so you don’t miss it.</p>' +
+            '<div class="ejr-stack">' +
+              '<a class="ejr-btn" data-meet target="_blank" rel="noopener" hidden>Open Google Meet</a>' +
+              '<div class="ejr-cal-links">' +
+                '<a class="ejr-btn" data-gcal target="_blank" rel="noopener">Add to Google Calendar</a>' +
+                '<a class="ejr-btn ejr-btn-2" data-ics download="slp-emojot-session.ics">Outlook / Apple (.ics)</a>' +
+              '</div>' +
+              '<button type="button" class="ejr-btn ejr-btn-2" data-done>Done</button>' +
+            '</div>' +
+          '</div>' +
+
+        '</div>' +
+
+        /* Shown once when someone tries to leave step 2 */
+        '<div class="ejr-nudge" role="alertdialog" aria-labelledby="ejr-nudge-t" aria-describedby="ejr-nudge-d">' +
+          '<div class="ejr-nudge-box">' +
+            '<h4 id="ejr-nudge-t">Leave without booking?</h4>' +
+            '<p id="ejr-nudge-d">Free access starts after your introductory session. Picking a time takes under a minute.</p>' +
+            '<div class="ejr-stack">' +
+              '<button type="button" class="ejr-btn" data-stay>Pick a time</button>' +
+              '<button type="button" class="ejr-btn ejr-btn-2" data-leave>Book later</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+
+  var overlay = $('.ejr-overlay');
+  var scrim = $('.ejr-scrim');
+  var modal = $('.ejr-modal');
+  var form = $('form[data-pane="1"]');
+  var nudge = $('.ejr-nudge');
+  var sheetMQ = window.matchMedia ? window.matchMedia('(max-width: 600px)') : { matches: false };
+  var motionMQ = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : { matches: false };
+
+  function setCountry(iso) {
+    var c = country(iso) || country('AE');
+    $('#ejr-cc').value = c.iso;
+    $('.ejr-cc-flag').textContent = flag(c.iso);
+    $('.ejr-cc-code').textContent = '+' + c.dial;
+    $('#ejr-phone').placeholder = PHONE_EG[c.iso] || 'Phone number';
+  }
+  setCountry(defaultCountry());
+  $('#ejr-cc').addEventListener('change', function () { setCountry(this.value); setErr('phone', ''); $('#ejr-phone').focus(); });
+  $('#ejr-phone').addEventListener('input', function () {
+    var hit = detectFromInternational(this.value);
+    if (hit) { setCountry(hit.iso); this.value = hit.rest; }
+  });
+
+  /* ---------------- step / open / close ---------------- */
+  function go(step) {
+    state.step = step;
+    $all('.ejr-pane').forEach(function (p) { p.hidden = +p.getAttribute('data-pane') !== step; });
+    var copy = STEPS[step];
+    $('[data-stepno]').textContent = 'Step ' + step + ' of 3';
+    $('#ejr-title').textContent = step === 3 && state.lead ? 'You’re booked, ' + state.lead.name.split(' ')[0] : copy.title;
+    $('[data-sub]').textContent = copy.sub;
+    $('[data-sub]').hidden = !copy.sub;
+    modal.scrollTop = 0;
+    if (step === 2) renderBooking();
+  }
+
+  // Desktop: grow out of (and shrink back into) the button that opened the popup
+  function anchorTo(trigger) {
+    modal.style.transformOrigin = '';
+    if (!trigger || !trigger.getBoundingClientRect || sheetMQ.matches) return;
+    var r = trigger.getBoundingClientRect();
+    if (!r.width && !r.height) return;
+    var left = (window.innerWidth - modal.offsetWidth) / 2, top = (window.innerHeight - modal.offsetHeight) / 2;
+    modal.style.transformOrigin = Math.round(r.left + r.width / 2 - left) + 'px ' + Math.round(r.top + r.height / 2 - top) + 'px';
+  }
+
+  function open(trigger) {
+    if (inline) return;
+    lastFocus = document.activeElement;
+    var saved = load();
+    if (saved && saved.lead && !state.booked) {
+      state.lead = saved.lead;
+      fillForm(saved.lead);
+      go(2);
+    } else if (!state.booked) {
+      go(1);
+    }
+    loadAvailability();
+    nudge.classList.remove('ejr-show');
+    anchorTo(trigger);
+    overlay.classList.add('ejr-open');
+    document.documentElement.style.overflow = 'hidden';
+    setTimeout(function () {
+      var f = state.step === 1 ? $('#ejr-name') : modal;
+      if (f) f.focus({ preventScroll: true });
+    }, 60);
+  }
+
+  // Returns false when the "leave without booking?" prompt was shown instead of closing
+  function close(force) {
+    if (inline) return false;
+    if (!force && state.step === 2 && !state.nudged) {
+      state.nudged = true;
+      nudge.classList.add('ejr-show');
+      $('[data-stay]').focus();
+      return false;
+    }
+    overlay.classList.remove('ejr-open');
+    nudge.classList.remove('ejr-show');
+    document.documentElement.style.overflow = '';
+    if (state.booked) { state.booked = false; resetAll(); }
+    if (lastFocus && lastFocus.focus) try { lastFocus.focus({ preventScroll: true }); } catch (e) {}
+    return true;
+  }
+
+  /* ---------------- phone: drag the sheet down to dismiss ---------------- */
+  // Tracks the finger 1:1, rubber-bands upward, projects the flick's momentum to decide
+  // close vs. stay, then hands the release velocity to a critically damped spring.
+  var sheetY = 0, springRun = 0, drag = null;
+
+  function setSheet(y) {
+    sheetY = y;
+    modal.style.transform = 'translateY(' + y + 'px)';
+    scrim.style.opacity = Math.max(0, 1 - Math.max(0, y) / modal.offsetHeight);
+  }
+  function clearSheet() {
+    sheetY = 0;
+    modal.style.transition = 'none';
+    modal.style.transform = ''; scrim.style.opacity = '';
+    modal.offsetHeight;   // commit the frame before CSS transitions come back
+    modal.style.transition = ''; scrim.style.transition = '';
+  }
+  // Critically damped spring (Apple "response" 0.35s, damping 1.0): no overshoot, starts from the
+  // current on-screen value and inherits velocity, so it can be grabbed again mid-flight.
+  function spring(to, velocity, done) {
+    var run = ++springRun, w = 2 * Math.PI / 0.35, x0 = sheetY - to, v0 = velocity, t0 = null;
+    function frame(ts) {
+      if (run !== springRun) return;
+      if (t0 === null) t0 = ts;
+      var t = (ts - t0) / 1000, e = Math.exp(-w * t), b = v0 + w * x0;
+      var x = (x0 + b * t) * e, v = (v0 - w * t * b) * e;
+      if (Math.abs(x) < 0.5 && Math.abs(v) < 20) { setSheet(to); if (done) done(); return; }
+      setSheet(to + x);
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  function rubberband(over, dim) { return (over * dim * 0.55) / (dim + 0.55 * Math.abs(over)); }
+  function project(v) { return (v / 1000) * 0.998 / (1 - 0.998); }
+
+  var head = $('.ejr-head');
+  head.addEventListener('pointerdown', function (e) {
+    if (inline || !sheetMQ.matches || e.button > 0 || e.target.closest('button, a, input, select')) return;
+    springRun++;   // interrupt a running spring: we continue from wherever it is now
+    drag = { id: e.pointerId, startY: e.clientY, base: sheetY, live: false, hist: [{ y: e.clientY, t: e.timeStamp }] };
+    head.setPointerCapture(e.pointerId);
+  });
+  head.addEventListener('pointermove', function (e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    var dy = e.clientY - drag.startY;
+    if (!drag.live) {
+      if (Math.abs(dy) < 6) return;   // small threshold before committing to a drag
+      drag.live = true; drag.startY = e.clientY; dy = 0;
+      modal.style.transition = 'none'; scrim.style.transition = 'none';
+    }
+    var y = drag.base + dy;
+    setSheet(y < 0 ? -rubberband(-y, modal.offsetHeight) : y);
+    drag.hist.push({ y: e.clientY, t: e.timeStamp });
+    if (drag.hist.length > 6) drag.hist.shift();
+  });
+  function endDrag(e) {
+    if (!drag || e.pointerId !== drag.id) return;
+    var d = drag; drag = null;
+    if (!d.live) { if (sheetY) spring(0, 0, clearSheet); return; }
+    var a = d.hist[0], b = d.hist[d.hist.length - 1], dt = (b.t - a.t) / 1000;
+    var v = dt > 0 && e.timeStamp - b.t < 80 ? (b.y - a.y) / dt : 0;   // px/s at release
+    var H = modal.offsetHeight;
+    if (sheetY + project(v) > H * 0.5 && !motionMQ.matches) {
+      if (state.step === 2 && !state.nudged) { close(false); spring(0, v, clearSheet); }
+      // Close first so the CSS resting state is already off-screen when the inline transform is cleared
+      else spring(H, Math.max(v, 0), function () { modal.style.transition = 'none'; close(true); clearSheet(); });
+    } else if (sheetY + project(v) > H * 0.5) {
+      clearSheet(); close(false);
+    } else {
+      spring(0, v, clearSheet);
+    }
+  }
+  head.addEventListener('pointerup', endDrag);
+  head.addEventListener('pointercancel', endDrag);
+
+  function resetAll() {
+    form.reset();
+    state.lead = null; state.date = null; state.slot = null; state.nudged = false;
+    store(null);
+    go(1);
+  }
+
+  function fillForm(l) {
+    ['name', 'company', 'email', 'phone'].forEach(function (k) { $('#ejr-' + k).value = l[k] || ''; });
+    if (l.country) setCountry(l.country);
+  }
+
+  /* ---------------- validation ---------------- */
+  function setErr(name, msg) {
+    var f = $('[data-field="' + name + '"]');
+    f.classList.toggle('ejr-invalid', !!msg);
+    $('.ejr-err', f).textContent = msg || '';
+    return !msg;
+  }
+  function validate() {
+    var v = {
+      name: $('#ejr-name').value.trim(),
+      company: $('#ejr-company').value.trim(),
+      email: $('#ejr-email').value.trim(),
+      phone: $('#ejr-phone').value.trim(),
+      country: $('#ejr-cc').value
+    };
+    var ok = true, first = null;
+    function chk(k, msg) { if (!setErr(k, msg) && ok) { ok = false; first = k; } }
+    chk('name', v.name.length < 2 ? 'Please enter your name.' : '');
+    chk('company', v.company.length < 2 ? 'Please enter your company name.' : '');
+    var domain = (v.email.split('@')[1] || '').toLowerCase();
+    chk('email', !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.email) ? 'Please enter a valid email address.'
+      : (CONFIG.BLOCK_FREE_EMAIL && FREE_DOMAINS.indexOf(domain) >= 0) ? 'Please use your work email address.' : '');
+    var c = country(v.country), nat = nationalDigits(v.country, v.phone), len = PHONE_LEN[v.country] || [6, 14];
+    chk('phone', !v.phone ? 'Please enter your contact number.'
+      : (/[^\d\s()\-.]/.test(v.phone) || nat.length < len[0] || nat.length > len[1])
+        ? 'Please enter a valid ' + c.name + ' number' + (len[0] === len[1] ? ' (' + len[0] + ' digits)' : '') + '.' : '');
+    if (ok) v.phoneFull = '+' + c.dial + ' ' + nat;
+    if (!ok) $('#ejr-' + first).focus();
+    return ok ? v : null;
+  }
+
+  /* ---------------- Apps Script API ---------------- */
+  function apiPost(data) {
+    data.botcheck = form.botcheck.checked ? 'on' : '';
+    // text/plain avoids a CORS preflight, which Apps Script can't answer
+    return fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json(); });
+  }
+  function leadPayload(l) {
+    return { name: l.name, company: l.company, email: l.email, phone: l.phoneFull, country: country(l.country).name,
+      visitorTZ: visitorTZ, page: location.href.split('#')[0] };
+  }
+  function loadAvailability(force) {
+    if (!API) return;
+    if (state.availStatus === 'loading') return;
+    if (!force && state.avail && Date.now() - state.availAt < 120e3) return;
+    state.availStatus = 'loading';
+    if (state.step === 2) { renderCal(); renderSlots(); }
+    fetch(API + (API.indexOf('?') < 0 ? '?' : '&') + 'action=slots&t=' + Date.now())
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (!j.ok) throw new Error(j.message || j.error);
+        state.avail = j.slots || {}; state.availAt = Date.now(); state.availStatus = 'ok';
+      })
+      .catch(function (err) { console.warn('[Emojot popup] availability failed', err); state.availStatus = 'error'; })
+      .then(function () {
+        if (state.step !== 2) return;
+        if (state.date && !dayAvailable.apply(null, state.date.split('-').map(function (x, i) { return i === 1 ? x - 1 : +x; }))) {
+          state.date = null; state.slot = null;
+        }
+        if (!state.date) { var f = firstAvailableMonth(); state.viewY = f.y; state.viewM = f.m; }
+        renderCal(); renderSlots(); renderSummary();
+      });
+  }
+
+  /* ---------------- email (Web3Forms) ---------------- */
+  function send(subject, data) {
+    var payload = {
+      access_key: CONFIG.WEB3FORMS_KEY,
+      subject: subject,
+      from_name: 'SLP – Emojot Landing Page',
+      replyto: data['Work Email'],
+      botcheck: form.botcheck.checked ? 'on' : ''
+    };
+    for (var k in data) payload[k] = data[k];
+    if (TEST_MODE) {
+      console.info('[Emojot popup] TEST MODE (set WEB3FORMS_KEY to send). Would email:', payload);
+      return new Promise(function (r) { setTimeout(function () { r(true); }, 600); });
+    }
+    return fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (r) { return r.json(); }).then(function (j) {
+      if (!j.success) throw new Error(j.message || 'Submission failed');
+      return true;
+    });
+  }
+
+  function leadFields(l) {
+    return {
+      'Name': l.name, 'Company Name': l.company, 'Work Email': l.email, 'Contact Number': l.phoneFull, 'Country': country(l.country).name,
+      'Page': location.href.split('#')[0], 'Visitor timezone': visitorTZ,
+      'Submitted at (UTC)': new Date().toISOString().replace('T', ' ').slice(0, 16)
+    };
+  }
+
+  function busy(btn, on, label) {
+    btn.disabled = on;
+    if (on) { btn.setAttribute('data-label', btn.innerHTML); btn.innerHTML = '<span class="ejr-spin"></span>' + label; }
+    else if (btn.getAttribute('data-label')) btn.innerHTML = btn.getAttribute('data-label');
+  }
+  function alertMsg(n, msg) {
+    var a = $('[data-alert="' + n + '"]');
+    a.textContent = msg || ''; a.classList.toggle('ejr-show', !!msg);
+  }
+
+  /* ---------------- step 1 submit ---------------- */
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    alertMsg(1, '');
+    var v = validate();
+    if (!v) return;
+    var changed = !state.lead || JSON.stringify(state.lead) !== JSON.stringify(v);
+    state.lead = v;
+    store({ lead: v });
+    if (CONFIG.EMAIL_ON_REGISTER && changed && API) {
+      var lp = leadPayload(v); lp.action = 'lead';
+      apiPost(lp).catch(function (err) { console.warn('[Emojot popup] lead save failed', err); });
+    } else if (CONFIG.EMAIL_ON_REGISTER && changed) {
+      var f = leadFields(v);
+      f['Status'] = 'REGISTERED, session not booked yet';
+      send('New registration: ' + v.company + ' (session pending)', f)
+        .catch(function (err) { console.warn('[Emojot popup] lead email failed', err); });
+    }
+    go(2);
+  });
+
+  $all('.ejr-field input').forEach(function (inp) {
+    inp.addEventListener('input', function () { setErr(inp.name, ''); });
+  });
+
+  /* ---------------- step 2: calendar ---------------- */
+  function firstAvailableMonth() {
+    var t = dubaiNow();
+    for (var i = 0; i <= CONFIG.MAX_DAYS_AHEAD; i++) {
+      var dt = new Date(Date.UTC(t.y, t.m, t.d + i));
+      if (dayAvailable(dt.getUTCFullYear(), dt.getUTCMonth(), dt.getUTCDate())) return { y: dt.getUTCFullYear(), m: dt.getUTCMonth() };
+    }
+    return { y: t.y, m: t.m };
+  }
+
+  function renderBooking() {
+    $('[data-who]').textContent = state.lead.name + ' · ' + state.lead.company;
+    if (!state.date) { var f = firstAvailableMonth(); state.viewY = f.y; state.viewM = f.m; }
+    renderCal(); renderSlots(); renderSummary();
+    loadAvailability();
+  }
+
+  function renderCal() {
+    var y = state.viewY, m = state.viewM, t = dubaiNow();
+    $('[data-month]').textContent = MONTHS[m] + ' ' + y;
+    var html = DOW.map(function (d, i) { return '<div class="ejr-dow" aria-hidden="true">' + d + '</div>'; }).join('');
+    var startDow = new Date(Date.UTC(y, m, 1)).getUTCDay();
+    var days = new Date(Date.UTC(y, m + 1, 0)).getUTCDate();
+    for (var i = 0; i < startDow; i++) html += '<div></div>';
+    for (var d = 1; d <= days; d++) {
+      var key = ymd(y, m, d), ok = dayAvailable(y, m, d);
+      var cls = 'ejr-day' + (state.date === key ? ' ejr-sel' : '') + (t.y === y && t.m === m && t.d === d ? ' ejr-today' : '');
+      html += '<button type="button" class="' + cls + '" data-day="' + key + '"' + (ok ? '' : ' disabled') +
+        ' aria-label="' + longDate(y, m, d) + (ok ? '' : ' (unavailable)') + '"' + (state.date === key ? ' aria-pressed="true"' : '') + '>' + d + '</button>';
+    }
+    $('[data-grid]').innerHTML = html;
+    $('.ejr-cal').classList.toggle('ejr-loading', !!API && state.availStatus === 'loading');
+    var lastDay = new Date(Date.UTC(t.y, t.m, t.d + CONFIG.MAX_DAYS_AHEAD));
+    $('[data-nav="-1"]').disabled = y === t.y && m === t.m;
+    $('[data-nav="1"]').disabled = y > lastDay.getUTCFullYear() || (y === lastDay.getUTCFullYear() && m >= lastDay.getUTCMonth());
+  }
+
+  function renderSlots() {
+    var box = $('[data-slots]');
+    if (API && state.availStatus === 'loading' && !state.avail) {
+      $('[data-slots-title]').textContent = 'Checking availability…';
+      box.innerHTML = '<div class="ejr-empty"><span class="ejr-spin ejr-spin-dark"></span>Checking the team’s calendars…</div>';
+      return;
+    }
+    if (API && state.availStatus === 'error' && !state.avail) {
+      $('[data-slots-title]').textContent = 'Couldn’t load times';
+      box.innerHTML = '<div class="ejr-empty">We couldn’t load available times. <button type="button" class="ejr-link" data-retry>Try again</button></div>';
+      return;
+    }
+    if (API && state.avail && !Object.keys(state.avail).length) {
+      $('[data-slots-title]').textContent = 'No times available';
+      box.innerHTML = '<div class="ejr-empty">All sessions are currently booked. Please check back soon, or our team will contact you.</div>';
+      return;
+    }
+    if (!state.date) {
+      $('[data-slots-title]').textContent = 'Select a date';
+      box.innerHTML = '<div class="ejr-empty">Available times will show here.</div>';
+      return;
+    }
+    var p = state.date.split('-'), y = +p[0], m = +p[1] - 1, d = +p[2];
+    $('[data-slots-title]').textContent = longDate(y, m, d);
+    var slots = slotsFor(y, m, d);
+    box.innerHTML = slots.length ? slots.map(function (s) {
+      return '<button type="button" class="ejr-slot' + (state.slot === s.minutes ? ' ejr-sel' : '') + '" data-slot="' + s.minutes + '">' +
+        fmt12(s.minutes) + '</button>';
+    }).join('') : '<div class="ejr-empty">No times left on this day. Please choose another date.</div>';
+  }
+
+  function selectedDate() {
+    if (!state.date || state.slot == null) return null;
+    var p = state.date.split('-');
+    return dubaiToDate(+p[0], +p[1] - 1, +p[2], state.slot);
+  }
+
+  function whenText() {
+    var p = state.date.split('-');
+    return longDate(+p[0], +p[1] - 1, +p[2]) + ' at ' + fmt12(state.slot) + ' ' + CONFIG.TZ_LABEL;
+  }
+
+  function renderSummary() {
+    var dt = selectedDate();
+    var sum = $('[data-summary]');
+    sum.innerHTML = '';
+    if (dt) {
+      var p = state.date.split('-'), w = document.createElement('strong');
+      w.textContent = longDate(+p[0], +p[1] - 1, +p[2]);
+      sum.appendChild(w);
+      sum.appendChild(document.createTextNode(fmt12(state.slot) + ' · ' + CONFIG.MEETING_MINUTES + ' min'));
+    } else sum.textContent = state.date ? 'Now choose a time' : 'Choose a date and time';
+    $('[data-confirm]').disabled = !dt;
+  }
+
+  root.addEventListener('click', function (e) {
+    var t = e.target.closest ? e.target : e.target.parentNode;
+    var day = t.closest('[data-day]'), slot = t.closest('[data-slot]'), nav = t.closest('[data-nav]');
+    if (day && !day.disabled) {
+      state.date = day.getAttribute('data-day'); state.slot = null; renderCal(); renderSlots(); renderSummary();
+      if (sheetMQ.matches) $('[data-slots-title]').scrollIntoView({ block: 'start', behavior: motionMQ.matches ? 'auto' : 'smooth' });
+    }
+    else if (slot) { state.slot = +slot.getAttribute('data-slot'); renderSlots(); renderSummary(); }
+    else if (nav && !nav.disabled) {
+      var m = state.viewM + (+nav.getAttribute('data-nav'));
+      state.viewY += Math.floor(m / 12); state.viewM = (m + 12) % 12; renderCal();
+    }
+    else if (t.closest('[data-retry]')) loadAvailability(true);
+    else if (t.closest('[data-edit]')) go(1);
+    else if (t.closest('[data-stay]')) nudge.classList.remove('ejr-show');
+    else if (t.closest('[data-leave]')) close(true);
+    else if (t.closest('[data-done]')) close(true);
+    else if (t.closest('.ejr-close')) close(false);
+    else if (t === overlay || t === scrim) close(false);
+  });
+
+  /* ---------------- step 2 confirm ---------------- */
+  $('[data-confirm]').addEventListener('click', function () {
+    var btn = this, dt = selectedDate();
+    if (!dt) return;
+    alertMsg(2, '');
+    busy(btn, true, 'Booking…');
+
+    var req;
+    if (API) {
+      var bp = leadPayload(state.lead);
+      bp.action = 'book'; bp.date = state.date; bp.minutes = state.slot;
+      req = apiPost(bp).then(function (j) {
+        if (j.ok) return j;
+        var e = new Error(j.error || 'failed'); e.code = j.error; throw e;
+      });
+    } else {
+      var f = leadFields(state.lead);
+      f['Status'] = 'SESSION BOOKED';
+      f['Session (Dubai time)'] = whenText();
+      f['Session start (UTC)'] = dt.toISOString();
+      f['Duration'] = CONFIG.MEETING_MINUTES + ' minutes';
+      req = send('Session booked: ' + state.lead.company + ', ' + whenText(), f).then(function () { return {}; });
+    }
+
+    req.then(function (res) {
+      busy(btn, false);
+      state.booked = true;
+      store(null);
+      showSuccess(dt, res.meetLink || '');
+      go(3);
+      if (window.dataLayer) window.dataLayer.push({ event: 'emojot_session_booked' });
+    }).catch(function (err) {
+      busy(btn, false);
+      console.warn('[Emojot popup] booking failed', err);
+      if (err.code === 'taken') {
+        state.slot = null;
+        alertMsg(2, 'That time was just taken. Please pick another one.');
+        loadAvailability(true);
+        renderSummary();
+      } else {
+        alertMsg(2, 'We couldn’t confirm your booking. Check your connection and try again.');
+      }
+    });
+  });
+
+  /* ---------------- step 3 ---------------- */
+  function icsStamp(d) { return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, ''); }
+  function showSuccess(start, meetLink) {
+    var end = new Date(start.getTime() + CONFIG.MEETING_MINUTES * 60e3);
+    $('[data-when]').innerHTML = '';
+    $('[data-when]').appendChild(document.createTextNode(whenText()));
+    if (API) {
+      // A real Google Calendar invite (with the Meet link) was sent, so skip the manual "add to calendar" buttons
+      $('[data-next]').innerHTML = 'A calendar invite with the Google Meet link has been sent to <strong data-email></strong>.';
+      $('.ejr-cal-links').style.display = 'none';
+      var mt = $('[data-meet]'); mt.hidden = !meetLink; if (meetLink) mt.href = meetLink;
+    }
+    $('[data-email]').textContent = state.lead.email;
+    var details = 'Online introductory session with the Emojot team.\nThe meeting link will be emailed to you.';
+    $('[data-gcal]').href = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+      '&text=' + encodeURIComponent(CONFIG.MEETING_TITLE) +
+      '&dates=' + icsStamp(start) + '/' + icsStamp(end) +
+      '&details=' + encodeURIComponent(details);
+    var ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Emojot//Register//EN', 'BEGIN:VEVENT',
+      'UID:' + Date.now() + '@emojot.com', 'DTSTAMP:' + icsStamp(new Date()),
+      'DTSTART:' + icsStamp(start), 'DTEND:' + icsStamp(end),
+      'SUMMARY:' + CONFIG.MEETING_TITLE, 'DESCRIPTION:' + details.replace(/\n/g, '\\n'),
+      'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+    $('[data-ics]').href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+  }
+
+  /* ---------------- keyboard ---------------- */
+  document.addEventListener('keydown', function (e) {
+    if (inline || !overlay.classList.contains('ejr-open')) return;
+    if (e.key === 'Escape') { e.preventDefault(); nudge.classList.contains('ejr-show') ? nudge.classList.remove('ejr-show') : close(false); }
+    if (e.key === 'Tab') {
+      var scope = nudge.classList.contains('ejr-show') ? nudge : $('.ejr-modal');
+      var f = $all('button:not([disabled]), input:not(.ejr-hp), select, a[href]', scope).filter(function (el) { return el.offsetParent !== null; });
+      if (!f.length) return;
+      if (e.shiftKey && document.activeElement === f[0]) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
+    }
+  });
+
+  /* ---------------- hook "Register interest" buttons ---------------- */
+  function isTrigger(el) {
+    if (!el || root.contains(el)) return false;
+    var href = el.getAttribute && (el.getAttribute('href') || '');
+    if (href && CONFIG.TRIGGER_HASH && href.slice(-CONFIG.TRIGGER_HASH.length) === CONFIG.TRIGGER_HASH) return true;
+    if (el.hasAttribute && el.hasAttribute('data-emojot-register')) return true;
+    var txt = (el.textContent || el.getAttribute('aria-label') || '').replace(/\s+/g, ' ').trim();
+    return txt.length < 40 && CONFIG.TRIGGER_TEXT.test(txt);
+  }
+  if (!inline) {
+    document.addEventListener('click', function (e) {
+      var el = e.target && e.target.closest && e.target.closest('a, button, [role="button"], [data-testid="linkElement"]');
+      if (!isTrigger(el)) return;
+      e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+      open(el);
+    }, true);
+  }
+
+  /* ---------------- mount ---------------- */
+  function mount() {
+    var host = document.getElementById('ejr-inline');
+    (host || document.body).appendChild(root);
+    if (inline) {
+      var saved = load();
+      if (saved && saved.lead) { state.lead = saved.lead; fillForm(saved.lead); go(2); } else go(1);
+    } else if (CONFIG.TRIGGER_HASH && location.hash === CONFIG.TRIGGER_HASH) {
+      open();
+    }
+  }
+  if (document.body) mount(); else document.addEventListener('DOMContentLoaded', mount);
+
+  window.EmojotRegister = { open: open, close: function () { close(true); } };
+})();
+</script>
+</body>
+</html>

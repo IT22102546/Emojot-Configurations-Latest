@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>SLP – Emojot popup</title>
+<link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Rough stand-in for the Wix landing page so the popup can be tried in context. */
+  body { margin: 0; font-family: Mulish, system-ui, sans-serif; color: #222; background: #fff; }
+  nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+    padding: 18px 48px; box-shadow: 0 2px 8px rgba(0, 0, 0, .06); }
+  nav b { color: #04331d; font-size: 22px; }
+  nav a { margin-left: 22px; color: #3c6e35; text-decoration: none; border-bottom: 1px solid #cfa64b; font-size: 14px; }
+  .hero { padding: 56px 48px; max-width: 620px; }
+  .hero h1 { margin: 0 0 16px; font-size: 28px; line-height: 1.25; }
+  .hero p { margin: 0 0 24px; }
+  .hero strong { color: #3c6e35; }
+  .btn { display: inline-block; background: #cfa64b; color: #fff; padding: 10px 18px; text-decoration: none; font-size: 14px; }
+  .gain { margin: 0 48px; padding: 32px; background: #eef6f1; border-radius: 24px; display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 24px; text-align: center; }
+  .gain h3 { margin: 0 0 6px; color: #3c6e35; font-size: 16px; }
+  .gain p { margin: 0; font-size: 14px; }
+  footer { background: #04331d; color: #fff; padding: 40px 48px; margin-top: 56px; display: flex;
+    justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  footer h2 { margin: 0 0 8px; }
+  .note { padding: 16px 48px; font-size: 13px; color: #777; }
+  @media (max-width: 600px) { nav, .hero, footer, .note { padding-left: 16px; padding-right: 16px; } .gain { margin: 0 16px; } }
+</style>
+</head>
+<body>
+  <nav><b>SLP × emojot</b><div><a href="#">About</a><a href="#">Offer details</a><a href="#register">Register interest</a></div></nav>
+  <section class="hero">
+    <h1>We are proud partners to Dubai Department of Economy and Tourism in supporting 500 Dubai based companies in the tourism sector.</h1>
+    <p>If you are a tourism company in Dubai, then the SLP - Emojot AI-powered platform helps you <strong>respond consistently, act faster</strong> and <strong>retain more bookings.</strong></p>
+    <a class="btn" href="#">Register interest</a>
+  </section>
+  <section class="gain">
+    <div><h3>Save more bookings</h3><p>Turn cancellations into date changes and retain future revenue.</p></div>
+    <div><h3>Respond faster to guests</h3><p>Bring guest requests into a unified inbox.</p></div>
+    <div><h3>Resolve requests quicker</h3><p>AI triage prioritises urgent requests.</p></div>
+    <div><h3>Protect reputation</h3><p>Monitor online reviews and respond faster.</p></div>
+  </section>
+  <footer>
+    <div><h2>Are you interested?</h2><p>See what faster guest response could look like for your business.</p></div>
+    <a class="btn" href="#">Register interest</a>
+  </footer>
+  <p class="note">Test page for popup.js. Bookings made here are real.</p>
+  <script src="/popup.js" defer></script>
+</body>
+</html>

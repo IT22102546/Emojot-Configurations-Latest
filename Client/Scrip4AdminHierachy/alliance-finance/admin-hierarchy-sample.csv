@@ -1,0 +1,2 @@
+_id,complaintType,Branch,defaultAssignee,ticketCreationAlert,ticketOverdueAlert_01,ticketOverdueAlert_02,ticketOverdueAlert_03,ticketResolutionAlert,ticketOverdueAssignee_01,ticketOverdueAssignee_02,ticketOverdueAssignee_03
+,Vehicle / Equipment Leasing,Gampaha,sanjanan@emojot.com; sanjana.nim2001@gmail.com,admin1@example.com; admin2@example.com,level1@example.com,level2@example.com,level3@example.com,resolution@example.com,assignee-level1@example.com,assignee-level2@example.com,assignee-level3@example.com

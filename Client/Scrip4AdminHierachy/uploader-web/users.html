@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comm-Center Users · Bulk Upload</title>
+<meta name="description" content="Upload ticket categories and assignees from Excel into a workflow&#39;s admin hierarchy, and create Comm-Center users and add them to lists. Runs in your browser with your own Emojot token; nothing is stored.">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="inner">
+    <div class="brand"><div class="logo">👥</div>Bulk Upload: Admin Hierarchies &amp; Comm-Center</div>
+    <div class="header-right">
+      <nav class="nav"><a href="index.html">Home</a><a href="hierarchy.html">Admin Hierarchy</a><a href="users.html" class="current">Comm-Center Users</a></nav>
+      <a class="help" id="guideToggle">ⓘ User Guide</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="card">
+    <div class="banner hidden" id="banner"><span id="bannerText"></span><button class="banner-close" id="bannerClose" aria-label="Dismiss">×</button></div>
+    <h1>Bulk Comm-Center User Upload</h1>
+    <p class="subtitle">Add users to Comm-Center from Excel and put them in lists. Existing users are never created twice or changed.</p>
+
+    <div class="guide hidden" id="guide">
+      <b>1. Company:</b> enter the Company ID and token, then load the company. Its lists and profile data fields (e.g. <code>uuid</code>) are read.<br>
+      <b>2. Template:</b> choose the columns and download the Excel file. One person per row.<br>
+      <b>3. Upload:</b> the file is checked: Name and Email required, valid emails, no duplicate emails, phone numbers in international format (<code>+94771234567</code>).<br>
+      <b>4. Send:</b> pick the list(s), run a dry run to see who already exists, then upload. People who already exist (same email) are <b>not</b> created again and their details are <b>not</b> changed; they are still added to the selected lists.<br>
+      Token: portal → DevTools → Network → any API call → <code>authorization</code> header.
+    </div>
+
+    <ol class="stepper" id="stepper">
+      <li data-step="1"><span class="num">1</span><span class="txt">Company</span></li>
+      <li data-step="2"><span class="num">2</span><span class="txt">Download template</span></li>
+      <li data-step="3"><span class="num">3</span><span class="txt">Upload filled Excel</span></li>
+      <li data-step="4"><span class="num">4</span><span class="txt">Check &amp; send</span></li>
+    </ol>
+
+    <!-- Step 1: company -->
+    <section class="step-panel" id="step1">
+      <h2>Step 1 · Company</h2>
+      <p class="step-intro">Enter the company and your token, then load the company's lists and profile data fields (read-only).</p>
+      <div class="grid">
+        <div>
+          <div class="field"><label class="label" for="companyId">Company ID</label>
+            <input id="companyId" placeholder="24-character company ID" autocomplete="off"></div>
+          <div class="field"><label class="label" for="token">Bearer Token</label>
+            <input id="token" type="password" placeholder="Paste token (not saved)" autocomplete="off">
+            <small>Kept in this tab only.</small></div>
+          <div class="load-row"><button class="secondary" id="loadBtn">Load company</button><span id="loadStatus"></span></div>
+        </div>
+        <div>
+          <div class="summary hidden" id="companyInfo"></div>
+        </div>
+      </div>
+      <div class="step-foot">
+        <span class="step-reason" id="reason1"></span>
+        <button class="btn-next" id="next1">Next: Download template →</button>
+      </div>
+    </section>
+
+    <!-- Step 2: template -->
+    <section class="step-panel hidden" id="step2">
+      <h2>Step 2 · Download Excel template</h2>
+      <p class="step-intro">Choose the columns, download the file and add one person per row.</p>
+      <h3>Columns</h3>
+      <div class="role-list" id="columnPicker"></div>
+      <div class="builder-foot">
+        <span id="columnCount"></span>
+        <button class="secondary" id="templateDownload">Download Excel template</button>
+      </div>
+      <div class="step-foot">
+        <button class="btn-back" data-back="1">← Back</button>
+        <span class="step-reason">Already have a filled Excel? Just continue.</span>
+        <button class="btn-next" id="next2">Next: Upload filled Excel →</button>
+      </div>
+    </section>
+
+    <!-- Step 3: upload -->
+    <section class="step-panel hidden" id="step3">
+      <h2>Step 3 · Upload the filled Excel</h2>
+      <p class="step-intro">Checked before anything is sent: required fields, emails, duplicates and phone numbers.</p>
+      <div class="drop" id="drop">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M4 15v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/></svg>
+        <div class="main"><b>Click to upload</b> or drag and drop</div>
+        <div class="hint">Supported file: .xlsx, .xls, .csv</div>
+        <div class="file hidden" id="fileName"></div>
+      </div>
+      <input type="file" id="fileInput" accept=".xlsx,.xls,.csv" hidden>
+      <div class="section hidden" id="previewSection">
+        <h3>Preview</h3>
+        <div class="chips" id="chips"></div>
+        <div class="table-wrap"><table id="table"></table></div>
+        <ul class="issues" id="issues"></ul>
+      </div>
+      <div class="step-foot">
+        <button class="btn-back" data-back="2">← Back</button>
+        <span class="step-reason" id="reason3"></span>
+        <button class="btn-next" id="next3">Next: Check &amp; send →</button>
+      </div>
+    </section>
+
+    <!-- Step 4: send -->
+    <section class="step-panel hidden" id="step4">
+      <h2>Step 4 · Check &amp; send</h2>
+      <div class="summary" id="summary"></div>
+      <h3>Add to list(s)</h3>
+      <div class="list-picker" id="listPicker"></div>
+      <small class="step-reason" style="text-align:left;display:block">Optional. Everyone in the file (new and existing) is added; people already in a list are skipped.</small>
+      <div class="toggles">
+        <label class="toggle"><input type="checkbox" id="dryRun" checked><span class="switch"></span>
+          <span>Dry run<span class="desc">Only checks who already exists and who would be created. Nothing is written.</span></span></label>
+      </div>
+      <button class="primary" id="runBtn" disabled>Upload</button>
+      <div class="section hidden" id="runSection">
+        <h3 id="runTitle">Progress</h3>
+        <div class="progress"><div id="bar"></div></div>
+        <div class="status-line"><span id="statusText"></span><span id="counts"></span></div>
+        <div class="log" id="log"></div>
+        <div class="actions">
+          <button class="secondary hidden" id="failedBtn">Download failed rows</button>
+          <button class="secondary hidden" id="remainingBtn">Download unsent rows</button>
+        </div>
+      </div>
+      <div class="step-foot">
+        <button class="btn-back" data-back="3">← Back</button>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>Emojot internal tool · runs in your browser</footer>
+
+<script type="module">
+import { DEFAULT_BASE } from "./hierarchy-core.js";
+import { apiClient, fetchLists, fetchProfileFields, runUserUpload, validateUserRows } from "./commcenter-core.js";
+
+const $ = id => document.getElementById(id);
+const state = { step: 1, company: null, rows: [], headers: [], issues: [], fileName: "", running: null, results: new Map() };
+
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+}
+
+function config() {
+  return {
+    companyId: $("companyId").value.trim(),
+    token: $("token").value.trim().replace(/^Bearer\s+/i, ""),
+    base: DEFAULT_BASE,
+  };
+}
+
+$("guideToggle").onclick = () => $("guide").classList.toggle("hidden");
+$("bannerClose").onclick = () => $("banner").classList.add("hidden");
+
+// ---- step 1: load company (read-only) ----
+for (const id of ["companyId", "token"]) {
+  $(id).addEventListener("input", () => {
+    // Lists and fields belong to the company they were loaded for.
+    if (state.company && state.company.companyId !== config().companyId) unloadCompany();
+    updateNav();
+  });
+}
+
+function unloadCompany() {
+  state.company = null;
+  $("companyInfo").classList.add("hidden");
+  $("loadStatus").textContent = "";
+  clearSheet();
+}
+
+$("loadBtn").onclick = async () => {
+  const c = config();
+  if (!c.companyId || !c.token) return setLoadStatus("Enter the Company ID and token first.", "warn-text");
+  setLoadStatus("Loading…", "");
+  $("loadBtn").disabled = true;
+  try {
+    const request = apiClient(c);
+    const [lists, fields] = await Promise.all([fetchLists(request), fetchProfileFields(request)]);
+    state.company = { companyId: c.companyId, base: c.base, lists, fields };
+    state.columns = new Set(["Name", "Email", "Telephone", ...fields.map(f => f.id)]);
+    setLoadStatus("Loaded ✓", "loaded");
+    $("companyInfo").innerHTML = [
+      ["Lists", lists.length ? lists.map(l => `${l.name}${l.count != null ? ` (${l.count})` : ""}`).join(", ") : "none"],
+      ["Profile fields", fields.length ? fields.map(f => f.id + (f.mandatory ? " (mandatory)" : "")).join(", ") : "none found"],
+    ].map(([k, v]) => `<div><b>${esc(k)}</b>${esc(v)}</div>`).join("") +
+      `<div style="font-size:12px;color:var(--muted);margin-top:6px">Check the profile fields match Comm-Center → Settings → Profile data fields.</div>`;
+    $("companyInfo").classList.remove("hidden");
+    renderColumns();
+    renderLists();
+  } catch (err) {
+    state.company = null;
+    setLoadStatus(err.message.includes("401") || err.message.includes("403") ? "Token rejected. Paste a fresh token." : `Could not load: ${err.message}`, "warn-text");
+  }
+  $("loadBtn").disabled = false;
+  updateNav();
+};
+
+function setLoadStatus(text, cls) {
+  $("loadStatus").textContent = text;
+  $("loadStatus").className = cls;
+}
+
+// ---- step 2: template ----
+function renderColumns() {
+  const fixed = [["Name", "required"], ["Email", "required, one per row"]];
+  const optional = [["Telephone", "international format, e.g. +94771234567"],
+    ...state.company.fields.map(f => [f.id, f.mandatory ? "profile field, mandatory" : "profile field"])];
+  $("columnPicker").innerHTML =
+    fixed.map(([id, note]) => `<label><input type="checkbox" checked disabled>${esc(id)} <small>${esc(note)}</small></label>`).join("") +
+    optional.map(([id, note]) => `<label><input type="checkbox" value="${esc(id)}" ${state.columns.has(id) ? "checked" : ""}>${esc(id)} <small>${esc(note)}</small></label>`).join("");
+  updateColumnCount();
+}
+
+function templateColumns() {
+  return ["Name", "Email", "Telephone", ...state.company.fields.map(f => f.id)].filter(c => state.columns.has(c));
+}
+
+function updateColumnCount() {
+  $("columnCount").innerHTML = `Columns: <b>${templateColumns().map(esc).join(", ")}</b>`;
+}
+
+$("columnPicker").addEventListener("change", e => {
+  if (!e.target.value) return;
+  e.target.checked ? state.columns.add(e.target.value) : state.columns.delete(e.target.value);
+  updateColumnCount();
+});
+
+$("templateDownload").onclick = () => {
+  const cols = templateColumns();
+  const users = XLSX.utils.aoa_to_sheet([cols]);
+  users["!cols"] = cols.map(c => ({ wch: c === "Email" ? 34 : 24 }));
+  // Pre-format the Telephone column as Text so Excel keeps a leading + (and leading zeros) when typing.
+  const telCol = cols.indexOf("Telephone");
+  if (telCol >= 0) {
+    for (let r = 1; r <= 1000; r += 1) users[XLSX.utils.encode_cell({ r, c: telCol })] = { t: "s", v: "", z: "@" };
+    users["!ref"] = XLSX.utils.encode_range({ s: { r: 0, c: 0 }, e: { r: 1000, c: cols.length - 1 } });
+  }
+  const notes = {
+    Name: "Required. Full name.",
+    Email: "Required. One email per row. Used to check if the person already exists.",
+    Telephone: "Optional. With country code: +94771234567 or 94771234567 (both work). Not 0771234567.",
+  };
+  const guide = XLSX.utils.aoa_to_sheet([
+    ["Comm-Center users template"],
+    [`Company ID: ${state.company.companyId}`],
+    [],
+    ["Column", "What to put in it"],
+    ...cols.map(c => [c, notes[c] || `Profile data field${state.company.fields.find(f => f.id === c)?.mandatory ? " (mandatory)" : " (optional)"}.`]),
+    [],
+    ["Example row:", cols.map(c => ({ Name: "Jane Perera", Email: "jane@company.com", Telephone: "+94771234567" }[c] || "")).join(" | ")],
+    [],
+    ["Keep 'Users' as the first sheet and do not rename its column headers. Existing users (same email) are not created again or changed."],
+  ]);
+  guide["!cols"] = [{ wch: 18 }, { wch: 110 }];
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, users, "Users");
+  XLSX.utils.book_append_sheet(wb, guide, "How to fill");
+  XLSX.writeFile(wb, `commcenter-users-${state.company.companyId.slice(-6)}.xlsx`);
+};
+
+// ---- step 3: upload ----
+const drop = $("drop");
+drop.onclick = () => $("fileInput").click();
+$("fileInput").onchange = e => e.target.files[0] && loadFile(e.target.files[0]);
+drop.ondragover = e => { e.preventDefault(); drop.classList.add("drag"); };
+drop.ondragleave = () => drop.classList.remove("drag");
+drop.ondrop = e => { e.preventDefault(); drop.classList.remove("drag"); e.dataTransfer.files[0] && loadFile(e.dataTransfer.files[0]); };
+
+async function loadFile(file) {
+  $("banner").classList.add("hidden");
+  try {
+    const wb = XLSX.read(await file.arrayBuffer());
+    // raw: true reads numbers as numbers, so a long phone number can't come back as "9.47657E+10".
+    const matrix = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], { header: 1, defval: "", raw: true })
+      .map(r => r.map(v => typeof v === "number" ? String(v) : v));
+    const headers = (matrix[0] || []).map(h => String(h).trim());
+    state.headers = headers.filter(Boolean);
+    state.rows = matrix.slice(1)
+      .filter(r => r.some(v => String(v).trim() !== ""))
+      .map(r => Object.fromEntries(headers.map((h, i) => [h, String(r[i] ?? "").trim()])));
+    state.fileName = file.name;
+    state.results = new Map();
+    analyze();
+    $("fileName").textContent = `${file.name} · ${state.rows.length} rows`;
+    $("fileName").classList.remove("hidden");
+  } catch (err) {
+    alert(`Could not read file: ${err.message}`);
+  }
+  $("fileInput").value = "";
+}
+
+function analyze() {
+  const issues = state.rows.length ? validateUserRows(state.rows, state.headers, state.company.fields) : ["The file has no rows."];
+  state.issues = issues;
+  $("chips").innerHTML = [
+    `<span class="chip">${state.rows.length} people</span>`,
+    `<span class="chip">Columns: ${esc(state.headers.join(", "))}</span>`,
+    issues.length ? `<span class="chip err">${issues.length} issue(s)</span>` : `<span class="chip ok">No issues</span>`,
+  ].join("");
+  $("table").innerHTML =
+    `<thead><tr><th>#</th>${state.headers.map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead>` +
+    `<tbody>${state.rows.slice(0, 100).map((r, i) => `<tr><td>${i + 2}</td>${state.headers.map(h =>
+      `<td class="${(h === "Name" || h === "Email") && !r[h] ? "missing" : ""}" title="${esc(r[h])}">${esc(r[h])}</td>`).join("")}</tr>`).join("")}</tbody>`;
+  $("issues").innerHTML = issues.slice(0, 20).map(t => `<li>${esc(t)}</li>`).join("") +
+    (issues.length > 20 ? `<li>…and ${issues.length - 20} more</li>` : "");
+  $("previewSection").classList.remove("hidden");
+  updateNav();
+}
+
+function clearSheet() {
+  Object.assign(state, { rows: [], headers: [], issues: [], fileName: "", results: new Map() });
+  $("fileName").classList.add("hidden");
+  $("previewSection").classList.add("hidden");
+}
+
+// ---- step 4: lists and summary ----
+function renderLists() {
+  $("listPicker").innerHTML = state.company.lists.length
+    ? state.company.lists.map(l => `<label><input type="checkbox" value="${esc(l.name)}">${esc(l.name)} <small>${l.count != null ? `${l.count} people` : ""}</small></label>`).join("")
+    : `<span class="step-reason" style="text-align:left">This company has no lists. Create one in Comm-Center → Lists first.</span>`;
+}
+
+function selectedLists() {
+  return [...$("listPicker").querySelectorAll("input:checked")].map(i => i.value);
+}
+
+function renderSummary() {
+  $("summary").innerHTML = [
+    ["Company ID", state.company.companyId],
+    ["Excel file", state.fileName],
+    ["People", String(state.rows.length)],
+    ["Columns sent", state.headers.join(", ")],
+  ].map(([k, v]) => `<div><b>${esc(k)}</b>${esc(v)}</div>`).join("");
+}
+
+// ---- steps ----
+function stepState() {
+  const c = config();
+  const step1 = Boolean(state.company && c.token && c.companyId === state.company.companyId);
+  const step3 = step1 && state.rows.length > 0 && !state.issues.length;
+  return { step1, step3, maxStep: step3 ? 4 : step1 ? 3 : 1 };
+}
+
+function updateNav() {
+  const { step1, step3, maxStep } = stepState();
+  const c = config();
+  $("reason1").textContent = !c.companyId ? "Enter the Company ID." : !c.token ? "Paste the bearer token." : !state.company ? "Click Load company." : "";
+  $("next1").disabled = !step1;
+  $("next3").disabled = !step3;
+  $("reason3").textContent = !state.rows.length ? "Upload the filled Excel file." : state.issues.length ? "Fix the issues listed above, then upload the file again." : "";
+  for (const li of $("stepper").children) {
+    const n = Number(li.dataset.step);
+    li.classList.toggle("active", n === state.step);
+    li.classList.toggle("done", n < state.step);
+    li.classList.toggle("reachable", n <= maxStep && !state.running);
+  }
+  if (!state.running) {
+    const dry = $("dryRun").checked;
+    const btn = $("runBtn");
+    btn.disabled = !step3;
+    btn.classList.remove("stop");
+    const lists = selectedLists();
+    btn.textContent = !step3 ? "Complete the steps above"
+      : dry ? `Dry run: check ${state.rows.length} people`
+      : `Upload ${state.rows.length} people${lists.length ? ` and add to ${lists.length} list(s)` : ""}`;
+  }
+}
+
+function goTo(step) {
+  if (state.running || step > stepState().maxStep) return;
+  state.step = step;
+  for (let n = 1; n <= 4; n += 1) $(`step${n}`).classList.toggle("hidden", n !== step);
+  if (step === 4) renderSummary();
+  updateNav();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+$("stepper").addEventListener("click", e => { const li = e.target.closest("li[data-step]"); if (li) goTo(Number(li.dataset.step)); });
+$("next1").onclick = () => goTo(2);
+$("next2").onclick = () => goTo(3);
+$("next3").onclick = () => goTo(4);
+for (const btn of document.querySelectorAll("[data-back]")) btn.onclick = () => goTo(Number(btn.dataset.back));
+$("dryRun").addEventListener("change", updateNav);
+$("listPicker").addEventListener("change", updateNav);
+
+// ---- run ----
+function log(message, cls = "") {
+  const line = document.createElement("div");
+  if (cls) line.className = cls;
+  line.textContent = message;
+  $("log").appendChild(line);
+  $("log").scrollTop = $("log").scrollHeight;
+}
+
+function setInputsDisabled(disabled) {
+  for (const el of document.querySelectorAll("input, .btn-back, .btn-next, #loadBtn")) el.disabled = disabled;
+  drop.style.pointerEvents = disabled ? "none" : "";
+}
+
+$("runBtn").onclick = () => state.running ? state.running.abort() : startRun();
+
+async function startRun() {
+  const dry = $("dryRun").checked;
+  const lists = selectedLists();
+  if (!dry && !confirm(`Add ${state.rows.length} people to Comm-Center for company ${state.company.companyId}` +
+    `${lists.length ? ` and to list(s): ${lists.join(", ")}` : ""}?\n\nPeople who already exist are not created again or changed.`)) return;
+
+  state.results = new Map();
+  state.running = new AbortController();
+  $("runSection").classList.remove("hidden");
+  $("runTitle").textContent = dry ? "Dry Run" : "Upload Progress";
+  $("log").innerHTML = "";
+  $("bar").style.width = "0";
+  $("failedBtn").classList.add("hidden");
+  $("remainingBtn").classList.add("hidden");
+  $("statusText").textContent = "Checking who already exists…";
+  $("counts").textContent = "";
+  $("runBtn").textContent = "Stop";
+  $("runBtn").classList.add("stop");
+  setInputsDisabled(true);
+  updateNav();
+
+  let done = null;
+  try {
+    const events = runUserUpload({
+      config: config(),
+      input: { rows: state.rows, fields: state.headers },
+      options: { apply: !dry, lists },
+      signal: state.running.signal,
+    });
+    let created = 0, existing = 0, failed = 0;
+    for await (const ev of events) {
+      if (ev.type === "log") log(ev.message, ev.level === "error" ? "err" : ev.level === "warn" ? "warn" : "");
+      else if (ev.type === "row") {
+        state.results.set(ev.index, ev.ok);
+        if (ev.status === "created") created += 1;
+        if (ev.status === "exists") existing += 1;
+        if (!ev.ok) failed += 1;
+        log(`${ev.ok ? "✓" : "✗"} Row ${ev.index + 2}: ${ev.message}`, ev.ok ? "ok" : "err");
+        $("counts").textContent = dry ? `${existing} exist · ${state.results.size - existing} new` : `${created} created · ${existing} existing · ${failed} failed`;
+      } else if (ev.type === "progress") {
+        $("bar").style.width = `${(ev.done / ev.total) * 100}%`;
+        $("statusText").textContent = `${ev.done} / ${ev.total} people`;
+      } else if (ev.type === "done") {
+        done = ev;
+        if (!ev.stopped) $("bar").style.width = "100%";
+        $("statusText").textContent = dry ? "Dry run complete. Turn off Dry run to upload."
+          : ev.stopped ? `Stopped: ${ev.created} created, ${ev.existing} existing, ${ev.failed} failed.`
+          : `Done: ${ev.created} created, ${ev.existing} existing, ${ev.failed} failed, ${ev.listed} list addition(s).`;
+      }
+    }
+  } catch (err) {
+    if (err.name === "AbortError") {
+      log("Stopped by user. Anything already sent stays applied.", "warn");
+      $("statusText").textContent = "Stopped.";
+    } else if (err instanceof TypeError) {
+      log(`Could not reach the Emojot API (${err.message}). Check your internet connection.`, "err");
+      $("statusText").textContent = "Stopped.";
+    } else {
+      log(`Error: ${err.message}`, "err");
+      $("statusText").textContent = "Stopped with an error.";
+    }
+  }
+
+  state.running = null;
+  setInputsDisabled(false);
+  if (!dry && done && !done.stopped && !done.failed) {
+    resetAll(`Upload complete: ${done.created} created, ${done.existing} already existed, ${done.listed} list addition(s). Everything was reset for the next upload.`);
+    return;
+  }
+  if (!dry) {
+    if ([...state.results.values()].includes(false)) $("failedBtn").classList.remove("hidden");
+    if (state.results.size < state.rows.length) $("remainingBtn").classList.remove("hidden");
+  }
+  updateNav();
+}
+
+function resetAll(message = "") {
+  clearSheet();
+  state.company = null;
+  for (const id of ["companyId", "token"]) $(id).value = "";
+  $("dryRun").checked = true;
+  $("loadStatus").textContent = "";
+  for (const id of ["companyInfo", "runSection", "failedBtn", "remainingBtn"]) $(id).classList.add("hidden");
+  $("log").innerHTML = "";
+  $("listPicker").innerHTML = "";
+  $("bannerText").textContent = message;
+  $("banner").classList.toggle("hidden", !message);
+  goTo(1);
+}
+
+function downloadRows(rows, suffix) {
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(rows, { header: state.headers }), "Users");
+  XLSX.writeFile(wb, `${state.fileName.replace(/\.[^.]+$/, "") || "users"}-${suffix}.xlsx`);
+}
+$("failedBtn").onclick = () => downloadRows(state.rows.filter((_, i) => state.results.get(i) === false), "failed");
+$("remainingBtn").onclick = () => downloadRows(state.rows.filter((_, i) => !state.results.has(i)), "unsent");
+
+goTo(1);
+</script>
+</body>
+</html>

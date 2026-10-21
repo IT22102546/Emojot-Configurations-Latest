@@ -1,0 +1,377 @@
+{
+  "updatedTime": 1776763299965,
+  "updatedBy": "manura",
+  "companyID": "6548520ffa82bb0020d2aa01",
+  "vendors": [
+    "mentionlytics",
+    "filmot"
+  ],
+  "token": "REDACTED",
+  "workflow": "69d4c8b9596f733443be4cdb",
+  "workflowMappingFiels": [
+    {
+      "fieldId": "country",
+      "value": "country"
+    },
+    {
+      "fieldId": "date",
+      "value": "dateFormatted"
+    },
+    {
+      "fieldId": "keyword",
+      "value": "keyword"
+    },
+    {
+      "fieldId": "sentiment",
+      "value": "sentiment"
+    },
+    {
+      "fieldId": "postiveSentimentCount",
+      "value": "posSentiment"
+    },
+    {
+      "fieldId": "negativeSentimentCount",
+      "value": "negSentiment"
+    },
+    {
+      "fieldId": "mixedSentimentCount",
+      "value": "mixedSentiment"
+    },
+    {
+      "fieldId": "engagement",
+      "value": "engagement"
+    },
+    {
+      "fieldId": "imageUrl",
+      "value": "imageUrl"
+    },
+    {
+      "fieldId": "label",
+      "value": "label"
+    },
+    {
+      "fieldId": "link",
+      "value": "link"
+    },
+    {
+      "fieldId": "profileName",
+      "value": "profileName"
+    },
+    {
+      "fieldId": "profileUrl",
+      "value": "profileUrl"
+    },
+    {
+      "fieldId": "profileUsername",
+      "value": "profileUsername"
+    },
+    {
+      "fieldId": "socialReachCount",
+      "value": "socialReachCount"
+    },
+    {
+      "fieldId": "comment",
+      "value": "text"
+    }
+  ],
+  "competitors": [
+    {
+      "label": "Shangri-La",
+      "brand": true,
+      "color": "#caa62f",
+      "keys": [
+        "Shangri La"
+      ]
+    },
+    {
+      "label": "Best Western",
+      "color": "#003c7e",
+      "keys": [
+        "Best Western"
+      ]
+    },
+    {
+      "label": "Hyatt Regency",
+      "color": "#7d77a5",
+      "keys": [
+        "Hyatt Regency"
+      ]
+    }
+  ],
+  "dataRetreivers": {
+    "mentionlytics": [
+      {
+        "label": "Shangri-La",
+        "key": "Shangri La",
+        "commtracks": [
+          482200,
+          482238,
+          482239,
+          482240,
+          482241
+        ]
+      },
+      {
+        "label": "Best Western",
+        "key": "Best Western",
+        "commtracks": [
+          482204,
+          482250,
+          482251,
+          482252,
+          482253
+        ]
+      },
+      {
+        "label": "Hyatt Regency",
+        "key": "Hyatt Regency",
+        "commtracks": [
+          482209,
+          482254,
+          482255,
+          482256,
+          482257
+        ]
+      }
+    ]
+  },
+  "channels": [
+    {
+      "id": "web",
+      "name": "Web",
+      "channelId": 1
+    },
+    {
+      "id": "twitter",
+      "name": "Twitter",
+      "channelId": 2
+    },
+    {
+      "id": "facebook",
+      "name": "Facebook",
+      "channelId": 3
+    },
+    {
+      "id": "youtube",
+      "name": "Youtube",
+      "channelId": 4
+    },
+    {
+      "id": "instagram",
+      "name": "Instagram",
+      "channelId": 5
+    },
+    {
+      "id": "reviews",
+      "name": "Reviews",
+      "channelId": 7
+    },
+    {
+      "id": "others",
+      "name": "Others",
+      "channelId": 99
+    }
+  ],
+  "sltAICategories": [
+    {
+      "id": "recommendation",
+      "name": "Recommendation"
+    },
+    {
+      "id": "bahavior",
+      "name": "Behaviour and Preferences"
+    }
+  ],
+  "sltPromptForCompetitor": {
+    "recommendation": {
+      "facebook": "Client: ##brands##\n Competitors: ##competitors## \n Please do an analysis of ##brands## facebook posts vs. the ##competitors##, and give the ##brands## an analysis and recommendations to perform better than the ##competitors##, in point form. Note that each post had very good images and videos attached. Please make sure you include what the ##brands## did well and not-so-well, and what the ##competitors## did well and not-so-well, in the analysis, and provide the recommendations only for the ##brands##. Please return your analysis well formatted with HTML tags.\n",
+      "twitter": "Client: ##brands##\n Competitors: ##competitors## \n Please do an analysis of ##brands## tweets vs. the ##competitors##, and give the ##brands## an analysis and recommendations to perform better than the ##competitors##, in point form. Note that each post had very good images and videos attached. Please make sure you include what the ##brands## did well and not-so-well, and what the ##competitors## did well and not-so-well, in the analysis, and provide the recommendations only for the ##brands##. Please return your analysis well formatted with HTML tags.\n",
+      "instagram": "Client: ##brands##\n Competitors: ##competitors## \n Please do an analysis of ##brands## instagrams vs. the ##competitors##, and give the ##brands## an analysis and recommendations to perform better than the ##competitors##, in point form. Note that each post had very good images and videos attached. Please make sure you include what the ##brands## did well and not-so-well, and what the ##competitors## did well and not-so-well, in the analysis, and provide the recommendations only for the ##brands##. Please return your analysis well formatted with HTML tags.\n",
+      "youtube": "Client: ##brands##\n Competitors: ##competitors## \n Please do an analysis of ##brands## YouTube posts vs. the ##competitors##, and give the ##brands## an analysis and recommendations to perform better than the ##competitors##, in point form. Note that each post had very good images and videos attached. Please make sure you include what the ##brands## did well and not-so-well, and what the ##competitors## did well and not-so-well, in the analysis, and provide the recommendations only for the ##brands##. Please return your analysis well formatted with HTML tags.\n",
+      "web": "Client: ##brands##\n Competitors: ##competitors## \n Please do an analysis of ##brands## website posts vs. the ##competitors##, and give the ##brands## an analysis and recommendations to perform better than the ##competitors##, in point form. Note that each post had very good images and videos attached. Please make sure you include what the ##brands## did well and not-so-well, and what the ##competitors## did well and not-so-well, in the analysis, and provide the recommendations only for the ##brands##. Please return your analysis well formatted with HTML tags.\n",
+      "others": "Client: ##brands##\n Competitors: ##competitors## \n Please do an analysis of ##brands## others posts vs. the ##competitors##, and give the ##brands## an analysis and recommendations to perform better than the ##competitors##, in point form. Note that each post had very good images and videos attached. Please make sure you include what the ##brands## did well and not-so-well, and what the ##competitors## did well and not-so-well, in the analysis, and provide the recommendations only for the ##brands##. Please return your analysis well formatted with HTML tags.\n"
+    },
+    "bahavior": {
+      "facebook": "##brands## is an apparel manufacturer based in Asia. Their competitors are ##competitors##. Please analyze these Facebook posts with ##brands## competitors' mentions that received high engagement. Give us a audience behaviour and preference analysis seperately based on the engagements. Based on the competitors' mentions trend, please also suggest what Brandix can 'learn' to improve as a company.",
+      "twitter": "##brands## is an apparel manufacturer based in Asia. Their competitors are ##competitors##. Please analyze these tweets with ##brands## competitors' mentions that received high engagement. Give us a audience behaviour and preference analysis seperately based on the engagements. Based on the competitors' mentions trend, please also suggest what Brandix can 'learn' to improve as a company.",
+      "instagram": "##brands## is an apparel manufacturer based in Asia. Their competitors are ##competitors##. Please analyze these Instagram posts with ##brands## competitors' mentions that received high engagement. Give us a audience behaviour and preference analysis seperately based on the engagements. Based on the competitors' mentions trend, please also suggest what Brandix can 'learn' to improve as a company.",
+      "youtube": "##brands## is an apparel manufacturer based in Asia. Their competitors are ##competitors##. Please analyze these Youtube posts with ##brands## competitors' mentions that received high engagement. Give us a audience behaviour and preference analysis seperately based on the engagements. Based on the competitors' mentions trend, please also suggest what Brandix can 'learn' to improve as a company.",
+      "web": "##brands## is an apparel manufacturer based in Asia. Their competitors are ##competitors##. Please analyze these web posts with ##brands## competitors' mentions that received high engagement. Give us a audience behaviour and preference analysis seperately based on the engagements. Based on the competitors' mentions trend, please also suggest what Brandix can 'learn' to improve as a company.",
+      "others": "##brands## is an apparel manufacturer based in Asia. Their competitors are ##competitors##. Please analyze these tiktok and web posts with ##brands## competitors' mentions that received high engagement. Give us a audience behaviour and preference analysis seperately based on the engagements. Based on the competitors' mentions trend, please also suggest what Brandix can 'learn' to improve as a company."
+    }
+  },
+  "sltPromptForBrand": {
+    "recommendation": {
+      "facebook": "Please analyze these Facebook posts of ##brands## that received high engagement. Give your analysis as bullet points. Note that each post had very good images and videos attached. Please also suggest recommendations for Facebook engagement improvements. Please return your analysis well formatted with HTML tags.\n",
+      "twitter": "Please analyze these tweets  of ##brands## that received high engagement. Give your analysis as bullet points. Note that each post had very good images and videos attached. Please also suggest recommendations for twitter engagement improvements. Please return your analysis well formatted with HTML tags.\n",
+      "instagram": "Please analyze these instagram posts  of ##brands## that received high engagement. Give your analysis as bullet points. Note that each post had very good images and videos attached. Please also suggest recommendations for instagram engagement improvements. Please return your analysis well formatted with HTML tags.\n",
+      "youtube": "Please analyze these youtube posts  of ##brands## that received high engagement. Give your analysis as bullet points. Note that each post had very good images and videos attached. Please also suggest recommendations for youtube engagement improvements. Please return your analysis well formatted with HTML tags.\n",
+      "web": "Please analyze these website posts  of ##brands## that received high engagement. Give your analysis as bullet points. Note that each post had very good images and videos attached. Please also suggest recommendations for web engagement improvements. Please return your analysis well formatted with HTML tags.\n",
+      "others": "Please analyze these tiktok and news posts  of ##brands## that received high engagement. Give your analysis as bullet points. Note that each post had very good images and videos attached. Please also suggest recommendations for other channels' engagement improvements. Please return your analysis well formatted with HTML tags.\n"
+    },
+    "bahavior": {
+      "facebook": "##brands## is an apparel manufacturer based in Asia. Their competitors are ##competitors##. Please analyze these Facebook posts with ##brands## mentions that received high engagement. Give us an audience behaviour and an audience preference analysis seperately based on the engagements. Please return your analysis well formatted.",
+      "twitter": "##brands## is an apparel manufacturer based in Asia. Their competitors are ##competitors##. Please analyze these tweets with ##brands## mentions that received high engagement. Give us an audience behaviour and an audience preference analysis seperately based on the engagements. Please return your analysis well formatted.",
+      "instagram": "##brands## is an apparel manufacturer based in Asia. Their competitors are ##competitors##. Please analyze these Instagram posts with ##brands## mentions that received high engagement. Give us an audience behaviour and an audience preference analysis seperately based on the engagements. Please return your analysis well formatted.",
+      "youtube": "##brands## is an apparel manufacturer based in Asia. Their competitors are ##competitors##. Please analyze these Youtube posts with ##brands## mentions that received high engagement. Give us an audience behaviour and an audience preference analysis seperately based on the engagements. Please return your analysis well formatted.",
+      "web": "##brands## is an apparel manufacturer based in Asia. Their competitors are ##competitors##. Please analyze these web posts with ##brands## mentions that received high engagement. Give us an audience behaviour and an audience preference analysis seperately based on the engagements. Please return your analysis well formatted.",
+      "others": "##brands## is an apparel manufacturer based in Asia. Their competitors are ##competitors##. Please analyze these tiktok and web with ##brands## mentions that received high engagement. Give us an audience behaviour and an audience preference analysis seperately based on the engagements. Please return your analysis well formatted."
+    }
+  },
+  "sltCategories": {
+    "Cleanliness": [
+      "clean",
+      "tidy",
+      "neat",
+      "hygiene",
+      "dirt",
+      "garbage",
+      "bug"
+    ],
+    "Facilities": [
+      "amenities",
+      "accommodation",
+      "parking",
+      "wifi",
+      "bar",
+      "restaurant",
+      "pool",
+      "gym",
+      "facilities"
+    ],
+    "Food and Dining": [
+      "delicious",
+      "tasty",
+      "chef",
+      "cook",
+      "menu",
+      "dining",
+      "buffet",
+      "lunch",
+      "dinner",
+      "breakfast",
+      "restaurant",
+      "food",
+      "drinks",
+      "bar",
+      "salad",
+      "dessert",
+      "soup",
+      "rice",
+      "curries",
+      "curry"
+    ],
+    "Location": [
+      "accessible",
+      "nature",
+      "location",
+      "view"
+    ],
+    "Booking Process": [
+      "online",
+      "website",
+      "mobile app",
+      "reservation",
+      "booking"
+    ],
+    "Overall Experience": [
+      "unforgettable",
+      "superb",
+      "wonderful",
+      "hospitality",
+      "experience",
+      "friendly",
+      "experience"
+    ],
+    "Room Quality": [
+      "comfortable",
+      "ambience",
+      "amenities",
+      "quality",
+      "bathroom",
+      "bed",
+      "television",
+      "air condition",
+      "room"
+    ],
+    "Room Service": [
+      "Housekeeping",
+      "room service",
+      "in-room"
+    ],
+    "Service": [
+      "Staff",
+      "professional",
+      "Customer service",
+      "helpful",
+      "receiption",
+      "reception",
+      "front office",
+      "service"
+    ],
+    "Value for Money": [
+      "room rates",
+      "rates",
+      "Price",
+      "deal",
+      "offers",
+      "Value for Money"
+    ]
+  },
+  "categorizationConfig": {
+    "AIModel": "manual"
+  },
+  "sltDataCategorizationPrompt": "give me the aspect base sentiment for given text.the text is $text$. Valid asspects are \nJobs, Women, Technology, Solutions, Revenue, Sustainability, Innovation.\nFind the most relevant aspect from the given aspect list, for the given text.sentiment should be one of neutral,negative,positive.return the response with most suitable aspect and related sentiment as a JSON format. object key is equal to aspect and its value shoud be sentiment {relatedAspect:sentiment}.if there is no relevent aspect found for the text return null",
+  "alertConfig": {
+    "receivers": [],
+    "config": {
+      "widgets": [],
+      "globalFilter": {
+        "channels": [
+          "facebook",
+          "twitter",
+          "instagram",
+          "youtube",
+          "tiktok",
+          "web",
+          "others"
+        ]
+      }
+    },
+    "reminderDate": {
+      "dayOfTheWeek": "Monday",
+      "time": "00:00",
+      "offset": -330
+    },
+    "reportType": "SLT_UPDATE_ALERT",
+    "reminderType": "weekly",
+    "updatedAt": "2023-11-12T19:00:02.382Z",
+    "emailTemplate": "SLT_WeeklyUpdateReport",
+    "nextReminderDate": "2023-11-19T18:30:00.000Z"
+  },
+  "stormAlertConfig": {
+    "receivers": [],
+    "timeOffset": -330,
+    "companyID": "6447c18ce913bc000f0768a5",
+    "threshold": 1.5,
+    "averageDates": 7,
+    "emailTemplate": "SLT_StormAlert",
+    "reportType": "SLT_STORM_ALERT"
+  },
+  "filmot": {
+    "label": "Shangri-La",
+    "isSubscribed": true,
+    "keywords": [
+      {
+        "label": "Shangri-La",
+        "key": "Shangri La"
+      }
+    ]
+  },
+  "hideUnloadedImages": true,
+  "companyName": "sandbox_hospitality",
+  "syncEnabled": true,
+  "type": "socialNetworkListener",
+  "mentionlyticsRefreshToken": "REDACTED",
+  "mentionlyticsBearerToken": "REDACTED"
+}

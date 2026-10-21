@@ -1,5 +1,5 @@
 {
-  "name": "Dipra Installed Machines",
+  "name": "Dipra_Installed_Machines_WF",
   "reportNamePrefix": "Machine",
   "reporterNamePrefix": "Submitted By",
   "nameTemplate": "$machineId$ - $serialNumber$",
@@ -17,18 +17,17 @@
         "highPriorityFields": [
           "machineId",
           "serialNumber",
-          "productName",
           "productCode",
+          "productName",
           "brand",
           "model",
-          "capacity",
           "unit",
-          "customerName",
           "customerCode",
-          "locationName",
+          "customerName",
           "locationCode",
-          "supplierName",
+          "locationName",
           "supplierCode",
+          "supplierName",
           "installedLocatedDate",
           "route",
           "machineAttributes",
@@ -38,6 +37,8 @@
           "currentAgreementNumber",
           "previousSerialNumber",
           "serialChangeReason",
+          "importFileNo",
+          "ttDates",
           "remarks"
         ]
       }
@@ -59,59 +60,29 @@
     "type": "enum",
     "transitions": [
       {
-        "sourceState": "Pending Installation",
-        "targetStates": [
-          "Active"
-        ]
-      },
-      {
         "sourceState": "Active",
         "targetStates": [
-          "Under Service",
-          "Replaced",
-          "Decommissioned"
+          "Inactive"
         ]
       },
       {
-        "sourceState": "Under Service",
+        "sourceState": "Inactive",
         "targetStates": [
-          "Active",
-          "Replaced",
-          "Decommissioned"
+          "Active"
         ]
       }
     ],
     "values": [
       {
-        "id": "Pending Installation",
-        "name": "Pending Installation",
-        "backgroundColor": "#f1c40f",
-        "textColor": "#000000"
+        "id": "Inactive",
+        "name": "Inactive",
+        "backgroundColor": "#7f8c8d",
+        "textColor": "#ffffff"
       },
       {
         "id": "Active",
         "name": "Active",
         "backgroundColor": "#27ae60",
-        "textColor": "#ffffff"
-      },
-      {
-        "id": "Under Service",
-        "name": "Under Service",
-        "backgroundColor": "#3498db",
-        "textColor": "#ffffff"
-      },
-      {
-        "id": "Replaced",
-        "name": "Replaced",
-        "finalState": true,
-        "backgroundColor": "#8e44ad",
-        "textColor": "#ffffff"
-      },
-      {
-        "id": "Decommissioned",
-        "name": "Decommissioned",
-        "finalState": true,
-        "backgroundColor": "#7f8c8d",
         "textColor": "#ffffff"
       }
     ]
@@ -119,7 +90,8 @@
   "customFields": {
     "machineId": {
       "name": "Machine ID",
-      "type": "string"
+      "type": "string",
+      "readOnly": true
     },
     "serialNumber": {
       "name": "Serial Number",
@@ -133,8 +105,7 @@
     "productName": {
       "name": "Select Product Name",
       "type": "enum",
-      "values": [
-      ]
+      "values": []
     },
     "brand": {
       "name": "Brand",
@@ -144,11 +115,6 @@
     "model": {
       "name": "Model",
       "type": "string",
-      "readOnly": true
-    },
-    "capacity": {
-      "name": "Capacity",
-      "type": "number",
       "readOnly": true
     },
     "unit": {
@@ -164,8 +130,7 @@
     "customerName": {
       "name": "Select Customer Name",
       "type": "enum",
-      "values": [
-      ]
+      "values": []
     },
     "locationCode": {
       "name": "Location Code",
@@ -175,8 +140,7 @@
     "locationName": {
       "name": "Select Location Name",
       "type": "enum",
-      "values": [
-      ]
+      "values": []
     },
     "supplierCode": {
       "name": "Supplier Code",
@@ -186,8 +150,7 @@
     "supplierName": {
       "name": "Select Supplier Name",
       "type": "enum",
-      "values": [
-      ]
+      "values": []
     },
     "installedLocatedDate": {
       "name": "Installed / Located Date",
@@ -227,11 +190,151 @@
       "name": "Serial Change Reason",
       "type": "textArea"
     },
+    "importFileNo": {
+      "name": "Import File No",
+      "type": "string"
+    },
+    "ttDates": {
+      "name": "Import Information - TT Dates",
+      "type": "textArea"
+    },
     "remarks": {
       "name": "Remarks",
       "type": "textArea"
     }
   },
   "tableEdit": "true",
-  "finalState": true
+  "finalState": true,
+  "consoleIncidentCreation": {
+    "buttonName": "Add Installed Machine",
+    "dialogTitle": "Add Installed Machine",
+    "dialogSubtitle": "Please fill this form to create a new installed machine",
+    "fields": [
+      {
+        "key": "serialNumber",
+        "label": "Serial Number",
+        "target": "serialNumber",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "productName",
+        "label": "Select Product Name",
+        "target": "productName",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "customerName",
+        "label": "Select Customer Name",
+        "target": "customerName",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "locationName",
+        "label": "Select Location Name",
+        "target": "locationName",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "supplierName",
+        "label": "Select Supplier Name",
+        "target": "supplierName",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "installedLocatedDate",
+        "label": "Installed / Located Date",
+        "target": "installedLocatedDate",
+        "fieldType": "date",
+        "required": true
+      },
+      {
+        "key": "machineAttributes",
+        "label": "Machine Attributes",
+        "target": "machineAttributes",
+        "fieldType": "textArea",
+        "required": false
+      },
+      {
+        "key": "warrantyStartDate",
+        "label": "Warranty Start Date",
+        "target": "warrantyStartDate",
+        "fieldType": "date",
+        "required": true
+      },
+      {
+        "key": "warrantyExpiryDate",
+        "label": "Warranty Expiry Date",
+        "target": "warrantyExpiryDate",
+        "fieldType": "date",
+        "required": true
+      },
+      {
+        "key": "warrantyReminderDate",
+        "label": "Warranty Reminder Date",
+        "target": "warrantyReminderDate",
+        "fieldType": "date",
+        "required": false
+      },
+      {
+        "key": "previousSerialNumber",
+        "label": "Previous Serial Number",
+        "target": "previousSerialNumber",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "serialChangeReason",
+        "label": "Serial Change Reason",
+        "target": "serialChangeReason",
+        "fieldType": "textArea",
+        "required": false
+      },
+      {
+        "key": "importFileNo",
+        "label": "Import File No",
+        "target": "importFileNo",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "ttDates",
+        "label": "Import Information - TT Dates",
+        "target": "ttDates",
+        "fieldType": "textArea",
+        "required": false
+      },
+      {
+        "key": "remarks",
+        "label": "Remarks",
+        "target": "remarks",
+        "fieldType": "textArea",
+        "required": false
+      }
+    ]
+  },
+  "incidentKeyFormat": {
+    "enabled": true,
+    "pattern": [
+      {
+        "key": "type",
+        "format": "mapping"
+      },
+      {
+        "key": "counter",
+        "format": 4
+      }
+    ],
+    "counterReset": "never",
+    "fieldMappings": {
+      "type": {
+        "mappings": {},
+        "default": "M"
+      }
+    }
+  }
 }

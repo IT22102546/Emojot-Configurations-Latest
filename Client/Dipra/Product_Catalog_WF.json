@@ -1,5 +1,5 @@
 {
-  "name": "Dipra Product Catalog",
+  "name": "Dipra_Product_Catalog_WF",
   "reportNamePrefix": "Product",
   "reporterNamePrefix": "Submitted By",
   "nameTemplate": "$productCode$ - $productName$",
@@ -19,14 +19,15 @@
           "productName",
           "supplierName",
           "supplierCode",
-          "brandCode",
+          "brandModel",
           "brandName",
-          "modelCode",
           "modelName",
-          "capacity",
           "capacityUnit",
           "productType",
           "machineAttributes",
+          "productSpecifications",
+          "erectionTeam",
+          "electricalTeam",
           "description"
         ]
       }
@@ -48,19 +49,13 @@
     "type": "enum",
     "transitions": [
       {
-        "sourceState": "Draft",
-        "targetStates": [
-          "Active"
-        ]
-      },
-      {
         "sourceState": "Active",
         "targetStates": [
-          "Discontinued"
+          "Inactive"
         ]
       },
       {
-        "sourceState": "Discontinued",
+        "sourceState": "Inactive",
         "targetStates": [
           "Active"
         ]
@@ -68,21 +63,15 @@
     ],
     "values": [
       {
-        "id": "Draft",
-        "name": "Draft",
-        "backgroundColor": "#f1c40f",
-        "textColor": "#000000"
+        "id": "Inactive",
+        "name": "Inactive",
+        "backgroundColor": "#7f8c8d",
+        "textColor": "#ffffff"
       },
       {
         "id": "Active",
         "name": "Active",
         "backgroundColor": "#27ae60",
-        "textColor": "#ffffff"
-      },
-      {
-        "id": "Discontinued",
-        "name": "Discontinued",
-        "backgroundColor": "#7f8c8d",
         "textColor": "#ffffff"
       }
     ]
@@ -90,7 +79,8 @@
   "customFields": {
     "productCode": {
       "name": "Product Code",
-      "type": "string"
+      "type": "string",
+      "readOnly": true
     },
     "productName": {
       "name": "Product Name",
@@ -104,28 +94,384 @@
     "supplierName": {
       "name": "Select Supplier Name",
       "type": "enum",
-      "values": [
-      ]
+      "values": []
     },
-    "brandCode": {
-      "name": "Brand Code",
-      "type": "string"
+    "brandModel": {
+      "name": "Brand / Model",
+      "type": "enum",
+      "values": [
+        {
+          "id": "Iori - DM",
+          "name": "Iori - DM",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Iori"
+                },
+                {
+                  "id": "modelName",
+                  "value": "DM"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Iori - DT",
+          "name": "Iori - DT",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Iori"
+                },
+                {
+                  "id": "modelName",
+                  "value": "DT"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Elephant - FA",
+          "name": "Elephant - FA",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Elephant"
+                },
+                {
+                  "id": "modelName",
+                  "value": "FA"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Elephant - DA",
+          "name": "Elephant - DA",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Elephant"
+                },
+                {
+                  "id": "modelName",
+                  "value": "DA"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Street - LX",
+          "name": "Street - LX",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Street"
+                },
+                {
+                  "id": "modelName",
+                  "value": "LX"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Speed - MH",
+          "name": "Speed - MH",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Speed"
+                },
+                {
+                  "id": "modelName",
+                  "value": "MH"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Speed - MHH",
+          "name": "Speed - MHH",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Speed"
+                },
+                {
+                  "id": "modelName",
+                  "value": "MHH"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Speed - FH",
+          "name": "Speed - FH",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Speed"
+                },
+                {
+                  "id": "modelName",
+                  "value": "FH"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Speed - MHS",
+          "name": "Speed - MHS",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Speed"
+                },
+                {
+                  "id": "modelName",
+                  "value": "MHS"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Speed - MHL",
+          "name": "Speed - MHL",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Speed"
+                },
+                {
+                  "id": "modelName",
+                  "value": "MHL"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Thac - USK",
+          "name": "Thac - USK",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Thac"
+                },
+                {
+                  "id": "modelName",
+                  "value": "USK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Thac - USS",
+          "name": "Thac - USS",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Thac"
+                },
+                {
+                  "id": "modelName",
+                  "value": "USS"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "TBM - SHK",
+          "name": "TBM - SHK",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "TBM"
+                },
+                {
+                  "id": "modelName",
+                  "value": "SHK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "TBM - SDK",
+          "name": "TBM - SDK",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "TBM"
+                },
+                {
+                  "id": "modelName",
+                  "value": "SDK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "BLT - BLT",
+          "name": "BLT - BLT",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "BLT"
+                },
+                {
+                  "id": "modelName",
+                  "value": "BLT"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "CMAX - CMAX",
+          "name": "CMAX - CMAX",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "CMAX"
+                },
+                {
+                  "id": "modelName",
+                  "value": "CMAX"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "MORAL - MORAL",
+          "name": "MORAL - MORAL",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "MORAL"
+                },
+                {
+                  "id": "modelName",
+                  "value": "MORAL"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "FRANZ - FRANZ",
+          "name": "FRANZ - FRANZ",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "FRANZ"
+                },
+                {
+                  "id": "modelName",
+                  "value": "FRANZ"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "Mutrade - MUTRADE",
+          "name": "Mutrade - MUTRADE",
+          "triggers": [
+            {
+              "channel": "fieldChange",
+              "changingFields": [
+                {
+                  "id": "brandName",
+                  "value": "Mutrade"
+                },
+                {
+                  "id": "modelName",
+                  "value": "MUTRADE"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     },
     "brandName": {
       "name": "Brand Name",
-      "type": "string"
-    },
-    "modelCode": {
-      "name": "Model Code",
-      "type": "string"
+      "type": "string",
+      "readOnly": true
     },
     "modelName": {
       "name": "Model Name",
-      "type": "string"
-    },
-    "capacity": {
-      "name": "Capacity",
-      "type": "number"
+      "type": "string",
+      "readOnly": true
     },
     "capacityUnit": {
       "name": "Capacity Unit",
@@ -133,16 +479,201 @@
     },
     "productType": {
       "name": "Product Type",
-      "type": "string"
+      "type": "enum",
+      "values": [
+        {
+          "id": "Material Hoist",
+          "name": "Material Hoist"
+        },
+        {
+          "id": "Electrical Operated Chain Hoist",
+          "name": "Electrical Operated Chain Hoist"
+        },
+        {
+          "id": "Electrical Operated Wire Rope Hoist",
+          "name": "Electrical Operated Wire Rope Hoist"
+        },
+        {
+          "id": "Passenger Lift",
+          "name": "Passenger Lift"
+        },
+        {
+          "id": "Scissor Lift",
+          "name": "Scissor Lift"
+        },
+        {
+          "id": "Dumb Waiter",
+          "name": "Dumb Waiter"
+        },
+        {
+          "id": "Cargo Lift",
+          "name": "Cargo Lift"
+        },
+        {
+          "id": "Home Lift",
+          "name": "Home Lift"
+        },
+        {
+          "id": "Car Parking System",
+          "name": "Car Parking System"
+        },
+        {
+          "id": "Tower Hoist",
+          "name": "Tower Hoist"
+        },
+        {
+          "id": "Building Hoist",
+          "name": "Building Hoist"
+        },
+        {
+          "id": "Gantry Crane",
+          "name": "Gantry Crane"
+        },
+        {
+          "id": "EOTC",
+          "name": "EOTC"
+        },
+        {
+          "id": "Winch",
+          "name": "Winch"
+        },
+        {
+          "id": "Boiler",
+          "name": "Boiler"
+        },
+        {
+          "id": "Bed Elevator",
+          "name": "Bed Elevator"
+        },
+        {
+          "id": "Wheel Chair Lift",
+          "name": "Wheel Chair Lift"
+        }
+      ]
     },
     "machineAttributes": {
       "name": "Machine Attributes",
       "type": "textArea"
+    },
+    "productSpecifications": {
+      "name": "Product Specifications",
+      "type": "textArea"
+    },
+    "erectionTeam": {
+      "name": "Erection Team",
+      "type": "string"
+    },
+    "electricalTeam": {
+      "name": "Electrical Team",
+      "type": "string"
     },
     "description": {
       "name": "Description",
       "type": "textArea"
     }
   },
-  "tableEdit": "true"
+  "tableEdit": "true",
+  "consoleIncidentCreation": {
+    "buttonName": "Add Product",
+    "dialogTitle": "Add Product",
+    "dialogSubtitle": "Please fill this form to create a new product",
+    "fields": [
+      {
+        "key": "productName",
+        "label": "Product Name",
+        "target": "productName",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "supplierName",
+        "label": "Select Supplier Name",
+        "target": "supplierName",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "brandModel",
+        "label": "Brand / Model",
+        "target": "brandModel",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "capacityUnit",
+        "label": "Capacity Unit",
+        "target": "capacityUnit",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "productType",
+        "label": "Product Type",
+        "target": "productType",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "machineAttributes",
+        "label": "Machine Attributes",
+        "target": "machineAttributes",
+        "fieldType": "textArea",
+        "required": false
+      },
+      {
+        "key": "productSpecifications",
+        "label": "Product Specifications",
+        "target": "productSpecifications",
+        "fieldType": "textArea",
+        "required": false
+      },
+      {
+        "key": "erectionTeam",
+        "label": "Erection Team",
+        "target": "erectionTeam",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "electricalTeam",
+        "label": "Electrical Team",
+        "target": "electricalTeam",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "description",
+        "label": "Description",
+        "target": "description",
+        "fieldType": "textArea",
+        "required": false
+      }
+    ]
+  },
+  "incidentKeyFormat": {
+    "enabled": true,
+    "countDependentFields": {
+      "enabled": true,
+      "fields": [
+        "supplierCode"
+      ]
+    },
+    "pattern": [
+      {
+        "key": "type",
+        "format": "mapping"
+      },
+      {
+        "key": "counter",
+        "format": 4
+      }
+    ],
+    "counterReset": "never",
+    "fieldMappings": {
+      "type": {
+        "mappings": {},
+        "default": "_P"
+      }
+    }
+  }
 }

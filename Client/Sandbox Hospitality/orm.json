@@ -1,0 +1,427 @@
+{
+  "updatedTime": 1775556274248,
+  "updatedBy": "lankeshh@emojot.com",
+  "companyID": "6548520ffa82bb0020d2aa01",
+  "aiModel": "gpt-4",
+  "ormAICategories": [
+    {
+      "id": "overallAnalysis",
+      "name": "Overall Analysis"
+    },
+    {
+      "id": "customerBehaviorAnalysis",
+      "name": "Customer Behavior Analysis"
+    },
+    {
+      "id": "customerPreferenceAnalysis",
+      "name": "Customer Preference Analysis"
+    },
+    {
+      "id": "latestCustomerTrendsAnalysis",
+      "name": "Latest Customer Trends Analysis"
+    }
+  ],
+  "ormPromptForSource": {
+    "overallAnalysis": {
+      "prompt": "Please analyze these online reviews included after triple backticks  on ##location## that received high rating. Give overall analysis as bullet points. Please also suggest recommendations for how to improve the review in this location. Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n ```"
+    },
+    "customerBehaviorAnalysis": {
+      "prompt": "Please analyze these online reviews included after triple backticks  on ##location## that received high rating. Give analysis on customer behavior as bullet points. Please also suggest recommendations for how to improve the review in this location.  Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n ```"
+    },
+    "customerPreferenceAnalysis": {
+      "prompt": "Please analyze these online reviews included after triple backticks  on ##location## that received high rating. Give analysis on customer preference as bullet points. Please also suggest recommendations for how to improve the review in this location. Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n ```"
+    },
+    "latestCustomerTrendsAnalysis": {
+      "prompt": "Please analyze these online reviews included after triple backticks  on ##location## that received high rating. Give analysis on customer trend as bullet points. Please also suggest recommendations for how to improve the review in this location. Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n ```"
+    }
+  },
+  "ORMConfigs": {
+    "reviewFetchLimit": {
+      "nonAdmin": 100,
+      "admin": 100
+    },
+    "targetedKeywords": {
+      "Cleanliness": [
+        "clean",
+        "tidy",
+        "neat",
+        "hygiene",
+        "dirt",
+        "garbage",
+        "bug"
+      ],
+      "Facilities": [
+        "amenities",
+        "accommodation ",
+        "parking",
+        "Price",
+        "wifi",
+        "bar",
+        "restaurant",
+        "pool",
+        "gym",
+        "facilities"
+      ],
+      "Food and Dining": [
+        "delicious",
+        "tasty",
+        "chef",
+        "cook",
+        "menu",
+        "dining",
+        "buffet",
+        "lunch",
+        "dinner",
+        "breakfast",
+        "restaurant",
+        "food",
+        "drinks",
+        "bar",
+        "salad",
+        "dessert",
+        "soup",
+        "rice",
+        "curries",
+        "curry"
+      ],
+      "Location": [
+        "accessible",
+        "nature",
+        "location",
+        "view"
+      ],
+      "Booking Process": [
+        "online",
+        "website",
+        "mobile app",
+        "reservation",
+        "booking"
+      ],
+      "Overall Experience": [
+        "unforgettable",
+        "superb",
+        "wonderful",
+        "hospitality",
+        "experience",
+        "friendly",
+        "experience"
+      ],
+      "Room Quality": [
+        "comfortable",
+        "ambience",
+        "amenities",
+        "quality",
+        "bathroom",
+        "bed",
+        "television",
+        "air condition",
+        "room"
+      ],
+      "Room Service": [
+        "Housekeeping",
+        "room service",
+        "in-room"
+      ],
+      "Service": [
+        "Staff",
+        "professional",
+        "Customer service",
+        "helpful",
+        "receiption",
+        "reception",
+        "front office",
+        "service"
+      ],
+      "Value for Money": [
+        "room rates",
+        "rates",
+        "Price",
+        "deal",
+        "offers",
+        "Value for Money"
+      ]
+    },
+    "ormDataCategorizationPrompt": "Return the high-level categories and associated sentiment for those categories of the following text in the following Format. Pick the categories from the Category list given below. Include only the given categories. All category should have a sentiment, select sentiment from following values neutral,negative,positive\n Category list -  Service, Cleanliness, Location, Room Quality, Food and Dining, Facilities, Value for Money, Room Service, Online Booking/Reservation Experience, Overall Experience \nFormat:<category>:<sentiment>\nText : $text$",
+    "replySuggestionAIModel": "gpt-4",
+    "replySuggestionDefaultLangIsEnglish": true,
+    "replySuggestionPrompt": {
+      "english": "What is the best reply for the following review? Please give the reply in english",
+      "similar": "What is the best reply for the following review? Please give the reply in same language as the review"
+    }
+  },
+  "categorizationConfig": {
+    "AIModel": "manual"
+  },
+  "workflow": "69d4c8b9596f733443be4cdb",
+  "competitorAnalysis": {
+    "enabled": true,
+    "competitors": [
+      {
+        "name": "Shangri-La Hong Kong",
+        "color": "#ff8305",
+        "brand": true,
+        "preSelect": true,
+        "companyID": "6548520ffa82bb0020d2aa01",
+        "locations": [
+          {
+            "id": "JEN Hong Kong by Shangri-La",
+            "name": "JEN Hong Kong by Shangri-La"
+          },
+          {
+            "id": "Kerry Hotel Hong Kong",
+            "name": "Kerry Hotel Hong Kong"
+          },
+          {
+            "id": "Island Shangri-La, Hong Kong",
+            "name": "Island Shangri-La, Hong Kong"
+          },
+          {
+            "id": "Kowloon Shangri-La, Hong Kong",
+            "name": "Kowloon Shangri-La, Hong Kong"
+          }
+        ],
+        "channels": []
+      },
+      {
+        "name": "Holiday Inn Hong Kong",
+        "brand": false,
+        "preSelect": true,
+        "color": "#b80c2e",
+        "companyID": "6548a719b118940012befa25",
+        "locations": [
+          {
+            "id": "Holiday Inn Express Hong Kong Mongkok",
+            "name": "Holiday Inn Express Hong Kong Mongkok"
+          },
+          {
+            "id": "Holiday Inn Express Causeway Bay Hong Kong",
+            "name": "Holiday Inn Express Causeway Bay Hong Kong"
+          },
+          {
+            "id": "Holiday Inn Express Hong Kong Kowloon",
+            "name": "Holiday Inn Express Hong Kong Kowloon"
+          }
+        ],
+        "channels": []
+      },
+      {
+        "name": "Best Western Hong Kong",
+        "color": "#909090",
+        "brand": false,
+        "preSelect": true,
+        "companyID": "6548a734fa82bb0020d2ca73",
+        "locations": [
+          {
+            "id": "Best Western Plus Hotel Kowloon",
+            "name": "Best Western Plus Hotel Kowloon"
+          },
+          {
+            "id": "Best Western Hotel Causeway Bay",
+            "name": "Best Western Hotel Causeway Bay"
+          },
+          {
+            "id": "Best Western Plus Hotel Hong Kong",
+            "name": "Best Western Plus Hotel Hong Kong"
+          }
+        ],
+        "channels": []
+      },
+      {
+        "name": "Hyatt Regency Hong Kong",
+        "color": "#386641",
+        "brand": false,
+        "preSelect": true,
+        "companyID": "6548a74fb118940012befa38",
+        "locations": [
+          {
+            "id": "Hyatt Regency Hong Kong, Sha Tin",
+            "name": "Hyatt Regency Hong Kong, Sha Tin"
+          },
+          {
+            "id": "Hyatt Regency Hong Kong, Tsim Sha Tsui",
+            "name": "Hyatt Regency Hong Kong, Tsim Sha Tsui"
+          }
+        ],
+        "channels": []
+      }
+    ],
+    "categories": [
+      {
+        "id": "all",
+        "name": "All"
+      },
+      {
+        "id": "Cleanliness",
+        "name": "Cleanliness"
+      },
+      {
+        "id": "Facilities",
+        "name": "Facilities"
+      },
+      {
+        "id": "Food and Dining",
+        "name": "Food and Dining"
+      },
+      {
+        "id": "Location",
+        "name": "Location"
+      },
+      {
+        "id": "Booking Process",
+        "name": "Booking Process"
+      },
+      {
+        "id": "Overall Experience",
+        "name": "Overall Experience"
+      },
+      {
+        "id": "Room Quality",
+        "name": "Room Quality"
+      },
+      {
+        "id": "Room Service",
+        "name": "Room Service"
+      },
+      {
+        "id": "Service",
+        "name": "Service"
+      },
+      {
+        "id": "Value for Money",
+        "name": "Value for Money"
+      }
+    ],
+    "indexColorSchemma": [
+      [
+        "0<=",
+        "<=40",
+        "#f06a36"
+      ],
+      [
+        "40<",
+        "<=70",
+        "#17b7e9"
+      ],
+      [
+        "70<",
+        "<=100",
+        "#87c641"
+      ]
+    ],
+    "colorSchema": {
+      "negative": "#f06a36",
+      "positive": "#87c641",
+      "neutral": "#17b7e9"
+    },
+    "reviewChannelList": [
+      {
+        "id": "facebook",
+        "name": "Facebook"
+      },
+      {
+        "id": "google",
+        "name": "Google"
+      },
+      {
+        "id": "booking.com",
+        "name": "Booking.com"
+      },
+      {
+        "id": "agoda",
+        "name": "Agoda"
+      },
+      {
+        "id": "tripadvisor",
+        "name": "Tripadvisor"
+      },
+      {
+        "id": "hotels.com",
+        "name": "Hotels.com"
+      }
+    ],
+    "dateTimeList": [
+      {
+        "id": "monthly",
+        "name": "Monthly"
+      },
+      {
+        "id": "daily",
+        "name": "Daily"
+      }
+    ],
+    "aiCategories": [
+      {
+        "id": "customerPreferenceAndRecommendations",
+        "name": "Customer Preference and Recommendations"
+      }
+    ],
+    "ormPromptForCompetitor": {
+      "customerPreferenceAndRecommendations": {
+        "prompt": "Client: ##brands##\n Competitors: ##brandCompetitors##\n Please analyze these posts of  ##brandCompetitors## that received high rating. Give us a customer behaviour and preference analysis on ##category## for those competitors based on the ratings in comparison with its brands. Please return your analysis well formatted with HTML tags.Please do not include content parts of the prompt in the response or do not try to complete the incomplete prompts. \n"
+      }
+    },
+    "overallAICategories": [
+      {
+        "id": "customerPreferenceAndRecommendations",
+        "name": "Customer Preference and Recommendations"
+      }
+    ]
+  },
+  "workflowMappingFiels": {
+    "mandatoryFields": [
+      {
+        "fieldId": "priority",
+        "defaultValue": "Low",
+        "dataField": "priority"
+      },
+      {
+        "fieldId": "type",
+        "defaultValue": "googleMap",
+        "dataField": "source"
+      },
+      {
+        "fieldId": "description",
+        "dataField": "reviewText",
+        "defaultValue": "N/A"
+      },
+      {
+        "fieldId": "assignee",
+        "dataField": "$currentUser$"
+      }
+    ],
+    "customFields": [
+      {
+        "fieldId": "rating",
+        "dataField": "rating",
+        "parseString": true
+      },
+      {
+        "fieldId": "location",
+        "dataField": "locationId"
+      },
+      {
+        "fieldId": "reviewId",
+        "dataField": "_id"
+      },
+      {
+        "fieldId": "author",
+        "dataField": "author"
+      },
+      {
+        "fieldId": "reviewLocation",
+        "dataField": "locationId"
+      },
+      {
+        "fieldId": "comment",
+        "dataField": "reviewText"
+      }
+    ],
+    "emoSignature": [
+      {
+        "mappingField": "Location",
+        "dataField": "locationId"
+      }
+    ]
+  },
+  "type": "onlineReviewManagement"
+}

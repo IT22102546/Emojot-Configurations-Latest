@@ -1,5 +1,5 @@
 {
-  "name": "Dipra Suppliers",
+  "name": "Dipra_Suppliers_WF",
   "reportNamePrefix": "Supplier",
   "reporterNamePrefix": "Submitted By",
   "nameTemplate": "$supplierCode$ - $supplierName$",
@@ -48,12 +48,6 @@
     "type": "enum",
     "transitions": [
       {
-        "sourceState": "Draft",
-        "targetStates": [
-          "Active"
-        ]
-      },
-      {
         "sourceState": "Active",
         "targetStates": [
           "Inactive"
@@ -68,21 +62,15 @@
     ],
     "values": [
       {
-        "id": "Draft",
-        "name": "Draft",
-        "backgroundColor": "#f1c40f",
-        "textColor": "#000000"
+        "id": "Inactive",
+        "name": "Inactive",
+        "backgroundColor": "#7f8c8d",
+        "textColor": "#ffffff"
       },
       {
         "id": "Active",
         "name": "Active",
         "backgroundColor": "#27ae60",
-        "textColor": "#ffffff"
-      },
-      {
-        "id": "Inactive",
-        "name": "Inactive",
-        "backgroundColor": "#7f8c8d",
         "textColor": "#ffffff"
       }
     ]
@@ -90,7 +78,8 @@
   "customFields": {
     "supplierCode": {
       "name": "Supplier Code",
-      "type": "string"
+      "type": "string",
+      "readOnly": true
     },
     "supplierName": {
       "name": "Supplier Name",
@@ -145,5 +134,123 @@
       "type": "string"
     }
   },
-  "tableEdit": "true"
+  "tableEdit": "true",
+  "consoleIncidentCreation": {
+    "buttonName": "Add Supplier",
+    "dialogTitle": "Add Supplier",
+    "dialogSubtitle": "Please fill this form to create a new supplier",
+    "fields": [
+      {
+        "key": "supplierName",
+        "label": "Supplier Name",
+        "target": "supplierName",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "addressNo",
+        "label": "Address No.",
+        "target": "addressNo",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "lane",
+        "label": "Lane",
+        "target": "lane",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "street",
+        "label": "Street",
+        "target": "street",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "city",
+        "label": "City",
+        "target": "city",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "country",
+        "label": "Country",
+        "target": "country",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "primaryTelephone",
+        "label": "Primary Telephone",
+        "target": "primaryTelephone",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "secondaryTelephone",
+        "label": "Secondary Telephone",
+        "target": "secondaryTelephone",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "fax",
+        "label": "Fax",
+        "target": "fax",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "email",
+        "label": "Email",
+        "target": "email",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "contactPersonName",
+        "label": "Contact Person Name",
+        "target": "contactPersonName",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "contactPersonTelephone",
+        "label": "Contact Person Telephone",
+        "target": "contactPersonTelephone",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "contactPersonEmail",
+        "label": "Contact Person Email",
+        "target": "contactPersonEmail",
+        "fieldType": "string",
+        "required": false
+      }
+    ]
+  },
+  "incidentKeyFormat": {
+    "enabled": true,
+    "pattern": [
+      {
+        "key": "type",
+        "format": "mapping"
+      },
+      {
+        "key": "counter",
+        "format": 4
+      }
+    ],
+    "counterReset": "never",
+    "fieldMappings": {
+      "type": {
+        "mappings": {},
+        "default": "S"
+      }
+    }
+  }
 }

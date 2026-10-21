@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cepRules>
+    <!-- ===================== -->
+    <!-- LOW RATING - EMAIL -->
+    <!-- ===================== -->
+    <cepRule id="1" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q698"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>ld</operator>
+                <value>1</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>email</type>
+                <data>
+                    <to>glenp@emojot.com,onels@emojot.com,shaveenf@emojot.com</to>
+                    <subject>TEST ONLY - Low Rating for Laboratory Services</subject>
+                    <bodyType>html</bodyType>
+                    <body>
+                        <![CDATA[
+<p>Hi,</p>
+
+<p>This is a TEST alert.</p>
+
+<p>A patient has expressed a low rating for the Laboratory team at Hemas $$emoSignature_Location_value$$.</p>
+
+<p>
+<strong>Branch:</strong> $$emoSignature_Location_value$$ <br>
+<strong>Name:</strong> $$loyalty_Name_value$$ <br>
+<strong>Telephone:</strong> $$loyalty_Telephone_value$$ <br>
+<strong>Comment:</strong> $$gp4281_c3_comment_value$$
+</p>
+
+<br>
+<p>Yours sincerely,<br>The Emojot Team</p>
+]]>
+                    </body>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+    <!-- ===================== -->
+    <!-- LOW RATING - SMS -->
+    <!-- ===================== -->
+    <cepRule id="2" timeWindow="5">
+        <params>
+            <param>
+                <name>percepticDrillDown</name>
+                <operator>eq</operator>
+                <value>"q698"</value>
+            </param>
+            <joinOperator>and</joinOperator>
+            <joinParam>
+                <derivedValue>emoteNumericValue</derivedValue>
+                <operator>ld</operator>
+                <value>1</value>
+            </joinParam>
+        </params>
+        <engagementActions>
+            <action>
+                <type>sms</type>
+                <data>
+                    <smsType>smsbody</smsType>
+                    <smsTo>+94770810369,+94773830262,+94763512288</smsTo>
+                    <smsbody>
+TEST ONLY: Low rating alert for Laboratory at $$emoSignature_Location_value$$.
+Patient name: $$loyalty_Name_value$$
+Telephone: $$loyalty_Telephone_value$$
+                    </smsbody>
+                </data>
+                <validityPeriod>5</validityPeriod>
+            </action>
+        </engagementActions>
+    </cepRule>
+</cepRules>

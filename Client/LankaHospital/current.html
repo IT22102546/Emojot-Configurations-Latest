@@ -1,0 +1,990 @@
+<!-- =====================================================
+     VIEW MENU MODAL
+     Emojot display text strips <style> blocks, so the CSS
+     is injected into <head> by the script below. The inline
+     display:none keeps the markup hidden until then.
+====================================================== -->
+
+<div
+    class="lnklh-menu-overlay"
+    role="presentation"
+    style="display:none"
+>
+    <div
+        class="lnklh-menu-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Cafe Menu"
+    >
+        <div class="lnklh-menu-header">
+            <div class="lnklh-menu-header-text">
+                <span class="lnklh-menu-eyebrow">Lanka Hospitals</span>
+                <h2 class="lnklh-menu-title">Cafe Menu</h2>
+                <span class="lnklh-menu-countdown">
+                    Closes automatically in <span class="lnklh-menu-seconds">20</span>s
+                </span>
+            </div>
+
+            <button
+                type="button"
+                class="lnklh-menu-close"
+                aria-label="Close menu"
+            >&times;</button>
+
+            <div class="lnklh-menu-progress" aria-hidden="true"></div>
+        </div>
+
+        <div class="lnklh-menu-body" tabindex="0">
+            <img class="lnklh-menu-img" src="https://storage.emojot.com/pictures/skinImages/65c4bdcf831a9d3f875d236b-skin2.png" alt="Menu page 1">
+            <img class="lnklh-menu-img" src="https://storage.emojot.com/pictures/skinImages/65c4bdcf831a9d3f875d236b-skin3.png" alt="Menu page 2">
+            <img class="lnklh-menu-img" src="https://storage.emojot.com/pictures/skinImages/65c4bdcf831a9d3f875d236b-skin4.png" alt="Menu page 3">
+        </div>
+
+        <div class="lnklh-menu-hint">Tap a page to enlarge</div>
+    </div>
+
+    <!-- Full-screen page viewer (timer is paused while open) -->
+    <div class="lnklh-menu-viewer" aria-hidden="true">
+        <div class="lnklh-menu-viewer-bar">
+            <button type="button" class="lnklh-menu-viewer-back">&larr; All pages</button>
+            <span class="lnklh-menu-viewer-count">1 / 3</span>
+            <span class="lnklh-menu-viewer-note">Timer paused</span>
+        </div>
+
+        <div class="lnklh-menu-viewer-stage">
+            <img class="lnklh-menu-viewer-img" src="" alt="Menu page">
+        </div>
+
+        <button type="button" class="lnklh-menu-viewer-prev" aria-label="Previous page">&#8249;</button>
+        <button type="button" class="lnklh-menu-viewer-next" aria-label="Next page">&#8250;</button>
+
+        <div class="lnklh-menu-viewer-tip">Tap the page to zoom &middot; swipe or use the arrows to change page</div>
+    </div>
+</div>
+
+
+<!-- =====================================================
+     VIEW MENU MODAL SCRIPT
+====================================================== -->
+
+<script>
+(function () {
+    "use strict";
+
+    /*
+     * Emojot can render the display text (and run this
+     * script) more than once. Only the first run installs
+     * the popup; later runs just remove their duplicate
+     * markup, so there is only ever one overlay on the page.
+     */
+    if (window.__lnklhMenuPopup) {
+        window.__lnklhMenuPopup.dedupe();
+        return;
+    }
+
+    var AUTO_CLOSE_SECONDS = 20;
+
+    var overlayRef = null;
+    var lastFocusedElement = null;
+
+    var autoCloseTimer = null;
+    var countdownTimer = null;
+    var deadline = 0;
+    var remainingMs = 0;
+
+    var viewerIndex = -1;
+
+
+    var MENU_CSS = [
+        ".lnklh-menu-overlay {",
+        "    position: fixed !important;",
+        "    top: 0 !important; right: 0 !important; bottom: 0 !important; left: 0 !important;",
+        "    z-index: 2147483647 !important;",
+        "    display: none !important;",
+        "    align-items: center !important;",
+        "    justify-content: center !important;",
+        "    padding: 16px !important;",
+        "    margin: 0 !important;",
+        "    box-sizing: border-box !important;",
+        "    background: rgba(20, 60, 70, 0.6) !important;",
+        "    font-family: 'Exo', Helvetica, Arial, sans-serif !important;",
+        "    -webkit-tap-highlight-color: transparent !important;",
+        "}",
+
+        ".lnklh-menu-overlay.lnklh-menu-open { display: flex !important; }",
+
+        "body.lnklh-menu-modal-active { overflow: hidden !important; }",
+
+        /* Width chosen so 3 portrait pages (~1:2) fit the viewport height */
+        ".lnklh-menu-modal {",
+        "    position: relative !important;",
+        "    display: flex !important;",
+        "    flex-direction: column !important;",
+        "    width: min(1000px, 100%, calc(100vh + 40px)) !important;",
+        "    max-height: calc(100vh - 32px) !important;",
+        "    margin: 0 auto !important;",
+        "    border-radius: 24px !important;",
+        "    background: #ffffff !important;",
+        "    box-shadow: 0 24px 60px rgba(10, 20, 40, 0.35) !important;",
+        "    overflow: hidden !important;",
+        "    box-sizing: border-box !important;",
+        "    animation: lnklhMenuPop 0.22s ease-out !important;",
+        "}",
+
+        "@keyframes lnklhMenuPop {",
+        "    from { opacity: 0; transform: translateY(10px) scale(0.98); }",
+        "    to   { opacity: 1; transform: translateY(0) scale(1); }",
+        "}",
+
+        ".lnklh-menu-header {",
+        "    position: relative !important;",
+        "    display: flex !important;",
+        "    align-items: flex-start !important;",
+        "    justify-content: space-between !important;",
+        "    gap: 12px !important;",
+        "    padding: 18px 22px 14px !important;",
+        "    margin: 0 !important;",
+        "    border-bottom: 1px solid #d6e8f2 !important;",
+        "    background: linear-gradient(180deg, rgba(42, 146, 206, 0.07), rgba(42, 146, 206, 0)) !important;",
+        "    flex: 0 0 auto !important;",
+        "}",
+
+        ".lnklh-menu-header-text {",
+        "    display: flex !important;",
+        "    flex-direction: column !important;",
+        "    gap: 3px !important;",
+        "    text-align: left !important;",
+        "}",
+
+        ".lnklh-menu-eyebrow {",
+        "    color: #2a92ce !important;",
+        "    font-size: 12px !important;",
+        "    font-weight: 800 !important;",
+        "    letter-spacing: 1.6px !important;",
+        "    line-height: 1.3 !important;",
+        "    text-transform: uppercase !important;",
+        "}",
+
+        ".lnklh-menu-title {",
+        "    margin: 0 !important;",
+        "    padding: 0 !important;",
+        "    color: #22808D !important;",
+        "    font-family: 'Exo', Helvetica, Arial, sans-serif !important;",
+        "    font-size: 22px !important;",
+        "    font-weight: 800 !important;",
+        "    line-height: 1.2 !important;",
+        "}",
+
+        ".lnklh-menu-countdown {",
+        "    color: #5b6b7a !important;",
+        "    font-size: 12px !important;",
+        "    font-weight: 600 !important;",
+        "    line-height: 1.3 !important;",
+        "}",
+
+        ".lnklh-menu-close {",
+        "    flex: 0 0 auto !important;",
+        "    display: flex !important;",
+        "    align-items: center !important;",
+        "    justify-content: center !important;",
+        "    width: 36px !important;",
+        "    height: 36px !important;",
+        "    margin: 0 !important;",
+        "    padding: 0 !important;",
+        "    border: 0 !important;",
+        "    border-radius: 50% !important;",
+        "    background: rgba(42, 146, 206, 0.1) !important;",
+        "    color: #22808D !important;",
+        "    font-family: Arial, sans-serif !important;",
+        "    font-size: 24px !important;",
+        "    font-weight: 700 !important;",
+        "    line-height: 1 !important;",
+        "    box-shadow: none !important;",
+        "    cursor: pointer !important;",
+        "}",
+
+        ".lnklh-menu-close:hover, .lnklh-menu-close:focus {",
+        "    background: rgba(42, 146, 206, 0.2) !important;",
+        "    outline: 0 !important;",
+        "}",
+
+        ".lnklh-menu-progress {",
+        "    position: absolute !important;",
+        "    left: 0 !important;",
+        "    bottom: -1px !important;",
+        "    width: 100% !important;",
+        "    height: 3px !important;",
+        "    background: #2a92ce !important;",
+        "    transform-origin: left center !important;",
+        "}",
+
+        ".lnklh-menu-overlay.lnklh-menu-open .lnklh-menu-progress {",
+        "    animation: lnklhMenuTimer " + AUTO_CLOSE_SECONDS + "s linear forwards !important;",
+        "}",
+
+        ".lnklh-menu-overlay.lnklh-menu-paused .lnklh-menu-progress {",
+        "    animation-play-state: paused !important;",
+        "}",
+
+        "@keyframes lnklhMenuTimer {",
+        "    from { transform: scaleX(1); }",
+        "    to   { transform: scaleX(0); }",
+        "}",
+
+        /* Collage: 3 pages side by side */
+        ".lnklh-menu-body {",
+        "    flex: 1 1 auto !important;",
+        "    display: grid !important;",
+        "    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;",
+        "    gap: 12px !important;",
+        "    align-items: start !important;",
+        "    padding: 16px 18px 8px !important;",
+        "    margin: 0 !important;",
+        "    overflow-y: auto !important;",
+        "    -webkit-overflow-scrolling: touch !important;",
+        "    background: #ffffff !important;",
+        "}",
+
+        ".lnklh-menu-body:focus { outline: 0 !important; }",
+
+        ".lnklh-menu-img {",
+        "    display: block !important;",
+        "    width: 100% !important;",
+        "    height: auto !important;",
+        "    max-width: 100% !important;",
+        "    margin: 0 !important;",
+        "    border-radius: 12px !important;",
+        "    box-shadow: 0 4px 14px rgba(10, 20, 40, 0.15) !important;",
+        "    cursor: zoom-in !important;",
+        "}",
+
+        ".lnklh-menu-hint {",
+        "    flex: 0 0 auto !important;",
+        "    padding: 6px 18px 14px !important;",
+        "    color: #5b6b7a !important;",
+        "    font-size: 12px !important;",
+        "    font-weight: 600 !important;",
+        "    text-align: center !important;",
+        "}",
+
+        /* ---------- Full-screen page viewer ---------- */
+        ".lnklh-menu-viewer {",
+        "    position: absolute !important;",
+        "    top: 0 !important; right: 0 !important; bottom: 0 !important; left: 0 !important;",
+        "    z-index: 2 !important;",
+        "    display: none !important;",
+        "    flex-direction: column !important;",
+        "    background: rgba(8, 22, 28, 0.97) !important;",
+        "    animation: lnklhMenuFade 0.18s ease-out !important;",
+        "}",
+
+        ".lnklh-menu-viewer.lnklh-menu-viewer-open { display: flex !important; }",
+
+        "@keyframes lnklhMenuFade { from { opacity: 0; } to { opacity: 1; } }",
+
+        ".lnklh-menu-viewer-bar {",
+        "    flex: 0 0 auto !important;",
+        "    display: flex !important;",
+        "    align-items: center !important;",
+        "    justify-content: space-between !important;",
+        "    gap: 10px !important;",
+        "    padding: 12px 16px !important;",
+        "    color: #ffffff !important;",
+        "    font-size: 14px !important;",
+        "    font-weight: 700 !important;",
+        "}",
+
+        ".lnklh-menu-viewer-back {",
+        "    margin: 0 !important;",
+        "    padding: 9px 18px !important;",
+        "    border: 0 !important;",
+        "    border-radius: 999px !important;",
+        "    background: #ffffff !important;",
+        "    color: #22808D !important;",
+        "    font-family: 'Exo', Helvetica, Arial, sans-serif !important;",
+        "    font-size: 14px !important;",
+        "    font-weight: 800 !important;",
+        "    line-height: 1.2 !important;",
+        "    box-shadow: none !important;",
+        "    cursor: pointer !important;",
+        "}",
+
+        ".lnklh-menu-viewer-count { color: #ffffff !important; }",
+
+        ".lnklh-menu-viewer-note {",
+        "    padding: 5px 12px !important;",
+        "    border-radius: 999px !important;",
+        "    background: rgba(255, 255, 255, 0.14) !important;",
+        "    color: #d8eef8 !important;",
+        "    font-size: 12px !important;",
+        "    font-weight: 700 !important;",
+        "}",
+
+        ".lnklh-menu-viewer-stage {",
+        "    flex: 1 1 auto !important;",
+        "    min-height: 0 !important;",
+        "    display: flex !important;",
+        "    align-items: center !important;",
+        "    justify-content: center !important;",
+        "    padding: 0 64px !important;",
+        "    overflow: auto !important;",
+        "    -webkit-overflow-scrolling: touch !important;",
+        "}",
+
+        /* Fit: whole page visible, as large as the screen allows */
+        ".lnklh-menu-viewer-img {",
+        "    display: block !important;",
+        "    width: auto !important;",
+        "    height: auto !important;",
+        "    max-width: 100% !important;",
+        "    max-height: 100% !important;",
+        "    margin: auto !important;",
+        "    border-radius: 10px !important;",
+        "    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;",
+        "    cursor: zoom-in !important;",
+        "}",
+
+        /* Zoomed: page fills the width, scroll to read */
+        ".lnklh-menu-viewer.lnklh-menu-viewer-zoomed .lnklh-menu-viewer-stage {",
+        "    align-items: flex-start !important;",
+        "}",
+
+        ".lnklh-menu-viewer.lnklh-menu-viewer-zoomed .lnklh-menu-viewer-img {",
+        "    width: min(100%, 900px) !important;",
+        "    max-height: none !important;",
+        "    cursor: zoom-out !important;",
+        "}",
+
+        ".lnklh-menu-viewer-prev, .lnklh-menu-viewer-next {",
+        "    position: absolute !important;",
+        "    top: 50% !important;",
+        "    display: flex !important;",
+        "    align-items: center !important;",
+        "    justify-content: center !important;",
+        "    width: 46px !important;",
+        "    height: 46px !important;",
+        "    margin: -23px 0 0 !important;",
+        "    padding: 0 0 4px !important;",
+        "    border: 0 !important;",
+        "    border-radius: 50% !important;",
+        "    background: rgba(255, 255, 255, 0.92) !important;",
+        "    color: #22808D !important;",
+        "    font-family: Arial, sans-serif !important;",
+        "    font-size: 34px !important;",
+        "    font-weight: 700 !important;",
+        "    line-height: 1 !important;",
+        "    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3) !important;",
+        "    cursor: pointer !important;",
+        "    z-index: 3 !important;",
+        "}",
+
+        ".lnklh-menu-viewer-prev { left: 10px !important; }",
+        ".lnklh-menu-viewer-next { right: 10px !important; }",
+
+        ".lnklh-menu-viewer-prev[disabled], .lnklh-menu-viewer-next[disabled] {",
+        "    opacity: 0.3 !important;",
+        "    cursor: default !important;",
+        "}",
+
+        ".lnklh-menu-viewer-tip {",
+        "    flex: 0 0 auto !important;",
+        "    padding: 10px 16px 14px !important;",
+        "    color: rgba(255, 255, 255, 0.75) !important;",
+        "    font-size: 12px !important;",
+        "    font-weight: 600 !important;",
+        "    text-align: center !important;",
+        "}",
+
+        "@media (max-width: 600px) {",
+        "    .lnklh-menu-overlay { padding: 10px !important; }",
+        "    .lnklh-menu-modal { border-radius: 18px !important; max-height: calc(100vh - 20px) !important; }",
+        "    .lnklh-menu-header { padding: 14px 14px 12px !important; }",
+        "    .lnklh-menu-title { font-size: 19px !important; }",
+        "    .lnklh-menu-body { gap: 8px !important; padding: 12px 10px 6px !important; }",
+        "    .lnklh-menu-img { border-radius: 8px !important; }",
+        "    .lnklh-menu-viewer-bar { padding: 10px !important; }",
+        "    .lnklh-menu-viewer-stage { padding: 0 8px !important; }",
+        "    .lnklh-menu-viewer-prev, .lnklh-menu-viewer-next {",
+        "        width: 38px !important; height: 38px !important; margin-top: -19px !important;",
+        "        font-size: 28px !important; background: rgba(255, 255, 255, 0.8) !important;",
+        "    }",
+        "    .lnklh-menu-viewer-prev { left: 4px !important; }",
+        "    .lnklh-menu-viewer-next { right: 4px !important; }",
+        "}"
+    ].join("\n");
+
+
+    function injectStyles() {
+
+        if (document.getElementById("lnklh-menu-styles")) {
+            return;
+        }
+
+        var style = document.createElement("style");
+        style.id = "lnklh-menu-styles";
+        style.appendChild(document.createTextNode(MENU_CSS));
+
+        (document.head || document.documentElement).appendChild(style);
+    }
+
+
+    /*
+     * Keep exactly one overlay: ours. Any other copy that
+     * Emojot renders is removed.
+     */
+    function dedupe() {
+
+        var all = document.querySelectorAll(".lnklh-menu-overlay");
+
+        if (!overlayRef || !document.body.contains(overlayRef)) {
+            overlayRef = all.length ? all[0] : null;
+        }
+
+        for (var i = 0; i < all.length; i++) {
+            if (all[i] !== overlayRef && all[i].parentNode) {
+                all[i].parentNode.removeChild(all[i]);
+            }
+        }
+
+        /*
+         * A transformed ancestor in the Emojot widget breaks
+         * `position: fixed`, so the overlay lives directly on
+         * <body>. It is only moved when it is somewhere else;
+         * moving it repeatedly restarts its animations (the
+         * earlier blinking).
+         */
+        if (overlayRef && overlayRef.parentNode !== document.body) {
+            document.body.appendChild(overlayRef);
+        }
+
+        if (overlayRef) {
+            /* Hand visibility over to the injected CSS */
+            overlayRef.style.removeProperty("display");
+        }
+
+        return overlayRef;
+    }
+
+
+    function part(selector) {
+        return overlayRef ? overlayRef.querySelector(selector) : null;
+    }
+
+
+    function pages() {
+        return overlayRef
+            ? overlayRef.querySelectorAll(".lnklh-menu-img")
+            : [];
+    }
+
+
+    /* ---------- Timer (pausable) ---------- */
+
+    function clearTimers() {
+        clearTimeout(autoCloseTimer);
+        clearInterval(countdownTimer);
+
+        autoCloseTimer = null;
+        countdownTimer = null;
+    }
+
+
+    function setSeconds(value) {
+
+        var label = part(".lnklh-menu-seconds");
+
+        if (label) {
+            label.textContent = value;
+        }
+    }
+
+
+    function tick() {
+        setSeconds(
+            Math.max(0, Math.ceil((deadline - Date.now()) / 1000))
+        );
+    }
+
+
+    function startTimer(ms) {
+
+        clearTimers();
+
+        deadline = Date.now() + ms;
+        tick();
+
+        countdownTimer = setInterval(tick, 250);
+        autoCloseTimer = setTimeout(onTimeout, ms);
+
+        if (overlayRef) {
+            overlayRef.classList.remove("lnklh-menu-paused");
+        }
+    }
+
+
+    function pauseTimer() {
+
+        if (!autoCloseTimer) {
+            return;
+        }
+
+        remainingMs = Math.max(0, deadline - Date.now());
+        clearTimers();
+
+        if (overlayRef) {
+            overlayRef.classList.add("lnklh-menu-paused");
+        }
+    }
+
+
+    function resumeTimer() {
+
+        if (autoCloseTimer || !isModalOpen()) {
+            return;
+        }
+
+        startTimer(remainingMs);
+    }
+
+
+    function restartProgressBar() {
+
+        var bar = part(".lnklh-menu-progress");
+
+        if (!bar) {
+            return;
+        }
+
+        /* Force the CSS animation to start again from full width */
+        bar.style.animation = "none";
+        void bar.offsetWidth;
+        bar.style.animation = "";
+    }
+
+
+    /*
+     * Closing the popup (time ran out, the X, a click
+     * outside, or Esc) moves the survey on, since the
+     * "View the Menu" option is already selected.
+     */
+    function onTimeout() {
+        closeAndContinue();
+    }
+
+
+    function closeAndContinue() {
+
+        closeModal();
+
+        var buttons = document.querySelectorAll(".btn-next");
+
+        for (var i = 0; i < buttons.length; i++) {
+
+            var button = buttons[i];
+
+            if (
+                button.offsetParent !== null &&
+                !button.disabled
+            ) {
+                button.click();
+                return;
+            }
+        }
+    }
+
+
+    /* ---------- Full-screen viewer ---------- */
+
+    function isViewerOpen() {
+        var viewer = part(".lnklh-menu-viewer");
+        return !!viewer && viewer.classList.contains("lnklh-menu-viewer-open");
+    }
+
+
+    function showPage(index) {
+
+        var list = pages();
+        var viewer = part(".lnklh-menu-viewer");
+        var img = part(".lnklh-menu-viewer-img");
+
+        if (!viewer || !img || !list.length) {
+            return;
+        }
+
+        viewerIndex = Math.max(0, Math.min(index, list.length - 1));
+
+        img.src = list[viewerIndex].src;
+        img.alt = list[viewerIndex].alt;
+
+        viewer.classList.remove("lnklh-menu-viewer-zoomed");
+
+        var stage = part(".lnklh-menu-viewer-stage");
+
+        if (stage) {
+            stage.scrollTop = 0;
+        }
+
+        var count = part(".lnklh-menu-viewer-count");
+
+        if (count) {
+            count.textContent = (viewerIndex + 1) + " / " + list.length;
+        }
+
+        var prev = part(".lnklh-menu-viewer-prev");
+        var next = part(".lnklh-menu-viewer-next");
+
+        if (prev) {
+            prev.disabled = viewerIndex === 0;
+        }
+
+        if (next) {
+            next.disabled = viewerIndex === list.length - 1;
+        }
+    }
+
+
+    function openViewer(index) {
+
+        var viewer = part(".lnklh-menu-viewer");
+
+        if (!viewer) {
+            return;
+        }
+
+        pauseTimer();
+        showPage(index);
+
+        viewer.classList.add("lnklh-menu-viewer-open");
+        viewer.setAttribute("aria-hidden", "false");
+    }
+
+
+    function closeViewer() {
+
+        var viewer = part(".lnklh-menu-viewer");
+
+        if (viewer) {
+            viewer.classList.remove(
+                "lnklh-menu-viewer-open",
+                "lnklh-menu-viewer-zoomed"
+            );
+            viewer.setAttribute("aria-hidden", "true");
+        }
+
+        viewerIndex = -1;
+        resumeTimer();
+    }
+
+
+    function toggleViewerZoom() {
+
+        var viewer = part(".lnklh-menu-viewer");
+
+        if (viewer) {
+            viewer.classList.toggle("lnklh-menu-viewer-zoomed");
+        }
+    }
+
+
+    /* ---------- Open / close ---------- */
+
+    function isModalOpen() {
+        return (
+            !!overlayRef &&
+            overlayRef.classList.contains("lnklh-menu-open")
+        );
+    }
+
+
+    function openModal(triggerElement) {
+
+        injectStyles();
+
+        if (!dedupe()) {
+            return;
+        }
+
+        closeViewer();
+
+        lastFocusedElement =
+            triggerElement ||
+            document.activeElement;
+
+        overlayRef.classList.add("lnklh-menu-open");
+        document.body.classList.add("lnklh-menu-modal-active");
+
+        restartProgressBar();
+        startTimer(AUTO_CLOSE_SECONDS * 1000);
+
+        var body = part(".lnklh-menu-body");
+
+        if (body) {
+            body.focus();
+        }
+    }
+
+
+    function closeModal() {
+
+        clearTimers();
+
+        if (overlayRef) {
+            overlayRef.classList.remove("lnklh-menu-open", "lnklh-menu-paused");
+        }
+
+        document.body.classList.remove("lnklh-menu-modal-active");
+
+        var viewer = part(".lnklh-menu-viewer");
+
+        if (viewer) {
+            viewer.classList.remove(
+                "lnklh-menu-viewer-open",
+                "lnklh-menu-viewer-zoomed"
+            );
+        }
+
+        viewerIndex = -1;
+
+        if (
+            lastFocusedElement &&
+            typeof lastFocusedElement.focus === "function"
+        ) {
+            lastFocusedElement.focus();
+        }
+
+        lastFocusedElement = null;
+    }
+
+
+    /*
+     * The trigger is the "View the Menu" option tile
+     * (.emo-cont) rendered by Emojot. It is matched by its
+     * label text so it keeps working if Emojot re-renders
+     * the tiles or changes their ids. Any element with
+     * data-lnklh-menu-trigger also opens the popup.
+     */
+    var MENU_TILE_TEXT = /menu/i;
+
+
+    function findMenuTrigger(target) {
+
+        var custom =
+            target.closest(
+                "[data-lnklh-menu-trigger]"
+            );
+
+        if (custom) {
+            return custom;
+        }
+
+        var tile = target.closest(".emo-cont");
+
+        if (!tile) {
+            return null;
+        }
+
+        var label =
+            tile.querySelector(".emo-text") ||
+            tile;
+
+        return MENU_TILE_TEXT.test(label.textContent || "")
+            ? tile
+            : null;
+    }
+
+
+    function handled(event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            var target = event.target;
+
+            if (!target || !target.closest) {
+                return;
+            }
+
+            /* Clicks inside the popup */
+            if (overlayRef && overlayRef.contains(target)) {
+
+                if (target.closest(".lnklh-menu-close")) {
+                    handled(event);
+                    closeAndContinue();
+                    return;
+                }
+
+                if (target.closest(".lnklh-menu-viewer-back")) {
+                    handled(event);
+                    closeViewer();
+                    return;
+                }
+
+                if (target.closest(".lnklh-menu-viewer-prev")) {
+                    handled(event);
+                    showPage(viewerIndex - 1);
+                    return;
+                }
+
+                if (target.closest(".lnklh-menu-viewer-next")) {
+                    handled(event);
+                    showPage(viewerIndex + 1);
+                    return;
+                }
+
+                if (target.closest(".lnklh-menu-viewer-img")) {
+                    handled(event);
+                    toggleViewerZoom();
+                    return;
+                }
+
+                var image = target.closest(".lnklh-menu-img");
+
+                if (image) {
+                    handled(event);
+                    openViewer(
+                        Array.prototype.indexOf.call(pages(), image)
+                    );
+                    return;
+                }
+
+                if (target === overlayRef) {
+                    closeAndContinue();
+                }
+
+                return;
+            }
+
+            var trigger = findMenuTrigger(target);
+
+            if (trigger) {
+                /*
+                 * No preventDefault here: Emojot still
+                 * registers the tile as selected.
+                 */
+                openModal(trigger);
+            }
+        },
+        true
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (!isModalOpen()) {
+                return;
+            }
+
+            if (isViewerOpen()) {
+                if (event.key === "Escape") {
+                    closeViewer();
+                } else if (event.key === "ArrowLeft") {
+                    showPage(viewerIndex - 1);
+                } else if (event.key === "ArrowRight") {
+                    showPage(viewerIndex + 1);
+                }
+                return;
+            }
+
+            if (event.key === "Escape") {
+                closeAndContinue();
+            }
+        }
+    );
+
+
+    /* Swipe left/right in the viewer to change page */
+    var touchStartX = null;
+    var touchStartY = null;
+
+    document.addEventListener(
+        "touchstart",
+        function (event) {
+
+            if (
+                !isViewerOpen() ||
+                !event.target.closest ||
+                !event.target.closest(".lnklh-menu-viewer-stage")
+            ) {
+                touchStartX = null;
+                return;
+            }
+
+            touchStartX = event.touches[0].clientX;
+            touchStartY = event.touches[0].clientY;
+        },
+        { passive: true }
+    );
+
+    document.addEventListener(
+        "touchend",
+        function (event) {
+
+            if (touchStartX === null || !isViewerOpen()) {
+                return;
+            }
+
+            var dx = event.changedTouches[0].clientX - touchStartX;
+            var dy = event.changedTouches[0].clientY - touchStartY;
+
+            touchStartX = null;
+
+            if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+                showPage(viewerIndex + (dx < 0 ? 1 : -1));
+            }
+        },
+        { passive: true }
+    );
+
+
+    function initializeMenuModal() {
+
+        injectStyles();
+        dedupe();
+
+        /*
+         * Emojot/Angular can re-render the DOM and add more
+         * copies of the markup; remove them as they appear.
+         */
+        new MutationObserver(
+            function () {
+                if (
+                    document.querySelectorAll(".lnklh-menu-overlay").length > 1 ||
+                    (overlayRef && overlayRef.parentNode !== document.body)
+                ) {
+                    dedupe();
+                }
+            }
+        ).observe(
+            document.body,
+            {
+                childList: true,
+                subtree: true
+            }
+        );
+    }
+
+
+    window.__lnklhMenuPopup = {
+        dedupe: dedupe,
+        open: openModal,
+        close: closeModal
+    };
+
+
+    if (document.readyState === "loading") {
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeMenuModal
+        );
+    } else {
+        initializeMenuModal();
+    }
+})();
+</script>

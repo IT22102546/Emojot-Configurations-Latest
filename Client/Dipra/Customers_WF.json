@@ -1,5 +1,5 @@
 {
-  "name": "Dipra Customers",
+  "name": "Dipra_Customers_WF",
   "reportNamePrefix": "Customer",
   "reporterNamePrefix": "Submitted By",
   "nameTemplate": "$customerCode$ - $customerName$",
@@ -28,7 +28,21 @@
           "email",
           "contactPersonName",
           "contactPersonTelephone",
-          "contactPersonEmail"
+          "contactPersonEmail",
+          "inquiryNo",
+          "inquiryDate",
+          "quoteDate",
+          "projectApprovedDate",
+          "advancePaidDate",
+          "secondAdvanceDate",
+          "salesPerson",
+          "quotePerson",
+          "inspectionPerson",
+          "inspectionDate",
+          "folderOpenDate",
+          "estimateDate",
+          "ifsNo",
+          "ifsDate"
         ]
       }
     ]
@@ -49,12 +63,6 @@
     "type": "enum",
     "transitions": [
       {
-        "sourceState": "Draft",
-        "targetStates": [
-          "Active"
-        ]
-      },
-      {
         "sourceState": "Active",
         "targetStates": [
           "Inactive"
@@ -69,21 +77,15 @@
     ],
     "values": [
       {
-        "id": "Draft",
-        "name": "Draft",
-        "backgroundColor": "#f1c40f",
-        "textColor": "#000000"
+        "id": "Inactive",
+        "name": "Inactive",
+        "backgroundColor": "#7f8c8d",
+        "textColor": "#ffffff"
       },
       {
         "id": "Active",
         "name": "Active",
         "backgroundColor": "#27ae60",
-        "textColor": "#ffffff"
-      },
-      {
-        "id": "Inactive",
-        "name": "Inactive",
-        "backgroundColor": "#7f8c8d",
         "textColor": "#ffffff"
       }
     ]
@@ -91,7 +93,8 @@
   "customFields": {
     "customerCode": {
       "name": "Customer Code",
-      "type": "string"
+      "type": "string",
+      "readOnly": true
     },
     "customerName": {
       "name": "Customer Name",
@@ -99,7 +102,25 @@
     },
     "customerCategory": {
       "name": "Customer Category",
-      "type": "string"
+      "type": "enum",
+      "values": [
+        {
+          "id": "01",
+          "name": "Private"
+        },
+        {
+          "id": "02",
+          "name": "Government"
+        },
+        {
+          "id": "03",
+          "name": "BOI"
+        },
+        {
+          "id": "04",
+          "name": "Non BOI"
+        }
+      ]
     },
     "route": {
       "name": "Route",
@@ -148,7 +169,286 @@
     "contactPersonEmail": {
       "name": "Contact Person Email",
       "type": "string"
+    },
+    "inquiryNo": {
+      "name": "Inquiry No",
+      "type": "string"
+    },
+    "inquiryDate": {
+      "name": "Inquiry Date",
+      "type": "date"
+    },
+    "quoteDate": {
+      "name": "Quote Date",
+      "type": "date"
+    },
+    "projectApprovedDate": {
+      "name": "Project Approved Date",
+      "type": "date"
+    },
+    "advancePaidDate": {
+      "name": "Advance Paid Date",
+      "type": "date"
+    },
+    "secondAdvanceDate": {
+      "name": "Second Advance Date",
+      "type": "date"
+    },
+    "salesPerson": {
+      "name": "Sales Person",
+      "type": "string"
+    },
+    "quotePerson": {
+      "name": "Quote Person",
+      "type": "string"
+    },
+    "inspectionPerson": {
+      "name": "Inspection Person",
+      "type": "string"
+    },
+    "inspectionDate": {
+      "name": "Inspection Date",
+      "type": "date"
+    },
+    "folderOpenDate": {
+      "name": "Folder Open Date",
+      "type": "date"
+    },
+    "estimateDate": {
+      "name": "Estimate Date",
+      "type": "date"
+    },
+    "ifsNo": {
+      "name": "IFS No",
+      "type": "string"
+    },
+    "ifsDate": {
+      "name": "IFS Date",
+      "type": "date"
     }
   },
-  "tableEdit": "true"
+  "tableEdit": "true",
+  "consoleIncidentCreation": {
+    "buttonName": "Add Customer",
+    "dialogTitle": "Add Customer",
+    "dialogSubtitle": "Please fill this form to create a new customer",
+    "fields": [
+      {
+        "key": "customerName",
+        "label": "Customer Name",
+        "target": "customerName",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "customerCategory",
+        "label": "Customer Category",
+        "target": "customerCategory",
+        "fieldType": "enum",
+        "required": true
+      },
+      {
+        "key": "route",
+        "label": "Route",
+        "target": "route",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "addressNo",
+        "label": "Address No.",
+        "target": "addressNo",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "lane",
+        "label": "Lane",
+        "target": "lane",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "street",
+        "label": "Street",
+        "target": "street",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "city",
+        "label": "City",
+        "target": "city",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "primaryTelephone",
+        "label": "Primary Telephone",
+        "target": "primaryTelephone",
+        "fieldType": "string",
+        "required": true
+      },
+      {
+        "key": "secondaryTelephone",
+        "label": "Secondary Telephone",
+        "target": "secondaryTelephone",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "fax",
+        "label": "Fax",
+        "target": "fax",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "email",
+        "label": "Email",
+        "target": "email",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "contactPersonName",
+        "label": "Contact Person Name",
+        "target": "contactPersonName",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "contactPersonTelephone",
+        "label": "Contact Person Telephone",
+        "target": "contactPersonTelephone",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "contactPersonEmail",
+        "label": "Contact Person Email",
+        "target": "contactPersonEmail",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "inquiryNo",
+        "label": "Inquiry No",
+        "target": "inquiryNo",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "inquiryDate",
+        "label": "Inquiry Date",
+        "target": "inquiryDate",
+        "fieldType": "date",
+        "required": false
+      },
+      {
+        "key": "quoteDate",
+        "label": "Quote Date",
+        "target": "quoteDate",
+        "fieldType": "date",
+        "required": false
+      },
+      {
+        "key": "projectApprovedDate",
+        "label": "Project Approved Date",
+        "target": "projectApprovedDate",
+        "fieldType": "date",
+        "required": false
+      },
+      {
+        "key": "advancePaidDate",
+        "label": "Advance Paid Date",
+        "target": "advancePaidDate",
+        "fieldType": "date",
+        "required": false
+      },
+      {
+        "key": "secondAdvanceDate",
+        "label": "Second Advance Date",
+        "target": "secondAdvanceDate",
+        "fieldType": "date",
+        "required": false
+      },
+      {
+        "key": "salesPerson",
+        "label": "Sales Person",
+        "target": "salesPerson",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "quotePerson",
+        "label": "Quote Person",
+        "target": "quotePerson",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "inspectionPerson",
+        "label": "Inspection Person",
+        "target": "inspectionPerson",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "inspectionDate",
+        "label": "Inspection Date",
+        "target": "inspectionDate",
+        "fieldType": "date",
+        "required": false
+      },
+      {
+        "key": "folderOpenDate",
+        "label": "Folder Open Date",
+        "target": "folderOpenDate",
+        "fieldType": "date",
+        "required": false
+      },
+      {
+        "key": "estimateDate",
+        "label": "Estimate Date",
+        "target": "estimateDate",
+        "fieldType": "date",
+        "required": false
+      },
+      {
+        "key": "ifsNo",
+        "label": "IFS No",
+        "target": "ifsNo",
+        "fieldType": "string",
+        "required": false
+      },
+      {
+        "key": "ifsDate",
+        "label": "IFS Date",
+        "target": "ifsDate",
+        "fieldType": "date",
+        "required": false
+      }
+    ]
+  },
+  "incidentKeyFormat": {
+    "enabled": true,
+    "pattern": [
+      {
+        "key": "type",
+        "format": "mapping"
+      },
+      {
+        "key": "counter",
+        "format": 4
+      }
+    ],
+    "counterReset": "never",
+    "fieldMappings": {
+      "type": {
+        "mappings": {},
+        "default": "C"
+      }
+    }
+  }
 }

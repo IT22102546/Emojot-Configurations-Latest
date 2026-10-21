@@ -86,28 +86,472 @@
     overflow-wrap: break-word !important;
 }
 
-/* Submit disabled until both consents are checked */
+/* Terms & Conditions link inside consent3 */
+.lnksh-cc-consent-label span a.lnksh-cc-tc-link {
+    color: #7631a5 !important;
+    font-weight: 700 !important;
+    text-decoration: underline !important;
+    cursor: pointer !important;
+}
+
+.lnksh-cc-consent-label span a.lnksh-cc-tc-link:hover,
+.lnksh-cc-consent-label span a.lnksh-cc-tc-link:focus {
+    color: #552184 !important;
+    text-decoration: underline !important;
+}
+
+/* Submit disabled until the required consents are checked */
 .btn-submit.lnksh-cc-disabled {
     opacity: 0.35 !important;
     pointer-events: none !important;
     cursor: not-allowed !important;
 }
 
+
 /* =========================================================
-   READ-ONLY MOBILE NUMBER
+   TERMS & CONDITIONS MODAL
 ========================================================= */
 
-#gs_0 input[id="Mobile Number"][readonly],
-#gs_0 input[name="Mobile Number"][readonly],
-#gs_0 .intl-tel-input input[readonly] {
-    cursor: default !important;
+.lnksh-tc-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 2147483647 !important;
+
+    isolation: isolate !important;
+
+    display: none;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 20px !important;
+
+    background: rgba(41, 35, 51, 0.55) !important;
+    backdrop-filter: blur(2px) !important;
+
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+.lnksh-tc-overlay.lnksh-tc-open {
+    display: flex !important;
+}
+
+body.lnksh-tc-modal-active {
+    overflow: hidden !important;
+}
+
+.lnksh-tc-modal {
+    position: relative !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    width: min(680px, 100%) !important;
+    max-height: min(86vh, 780px) !important;
+
+    margin: 0 !important;
+
+    border-radius: 24px !important;
+
+    background: #ffffff !important;
+
+    box-shadow:
+        0 24px 60px rgba(20, 10, 35, 0.35) !important;
+
+    overflow: hidden !important;
+
+    font-family: "Exo", Arial, sans-serif !important;
+
+    animation: lnkshTcPop 0.22s ease-out !important;
+}
+
+@keyframes lnkshTcPop {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.lnksh-tc-modal-header {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+
+    gap: 12px !important;
+
+    padding: 22px 24px 16px !important;
+
+    border-bottom: 1px solid #e5dfeb !important;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(118, 49, 165, 0.06),
+            rgba(118, 49, 165, 0)
+        ) !important;
+
+    flex: 0 0 auto !important;
+}
+
+.lnksh-tc-modal-header-text {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+}
+
+.lnksh-tc-modal-eyebrow {
+    color: #7631a5 !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    letter-spacing: 1.6px !important;
+    text-transform: uppercase !important;
+}
+
+.lnksh-tc-modal-title {
+    margin: 0 !important;
+    color: #552184 !important;
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 22px !important;
+    font-weight: 800 !important;
+    line-height: 1.2 !important;
+}
+
+.lnksh-tc-modal-close {
+    flex: 0 0 auto !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 34px !important;
+    height: 34px !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 0 !important;
+    border-radius: 50% !important;
+
+    background: rgba(118, 49, 165, 0.08) !important;
+
+    color: #552184 !important;
+
+    font-family: Arial, sans-serif !important;
+    font-size: 22px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+
+    cursor: pointer !important;
+}
+
+.lnksh-tc-modal-close:hover,
+.lnksh-tc-modal-close:focus {
+    background: rgba(118, 49, 165, 0.16) !important;
+    outline: 0 !important;
+}
+
+.lnksh-tc-modal-body,
+.lnksh-tc-modal-body * {
+    font-family: "Exo", Arial, sans-serif !important;
+}
+
+.lnksh-tc-modal-body {
+    flex: 1 1 auto !important;
+
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+
+    padding: 20px 24px 8px !important;
+
+    color: #3f3a46 !important;
+
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 1.6 !important;
+}
+
+.lnksh-tc-modal-body:focus {
+    outline: 0 !important;
+}
+
+.lnksh-tc-modal-body strong,
+.lnksh-tc-modal-body b {
+    color: #292333 !important;
+    font-weight: 800 !important;
+}
+
+.lnksh-tc-lead {
+    margin: 0 0 4px !important;
+    color: #292333 !important;
+    font-size: 15px !important;
+    font-weight: 800 !important;
+    line-height: 1.4 !important;
+}
+
+.lnksh-tc-dates {
+    margin: 0 0 16px !important;
+    color: #7631a5 !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+}
+
+.lnksh-tc-modal-body > p {
+    margin: 0 0 16px !important;
+}
+
+.lnksh-tc-subheading {
+    margin: 22px 0 10px !important;
+    color: #552184 !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    line-height: 1.3 !important;
+}
+
+.lnksh-tc-list {
+    margin: 0 0 8px !important;
+    padding-left: 20px !important;
+}
+
+.lnksh-tc-list li {
+    margin: 0 0 12px !important;
+    padding-left: 4px !important;
+}
+
+.lnksh-tc-list li::marker {
+    color: #7631a5 !important;
+    font-weight: 700 !important;
+}
+
+.lnksh-tc-table-wrap {
+    margin: 0 0 6px !important;
+    overflow-x: auto !important;
+    border-radius: 12px !important;
+    border: 1px solid #e5dfeb !important;
+}
+
+.lnksh-tc-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 13.5px !important;
+}
+
+.lnksh-tc-table thead th {
+    background: rgba(118, 49, 165, 0.08) !important;
+    color: #552184 !important;
+    font-weight: 800 !important;
+    text-align: left !important;
+    padding: 10px 14px !important;
+}
+
+.lnksh-tc-table tbody td {
+    padding: 12px 14px !important;
+    border-top: 1px solid #e5dfeb !important;
+    color: #3f3a46 !important;
+}
+
+.lnksh-tc-table tbody td strong {
+    font-weight: 800 !important;
+}
+
+.lnksh-tc-note {
+    margin: 12px 0 20px !important;
+    color: #918a9b !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
+
+/* =========================================================
+   SCROLL INDICATOR — circular, clickable scroll-down button
+========================================================= */
+
+.lnksh-tc-scroll-indicator {
+    position: sticky !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 5 !important;
+
+    height: 0 !important;
+    overflow: visible !important;
+
+    pointer-events: none !important;
+}
+
+.lnksh-tc-scroll-indicator-inner {
+    position: absolute !important;
+    left: 50% !important;
+    bottom: 10px !important;
+    transform: translateX(-50%) !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    width: 38px !important;
+    height: 38px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 50% !important;
+
+    background: #ffffff !important;
+    box-shadow:
+        0 2px 10px rgba(85, 33, 132, 0.28),
+        0 0 0 1px #e5dfeb !important;
+
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+
+    cursor: pointer !important;
+    -webkit-tap-highlight-color: transparent !important;
+
+    transition: opacity 0.2s ease, transform 0.15s ease !important;
+}
+
+.lnksh-tc-scroll-indicator.lnksh-tc-scroll-visible
+    .lnksh-tc-scroll-indicator-inner {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+.lnksh-tc-scroll-indicator-inner:hover,
+.lnksh-tc-scroll-indicator-inner:focus-visible {
+    transform: translateX(-50%) scale(1.06) !important;
+    outline: 0 !important;
+}
+
+.lnksh-tc-scroll-indicator svg {
+    display: block !important;
+    pointer-events: none !important;
+    animation: lnkshTcScrollBounce 1.4s ease-in-out infinite !important;
+}
+
+@keyframes lnkshTcScrollBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(5px);
+    }
+}
+
+.lnksh-tc-modal-footer {
+    flex: 0 0 auto !important;
+
+    display: flex !important;
+    justify-content: flex-end !important;
+
+    padding: 16px 24px 22px !important;
+
+    border-top: 1px solid #e5dfeb !important;
+
+    background: #ffffff !important;
+}
+
+.lnksh-tc-modal-accept {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 12px 26px !important;
+
+    border: 0 !important;
+    border-radius: 999px !important;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffd20a,
+            #ffc400
+        ) !important;
+
+    color: #552184 !important;
+
+    font-family: "Exo", Arial, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.2px !important;
+    text-transform: uppercase !important;
+
+    cursor: pointer !important;
+
+    box-shadow: 0 6px 16px rgba(255, 196, 0, 0.35) !important;
+}
+
+.lnksh-tc-modal-accept:hover,
+.lnksh-tc-modal-accept:focus {
+    filter: brightness(1.03) !important;
+    outline: 0 !important;
+}
+
+@media (max-width: 700px) {
+
+    .lnksh-tc-overlay {
+        padding: 0 !important;
+        align-items: flex-end !important;
+    }
+
+    .lnksh-tc-modal {
+        width: 100% !important;
+        max-height: 90vh !important;
+        border-radius: 22px 22px 0 0 !important;
+        animation: lnkshTcSlideUp 0.24s ease-out !important;
+    }
+
+    @keyframes lnkshTcSlideUp {
+        from {
+            transform: translateY(24px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .lnksh-tc-modal-header {
+        padding: 18px 18px 14px !important;
+    }
+
+    .lnksh-tc-modal-title {
+        font-size: 19px !important;
+    }
+
+    .lnksh-tc-modal-body {
+        padding: 16px 18px 8px !important;
+        font-size: 13.5px !important;
+    }
+
+    .lnksh-tc-modal-footer {
+        padding: 14px 18px 18px !important;
+    }
+
+    .lnksh-tc-modal-accept {
+        width: 100% !important;
+    }
+}
+
+
+/* =========================================================
+   MOBILE NUMBER — EDITABLE
+========================================================= */
+
+#gs_0 input[id="Mobile Number"],
+#gs_0 input[name="Mobile Number"],
+#gs_0 .intl-tel-input input {
+    cursor: text !important;
 
     color: #292333 !important;
     -webkit-text-fill-color: #292333 !important;
 
     opacity: 1 !important;
 
-    caret-color: transparent !important;
+    caret-color: #292333 !important;
 
     background: transparent !important;
 
@@ -115,10 +559,15 @@
     outline: 0 !important;
 
     box-shadow: none !important;
+
+    pointer-events: auto !important;
+
+    -webkit-user-select: text !important;
+    user-select: text !important;
 }
 
-#gs_0 input[id="Mobile Number"][readonly]:focus,
-#gs_0 input[name="Mobile Number"][readonly]:focus {
+#gs_0 input[id="Mobile Number"]:focus,
+#gs_0 input[name="Mobile Number"]:focus {
     outline: 0 !important;
     box-shadow: none !important;
 }
@@ -171,16 +620,167 @@
 
     </label>
 
+
+    <label class="lnksh-cc-consent-label">
+
+        <input
+            class="lnksh-cc-checkbox"
+            type="checkbox"
+        >
+
+        <span data-lnksh-key="consent3">
+            I have fully read and agree to the Terms &amp; Conditions of the giveaway,
+            <a
+                class="lnksh-cc-tc-link"
+                href="#"
+                data-lnksh-tc-trigger
+                role="button"
+                aria-haspopup="dialog"
+            >Next Stop Bangkok with Eva</a>.
+        </span>
+
+    </label>
+
 </div>
 
+
+<!-- =====================================================
+     TERMS & CONDITIONS MODAL
+====================================================== -->
+
+<div
+    class="lnksh-tc-overlay"
+    id="lnksh-tc-overlay"
+    role="presentation"
+>
+    <div
+        class="lnksh-tc-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="lnksh-tc-modal-title"
+    >
+
+        <div class="lnksh-tc-modal-header">
+            <div class="lnksh-tc-modal-header-text">
+                <span class="lnksh-tc-modal-eyebrow">Eva Scan &amp; Win</span>
+                <h2 id="lnksh-tc-modal-title" class="lnksh-tc-modal-title">Terms &amp; Conditions</h2>
+            </div>
+            <button
+                type="button"
+                class="lnksh-tc-modal-close"
+                id="lnksh-tc-modal-close"
+                aria-label="Close Terms and Conditions"
+            >&times;</button>
+        </div>
+
+        <div class="lnksh-tc-modal-body" id="lnksh-tc-modal-body" tabindex="0">
+
+            <p class="lnksh-tc-lead">
+                Terms &amp; Conditions for 'Eva Scan &amp; Win &ndash; Trip to Bangkok' Consumer Promotion
+            </p>
+            <p class="lnksh-tc-dates">(September 1st to December 31st)</p>
+
+            <p>By purchasing a qualifying pack and submitting an entry, all participants agree to be bound by the terms and conditions below.</p>
+
+            <ol class="lnksh-tc-list">
+                <li>This promotion is carried out by <strong>'Eva'</strong>, which is a sanitary napkin brand under the portfolio of <strong>ICL Brands (Pvt.) Ltd</strong>, which from hereon is referred to as 'ICL Brands'.</li>
+                <li>'Eva Scan &amp; Win &ndash; Trip to Bangkok' is a consumer promotion that will be held from <strong>September 1st to December 31st</strong>.</li>
+                <li>Only <strong>Sri Lankan Citizens</strong> will be eligible for this promotion, and this promotion is <strong>exclusively for females (no males can participate in this promotion under any circumstances)</strong>.</li>
+                <li><strong>10 winners</strong> will be selected through a draw held at the end of the promotion period.</li>
+            </ol>
+
+            <h3 class="lnksh-tc-subheading">Prizes</h3>
+
+            <div class="lnksh-tc-table-wrap">
+                <table class="lnksh-tc-table">
+                    <thead>
+                        <tr>
+                            <th>Prize</th>
+                            <th>No. of Winners</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Trip to Bangkok</strong> (package from FOX Travels) &ndash; 3 nights and 4 days</td>
+                            <td><strong>10</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="lnksh-tc-note"><strong>Travel Dates &ndash; February 2027 (19th &ndash; 22nd)</strong></p>
+
+            <h3 class="lnksh-tc-subheading">Mechanism</h3>
+
+            <ol class="lnksh-tc-list" start="5">
+                <li>Consumers must purchase one (1) specially marked <strong>Eva Heavy Flow Double Pack</strong> bearing the 'Scan &amp; Win &ndash; Trip to Bangkok' promotional sticker, priced at <strong>Rs. 480/-</strong> (inclusive of <strong>Rs. 120/-</strong> promotional saving), from any authorized retail outlet.</li>
+                <li>Each qualifying pack carries a unique QR code printed on the promotional sticker. Packs without the promotional sticker <strong>will not qualify</strong> for entry.</li>
+                <li>Consumers must scan the QR code using a smartphone, which will direct them to the official campaign landing page.</li>
+                <li>On the landing page, consumers must fill in their basic contact details: <strong>Full Name, Mobile Number, and Region</strong>.</li>
+                <li>Consumers must upload a clear photo of the purchase receipt for the qualifying pack as proof of purchase.</li>
+                <li>Consumers must submit their entry by clicking <strong>'Submit My Entry'</strong> upon completing the above steps.</li>
+                <li>Consumer has to agree to the terms and conditions &amp; the data privacy policy.</li>
+                <li>Each unique receipt may only be used <strong>once</strong> to enter the promotion. Any attempt to reuse, duplicate, tamper with, or forge a QR code or receipt will result in <strong>automatic disqualification</strong> of that entry.</li>
+                <li>Consumers may purchase multiple qualifying packs and submit multiple entries, provided each entry is supported by a distinct, valid QR code and a corresponding original receipt.</li>
+                <li>Any entry that does not conform to the above requirements &ndash; including entries without a valid receipt image, illegible receipts, or receipts that do not show the promotional sticker &ndash; <strong>will not be considered and will be automatically rejected</strong>.</li>
+                <li>This promotion is open to all persons, excluding employees of ICL Brands, its appointed agencies, prize sponsors, or any person directly or indirectly involved in the organizing or running of the promotion, or their immediate family members (subject to Terms &amp; Conditions number 3).</li>
+                <li>Winners <strong>must have the original purchase receipt and promotional pack</strong> in their possession at the time of selection and must present these as proof of purchase upon request by ICL Brands in order to verify eligibility and claim their prize.</li>
+                <li>Winners must submit their respective <strong>NIC</strong> to claim their respective prize.</li>
+                <li>Any data or internet charges incurred in scanning the QR code, accessing the landing page, or uploading the receipt <strong>must be borne by the participant</strong>.</li>
+                <li>The winners will be selected through a draw conducted by ICL Brands (Pvt) Ltd, in the presence of a representative from ICL Brands and an independent audit representative.</li>
+                <li>Each winner will receive only <strong>an individual package</strong>.</li>
+                <li>The first Draw will take place on the <strong>30th September</strong>. Last draw will take place in <strong>December</strong>. Winners will be selected every month.</li>
+                <li>ICL Brands reserves the right, in its absolute discretion, to <strong>disqualify</strong> any entrant if it has reasonable grounds to believe that an entrant has breached any of these terms and conditions or any applicable law.</li>
+                <li>The winners will be announced via press ads or digital media formats, and will also be individually contacted by ICL Brands via the mobile number submitted at the time of entry.</li>
+                <li>The winners will be selected on a random basis and ICL Brands reserves the right to make the final decision with regards to the winners. Winners shall be selected at the sole discretion and will of ICL Brands.</li>
+                <li>The decisions of ICL Brands will be <strong>final</strong>, and no correspondence in this respect will be entertained.</li>
+                <li>The rights are reserved to withhold the awarding of prizes, at the sole discretion of ICL Brands.</li>
+                <li>Winners must hold a <strong>valid passport with a minimum validity of 6 months</strong> from the date of travel.</li>
+                <li>The trip dates are fixed by ICL Brands within the months of February 2027 and are <strong>non-transferable and non-negotiable</strong>. Travel Dates &ndash; February 2027 (19th &ndash; 22nd).</li>
+                <li>ICL Brands shall, upon consent, be entitled to use the images of the winners/coverage/footage of the trip, at any time, for any promotional campaign conducted by ICL Brands, including content created by the appointed creator roster covering the tour.</li>
+                <li>ICL Brands shall, at its sole discretion, be entitled to gather and add the information of all participants received via the landing page to their consumer database and use the same for future brand &amp; marketing purposes, as described under the Privacy Policy.</li>
+                <li>ICL Brands reserves the right to <strong>amend, suspend, or terminate</strong> this promotion at any time, without prior notice, where circumstances beyond its reasonable control so require.</li>
+            </ol>
+
+            <div class="lnksh-tc-scroll-indicator" id="lnksh-tc-scroll-indicator" aria-hidden="true">
+                <button
+                    type="button"
+                    class="lnksh-tc-scroll-indicator-inner"
+                    id="lnksh-tc-scroll-indicator-btn"
+                    aria-label="Scroll down"
+                    tabindex="-1"
+                >
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M5 9l7 7 7-7" stroke="#7631a5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+
+        <div class="lnksh-tc-modal-footer">
+            <button
+                type="button"
+                class="lnksh-tc-modal-accept"
+                id="lnksh-tc-modal-accept"
+            >I Agree &amp; Continue</button>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- =====================================================
+     CONSENT SCRIPT
+     NOTE: consent1 (data collection/processing) and
+     consent3 (Terms & Conditions) are required to enable
+     the submit button. consent2 (marketing communications)
+     is optional and does not gate submission.
+====================================================== -->
 
 <script>
 (function () {
     "use strict";
-
-    /* =====================================================
-       CONSENT SECTION
-    ===================================================== */
 
     function findSubmitButton() {
 
@@ -258,10 +858,6 @@
         }
 
 
-        /*
-         * Only reveal after it has reached
-         * the correct position.
-         */
         consent.classList.add(
             "lnksh-cc-ready"
         );
@@ -271,21 +867,62 @@
     }
 
 
+    /*
+     * The keys of the consent checkboxes that MUST be
+     * checked before the submit button is enabled.
+     *
+     * consent1 = data collection/processing (required)
+     * consent2 = marketing communications (NOT required)
+     * consent3 = Terms & Conditions (required)
+     */
+    var REQUIRED_CONSENT_KEYS = [
+        "consent1",
+        "consent3"
+    ];
+
+
+    function getCheckboxForKey(key) {
+
+        var span =
+            document.querySelector(
+                '.lnksh-cc-consent-label span[data-lnksh-key="' +
+                key +
+                '"]'
+            );
+
+        var label =
+            span &&
+            span.closest(
+                ".lnksh-cc-consent-label"
+            );
+
+        return (
+            label &&
+            label.querySelector(
+                ".lnksh-cc-checkbox"
+            )
+        );
+    }
+
+
     function setupCheckboxes() {
 
         var submitBtn =
             findSubmitButton();
 
 
-        var checkboxes =
-            document.querySelectorAll(
-                ".lnksh-cc-checkbox"
-            );
+        var requiredCheckboxes =
+            REQUIRED_CONSENT_KEYS
+                .map(getCheckboxForKey)
+                .filter(function (checkbox) {
+                    return !!checkbox;
+                });
 
 
         if (
             !submitBtn ||
-            checkboxes.length !== 2
+            requiredCheckboxes.length !==
+                REQUIRED_CONSENT_KEYS.length
         ) {
             return;
         }
@@ -293,16 +930,15 @@
 
         function refreshSubmitState() {
 
-            var allChecked =
-                Array.prototype.every.call(
-                    checkboxes,
+            var allRequiredChecked =
+                requiredCheckboxes.every(
                     function (checkbox) {
                         return checkbox.checked;
                     }
                 );
 
 
-            if (allChecked) {
+            if (allRequiredChecked) {
 
                 submitBtn.classList.remove(
                     "lnksh-cc-disabled"
@@ -326,7 +962,7 @@
         }
 
 
-        checkboxes.forEach(
+        requiredCheckboxes.forEach(
             function (checkbox) {
 
                 if (
@@ -427,18 +1063,619 @@
 </script>
 
 
+<!-- =====================================================
+     TERMS & CONDITIONS MODAL SCRIPT
+====================================================== -->
+
 <script>
 (function () {
     "use strict";
 
+    var lastFocusedElement = null;
+
+
+    function getOverlay() {
+        return document.getElementById(
+            "lnksh-tc-overlay"
+        );
+    }
+
+
+    function getModal(overlay) {
+        return (
+            overlay &&
+            overlay.querySelector(
+                ".lnksh-tc-modal"
+            )
+        );
+    }
+
+
+    /*
+     * The Emojot survey widget may wrap the form in a
+     * container that has a CSS transform (or similar)
+     * applied somewhere in its ancestry. Any transformed
+     * ancestor silently breaks `position: fixed`, causing
+     * it to size/position against that ancestor instead of
+     * the real viewport — which is why the modal was being
+     * clipped.
+     *
+     * Separately, the "Powered by Emojot" bar seen bleeding
+     * through is the survey platform's own persistent
+     * branding bar, not part of this form. Emojot injects
+     * and re-positions it independently, sometimes AFTER
+     * this script runs. Two elements with the same
+     * (very high) z-index are stacked by DOM order — the
+     * one added to <body> LAST wins. So it isn't enough to
+     * just be *a* child of <body> once; the overlay must be
+     * re-asserted as the LAST child of <body> every time it
+     * opens, and periodically while it stays open, so
+     * nothing Emojot injects afterward can appear above it.
+     */
+    function ensureOverlayOnBody() {
+
+        var overlay = getOverlay();
+
+        if (!overlay) {
+            return;
+        }
+
+        var isLastChild =
+            document.body.lastElementChild ===
+            overlay;
+
+        if (!isLastChild) {
+            document.body.appendChild(
+                overlay
+            );
+        }
+    }
+
+
+    var keepOnTopTimer = null;
+
+
+    function keepOnTopTick() {
+        ensureOverlayOnBody();
+        hideEmojotBranding();
+    }
+
+
+    function startKeepOnTop() {
+
+        stopKeepOnTop();
+
+        keepOnTopTimer =
+            setInterval(
+                keepOnTopTick,
+                400
+            );
+    }
+
+
+    function stopKeepOnTop() {
+
+        if (keepOnTopTimer) {
+            clearInterval(
+                keepOnTopTimer
+            );
+
+            keepOnTopTimer = null;
+        }
+    }
+
+
+    /*
+     * Scroll indicator: shows a small circular scroll-down
+     * button pinned to the bottom of the modal body whenever
+     * there is more content below the visible area, so the
+     * person knows to keep scrolling (and can tap it to jump
+     * down). Hides automatically once they reach (or are
+     * already at) the bottom.
+     */
+    var scrollIndicatorBound = false;
+
+
+    function updateScrollIndicator() {
+
+        var body =
+            document.getElementById(
+                "lnksh-tc-modal-body"
+            );
+
+        var indicator =
+            document.getElementById(
+                "lnksh-tc-scroll-indicator"
+            );
+
+        if (!body || !indicator) {
+            return;
+        }
+
+        var remaining =
+            body.scrollHeight -
+            body.scrollTop -
+            body.clientHeight;
+
+        var hasMoreToScroll =
+            remaining > 16;
+
+        indicator.classList.toggle(
+            "lnksh-tc-scroll-visible",
+            hasMoreToScroll
+        );
+    }
+
+
+    function bindScrollIndicator() {
+
+        if (scrollIndicatorBound) {
+            return;
+        }
+
+        scrollIndicatorBound = true;
+
+        var body =
+            document.getElementById(
+                "lnksh-tc-modal-body"
+            );
+
+        var button =
+            document.getElementById(
+                "lnksh-tc-scroll-indicator-btn"
+            );
+
+        if (body) {
+            body.addEventListener(
+                "scroll",
+                updateScrollIndicator,
+                { passive: true }
+            );
+        }
+
+        if (button && body) {
+
+            button.addEventListener(
+                "click",
+                function (event) {
+
+                    event.preventDefault();
+
+                    body.scrollBy({
+                        top: Math.round(
+                            body.clientHeight * 0.8
+                        ),
+                        left: 0,
+                        behavior: "smooth"
+                    });
+                }
+            );
+        }
+
+        window.addEventListener(
+            "resize",
+            updateScrollIndicator
+        );
+    }
+
+
+    function openModal(triggerElement) {
+
+        ensureOverlayOnBody();
+
+        var overlay = getOverlay();
+
+        if (!overlay) {
+            return;
+        }
+
+        lastFocusedElement =
+            triggerElement ||
+            document.activeElement;
+
+        overlay.classList.add(
+            "lnksh-tc-open"
+        );
+
+        document.body.classList.add(
+            "lnksh-tc-modal-active"
+        );
+
+        startKeepOnTop();
+
+        hideEmojotBranding();
+
+        bindScrollIndicator();
+
+        var body =
+            document.getElementById(
+                "lnksh-tc-modal-body"
+            );
+
+        if (body) {
+            body.scrollTop = 0;
+            body.focus();
+        }
+
+        /*
+         * Defer to the next frame so the modal has finished
+         * laying out before measuring scrollHeight.
+         */
+        window.requestAnimationFrame(
+            function () {
+                updateScrollIndicator();
+            }
+        );
+    }
+
+
+    /*
+     * Direct safety net: find Emojot's own "Powered by
+     * Emojot" branding bar by its text content (its exact
+     * class names aren't part of this form's markup, so we
+     * can't target it by selector) and temporarily hide it
+     * while the modal is open. Restored automatically when
+     * the modal closes.
+     */
+    var hiddenBrandingElements = [];
+
+
+    function findEmojotBrandingElements() {
+
+        var candidates = [];
+
+        var walker =
+            document.createTreeWalker(
+                document.body,
+                NodeFilter.SHOW_ELEMENT
+            );
+
+        var node;
+
+        while ((node = walker.nextNode())) {
+
+            if (
+                node.closest &&
+                node.closest(
+                    "#lnksh-tc-overlay"
+                )
+            ) {
+                continue;
+            }
+
+            var ownText = "";
+
+            for (
+                var i = 0;
+                i < node.childNodes.length;
+                i++
+            ) {
+                var child =
+                    node.childNodes[i];
+
+                if (
+                    child.nodeType === 3
+                ) {
+                    ownText +=
+                        child.textContent;
+                }
+            }
+
+            if (
+                /powered\s+by\s+emojot/i.test(
+                    ownText
+                )
+            ) {
+                candidates.push(node);
+            }
+        }
+
+        return candidates;
+    }
+
+
+    function hideEmojotBranding() {
+
+        var elements =
+            findEmojotBrandingElements();
+
+        elements.forEach(
+            function (element) {
+
+                var bar =
+                    element.closest(
+                        "div, footer, section"
+                    ) || element;
+
+                if (
+                    hiddenBrandingElements.indexOf(
+                        bar
+                    ) !== -1
+                ) {
+                    return;
+                }
+
+                bar.dataset.lnkshPrevVisibility =
+                    bar.style.visibility ||
+                    "";
+
+                bar.style.setProperty(
+                    "visibility",
+                    "hidden",
+                    "important"
+                );
+
+                hiddenBrandingElements.push(
+                    bar
+                );
+            }
+        );
+    }
+
+
+    function restoreEmojotBranding() {
+
+        hiddenBrandingElements.forEach(
+            function (bar) {
+
+                bar.style.setProperty(
+                    "visibility",
+                    bar.dataset
+                        .lnkshPrevVisibility ||
+                        ""
+                );
+
+                delete bar.dataset
+                    .lnkshPrevVisibility;
+            }
+        );
+
+        hiddenBrandingElements = [];
+    }
+
+
+    function closeModal() {
+
+        var overlay = getOverlay();
+
+        if (!overlay) {
+            return;
+        }
+
+        overlay.classList.remove(
+            "lnksh-tc-open"
+        );
+
+        document.body.classList.remove(
+            "lnksh-tc-modal-active"
+        );
+
+        stopKeepOnTop();
+
+        restoreEmojotBranding();
+
+        if (
+            lastFocusedElement &&
+            typeof lastFocusedElement.focus ===
+                "function"
+        ) {
+            lastFocusedElement.focus();
+        }
+    }
+
+
+    function isModalOpen() {
+        var overlay = getOverlay();
+        return (
+            !!overlay &&
+            overlay.classList.contains(
+                "lnksh-tc-open"
+            )
+        );
+    }
+
+
+    /*
+     * Ticks the consent3 (Terms & Conditions) checkbox and
+     * dispatches a real "change" event so the existing
+     * consent-gating logic (which listens for that event)
+     * re-evaluates and enables the submit button if the
+     * other required consent is also checked.
+     */
+    function checkTermsCheckbox() {
+
+        var span =
+            document.querySelector(
+                '.lnksh-cc-consent-label span[data-lnksh-key="consent3"]'
+            );
+
+        var label =
+            span &&
+            span.closest(
+                ".lnksh-cc-consent-label"
+            );
+
+        var checkbox =
+            label &&
+            label.querySelector(
+                ".lnksh-cc-checkbox"
+            );
+
+        if (!checkbox) {
+            return;
+        }
+
+        if (!checkbox.checked) {
+
+            checkbox.checked = true;
+
+            checkbox.dispatchEvent(
+                new Event(
+                    "change",
+                    {
+                        bubbles: true
+                    }
+                )
+            );
+        }
+    }
+
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            var trigger =
+                event.target.closest(
+                    "[data-lnksh-tc-trigger]"
+                );
+
+            if (trigger) {
+                event.preventDefault();
+                openModal(trigger);
+                return;
+            }
+
+
+            var acceptTarget =
+                event.target.closest(
+                    "#lnksh-tc-modal-accept"
+                );
+
+            if (acceptTarget) {
+                event.preventDefault();
+                checkTermsCheckbox();
+                closeModal();
+                return;
+            }
+
+
+            var closeTarget =
+                event.target.closest(
+                    "#lnksh-tc-modal-close"
+                );
+
+            if (closeTarget) {
+                event.preventDefault();
+                closeModal();
+                return;
+            }
+
+
+            var overlay = getOverlay();
+
+            if (
+                overlay &&
+                event.target === overlay
+            ) {
+                closeModal();
+            }
+        },
+        true
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape" &&
+                isModalOpen()
+            ) {
+                closeModal();
+            }
+        }
+    );
+
+
+    /*
+     * Relocate the overlay to <body> as soon as possible,
+     * not only when the user clicks the T&C link, so it is
+     * already correctly positioned before first use.
+     */
+    function initializeTcModal() {
+
+        ensureOverlayOnBody();
+
+        var root =
+            document.querySelector(
+                "#master-section"
+            ) ||
+            document.body;
+
+        if (!root) {
+            return;
+        }
+
+        /*
+         * Emojot/Angular can re-render parts of the DOM.
+         * If that ever re-parents the overlay back inside
+         * the widget, move it back out to <body>.
+         */
+        var observer =
+            new MutationObserver(
+                function () {
+                    ensureOverlayOnBody();
+                }
+            );
+
+        observer.observe(
+            root,
+            {
+                childList: true,
+                subtree: true
+            }
+        );
+    }
+
+
+    if (
+        document.readyState === "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeTcModal
+        );
+
+    } else {
+
+        initializeTcModal();
+    }
+
+})();
+</script>
+
+
+<!-- =====================================================
+     MOBILE NUMBER — AUTOFILL + USER EDITABLE
+====================================================== -->
+
+<script>
+(function () {
+    "use strict";
+
+
     /* =====================================================
-       MOBILE NUMBER
+       STATE
     ===================================================== */
 
+    var telephoneFromUrl = null;
 
-    /* -----------------------------------------------------
-       Read Telephone from loyaltyFields
-    ----------------------------------------------------- */
+    /*
+     * Becomes true as soon as the user manually changes
+     * the mobile number.
+     *
+     * Once true, the autofill code MUST NOT overwrite
+     * the user's value.
+     */
+    var userEditedMobile = false;
+
+
+    /* =====================================================
+       READ TELEPHONE FROM loyaltyFields
+    ===================================================== */
 
     function getTelephoneFromUrl() {
 
@@ -515,9 +1752,9 @@
     }
 
 
-    /* -----------------------------------------------------
-       Find Mobile Number field
-    ----------------------------------------------------- */
+    /* =====================================================
+       FIND MOBILE NUMBER INPUT
+    ===================================================== */
 
     function findMobileInput() {
 
@@ -549,9 +1786,9 @@
     }
 
 
-    /* -----------------------------------------------------
-       Set native value
-    ----------------------------------------------------- */
+    /* =====================================================
+       SET NATIVE INPUT VALUE
+    ===================================================== */
 
     function setNativeValue(
         input,
@@ -608,9 +1845,9 @@
     }
 
 
-    /* -----------------------------------------------------
-       Update Angular model
-    ----------------------------------------------------- */
+    /* =====================================================
+       UPDATE ANGULAR MODEL
+    ===================================================== */
 
     function updateAngularModel(
         input,
@@ -680,14 +1917,10 @@
 
 
     /* =====================================================
-       MAKE MOBILE NUMBER GENUINELY READ ONLY
+       MAKE MOBILE NUMBER EDITABLE
     ===================================================== */
 
-    function makeMobileReadOnly() {
-
-        var input =
-            findMobileInput();
-
+    function makeMobileEditable(input) {
 
         if (!input) {
             return;
@@ -695,162 +1928,286 @@
 
 
         /*
-         * Native readonly property.
+         * Remove native readonly.
          */
-        input.readOnly = true;
+        input.readOnly = false;
 
 
         /*
-         * HTML attribute.
+         * Remove readonly HTML attributes.
          */
-        input.setAttribute(
-            "readonly",
+        input.removeAttribute(
             "readonly"
         );
 
-
-        /*
-         * Accessibility state.
-         */
-        input.setAttribute(
-            "aria-readonly",
-            "true"
+        input.removeAttribute(
+            "aria-readonly"
         );
 
 
         /*
-         * Avoid mobile keyboard.
+         * Important for mobile devices.
+         *
+         * "tel" opens the telephone/numeric keyboard.
          */
         input.setAttribute(
             "inputmode",
-            "none"
+            "tel"
         );
 
 
         /*
-         * Stop autocomplete trying to alter it.
+         * Allow browser/mobile telephone autocomplete.
          */
         input.setAttribute(
             "autocomplete",
-            "off"
+            "tel"
         );
 
 
         /*
-         * Prevent paste.
+         * Make sure field isn't accidentally disabled.
          */
-        input.onpaste =
-            function (event) {
-
-                event.preventDefault();
-
-                return false;
-            };
-
-
-        /*
-         * Prevent drag/drop.
-         */
-        input.ondrop =
-            function (event) {
-
-                event.preventDefault();
-
-                return false;
-            };
-
-
-        /*
-         * Prevent typing even if another plugin
-         * temporarily removes readonly.
-         */
-        if (
-            input.dataset.evaReadonlyBound !==
-            "1"
-        ) {
-
-            input.dataset.evaReadonlyBound =
-                "1";
-
-
-            input.addEventListener(
-                "keydown",
-                function (event) {
-
-                    /*
-                     * Allow Tab navigation.
-                     */
-                    if (
-                        event.key === "Tab"
-                    ) {
-                        return;
-                    }
-
-
-                    /*
-                     * Allow browser copy shortcuts.
-                     */
-                    if (
-                        (event.ctrlKey ||
-                         event.metaKey) &&
-                        (
-                            event.key.toLowerCase() ===
-                            "c" ||
-
-                            event.key.toLowerCase() ===
-                            "a"
-                        )
-                    ) {
-                        return;
-                    }
-
-
-                    event.preventDefault();
-
-                },
-                true
-            );
-
-
-            input.addEventListener(
-                "beforeinput",
-                function (event) {
-
-                    event.preventDefault();
-
-                },
-                true
-            );
+        if (input.disabled) {
+            input.disabled = false;
         }
+
+
+        input.removeAttribute(
+            "disabled"
+        );
+
+
+        /*
+         * Restore paste and drag/drop.
+         */
+        input.onpaste = null;
+        input.ondrop = null;
+
+
+        /*
+         * Visual interaction.
+         */
+        input.style.cursor =
+            "text";
+
+        input.style.caretColor =
+            "#292333";
+
+        input.style.pointerEvents =
+            "auto";
     }
 
 
-    /* -----------------------------------------------------
-       Apply number
-    ----------------------------------------------------- */
+    /* =====================================================
+       BIND USER EDIT DETECTION
+    ===================================================== */
+
+    function bindUserEditing(input) {
+
+        if (!input) {
+            return;
+        }
+
+
+        if (
+            input.dataset.evaEditableBound ===
+            "1"
+        ) {
+            return;
+        }
+
+
+        input.dataset.evaEditableBound =
+            "1";
+
+
+        /*
+         * beforeinput fires when the user types,
+         * deletes or pastes.
+         */
+        input.addEventListener(
+            "beforeinput",
+            function (event) {
+
+                if (
+                    event.isTrusted
+                ) {
+                    userEditedMobile = true;
+                }
+
+            },
+            true
+        );
+
+
+        /*
+         * Also cover normal user input.
+         */
+        input.addEventListener(
+            "input",
+            function (event) {
+
+                if (
+                    event.isTrusted
+                ) {
+                    userEditedMobile = true;
+                }
+
+            },
+            true
+        );
+
+
+        /*
+         * Paste explicitly.
+         */
+        input.addEventListener(
+            "paste",
+            function (event) {
+
+                if (
+                    event.isTrusted
+                ) {
+                    userEditedMobile = true;
+                }
+
+            },
+            true
+        );
+
+
+        /*
+         * Cut explicitly.
+         */
+        input.addEventListener(
+            "cut",
+            function (event) {
+
+                if (
+                    event.isTrusted
+                ) {
+                    userEditedMobile = true;
+                }
+
+            },
+            true
+        );
+
+
+        /*
+         * Keydown provides an extra fallback.
+         */
+        input.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (!event.isTrusted) {
+                    return;
+                }
+
+
+                /*
+                 * Navigation keys do not count as edits.
+                 */
+                var ignoredKeys = [
+                    "Tab",
+                    "Shift",
+                    "Control",
+                    "Alt",
+                    "Meta",
+                    "ArrowLeft",
+                    "ArrowRight",
+                    "ArrowUp",
+                    "ArrowDown",
+                    "Home",
+                    "End"
+                ];
+
+
+                if (
+                    ignoredKeys.indexOf(
+                        event.key
+                    ) !== -1
+                ) {
+                    return;
+                }
+
+
+                /*
+                 * Ctrl/Cmd+A and Ctrl/Cmd+C don't modify
+                 * the field.
+                 */
+                if (
+                    (event.ctrlKey || event.metaKey) &&
+                    (
+                        event.key.toLowerCase() === "a" ||
+                        event.key.toLowerCase() === "c"
+                    )
+                ) {
+                    return;
+                }
+
+
+                userEditedMobile = true;
+
+            },
+            true
+        );
+    }
+
+
+    /* =====================================================
+       APPLY AUTOFILLED TELEPHONE
+    ===================================================== */
 
     function applyTelephone(
         input,
         telephone
     ) {
 
-        if (
-            !input ||
-            !telephone
-        ) {
+        if (!input) {
             return;
         }
 
 
         /*
-         * Temporarily allow JS to update.
+         * Always make field editable.
          */
-        input.readOnly = false;
-
-
-        input.removeAttribute(
-            "readonly"
+        makeMobileEditable(
+            input
         );
+
+
+        bindUserEditing(
+            input
+        );
+
+
+        /*
+         * Never overwrite a number after the user
+         * has started editing it.
+         */
+        if (
+            userEditedMobile
+        ) {
+            return;
+        }
+
+
+        if (!telephone) {
+            return;
+        }
+
+
+        /*
+         * Don't trigger unnecessary model changes.
+         */
+        if (
+            input.value === telephone
+        ) {
+            return;
+        }
 
 
         setNativeValue(
@@ -866,30 +2223,22 @@
 
 
         /*
-         * Lock immediately afterwards.
+         * Ensure it remains editable after Angular render.
          */
-        makeMobileReadOnly();
+        makeMobileEditable(
+            input
+        );
     }
 
 
     /* =====================================================
-       START AUTOFILL
+       INITIAL AUTOFILL
     ===================================================== */
 
     function startTelephoneAutofill() {
 
-        var telephone =
+        telephoneFromUrl =
             getTelephoneFromUrl();
-
-
-        if (!telephone) {
-
-            console.debug(
-                "Telephone not found in loyaltyFields."
-            );
-
-            return;
-        }
 
 
         var startedAt =
@@ -897,15 +2246,18 @@
 
 
         /*
-         * Maximum time to wait for field.
+         * Maximum time to wait for the Emojot input.
          */
         var maximumWait =
             30000;
 
 
         /*
-         * intl-tel-input / Angular can recreate or
-         * overwrite the field during initialization.
+         * Emojot/intl-tel-input may recreate the field
+         * during the first few seconds.
+         *
+         * We synchronize ONLY until the user starts
+         * editing.
          */
         var synchronizationTime =
             10000;
@@ -942,24 +2294,40 @@
                     );
 
 
+                    /*
+                     * Immediately make the mobile field
+                     * editable even if no telephone exists
+                     * in the URL.
+                     */
+                    makeMobileEditable(
+                        input
+                    );
+
+
+                    bindUserEditing(
+                        input
+                    );
+
+
+                    /*
+                     * Populate value from loyaltyFields.
+                     */
+                    if (
+                        telephoneFromUrl
+                    ) {
+
+                        applyTelephone(
+                            input,
+                            telephoneFromUrl
+                        );
+                    }
+
+
                     var synchronizeUntil =
                         Date.now() +
                         synchronizationTime;
 
 
-                    /*
-                     * Initial population.
-                     */
-                    applyTelephone(
-                        input,
-                        telephone
-                    );
-
-
-                    /*
-                     * Keep checking while Emojot's
-                     * telephone plugin initializes.
-                     */
                     var synchronizationTimer =
                         setInterval(
                             function () {
@@ -972,27 +2340,62 @@
                                     currentInput
                                 ) {
 
+                                    /*
+                                     * Always ensure field is editable.
+                                     */
+                                    makeMobileEditable(
+                                        currentInput
+                                    );
+
+
+                                    bindUserEditing(
+                                        currentInput
+                                    );
+
+
+                                    /*
+                                     * Before the user edits, Emojot
+                                     * may recreate/reset the telephone
+                                     * input. Restore the URL value.
+                                     *
+                                     * AFTER the user edits, never
+                                     * overwrite their number.
+                                     */
                                     if (
+                                        !userEditedMobile &&
+                                        telephoneFromUrl &&
                                         currentInput.value !==
-                                        telephone
+                                            telephoneFromUrl
                                     ) {
 
                                         applyTelephone(
                                             currentInput,
-                                            telephone
+                                            telephoneFromUrl
                                         );
-
-                                    } else {
-
-                                        /*
-                                         * Value is right.
-                                         * Make sure it remains locked.
-                                         */
-                                        makeMobileReadOnly();
                                     }
                                 }
 
 
+                                /*
+                                 * Stop synchronization after
+                                 * user interaction.
+                                 */
+                                if (
+                                    userEditedMobile
+                                ) {
+
+                                    clearInterval(
+                                        synchronizationTimer
+                                    );
+
+                                    return;
+                                }
+
+
+                                /*
+                                 * Stop initial synchronization
+                                 * after ten seconds.
+                                 */
                                 if (
                                     Date.now() >=
                                     synchronizeUntil
@@ -1011,22 +2414,13 @@
                                         finalInput
                                     ) {
 
-                                        applyTelephone(
-                                            finalInput,
-                                            telephone
+                                        makeMobileEditable(
+                                            finalInput
                                         );
 
 
-                                        makeMobileReadOnly();
-
-
-                                        finalInput.dispatchEvent(
-                                            new Event(
-                                                "blur",
-                                                {
-                                                    bubbles: true
-                                                }
-                                            )
+                                        bindUserEditing(
+                                            finalInput
                                         );
                                     }
                                 }
@@ -1042,10 +2436,10 @@
 
 
     /* =====================================================
-       KEEP READONLY AFTER ANGULAR DOM UPDATES
+       KEEP FIELD EDITABLE AFTER ANGULAR DOM UPDATES
     ===================================================== */
 
-    function startReadonlyObserver() {
+    function startEditableObserver() {
 
         var root =
             document.querySelector(
@@ -1068,18 +2462,19 @@
 
 
                     /*
-                     * If Angular recreated the input,
-                     * restore readonly immediately.
+                     * Emojot/Angular may recreate the field
+                     * or restore a readonly attribute.
+                     *
+                     * Always remove readonly.
                      */
-                    if (
-                        !input.readOnly ||
-                        !input.hasAttribute(
-                            "readonly"
-                        )
-                    ) {
+                    makeMobileEditable(
+                        input
+                    );
 
-                        makeMobileReadOnly();
-                    }
+
+                    bindUserEditing(
+                        input
+                    );
                 }
             );
 
@@ -1091,7 +2486,8 @@
                 subtree: true,
                 attributes: true,
                 attributeFilter: [
-                    "readonly"
+                    "readonly",
+                    "disabled"
                 ]
             }
         );
@@ -1104,9 +2500,30 @@
 
     function initializeMobile() {
 
+        /*
+         * Make input editable immediately if it
+         * already exists.
+         */
+        var input =
+            findMobileInput();
+
+
+        if (input) {
+
+            makeMobileEditable(
+                input
+            );
+
+
+            bindUserEditing(
+                input
+            );
+        }
+
+
         startTelephoneAutofill();
 
-        startReadonlyObserver();
+        startEditableObserver();
     }
 
 
@@ -1125,5 +2542,804 @@
         initializeMobile();
     }
 
+})();
+</script>
+<!-- =====================================================
+     FINAL INPUT PLACEHOLDER / EDITABILITY SAFETY PATCH
+     Keep this script at the absolute bottom of this block.
+====================================================== -->
+<script>
+(function () {
+    "use strict";
+
+    function findFullNameInput() {
+        return (
+            document.querySelector('input[id="Full Name"]') ||
+            document.querySelector('input[name="Full Name"]')
+        );
+    }
+
+    function findMobileInputFinal() {
+        return (
+            document.querySelector('.intl-tel-input input[name="Mobile Number"]') ||
+            document.querySelector('input[ng-intl-tel-input][name="Mobile Number"]') ||
+            document.querySelector('input[id="Mobile Number"][name="Mobile Number"]') ||
+            document.querySelector('input[id="Mobile Number"]')
+        );
+    }
+
+    function refreshFinalInputs() {
+        var fullName = findFullNameInput();
+        var mobile = findMobileInputFinal();
+
+        if (fullName) {
+            fullName.setAttribute("placeholder", "Enter your full name");
+            fullName.removeAttribute("readonly");
+            fullName.removeAttribute("aria-readonly");
+            fullName.removeAttribute("disabled");
+            fullName.readOnly = false;
+            fullName.disabled = false;
+        }
+
+        if (mobile) {
+            mobile.setAttribute("placeholder", "Enter mobile number");
+            mobile.setAttribute("inputmode", "tel");
+            mobile.setAttribute("autocomplete", "tel");
+            mobile.removeAttribute("readonly");
+            mobile.removeAttribute("aria-readonly");
+            mobile.removeAttribute("disabled");
+            mobile.readOnly = false;
+            mobile.disabled = false;
+            mobile.onpaste = null;
+            mobile.ondrop = null;
+        }
+    }
+
+    function initializeFinalInputs() {
+        refreshFinalInputs();
+
+        var root = document.querySelector("#master-section") || document.body;
+
+        if (!root) {
+            return;
+        }
+
+        var scheduled = false;
+
+        var observer = new MutationObserver(function () {
+            if (scheduled) {
+                return;
+            }
+
+            scheduled = true;
+
+            setTimeout(function () {
+                scheduled = false;
+                refreshFinalInputs();
+            }, 25);
+        });
+
+        observer.observe(root, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ["readonly", "disabled", "placeholder"]
+        });
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initializeFinalInputs);
+    } else {
+        initializeFinalInputs();
+    }
+})();
+</script>
+
+<!-- =====================================================
+     THANK YOU PAGE ACTIVATOR - FINAL
+     Detects #eva-thank-you anywhere, moves it into the form
+     container, hides the submitted form, and shows only the
+     thank-you card.
+====================================================== -->
+<script>
+(function () {
+    "use strict";
+
+    var thankYouActivated = false;
+    var refreshTimer = null;
+
+    function findThankYou() {
+        return document.querySelector("#eva-thank-you");
+    }
+
+    function activateThankYouPage() {
+        var thankYou = findThankYou();
+
+        if (!thankYou) {
+            return false;
+        }
+
+        var master = document.querySelector("#master-section");
+        var mainContainer = document.querySelector("#mainContainer");
+
+        document.body.classList.add("eva-thank-you-active");
+
+        if (master) {
+            master.classList.add("eva-thank-you-active");
+        }
+
+        thankYou.classList.add("eva-thank-you-mounted");
+
+        /*
+         * Emojot can append the success markup below the survey.
+         * Move the existing node into #mainContainer so it becomes
+         * a true replacement page rather than content below the form.
+         */
+        if (
+            mainContainer &&
+            thankYou.parentNode !== mainContainer
+        ) {
+            mainContainer.appendChild(thankYou);
+        }
+
+        /* Hide the submitted form immediately. */
+        var hideSelectors = [
+            "#gs_0",
+            "#footer-container",
+            "#accordionContainer",
+            ".social-media-row",
+            ".progress_bar",
+            "#progressfill",
+            ".sensor-title",
+            "#master-section div.row.footer"
+        ];
+
+        hideSelectors.forEach(function (selector) {
+            document.querySelectorAll(selector).forEach(function (node) {
+                if (node !== thankYou && !thankYou.contains(node)) {
+                    node.style.setProperty("display", "none", "important");
+                }
+            });
+        });
+
+        if (!thankYouActivated) {
+            thankYouActivated = true;
+
+            try {
+                window.scrollTo({
+                    top: 0,
+                    left: 0,
+                    behavior: "auto"
+                });
+            } catch (error) {
+                window.scrollTo(0, 0);
+            }
+        }
+
+        return true;
+    }
+
+    function scheduleThankYouCheck() {
+        clearTimeout(refreshTimer);
+
+        refreshTimer = setTimeout(function () {
+            activateThankYouPage();
+        }, 20);
+    }
+
+    function initializeThankYouWatcher() {
+        activateThankYouPage();
+
+        var root = document.body || document.documentElement;
+
+        if (!root) {
+            return;
+        }
+
+        var observer = new MutationObserver(function () {
+            scheduleThankYouCheck();
+        });
+
+        observer.observe(root, {
+            childList: true,
+            subtree: true
+        });
+
+        /* Extra safety for delayed Angular/Emojot updates. */
+        var startedAt = Date.now();
+        var timer = setInterval(function () {
+            if (activateThankYouPage()) {
+                if (Date.now() - startedAt > 5000) {
+                    clearInterval(timer);
+                }
+                return;
+            }
+
+            if (Date.now() - startedAt > 30000) {
+                clearInterval(timer);
+            }
+        }, 250);
+    }
+
+    if (document.readyState === "loading") {
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeThankYouWatcher
+        );
+    } else {
+        initializeThankYouWatcher();
+    }
+})();
+</script>
+<style>
+  /* Hide the Verification question title and options */
+  #qt_q9852,
+  #qe_q9852 {
+    display: none !important;
+  }
+
+  #gs_0 .repeated-item:nth-of-type(3) {
+    display: none !important;
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  function findPendingOption() {
+    const exactPendingOption =
+      document.querySelector("#ec_0_1q9852");
+
+    if (exactPendingOption) {
+      return exactPendingOption;
+    }
+
+    const options = Array.from(
+      document.querySelectorAll(
+        "#qe_q9852 .emo-cont"
+      )
+    );
+
+    return (
+      options.find(function (option) {
+        return option.textContent
+          .trim()
+          .toLowerCase()
+          .includes("pending");
+      }) || null
+    );
+  }
+
+  function selectPendingVerification() {
+    const pendingOption =
+      findPendingOption();
+
+    if (!pendingOption) {
+      return false;
+    }
+
+    const alreadySelected =
+      pendingOption.classList.contains(
+        "clicked-emo-cont"
+      );
+
+    if (!alreadySelected) {
+      pendingOption.click();
+
+      console.log(
+        "Pending Verification selected."
+      );
+    }
+
+    return true;
+  }
+
+  function initializePendingVerification() {
+    if (selectPendingVerification()) {
+      return;
+    }
+
+    const observer =
+      new MutationObserver(function () {
+        if (selectPendingVerification()) {
+          observer.disconnect();
+        }
+      });
+
+    observer.observe(
+      document.documentElement,
+      {
+        childList: true,
+        subtree: true
+      }
+    );
+
+    setTimeout(function () {
+      observer.disconnect();
+    }, 30000);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener(
+      "DOMContentLoaded",
+      initializePendingVerification,
+      { once: true }
+    );
+  } else {
+    initializePendingVerification();
+  }
+})();
+</script>
+
+<script>
+(function () {
+  "use strict";
+
+  const EVA_URL =
+    "https://eva.emojot.com/";
+
+  const VERIFICATION_DRILLDOWN_ID =
+    "q9852";
+
+  const SUBMIT_BUTTON_SELECTOR =
+    "button.btn-submit";
+
+  let submissionPending = false;
+
+  let commentsSubmissionSucceeded =
+    false;
+
+  let redirectStarted = false;
+
+  let capturedTelephone = "";
+
+  let verificationEmote = null;
+
+  /*
+   * Find the q9852 Pending Verification emote
+   */
+  function findPendingVerificationEmote(
+    value
+  ) {
+    if (
+      !value ||
+      typeof value !== "object"
+    ) {
+      return null;
+    }
+
+    const correctQuestion =
+      value.percepticDrillDown ===
+      VERIFICATION_DRILLDOWN_ID;
+
+    const isPending =
+      String(value.emot || "")
+        .trim()
+        .toLowerCase() === "pending";
+
+    if (
+      correctQuestion &&
+      isPending &&
+      value.emoteID &&
+      value.activityID
+    ) {
+      return value;
+    }
+
+    for (
+      const child of Object.values(value)
+    ) {
+      const match =
+        findPendingVerificationEmote(
+          child
+        );
+
+      if (match) {
+        return match;
+      }
+    }
+
+    return null;
+  }
+
+  /*
+   * Find the normalized Telephone or
+   * Mobile Number comment
+   */
+  function findTelephoneComment(value) {
+    if (
+      !value ||
+      typeof value !== "object"
+    ) {
+      return null;
+    }
+
+    const attributeName =
+      String(
+        value.commentAttribute || ""
+      )
+        .trim()
+        .toLowerCase();
+
+    const isTelephone =
+      attributeName === "telephone" ||
+      attributeName === "mobile number";
+
+    if (
+      isTelephone &&
+      typeof value.comment === "string" &&
+      value.comment.trim()
+    ) {
+      return value.comment.trim();
+    }
+
+    for (
+      const child of Object.values(value)
+    ) {
+      const match =
+        findTelephoneComment(child);
+
+      if (match) {
+        return match;
+      }
+    }
+
+    return null;
+  }
+
+  /*
+   * Convert the telephone number into
+   * the Sri Lankan local 0 format.
+   *
+   * +94766113845 becomes 0766113845
+   * 94766113845 becomes 0766113845
+   */
+  function formatMsisdn(telephone) {
+    const cleaned =
+      String(telephone || "")
+        .trim()
+        .replace(/[\s()-]/g, "");
+
+    if (cleaned.startsWith("+94")) {
+      return "0" + cleaned.slice(3);
+    }
+
+    if (cleaned.startsWith("94")) {
+      return "0" + cleaned.slice(2);
+    }
+
+    return cleaned;
+  }
+
+  /*
+   * Convert the outgoing request body
+   * into an object
+   */
+  function parseRequestBody(body) {
+    if (!body) {
+      return null;
+    }
+
+    if (typeof body === "string") {
+      try {
+        return JSON.parse(body);
+      } catch (error) {
+        return null;
+      }
+    }
+
+    if (
+      typeof body === "object" &&
+      !(body instanceof FormData) &&
+      !(body instanceof Blob) &&
+      !(body instanceof ArrayBuffer)
+    ) {
+      return body;
+    }
+
+    if (body instanceof FormData) {
+      const result = {};
+
+      for (
+        const [key, value]
+        of body.entries()
+      ) {
+        if (
+          typeof value !== "string"
+        ) {
+          continue;
+        }
+
+        try {
+          result[key] =
+            JSON.parse(value);
+        } catch (error) {
+          result[key] = value;
+        }
+      }
+
+      return result;
+    }
+
+    return null;
+  }
+
+  /*
+   * Detect the original survey submission
+   */
+  document.addEventListener(
+    "click",
+    function (event) {
+      const submitButton =
+        event.target.closest(
+          SUBMIT_BUTTON_SELECTOR
+        );
+
+      if (
+        !submitButton ||
+        submitButton.disabled
+      ) {
+        return;
+      }
+
+      /*
+       * Use the visible Telephone or Mobile
+       * Number field as a fallback.
+       */
+      const telephoneInput =
+        document.querySelector(
+          "#Telephone"
+        ) ||
+        document.querySelector(
+          'input[id="Mobile Number"]'
+        ) ||
+        document.querySelector(
+          'input[name="Mobile Number"]'
+        );
+
+      capturedTelephone =
+        telephoneInput?.value?.trim() ||
+        "";
+
+      submissionPending = true;
+
+      commentsSubmissionSucceeded =
+        false;
+
+      redirectStarted = false;
+
+      verificationEmote = null;
+
+      console.log(
+        "Submit detected. Waiting for Emojot backend submissions."
+      );
+
+      /*
+       * The original Emojot submit event
+       * continues normally.
+       */
+    },
+    true
+  );
+
+  /*
+   * Redirect after the required submissions succeed
+   */
+  function tryCompleteHandoff() {
+    if (
+      !submissionPending ||
+      redirectStarted
+    ) {
+      return;
+    }
+
+    if (
+      !verificationEmote ||
+      !commentsSubmissionSucceeded
+    ) {
+      return;
+    }
+
+    if (!capturedTelephone) {
+      console.error(
+        "Mobile number was not found."
+      );
+
+      return;
+    }
+
+    const formattedMsisdn =
+      formatMsisdn(capturedTelephone);
+
+    if (!formattedMsisdn) {
+      console.error(
+        "Mobile number could not be formatted."
+      );
+
+      return;
+    }
+
+    redirectStarted = true;
+
+    submissionPending = false;
+
+    const redirectUrl =
+      new URL(EVA_URL);
+
+    redirectUrl.searchParams.set(
+      "emoteId",
+      String(
+        verificationEmote.emoteID
+      )
+    );
+
+    redirectUrl.searchParams.set(
+      "msisdn",
+      formattedMsisdn
+    );
+
+    console.log(
+      "Redirecting to EVA:",
+      {
+        emoteId:
+          verificationEmote.emoteID,
+
+        msisdn:
+          formattedMsisdn
+      }
+    );
+
+    window.location.assign(
+      redirectUrl.toString()
+    );
+  }
+
+  /*
+   * Observe Emojot's original XHR
+   * requests and responses
+   */
+  const originalOpen =
+    XMLHttpRequest.prototype.open;
+
+  const originalSend =
+    XMLHttpRequest.prototype.send;
+
+  XMLHttpRequest.prototype.open =
+    function (method, url) {
+      this._emojotRequestUrl = url;
+
+      return originalOpen.apply(
+        this,
+        arguments
+      );
+    };
+
+  XMLHttpRequest.prototype.send =
+    function (body) {
+      /*
+       * Inspect the request without changing it.
+       */
+      if (submissionPending) {
+        const requestData =
+          parseRequestBody(body);
+
+        const telephone =
+          findTelephoneComment(
+            requestData
+          );
+
+        if (telephone) {
+          capturedTelephone =
+            telephone;
+
+          this._containsTelephoneComment =
+            true;
+
+          console.log(
+            "Normalized mobile number captured:",
+            capturedTelephone
+          );
+        }
+      }
+
+      this.addEventListener(
+        "load",
+        function () {
+          if (!submissionPending) {
+            return;
+          }
+
+          if (
+            this.status < 200 ||
+            this.status >= 300
+          ) {
+            return;
+          }
+
+          /*
+           * Telephone/Mobile Number comment
+           * submission succeeded.
+           */
+          if (
+            this
+              ._containsTelephoneComment
+          ) {
+            commentsSubmissionSucceeded =
+              true;
+
+            console.log(
+              "Comment submission succeeded."
+            );
+
+            tryCompleteHandoff();
+
+            return;
+          }
+
+          /*
+           * Search successful JSON responses
+           * for the q9852 Pending Verification
+           * emote.
+           */
+          try {
+            const responseData =
+              JSON.parse(
+                this.responseText
+              );
+
+            if (
+              responseData?.response !==
+              true
+            ) {
+              return;
+            }
+
+            const match =
+              findPendingVerificationEmote(
+                responseData
+              );
+
+            if (match) {
+              verificationEmote =
+                match;
+
+              console.log(
+                "Pending Verification emote found:",
+                {
+                  emoteID:
+                    match.emoteID,
+
+                  activityID:
+                    match.activityID,
+
+                  percepticDrillDown:
+                    match
+                      .percepticDrillDown,
+
+                  emot:
+                    match.emot
+                }
+              );
+
+              tryCompleteHandoff();
+            }
+          } catch (error) {
+            /*
+             * Ignore unrelated non-JSON responses.
+             */
+          }
+        }
+      );
+
+      /*
+       * Send the original request
+       * without changing it.
+       */
+      return originalSend.apply(
+        this,
+        arguments
+      );
+    };
 })();
 </script>
