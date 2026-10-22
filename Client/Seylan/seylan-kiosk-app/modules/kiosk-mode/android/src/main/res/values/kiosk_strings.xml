@@ -1,0 +1,4 @@
+<resources>
+  <string name="kiosk_admin_label">Seylan Kiosk lock</string>
+  <string name="kiosk_admin_description">Keeps this tablet locked to the Seylan Bank kiosk app.</string>
+</resources>

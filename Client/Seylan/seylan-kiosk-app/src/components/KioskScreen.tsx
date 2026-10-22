@@ -26,7 +26,12 @@ const SPLASH_MAX_MS = 15000;
  * 3. Nobody touches Seylan's site for idleSeconds → "Still exploring?".
  * 4. Still no touch → back to the Sensor, browsing cleared for the next customer.
  */
-export function KioskScreen() {
+type Props = {
+  sensorUrl: string;
+  locationName?: string;
+};
+
+export function KioskScreen({ sensorUrl, locationName }: Props) {
   useKeepAwake();
 
   const screen = useKioskStore((s) => s.screen);
@@ -82,7 +87,7 @@ export function KioskScreen() {
       <StatusBar hidden style="light" />
       <NavigationBar hidden />
 
-      <SensorView key={`sensor-${sensorSession}`} />
+      <SensorView key={`sensor-${sensorSession}`} url={sensorUrl} />
 
       {screen === 'sensor' && splash.hidden ? <ViewProductsButton onPress={() => openBrowse()} /> : null}
 
@@ -106,7 +111,9 @@ export function KioskScreen() {
         </View>
       ) : null}
 
-      {!splash.hidden ? <LoadingScreen done={splashDone} onHidden={hideSplash} /> : null}
+      {!splash.hidden ? (
+        <LoadingScreen done={splashDone} onHidden={hideSplash} subtitle={locationName} />
+      ) : null}
     </SafeAreaView>
   );
 }

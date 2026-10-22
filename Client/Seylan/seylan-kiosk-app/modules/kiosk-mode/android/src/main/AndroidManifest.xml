@@ -1,0 +1,29 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+  <application>
+    <!-- Device admin. Set this app as device owner (see README) for the full kiosk lock. -->
+    <receiver
+      android:name="expo.modules.kioskmode.KioskAdminReceiver"
+      android:description="@string/kiosk_admin_description"
+      android:exported="true"
+      android:label="@string/kiosk_admin_label"
+      android:permission="android.permission.BIND_DEVICE_ADMIN">
+      <meta-data
+        android:name="android.app.device_admin"
+        android:resource="@xml/kiosk_device_admin" />
+      <intent-filter>
+        <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+      </intent-filter>
+    </receiver>
+
+    <!-- Opens the kiosk again after the tablet restarts (allowed for a device owner). -->
+    <receiver
+      android:name="expo.modules.kioskmode.KioskBootReceiver"
+      android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+      </intent-filter>
+    </receiver>
+  </application>
+</manifest>

@@ -2,7 +2,6 @@ import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 import type { ShouldStartLoadRequest } from 'react-native-webview/lib/WebViewTypes';
 
-import { config } from '../config';
 import { DEMO_SENSOR_HTML } from '../lib/demoSensor';
 import { ACTIVITY_SCRIPT } from '../lib/injected';
 import { isBrowseUrl, isInternal, isSensorUrl } from '../lib/url';
@@ -14,12 +13,17 @@ import { colors } from '../theme';
  * here and handed to the browse view; anything else outside the Sensor's own
  * domains is ignored, so the tablet never wanders off.
  */
-export function SensorView() {
+type Props = {
+  /** This tablet's Sensor (from its branch setup, or config.sensorUrl). */
+  url: string;
+};
+
+export function SensorView({ url }: Props) {
   const openBrowse = useKioskStore((s) => s.openBrowse);
   const markSensorLoaded = useKioskStore((s) => s.markSensorLoaded);
 
-  const source = config.sensorUrl
-    ? { uri: config.sensorUrl }
+  const source = url
+    ? { uri: url }
     : { html: DEMO_SENSOR_HTML, baseUrl: 'https://demo.emojot.com/' };
 
   const handleRequest = (req: ShouldStartLoadRequest) => {

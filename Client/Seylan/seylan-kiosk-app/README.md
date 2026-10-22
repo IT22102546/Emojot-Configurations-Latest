@@ -25,11 +25,22 @@ Set `sensorUrl` to `''` to use a built-in demo Sensor instead of the real one.
 
 The idle time is 10 seconds while testing; set the final value in `src/config.ts`.
 
+## Branch setup (one APK for all branches)
+
+With `registryUrl` set in `src/config.ts`, the first launch shows a **Set up this tablet** screen: staff pick
+the branch from the 63 Seylan locations and enter the admin PIN. The registry (`registry/`, a Google Apps
+Script + Sheet) makes sure each branch is used by only its allowed number of tablets for this APK build
+(2 for Kollupitiya, Wellawatte and Havelock Town, 1 for the rest). The choice is saved on the tablet, which
+then always opens that branch's Sensor. A new APK with a new `buildId` frees every branch again.
+See `registry/README.md` for the one-time setup.
+
 ## Settings: `src/config.ts`
 
 | Setting | Default | Meaning |
 |---|---|---|
-| `sensorUrl` | `https://emo.run/Seylankandanatab` | The Emojot Sensor link (`''` = built-in demo) |
+| `registryUrl` | `''` | Location registry web app URL; empty = no setup screen, use `sensorUrl` |
+| `buildId` | `seylan-2026-10-v1` | This APK's ID in the registry; change it for a new APK that frees all branches |
+| `sensorUrl` | `https://emo.run/Seylankandanatab` | Sensor used when there is no registry (`''` = built-in demo) |
 | `sensorDomains` | `emo.run`, `emojot.com` | Domains the Sensor may load |
 | `browseStartUrl` / `browseDomains` | `https://www.seylan.lk/` / `seylan.lk` | Links to these open in the browse view; nothing else can load there |
 | `idleSeconds` | 10 (testing) | Time without a touch on Seylan's site before "Are you still there?" |

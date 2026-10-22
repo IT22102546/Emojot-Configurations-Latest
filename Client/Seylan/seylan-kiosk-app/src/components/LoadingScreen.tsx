@@ -8,6 +8,8 @@ type Props = {
   /** When true the screen fades out, then calls onHidden. */
   done?: boolean;
   onHidden?: () => void;
+  /** Branch name shown under "Seylan Bank". */
+  subtitle?: string;
 };
 
 const RING = 236;
@@ -25,7 +27,7 @@ const seylanGradient = [colors.seylanRedDeep, colors.seylanRed, '#FF5A5F'] as co
  * Shown at start-up and while the Sensor loads. Uses the system font, because
  * it can appear before Inter has loaded.
  */
-export function LoadingScreen({ done = false, onHidden }: Props) {
+export function LoadingScreen({ done = false, onHidden, subtitle }: Props) {
   const [spin] = useState(() => new Animated.Value(0));
   const [pulse] = useState(() => new Animated.Value(0));
   const [dots] = useState(() => new Animated.Value(0));
@@ -117,6 +119,7 @@ export function LoadingScreen({ done = false, onHidden }: Props) {
       </View>
 
       <Text style={styles.title}>Seylan Bank</Text>
+      {subtitle ? <Text style={styles.branch}>{subtitle}</Text> : null}
       <View style={styles.loadingRow}>
         <Text style={styles.subtitle}>Getting things ready</Text>
         {[0, 1, 2].map((i) => (
@@ -194,6 +197,12 @@ const styles = StyleSheet.create({
     fontSize: 26,
     fontWeight: '700',
     letterSpacing: 0.3,
+  },
+  branch: {
+    color: colors.seylanRed,
+    fontSize: 15,
+    fontWeight: '600',
+    marginTop: 4,
   },
   loadingRow: {
     flexDirection: 'row',
